@@ -2,6 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
+    path: '/',
+    redirect: () => {
+      return {path: '/workflow-editor'} 
+    }
+  },
+  {
     path: '/workflow-editor',
     name: 'workflow-editor',
     component: () => import("@/views/WorkflowEditorView")
