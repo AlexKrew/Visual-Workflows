@@ -3,9 +3,7 @@
     <v-app-bar>
     </v-app-bar>
     <v-main>
-      <v-container fluid class="bg-red-300 fill-height ma-0">
-        <router-view/>
-      </v-container>
+      <router-view/>
     </v-main>
   </v-app>
 </template>

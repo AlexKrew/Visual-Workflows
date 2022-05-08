@@ -1,9 +1,9 @@
 <template>
-  <v-card>
+  <div>
     <p>
-      Editor Grid
+      Grid
     </p>
-  </v-card>
+  </div>
 </template>
 
 <script>

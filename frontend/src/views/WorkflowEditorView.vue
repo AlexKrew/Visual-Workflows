@@ -1,9 +1,9 @@
 <template>
-  <v-row class="fill-height">
-    <EditorNodeBar class="w-3/12"/>
-    <EditorGrid class="w-1/2"/>
-    <EditorInspector class="w-3/12"/>
-  </v-row>
+  <div class="flex flex-row fill-height">
+    <EditorNodeBar class="basis-2/12"/>
+    <EditorGrid class="basis-7/12"/>
+    <EditorInspector class="basis-3/12"/>
+  </div>
 </template>
 
 <script>

@@ -1,13 +1,18 @@
 <template>
-  <v-card>
+  <Card>
     <p>
       Inspector
     </p>
-  </v-card>
+  </Card>
 </template>
 
 <script>
-  export default {}
+  import Card from "@/components/util/card.vue" 
+  export default {
+    components: {
+      Card
+    }
+  }
 </script>
 
 <style>
