@@ -12,6 +12,7 @@
     "core-js": "^3.8.3",
     "interactjs": "^1.10.11",
     "roboto-fontface": "*",
+    "tailwindcss": "^3.0.24",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuetify": "npm:@vuetify/nightly@next",
