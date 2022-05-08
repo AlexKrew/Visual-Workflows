@@ -1,18 +1,21 @@
 <template>
   <v-app>
+    <v-app-bar>
+    </v-app-bar>
     <v-main>
-      <router-view/>
+      <v-container fluid class="bg-red-300 fill-height ma-0">
+        <router-view/>
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import NavBar from "./components/NavBar.vue"
 
 export default {
-  name: 'App',
-
-  data: () => ({
-    //
-  }),
+  components: {
+    NavBar
+  }
 }
 </script>

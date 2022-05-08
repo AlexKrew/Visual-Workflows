@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <p>Hello World</p>
-  </div>
+  <v-card>
+    <p>
+      Node Bar
+    </p>
+  </v-card>
 </template>
 
 <script>

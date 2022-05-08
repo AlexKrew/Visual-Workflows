@@ -1,7 +1,9 @@
 <template>
-  <div>
-    
-  </div>
+  <v-card>
+    <p>
+      Inspector
+    </p>
+  </v-card>
 </template>
 
 <script>
