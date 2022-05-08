@@ -4,13 +4,13 @@ const routes = [
   {
     path: '/',
     redirect: () => {
-      return {path: '/workflow-editor'} 
+      return { path: '/workflow-editor' }
     }
   },
   {
     path: '/workflow-editor',
     name: 'workflow-editor',
-    component: () => import("@/views/WorkflowEditorView")
+    component: () => import("@/views/WorkflowEditorView.vue")
   },
 ]
 

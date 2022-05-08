@@ -1,11 +1,11 @@
 <template>
-    <p> Hello</p>
+    <p class="text-red-500"> Hello</p>
 </template>
 
 <script>
-export default {
-  
-}
+  export default {
+    
+  }
 </script>
 
 <style>
