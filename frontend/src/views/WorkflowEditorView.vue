@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-row fill-height">
     <EditorNodeBar class="basis-2/12"/>
-    <EditorGrid class="basis-7/12"/>
-    <EditorInspector class="basis-3/12"/>
+    <EditorGrid class="basis-8/12"/>
+    <EditorInspector class="basis-2/12"/>
   </div>
 </template>
 
