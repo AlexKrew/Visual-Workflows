@@ -1,3 +1,3 @@
-module hsrm/visualworkflows
+module visualWorkflows
 
 go 1.18
