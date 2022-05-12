@@ -1,6 +1,6 @@
 {
-  "id": "vwf-core-debug",
-  "type": "debug",
-  "name": "Debug",
-  "category": "code"
+  "id": "vwf-core-inject",
+  "type": "inject",
+  "name": "Inject",
+  "category": "core"
 }

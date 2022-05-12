@@ -35,7 +35,7 @@ func LoadWorkflowConfig(workflowID string) (WorkflowConfiguration, error) {
 
 func LoadAvailableNodes() ([]NodeConfig, error) {
 	// TODO: Load all .vwf-node.json files from folder
-	files := []string{"debug"}
+	files := []string{"debug", "inject"}
 
 	nodeConfigs := []NodeConfig{}
 

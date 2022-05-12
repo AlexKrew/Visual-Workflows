@@ -4,11 +4,11 @@
   "nodes": {
     "node0": {
       "id": "node0",
-      "type": "Inject"
+      "type": "inject"
     },
     "node1": {
       "id": "node1",
-      "type": "Log"
+      "type": "debug"
     }
   },
   "edges": {
