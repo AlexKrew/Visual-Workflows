@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"visualWorkflows/internal/runtime"
+)
 
 func main() {
-	fmt.Println("Hi, mom!")
+	fmt.Println("Hello from main")
+
+	runtime.StartWorkflow("flow1")
 }

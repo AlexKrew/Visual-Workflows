@@ -1,0 +1,23 @@
+{
+  "id": "flow1",
+  "name": "Workflow no.1",
+  "nodes": {
+    "node0": {
+      "id": "node0",
+      "type": "Inject"
+    },
+    "node1": {
+      "id": "node1",
+      "type": "Log"
+    }
+  },
+  "edges": {
+    "edge0-1": {
+      "id": "edge0-1",
+      "origin_node": "node0",
+      "origin_port": "inject-out",
+      "target_node": "node1",
+      "target_port": "log_in"
+    }
+  }
+}
