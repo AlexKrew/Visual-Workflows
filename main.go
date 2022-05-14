@@ -8,8 +8,7 @@ import (
 func main() {
 	fmt.Println("Hello from main")
 
-	runtime := runtime.Runtime{}
-	runtime.Initialize()
+	runtime := runtime.ConstructRuntime()
 
 	runtime.ExecuteWorkflow("flow1")
 }

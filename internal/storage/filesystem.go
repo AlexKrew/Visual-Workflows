@@ -10,7 +10,7 @@ import (
 var pathToWorkflows string = "/workspaces/Visual-Workflows/workflows"
 var pathToNodes string = "/workspaces/Visual-Workflows/nodes"
 
-func LoadWorkflowConfig(workflowID string) (WorkflowConfiguration, error) {
+func LoadWorkflowDefinition(workflowID string) (WorkflowConfiguration, error) {
 	fmt.Println("Reading the workflow from file")
 
 	filePath := fmt.Sprintf("%s/%s.vwf.json", pathToWorkflows, workflowID)
@@ -33,11 +33,11 @@ func LoadWorkflowConfig(workflowID string) (WorkflowConfiguration, error) {
 	return config, nil
 }
 
-func LoadAvailableNodes() ([]NodeConfig, error) {
+func LoadKnownNodes() ([]NodeConfiguration, error) {
 	// TODO: Load all .vwf-node.json files from folder
 	files := []string{"debug", "inject"}
 
-	nodeConfigs := []NodeConfig{}
+	nodeConfigs := []NodeConfiguration{}
 
 	for _, file := range files {
 		filePath := fmt.Sprintf("%s/%s.vwf-node.json", pathToNodes, file)
@@ -45,7 +45,7 @@ func LoadAvailableNodes() ([]NodeConfig, error) {
 		jsonFile, err := os.Open(filePath)
 		if err != nil {
 			fmt.Println("Failed to open node file")
-			return []NodeConfig{}, err
+			return []NodeConfiguration{}, err
 		}
 		defer jsonFile.Close()
 
@@ -56,10 +56,10 @@ func LoadAvailableNodes() ([]NodeConfig, error) {
 	return nodeConfigs, nil
 }
 
-func loadNodeConfig(jsonFile *os.File) NodeConfig {
+func loadNodeConfig(jsonFile *os.File) NodeConfiguration {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
-	var config NodeConfig
+	var config NodeConfiguration
 
 	json.Unmarshal(byteValue, &config)
 	return config
