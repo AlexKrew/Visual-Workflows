@@ -3,6 +3,7 @@ package runtime
 import (
 	"errors"
 	"fmt"
+	"visualWorkflows/internal/entities"
 	"visualWorkflows/internal/storage"
 
 	"golang.org/x/exp/slices"
@@ -10,8 +11,9 @@ import (
 
 type Runtime struct {
 	Initialized bool
+	knownNodes  []entities.Node
 
-	knownNodes []storage.NodeConfiguration
+	Workflow entities.Workflow
 }
 
 // Initialize prepares the runtime element for handling workflows
@@ -53,29 +55,31 @@ func (rt *Runtime) ExecuteWorkflow(workflowID string) {
 
 	// 1. Load the configuration of the workflow
 	fmt.Println("Loading workflow definition...")
-	config, err := storage.LoadWorkflowDefinition(workflowID)
+	workflow, err := storage.LoadWorkflowDefinition(workflowID)
 	if err != nil {
 		panic("Failed to load workflow config")
 	}
 
 	// 2. Validate the loaded workflow definition
 	fmt.Println("Validating workflow definition")
-	err = rt.validateWorkflowDefinition(config)
+	err = rt.validateWorkflowDefinition(workflow)
 	if err != nil {
-		panic("Workflow validation failed")
+		panic(err)
 	}
 
-	// 3. Merge workflow definition with default configuration values
-	//
-	// TODO:
+	// Workflow is valid
+	rt.Workflow = workflow
 
-	// 4. Setup message router
-	// router := constructMessageRouter(rt)
+	// 3. Construct the message router
+	router, err := constructMessageRouter(rt)
+	if err != nil {
+		panic(err)
+	}
 
-	fmt.Println("Ready to run workflow", workflowID)
+	fmt.Println("Ready to run workflow", workflowID, router)
 }
 
-func (rt *Runtime) validateWorkflowDefinition(config storage.WorkflowConfiguration) error {
+func (rt *Runtime) validateWorkflowDefinition(config entities.Workflow) error {
 
 	if !rt.Initialized {
 		return errors.New("runtime not initialized")
@@ -92,7 +96,7 @@ func (rt *Runtime) validateWorkflowDefinition(config storage.WorkflowConfigurati
 	return nil
 }
 
-func (rt *Runtime) validateNodeTypes(nodes map[string]storage.NodeDefinition) (bool, error) {
+func (rt *Runtime) validateNodeTypes(nodes map[string]entities.Node) (bool, error) {
 	nodeTypes := []string{}
 
 	for _, nodeConfig := range rt.knownNodes {
@@ -101,7 +105,7 @@ func (rt *Runtime) validateNodeTypes(nodes map[string]storage.NodeDefinition) (b
 
 	for _, nodeDef := range nodes {
 
-		if !slices.Contains(nodeTypes, nodeDef["type"].(string)) {
+		if !slices.Contains(nodeTypes, nodeDef.Type) {
 			return false, nil
 		}
 	}

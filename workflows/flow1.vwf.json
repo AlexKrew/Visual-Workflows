@@ -4,20 +4,49 @@
   "nodes": {
     "node0": {
       "id": "node0",
-      "type": "inject"
+      "type": "inject",
+      "label": "Inject",
+      "name": "",
+      "category": "core",
+      "inports": {},
+      "outports": {
+        "output": {
+          "label": "Output",
+          "type": "ANY"
+        }
+      }
     },
     "node1": {
       "id": "node1",
-      "type": "debug"
+      "type": "debug",
+      "label": "Debug",
+      "name": "",
+      "category": "core",
+      "inports": {
+        "input": {
+          "label": "Input",
+          "type": "ANY"
+        }
+      },
+      "outports": {
+        "output": {
+          "label": "Output",
+          "type": "ANY"
+        }
+      }
     }
   },
   "edges": {
     "edge0-1": {
       "id": "edge0-1",
-      "origin_node": "node0",
-      "origin_port": "inject-out",
-      "target_node": "node1",
-      "target_port": "log_in"
+      "origin": {
+        "node": "node0",
+        "port": "output"
+      },
+      "target": {
+        "node": "node1",
+        "port": "input"
+      }
     }
   }
 }

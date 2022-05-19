@@ -5,12 +5,14 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+
+	"visualWorkflows/internal/entities"
 )
 
 var pathToWorkflows string = "/workspaces/Visual-Workflows/workflows"
 var pathToNodes string = "/workspaces/Visual-Workflows/nodes"
 
-func LoadWorkflowDefinition(workflowID string) (WorkflowConfiguration, error) {
+func LoadWorkflowDefinition(workflowID string) (entities.Workflow, error) {
 	fmt.Println("Reading the workflow from file")
 
 	filePath := fmt.Sprintf("%s/%s.vwf.json", pathToWorkflows, workflowID)
@@ -19,13 +21,13 @@ func LoadWorkflowDefinition(workflowID string) (WorkflowConfiguration, error) {
 	jsonFile, err := os.Open(filePath)
 	if err != nil {
 		fmt.Println("Failed to open file")
-		return WorkflowConfiguration{}, err
+		return entities.Workflow{}, err
 	}
 	defer jsonFile.Close()
 
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
-	var config WorkflowConfiguration
+	var config entities.Workflow
 
 	json.Unmarshal(byteValue, &config)
 	fmt.Println("Loaded config of flow", config.Name)
@@ -33,11 +35,11 @@ func LoadWorkflowDefinition(workflowID string) (WorkflowConfiguration, error) {
 	return config, nil
 }
 
-func LoadKnownNodes() ([]NodeConfiguration, error) {
+func LoadKnownNodes() ([]entities.Node, error) {
 	// TODO: Load all .vwf-node.json files from folder
 	files := []string{"debug", "inject"}
 
-	nodeConfigs := []NodeConfiguration{}
+	nodes := []entities.Node{}
 
 	for _, file := range files {
 		filePath := fmt.Sprintf("%s/%s.vwf-node.json", pathToNodes, file)
@@ -45,22 +47,22 @@ func LoadKnownNodes() ([]NodeConfiguration, error) {
 		jsonFile, err := os.Open(filePath)
 		if err != nil {
 			fmt.Println("Failed to open node file")
-			return []NodeConfiguration{}, err
+			return []entities.Node{}, err
 		}
 		defer jsonFile.Close()
 
-		nodeConfig := loadNodeConfig(jsonFile)
-		nodeConfigs = append(nodeConfigs, nodeConfig)
+		node := loadNode(jsonFile)
+		nodes = append(nodes, node)
 	}
 
-	return nodeConfigs, nil
+	return nodes, nil
 }
 
-func loadNodeConfig(jsonFile *os.File) NodeConfiguration {
+func loadNode(jsonFile *os.File) entities.Node {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
-	var config NodeConfiguration
+	var node entities.Node
 
-	json.Unmarshal(byteValue, &config)
-	return config
+	json.Unmarshal(byteValue, &node)
+	return node
 }

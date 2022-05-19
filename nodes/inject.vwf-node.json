@@ -1,6 +1,16 @@
 {
-  "id": "vwf-core-debug",
-  "type": "debug",
-  "name": "Debug",
-  "category": "core"
+  "id": "vwf-core-inject",
+  "type": "inject",
+  "label": "Inject",
+  "name": "",
+  "category": "core",
+  "configuration": {
+    "inports": {},
+    "outports": {
+      "output": {
+        "label": "Output",
+        "type": "ANY"
+      }
+    }
+  }
 }
