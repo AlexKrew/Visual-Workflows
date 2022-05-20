@@ -22,12 +22,10 @@ func StartServer() {
 	router := gin.Default()
 
 	v1 := router.Group("/api/v1")
-	{
-		eg := v1.Group("/health")
-		{
-			eg.GET("/ping", HealthCheck)
-		}
-	}
+
+	// Register services / routes
+	registerHealthServices(v1)
+	registerDashboardServices(v1)
 
 	// Setup swagger api documentation
 	docs.SwaggerInfo.BasePath = "/api/v1"
