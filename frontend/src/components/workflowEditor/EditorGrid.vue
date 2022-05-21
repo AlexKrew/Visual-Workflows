@@ -11,32 +11,33 @@ import interact from "interactjs";
 import Node from "@/components/workflowEditor/EditorNode.vue"
 import {
   Vector2
-} from "components/util/Vector"
+} from "@/components/util/Vector"
 import {
   InteractUtil
-} from "components/util/InteractUtil";
+} from "@/components/util/InteractUtil";
+import { ref } from 'vue'
+
+var pos = new Vector2(0, 0);
+
+function init() {
+  const draggable = ref("draggable").value;
+  interact(draggable)
+    .draggable({})
+    .on('dragmove', onDragMove)
+}
+
+function onDragMove(event: any) {
+  pos.add(event.dx, event.dy);
+  InteractUtil.translateElem(pos, event);
+};
 
 export default {
   components: {
     Node
   },
-  data() {
-    return {
-      pos: new Vector2(0, 0)
-    }
-  },
   mounted() {
-    const draggable = this.$refs.draggable;
-    interact(draggable)
-      .draggable({})
-      .on('dragmove', this.onDragMove)
-  },
-  methods: {
-    onDragMove(event) {
-      this.pos.add(event.dx, event.dy);
-      InteractUtil.translateElem(this.pos, event);
-    },
-  },
+    init();
+  }
 }
 </script>
 

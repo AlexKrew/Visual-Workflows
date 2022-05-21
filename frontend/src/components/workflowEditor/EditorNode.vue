@@ -15,34 +15,38 @@ import interact from "interactjs";
 import Card from "@/components/util/Card.vue";
 import {
   InteractUtil
-} from "components/util/InteractUtil";
+} from "@/components/util/InteractUtil";
 import {
   Vector2
-} from "components/util/Vector";
+} from "@/components/util/Vector";
+import {
+  ref
+} from 'vue'
+
+var pos = new Vector2(0, 0);
+var gridPos = new Vector2(0, 0);
+
+function init() {
+  const draggable = ref("draggable").value;
+  interact(draggable)
+    .draggable({})
+    .on('dragmove', onDragMove)
+}
+
+function onDragMove(event: any) {
+  pos.add(event.dx, event.dy)
+  gridPos = InteractUtil.updateGridPos(pos, 50);
+  InteractUtil.translateElem(gridPos, event);
+}
 
 export default {
   components: {
     Card
   },
-  data() {
-    return {
-      pos: new Vector2(0, 0),
-      gridPos: new Vector2(0, 0),
-    }
-  },
   mounted() {
-    const draggable = this.$refs.draggable;
-    interact(draggable)
-      .draggable({})
-      .on('dragmove', this.onDragMove)
+    init();
   },
-  methods: {
-    onDragMove(event) {
-      this.pos.add(event.dx, event.dy)
-      this.gridPos = InteractUtil.updateGridPos(this.pos, 50);
-      InteractUtil.translateElem(this.gridPos, event);
-    },
-  },
+  methods: {},
   computed: {}
 }
 </script>
