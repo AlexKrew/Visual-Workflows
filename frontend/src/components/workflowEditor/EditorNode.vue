@@ -1,5 +1,5 @@
 <template>
-<div ref="draggable">
+<div ref="draggable" id="draggable">
   <Card class="max-w-[200px]">
     <h2 class="text-center">Node Title</h2>
     <v-divider></v-divider>
@@ -13,6 +13,8 @@
 <script>
 import interact from "interactjs";
 import Card from "@/components/util/Card.vue";
+import {InteractUtil} from "@/components/util/InteractUtil.js";
+import {Vector2} from "@/components/util/Vector.js";
 
 export default {
   components: {
@@ -20,8 +22,8 @@ export default {
   },
   data() {
     return {
-      xPos: 0,
-      yPos: 0,
+      pos: new Vector2(0, 0),
+      gridPos: new Vector2(0, 0),
     }
   },
   mounted() {
@@ -30,12 +32,11 @@ export default {
       .draggable({})
       .on('dragmove', this.onDragMove)
   },
-  unmounted() {},
   methods: {
     onDragMove(event) {
-      this.xPos += event.dx
-      this.yPos += event.dy
-      event.target.style.transform = 'translate(' + this.xPos + 'px, ' + this.yPos + 'px)'
+      this.pos.add(event.dx, event.dy)
+      this.gridPos = InteractUtil.updateGridPos(this.pos, 50);
+      InteractUtil.translateElem(this.gridPos, event);
     },
   },
   computed: {}
@@ -50,5 +51,9 @@ export default {
   -moz-border-radius: 25px;
   border-radius: 25px;
   background: grey;
+}
+#draggable{
+  position: absolute;
+  width: 200px;
 }
 </style>
