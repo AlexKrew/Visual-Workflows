@@ -6,8 +6,8 @@
 </Card>
 </template>
 
-<script>
-import Card from "@/components/util/Card.vue"
+<script lang="ts">
+import Card from "components/util/Card.vue"
 export default {
   components: {
     Card

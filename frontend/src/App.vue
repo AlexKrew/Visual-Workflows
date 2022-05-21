@@ -1,14 +1,14 @@
 <template>
-  <v-app>
-    <v-app-bar>
-    </v-app-bar>
-    <v-main>
-      <router-view/>
-    </v-main>
-  </v-app>
+<v-app>
+  <v-app-bar>
+  </v-app-bar>
+  <v-main>
+    <router-view />
+  </v-main>
+</v-app>
 </template>
 
-<script>
+<script lang="ts">
 import NavBar from "./components/NavBar.vue"
 
 export default {

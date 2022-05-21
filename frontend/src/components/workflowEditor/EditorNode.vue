@@ -10,11 +10,15 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
 import interact from "interactjs";
 import Card from "@/components/util/Card.vue";
-import {InteractUtil} from "@/components/util/InteractUtil.js";
-import {Vector2} from "@/components/util/Vector.js";
+import {
+  InteractUtil
+} from "components/util/InteractUtil";
+import {
+  Vector2
+} from "components/util/Vector";
 
 export default {
   components: {
@@ -40,7 +44,7 @@ export default {
     },
   },
   computed: {}
-};
+}
 </script>
 
 <style>
@@ -52,7 +56,8 @@ export default {
   border-radius: 25px;
   background: grey;
 }
-#draggable{
+
+#draggable {
   position: absolute;
   width: 200px;
 }

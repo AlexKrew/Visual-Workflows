@@ -6,11 +6,15 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
 import interact from "interactjs";
 import Node from "@/components/workflowEditor/EditorNode.vue"
-import {Vector2} from "@/components/util/Vector.js"
-import {InteractUtil} from "@/components/util/InteractUtil.js";
+import {
+  Vector2
+} from "components/util/Vector"
+import {
+  InteractUtil
+} from "components/util/InteractUtil";
 
 export default {
   components: {
