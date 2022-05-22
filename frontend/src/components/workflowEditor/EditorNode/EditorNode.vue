@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <Card class="max-w-[200px]">
+  <div class="max-w-[200px] absolute w-[200px]">
+    <Card>
       <h2 class="text-center">Node Title</h2>
       <v-divider></v-divider>
       <div>
-        <div id="circle"></div>
+        <NodeConnector/>
       </div>
     </Card>
   </div>
@@ -12,11 +12,13 @@
 
 <script lang="ts">
 import Card from "@/components/util/Card.vue";
+import NodeConnector from "./NodeConnector.vue";
 
 export default {
   components: {
-    Card
-  },
+    Card,
+    NodeConnector
+},
   setup() {
 
   },
@@ -24,17 +26,4 @@ export default {
 </script>
 
 <style>
-#circle {
-  width: 20px;
-  height: 20px;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  border-radius: 25px;
-  background: grey;
-}
-
-.draggable {
-  position: absolute;
-  width: 200px;
-}
 </style>
