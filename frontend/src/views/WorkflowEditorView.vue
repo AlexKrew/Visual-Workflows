@@ -1,9 +1,9 @@
 <template>
-<div class="flex flex-row fill-height">
-  <EditorNodeBar class="basis-2/12" />
-  <EditorGrid class="basis-8/12" />
-  <EditorInspector class="basis-2/12" />
-</div>
+  <div class="flex flex-row fill-height">
+    <EditorNodeBar class="basis-2/12" />
+    <EditorGrid class="basis-8/12" />
+    <EditorInspector class="basis-2/12" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -21,5 +21,4 @@ export default {
 </script>
 
 <style>
-  
 </style>

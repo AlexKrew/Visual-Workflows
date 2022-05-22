@@ -1,9 +1,9 @@
 <template>
-<Card style="z-index:10">
-  <p>
-    Inspector
-  </p>
-</Card>
+  <Card style="z-index:10">
+    <p>
+      Inspector
+    </p>
+  </Card>
 </template>
 
 <script lang="ts">

@@ -2,17 +2,17 @@ class Vector2 {
   x: number;
   y: number;
 
-  constructor(x, y) {
+  constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
   }
 
-  add(x, y) {
+  add(x: number, y: number) {
     this.x += x;
     this.y += y;
   }
 
-  toString(decimal) {
+  toString(decimal: number) {
     return this.x.toFixed(decimal) + ":" + this.y.toFixed(decimal);
   }
 }

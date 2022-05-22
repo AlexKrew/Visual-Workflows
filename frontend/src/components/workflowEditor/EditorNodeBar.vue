@@ -1,9 +1,9 @@
 <template>
-<Card style="z-index: 10">
-  <p>
-    Node Bar
-  </p>
-</Card>
+  <Card style="z-index: 10">
+    <p>
+      Node Bar
+    </p>
+  </Card>
 </template>
 
 <script lang="ts">
