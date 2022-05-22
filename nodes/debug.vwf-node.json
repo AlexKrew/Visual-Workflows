@@ -1,0 +1,19 @@
+{
+  "id": "vwf-core-debug",
+  "type": "debug",
+  "label": "Debug",
+  "name": "",
+  "category": "core",
+  "inports": {
+    "input": {
+      "label": "Input",
+      "type": "ANY"
+    }
+  },
+  "outports": {
+    "output": {
+      "label": "Output",
+      "type": "ANY"
+    }
+  }
+}

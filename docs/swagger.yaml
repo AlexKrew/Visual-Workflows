@@ -1,0 +1,20 @@
+basePath: /api/v1
+host: localhost:8080
+info:
+  contact: {}
+  description: description
+  title: Visual Workflow API
+  version: "0.1"
+paths:
+  /health/ping:
+    get:
+      description: do ping
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: health ping
+swagger: "2.0"

@@ -1,7 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"visualWorkflows/server"
+	// "visualWorkflows/internal/runtime"
+)
 
 func main() {
-	fmt.Println("Hi, mom!")
+	fmt.Println("Hello from main")
+
+	server.StartServer()
+
+	// runtime := runtime.ConstructRuntime()
+	// runtime.ExecuteWorkflow("flow1")
 }
