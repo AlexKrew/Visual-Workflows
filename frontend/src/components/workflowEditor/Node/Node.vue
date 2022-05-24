@@ -4,7 +4,7 @@
       <h2 class="text-center">Node Title</h2>
       <v-divider></v-divider>
       <div>
-        <NodeConnector/>
+        <NodeConnector />
       </div>
     </Card>
   </div>
@@ -13,16 +13,17 @@
 <script lang="ts">
 import Card from "@/components/util/Card.vue";
 import NodeConnector from "./NodeConnector.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   components: {
     Card,
     NodeConnector
-},
+  },
   setup() {
 
   },
-}
+})
 </script>
 
 <style>

@@ -12,8 +12,8 @@ class Vector2 {
     this.y += y;
   }
 
-  toString(decimal: number) {
-    return this.x.toFixed(decimal) + ":" + this.y.toFixed(decimal);
+  toString(decimal: number = 2, separator: String = ":") {
+    return this.x.toFixed(decimal) + separator + this.y.toFixed(decimal);
   }
 }
 

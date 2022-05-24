@@ -1,6 +1,5 @@
 <template>
-  <div class="circle" @click.passive="onClick">
-
+  <div class="circle">
   </div>
 </template>
 <script lang="ts">
@@ -8,18 +7,7 @@ import { defineComponent } from "vue"
 
 export default defineComponent({
   setup() {
-    function onClick(){
-      console.log("Click")
-    }
-
-    function onRelease(){
-      console.log("Release")
-    }
-
-    return{
-      onClick,
-      onRelease
-    }
+    
   }
 })
 </script>
