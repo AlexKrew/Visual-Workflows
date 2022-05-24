@@ -1,5 +1,5 @@
 <template>
-  <Card style="z-index:10">
+  <Card>
     <p>
       Inspector
     </p>
