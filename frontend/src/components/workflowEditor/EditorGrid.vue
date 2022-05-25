@@ -7,13 +7,13 @@
 </template>
 
 <script lang="ts">
-import { onMounted, ref, defineComponent } from 'vue'
+import { onMounted, ref, defineComponent } from "vue";
 import interact from "interactjs";
-import { Vector2 } from "@/components/util/Vector"
+import { Vector2 } from "@/components/util/Vector";
 import { InteractUtil } from "@/components/util/InteractUtil";
-import EditorNode from '@/components/workflowEditor/Node/Node.vue';
-import NodeLine from '@/components/workflowEditor/Node/NodeLine.vue';
-import {BezierCurve} from '@/components/util/BezierCurve';
+import EditorNode from "@/components/workflowEditor/Node/NodeComponent.vue";
+import NodeLine from "@/components/workflowEditor/Node/NodeLine.vue";
+import { BezierCurve } from "@/components/util/BezierCurve";
 
 export default defineComponent({
   components: {
@@ -24,23 +24,23 @@ export default defineComponent({
     var pos: Vector2 = new Vector2(0, 0);
     var gridPos: Vector2 = new Vector2(0, 0);
 
-    var testCurve = ref(new BezierCurve(
-      new Vector2(100, 100), 
-      new Vector2(130, 130), 
-      new Vector2(330, 130), 
-      new Vector2(300, 100))
+    var testCurve = ref(
+      new BezierCurve(
+        new Vector2(100, 100),
+        new Vector2(130, 130),
+        new Vector2(330, 130),
+        new Vector2(300, 100)
+      )
     );
 
     onMounted(() => {
-      interact(".drag")
-        .draggable({})
-        .on('dragmove', onDragMove)
+      interact(".drag").draggable({}).on("dragmove", onDragMove);
     });
 
     function onDragMove(event: any) {
       pos = new Vector2(
-        (parseFloat(event.target.getAttribute('posX')) || 0) + event.dx,
-        (parseFloat(event.target.getAttribute('posY')) || 0) + event.dy
+        (parseFloat(event.target.getAttribute("posX")) || 0) + event.dx,
+        (parseFloat(event.target.getAttribute("posY")) || 0) + event.dy
       );
 
       if (event.target.classList.contains("snap")) {
@@ -53,15 +53,19 @@ export default defineComponent({
       event.target.setAttribute("posX", pos.x);
       event.target.setAttribute("posY", pos.y);
 
-      testCurve.value = new BezierCurve(new Vector2(200, 200), new Vector2(130, 130), new Vector2(330, 130), gridPos);
-    };
-
-    return{
-      testCurve
+      testCurve.value = new BezierCurve(
+        new Vector2(200, 200),
+        new Vector2(130, 130),
+        new Vector2(330, 130),
+        gridPos
+      );
     }
-  }
-})
+
+    return {
+      testCurve,
+    };
+  },
+});
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,19 +1,9 @@
 <template>
-  <v-app>
-    <v-app-bar>
-    </v-app-bar>
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-app>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
+  </nav>
+  <router-view />
 </template>
 
-<script lang="ts">
-import NavBar from "./components/NavBar.vue"
-
-export default {
-  components: {
-    NavBar
-  }
-}
-</script>
+<style></style>

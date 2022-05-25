@@ -15,15 +15,15 @@ export default {
   components: {
     EditorNodeBar,
     EditorGrid,
-    EditorInspector
-  }
-}
+    EditorInspector,
+  },
+};
 </script>
 
 <style>
-#EditorGrid{
+#EditorGrid {
   left: 16%;
   width: 10000px;
-  height: 10000px
+  height: 10000px;
 }
 </style>

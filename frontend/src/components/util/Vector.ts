@@ -12,9 +12,9 @@ class Vector2 {
     this.y += y;
   }
 
-  toString(decimal: number = 2, separator: String = ":") {
+  toString(decimal = 2, separator = ":") {
     return this.x.toFixed(decimal) + separator + this.y.toFixed(decimal);
   }
 }
 
-export { Vector2 }
+export { Vector2 };

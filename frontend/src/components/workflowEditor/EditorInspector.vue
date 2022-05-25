@@ -1,19 +1,16 @@
 <template>
   <Card>
-    <p>
-      Inspector
-    </p>
+    <p>Inspector</p>
   </Card>
 </template>
 
 <script lang="ts">
-import Card from "@/components/util/Card.vue"
+import Card from "@/components/util/CardComponent.vue";
 export default {
   components: {
-    Card
-  }
-}
+    Card,
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>
