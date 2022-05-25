@@ -1,7 +1,7 @@
 <template>
   <div class="drag bg-gray-400">
-    <!-- <EditorNode class="drag snap" />
-    <EditorNode class="drag snap" /> -->
+    <EditorNode class="drag snap" />
+    <EditorNode class="drag snap" />
     <NodeLine :curve="testCurve"></NodeLine>
   </div>
 </template>
@@ -24,7 +24,12 @@ export default defineComponent({
     var pos: Vector2 = new Vector2(0, 0);
     var gridPos: Vector2 = new Vector2(0, 0);
 
-    var testCurve = new BezierCurve(new Vector2(100, 100), new Vector2(130, 130), new Vector2(330, 130), new Vector2(300, 100));
+    var testCurve = ref(new BezierCurve(
+      new Vector2(100, 100), 
+      new Vector2(130, 130), 
+      new Vector2(330, 130), 
+      new Vector2(300, 100))
+    );
 
     onMounted(() => {
       interact(".drag")
@@ -47,6 +52,8 @@ export default defineComponent({
 
       event.target.setAttribute("posX", pos.x);
       event.target.setAttribute("posY", pos.y);
+
+      testCurve.value = new BezierCurve(new Vector2(200, 200), new Vector2(130, 130), new Vector2(330, 130), gridPos);
     };
 
     return{
