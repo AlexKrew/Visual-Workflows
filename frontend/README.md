@@ -1,4 +1,4 @@
-# visual-workflows-vue
+# visual-workflows
 
 ## Project setup
 ```
