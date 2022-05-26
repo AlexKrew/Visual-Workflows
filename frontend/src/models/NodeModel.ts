@@ -35,7 +35,7 @@ class NodeModel {
   updatePos() {
     this.posAbs = Vector2.add(this.pos, this.grid.posAbs);
     this.gridPos = InteractUtil.posToGridPos(this.pos, this.grid.cellSize);
-    this.ports.forEach((port) => port.updatePosAbs());
+    this.ports.forEach((port) => port.updatePos());
   }
 }
 

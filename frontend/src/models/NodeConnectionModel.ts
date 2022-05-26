@@ -18,7 +18,7 @@ class NodeConnectionModel {
   }
 
   getCurve(): BezierCurve {
-    const pos1 = this.portOut?.getConnectionPos();
+    const pos1 = this.portOut?.gridPos;
     const pos4 = this.portIn ? this.portIn.pos : this.mousePos;
     let pos2 = pos1;
     let pos3 = pos4;

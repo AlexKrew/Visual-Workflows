@@ -9,6 +9,7 @@ class NodePortModel {
   node: NodeModel;
   pos: Vector2 = new Vector2(0, 0);
   posAbs: Vector2 = new Vector2(0, 0);
+  gridPos: Vector2 = new Vector2(0, 0);
   connectedTo: NodePortModel[] = [];
   connections: NodeConnectionModel[] = [];
   tmpConnection: NodeConnectionModel | null = null;
@@ -24,21 +25,14 @@ class NodePortModel {
     this.tmpConnection = connection;
   }
 
-  setPosAbs(posAbs: Vector2) {
-    this.posAbs = posAbs;
+  setPos(pos: Vector2) {
+    this.pos = pos;
     this.updatePos();
   }
 
   updatePos() {
-    this.pos = Vector2.subtract(this.posAbs, this.node.gridPos, this.node.grid.posAbs);
-  }
-
-  updatePosAbs() {
-    this.posAbs = Vector2.add(this.pos, this.node.posAbs);
-  }
-
-  getConnectionPos(): Vector2 {
-    return Vector2.add(this.pos, this.node.gridPos);
+    this.gridPos = Vector2.add(this.pos, this.node.gridPos);
+    this.posAbs = Vector2.add(this.gridPos, this.node.grid.posAbs);
   }
 
   connectTo(port: NodePortModel, connection?: NodeConnectionModel, removeTmpConnecion?: boolean) {

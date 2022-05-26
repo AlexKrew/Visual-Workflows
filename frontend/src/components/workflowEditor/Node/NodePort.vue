@@ -29,11 +29,7 @@ export default defineComponent({
     const portRef = ref<HTMLInputElement>();
 
     onMounted(() => {
-      if (portRef.value) {
-        const rect: DOMRect = portRef.value.getBoundingClientRect();
-        const posAbs = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
-        props.portModel.setPosAbs(posAbs);
-      }
+      setPortPos();
 
       interact(`#${props.portModel.id}`)
         .draggable({})
@@ -41,6 +37,20 @@ export default defineComponent({
         .on("dragmove", onDragMove)
         .on("dragend", onDragEnd);
     });
+
+    function setPortPos() {
+      if (portRef.value) {
+        const rect: DOMRect = portRef.value.getBoundingClientRect();
+
+        const posAbs = new Vector2(rect.x + (rect.width/2), rect.y + (rect.height/2));
+        const pos = Vector2.subtract(posAbs, props.portModel.node.gridPos, props.portModel.node.grid.posAbs);
+
+        console.log(posAbs)
+        console.log(pos)
+        
+        props.portModel.setPos(pos);
+      }
+    }
 
     function onDragStart(event: InteractEvent) {
       if (props.portModel.isInput) {
