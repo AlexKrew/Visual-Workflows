@@ -6,23 +6,19 @@ class NodePortModel {
   id: string;
   title: string;
   isInput: boolean;
-  node: NodeModel;
-  pos: Vector2 = new Vector2(0, 0);
-  posAbs: Vector2 = new Vector2(0, 0);
-  gridPos: Vector2 = new Vector2(0, 0);
+  node: NodeModel; // Parent Node
+  pos: Vector2 = new Vector2(0, 0); // Pos relative to Parent
+  posAbs: Vector2 = new Vector2(0, 0); // Absolute Pos
+  gridPos: Vector2 = new Vector2(0, 0); // Pos relative to Grid with GridSnap
   connectedTo: NodePortModel[] = [];
   connections: NodeConnectionModel[] = [];
-  tmpConnection: NodeConnectionModel | null = null;
+  tmpConnection: NodeConnectionModel | null = null; // Connection as long as it is moved by the mouse and not connected to a port
 
   constructor(id: string, title = "New Port", node: NodeModel, isInput = false) {
     this.id = id;
     this.title = title;
     this.node = node;
     this.isInput = isInput;
-  }
-
-  setTmpConnection(connection: NodeConnectionModel) {
-    this.tmpConnection = connection;
   }
 
   setPos(pos: Vector2) {
@@ -33,6 +29,10 @@ class NodePortModel {
   updatePos() {
     this.gridPos = Vector2.add(this.pos, this.node.gridPos);
     this.posAbs = Vector2.add(this.gridPos, this.node.grid.posAbs);
+  }
+
+  setTmpConnection(connection: NodeConnectionModel) {
+    this.tmpConnection = connection;
   }
 
   connectTo(port: NodePortModel, connection?: NodeConnectionModel, removeTmpConnecion?: boolean) {

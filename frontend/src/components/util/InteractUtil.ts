@@ -7,10 +7,6 @@ class InteractUtil {
     const y = Math.floor(pos.y / cellSize) * cellSize;
     return new Vector2(x, y);
   }
-
-  static translateElem(pos: Vector2, event: InteractEvent) {
-    event.target.style.transform = "translate(" + pos.x + "px, " + pos.y + "px)";
-  }
 }
 
 export default InteractUtil;

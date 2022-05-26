@@ -6,10 +6,10 @@ import InteractUtil from "@/components/util/InteractUtil";
 class NodeModel {
   id: string;
   title: string;
-  grid: GridModel;
-  pos: Vector2 = new Vector2(0, 0);
-  posAbs: Vector2 = new Vector2(0, 0);
-  gridPos: Vector2 = new Vector2(0, 0);
+  grid: GridModel; // Parent Grid
+  pos: Vector2 = new Vector2(0, 0); // Pos relative to Parent
+  posAbs: Vector2 = new Vector2(0, 0); // Absolute Pos
+  gridPos: Vector2 = new Vector2(0, 0); // Pos relative to Grid with GridSnap
   ports: NodePortModel[] = [];
 
   constructor(id: string, title = "New Node", grid: GridModel, pos = new Vector2(0, 0)) {
@@ -17,10 +17,6 @@ class NodeModel {
     this.title = title;
     this.grid = grid;
     this.changePos(pos);
-  }
-
-  addPorts(...ports: NodePortModel[]) {
-    ports.forEach((port) => this.ports.push(port));
   }
 
   changePos(pos: Vector2) {
@@ -36,6 +32,10 @@ class NodeModel {
     this.posAbs = Vector2.add(this.pos, this.grid.posAbs);
     this.gridPos = InteractUtil.posToGridPos(this.pos, this.grid.cellSize);
     this.ports.forEach((port) => port.updatePos());
+  }
+
+  addPorts(...ports: NodePortModel[]) {
+    ports.forEach((port) => this.ports.push(port));
   }
 }
 

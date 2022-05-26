@@ -11,13 +11,13 @@ class GridModel {
     this.cellSize = cellSize;
   }
 
-  addNodes(...nodes: NodeModel[]) {
-    nodes.forEach((node) => this.nodes.push(node));
-  }
-
   addPos(posAbs: Vector2) {
     this.posAbs.addVector(posAbs);
     this.nodes.forEach((node) => node.updatePos());
+  }
+
+  addNodes(...nodes: NodeModel[]) {
+    nodes.forEach((node) => this.nodes.push(node));
   }
 }
 

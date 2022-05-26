@@ -27,10 +27,6 @@ class TestModels {
 
     return grid;
   }
-
-  static getCurve(): BezierCurve {
-    return new BezierCurve(new Vector2(100, 100), new Vector2(130, 130), new Vector2(330, 130), new Vector2(300, 100));
-  }
 }
 
 export default TestModels;
