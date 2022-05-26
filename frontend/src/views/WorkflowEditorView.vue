@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-row fill-height">
-    <EditorNodeBar class="basis-1/6" />
-    <EditorGrid id="EditorGrid" class="absolute" />
-    <EditorInspector class="absolute right-0 w-2/12 h-full" />
+    <EditorNodeBar />
+    <EditorGrid/>
+    <EditorInspector />
   </div>
 </template>
 
@@ -21,9 +21,4 @@ export default {
 </script>
 
 <style>
-#EditorGrid {
-  left: 16%;
-  width: 10000px;
-  height: 10000px;
-}
 </style>

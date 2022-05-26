@@ -12,9 +12,40 @@ class Vector2 {
     this.y += y;
   }
 
-  toString(decimal = 2, separator = ":") {
+  addVector(vector: Vector2) {
+    this.x += vector.x;
+    this.y += vector.y;
+  }
+
+  static add(...vectors: Vector2[]): Vector2 {
+    let x = 0;
+    let y = 0;
+    vectors.forEach((vector) => {
+      x += vector.x;
+      y += vector.y;
+    });
+    return new Vector2(x, y);
+  }
+
+  static subtract(...vectors: Vector2[]): Vector2 {
+    let x = vectors[0].x;
+    let y = vectors[0].y;
+    for (let i = 1; i < vectors.length; i++) {
+      x -= vectors[i].x;
+      y -= vectors[i].y;
+    }
+    return new Vector2(x, y);
+  }
+
+  static lerp(vector1: Vector2, vector2: Vector2, percent: number): Vector2 {
+    const x = vector1.x * (1 - percent) + vector2.x * percent;
+    const y = vector1.y * (1 - percent) + vector2.y * percent;
+    return new Vector2(x, y);
+  }
+
+  toString(decimal = 2, separator = ", ") {
     return this.x.toFixed(decimal) + separator + this.y.toFixed(decimal);
   }
 }
 
-export { Vector2 };
+export default Vector2;

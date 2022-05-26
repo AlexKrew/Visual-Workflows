@@ -1,71 +1,60 @@
 <template>
-  <div class="drag bg-gray-400">
-    <EditorNode class="drag snap" />
-    <EditorNode class="drag snap" />
-    <NodeLine :curve="testCurve"></NodeLine>
+  <div
+    id="EditorGrid"
+    class="drag absolute bg-gray-400 top"
+    :style="{ left: grid.posAbs.x + 'px', top: grid.posAbs.y + 'px' }"
+  >
+    <!-- Connections -->
+    <svg id="svgID" width="10000" height="10000" xmlns="http://www.w3.org/2000/svg" class="absolute top-0 left-0">
+      <NodeConnection v-if="grid.nodes[2].ports[0].tmpConnection" :connection="grid.nodes[2].ports[0].tmpConnection"/>
+    </svg>
+    <!-- Nodes -->
+    <div v-for="node in grid.nodes" :key="node.id">
+      <EditorNode :node-model="node" />
+    </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { onMounted, ref, defineComponent } from "vue";
 import interact from "interactjs";
-import { Vector2 } from "@/components/util/Vector";
-import { InteractUtil } from "@/components/util/InteractUtil";
+import Vector2 from "@/components/util/Vector";
 import EditorNode from "@/components/workflowEditor/Node/NodeComponent.vue";
-import NodeLine from "@/components/workflowEditor/Node/NodeLine.vue";
-import { BezierCurve } from "@/components/util/BezierCurve";
+import GridModel from "@/models/GridModel";
+import TestModels from "@/models/TestModels";
+import { InteractEvent } from "@interactjs/types";
+import NodeConnection from "./Node/NodeConnection.vue";
 
 export default defineComponent({
   components: {
     EditorNode,
-    NodeLine,
+    NodeConnection
   },
   setup() {
-    var pos: Vector2 = new Vector2(0, 0);
-    var gridPos: Vector2 = new Vector2(0, 0);
-
-    var testCurve = ref(
-      new BezierCurve(
-        new Vector2(100, 100),
-        new Vector2(130, 130),
-        new Vector2(330, 130),
-        new Vector2(300, 100)
-      )
-    );
+    const grid = ref<GridModel>(TestModels.getGrid());
 
     onMounted(() => {
       interact(".drag").draggable({}).on("dragmove", onDragMove);
     });
 
-    function onDragMove(event: any) {
-      pos = new Vector2(
-        (parseFloat(event.target.getAttribute("posX")) || 0) + event.dx,
-        (parseFloat(event.target.getAttribute("posY")) || 0) + event.dy
-      );
-
-      if (event.target.classList.contains("snap")) {
-        gridPos = InteractUtil.updateGridPos(pos, 20);
-        InteractUtil.translateElem(gridPos, event);
-      } else {
-        InteractUtil.translateElem(pos, event);
-      }
-
-      event.target.setAttribute("posX", pos.x);
-      event.target.setAttribute("posY", pos.y);
-
-      testCurve.value = new BezierCurve(
-        new Vector2(200, 200),
-        new Vector2(130, 130),
-        new Vector2(330, 130),
-        gridPos
-      );
+    function onDragMove(event: InteractEvent) {
+      grid.value.addPos(new Vector2(event.dx, event.dy));
     }
 
     return {
-      testCurve,
+      grid,
     };
   },
 });
 </script>
 
-<style></style>
+<style>
+.drag {
+  position: absolute;
+}
+#EditorGrid {
+  width: 10000px;
+  height: 10000px;
+}
+</style>
