@@ -1,7 +1,7 @@
 <template>
-  <div :id="nodeModel.id" class="max-w-[200px] absolute w-[200px]">
+  <div :id="nodeModel.id" class="max-w-[200px] absolute w-[200px]" :style="{ left: nodeModel.pos.x + 'px', top: nodeModel.pos.y + 'px' }">
     <Card>
-      <h2 class="text-center">Node Title</h2>
+      <h2 class="text-center">{{nodeModel.title}}</h2>
       <div class="w-full" v-for="port in nodeModel.ports" :key="port.id">
         <NodeConnector :port-model="port" />
       </div>
@@ -16,7 +16,6 @@ import { defineComponent, onMounted } from "vue";
 import NodeModel from "@/models/NodeModel";
 import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
-import InteractUtil from "@/components/util/InteractUtil";
 import { InteractEvent } from "@interactjs/types";
 
 export default defineComponent({
@@ -37,7 +36,6 @@ export default defineComponent({
 
     function onDragMove(event: InteractEvent) {
       props.nodeModel.addPos(new Vector2(event.dx, event.dy));
-      InteractUtil.translateElem(props.nodeModel.gridPos, event);
     }
   },
 });

@@ -13,12 +13,16 @@ class BezierCurve {
     this.posControl2 = posControl2 ? posControl2 : new Vector2(0, 0);
   }
 
-  toSVGString() {
+  toSVGString(log = false) {
     // return "M10,10 C20,0 90,80 70,100"
-    return `M ${this.posAnchor1.toString(0, ",")} C ${this.posControl1.toString(0, ",")} ${this.posControl2.toString(
+    const str = `M ${this.posAnchor1.toString(0, ",")} C ${this.posControl1.toString(
       0,
       ","
-    )} ${this.posAnchor2.toString(0, ",")}`;
+    )} ${this.posControl2.toString(0, ",")} ${this.posAnchor2.toString(0, ",")}`;
+    if (log) {
+      console.log("Curve: " + str);
+    }
+    return str;
   }
 }
 

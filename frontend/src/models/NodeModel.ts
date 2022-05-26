@@ -7,16 +7,16 @@ class NodeModel {
   id: string;
   title: string;
   grid: GridModel;
-  pos: Vector2;
-  gridPos: Vector2;
+  pos: Vector2 = new Vector2(0, 0);
+  posAbs: Vector2 = new Vector2(0, 0);
+  gridPos: Vector2 = new Vector2(0, 0);
   ports: NodePortModel[] = [];
 
   constructor(id: string, title = "New Node", grid: GridModel, pos = new Vector2(0, 0)) {
     this.id = id;
     this.title = title;
     this.grid = grid;
-    this.pos = pos;
-    this.gridPos = pos;
+    this.changePos(pos);
   }
 
   addPort(port: NodePortModel) {
@@ -29,15 +29,18 @@ class NodeModel {
 
   changePos(pos: Vector2) {
     this.pos = pos;
-    this.updateGridPos();
+    this.posAbs = Vector2.add(this.pos, this.grid.posAbs);
+    this.updatePos();
   }
 
   addPos(pos: Vector2) {
-    this.changePos(Vector2.addVector(this.pos, pos));
+    this.changePos(Vector2.add(this.pos, pos));
   }
 
-  updateGridPos() {
+  updatePos() {
+    this.posAbs = Vector2.add(this.pos, this.grid.posAbs);
     this.gridPos = InteractUtil.posToGridPos(this.pos, this.grid.cellSize);
+    this.ports.forEach((port) => port.updatePosAbs());
   }
 
   toString() {

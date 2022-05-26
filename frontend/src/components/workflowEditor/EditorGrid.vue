@@ -1,11 +1,18 @@
 <template>
-  <div class="drag bg-gray-400">
+  <div
+    id="EditorGrid"
+    class="drag absolute bg-gray-400 top"
+    :style="{ left: grid.posAbs.x + 'px', top: grid.posAbs.y + 'px' }"
+  >
+    <!-- Connections -->
+    <svg id="svgID" width="10000" height="10000" xmlns="http://www.w3.org/2000/svg" class="absolute top-0 left-0">
+      <NodeConnection v-if="grid.nodes[2].ports[0].tmpConnection" :connection="grid.nodes[2].ports[0].tmpConnection"/>
+    </svg>
     <!-- Nodes -->
     <div v-for="node in grid.nodes" :key="node.id">
       <EditorNode :node-model="node" />
     </div>
-    <!-- Lines -->
-    <!-- <NodeLine :curve="testCurve"></NodeLine> -->
+
   </div>
 </template>
 
@@ -13,15 +20,16 @@
 import { onMounted, ref, defineComponent } from "vue";
 import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
-import InteractUtil from "@/components/util/InteractUtil";
 import EditorNode from "@/components/workflowEditor/Node/NodeComponent.vue";
 import GridModel from "@/models/GridModel";
 import TestModels from "@/models/TestModels";
 import { InteractEvent } from "@interactjs/types";
+import NodeConnection from "./Node/NodeConnection.vue";
 
 export default defineComponent({
   components: {
     EditorNode,
+    NodeConnection
   },
   setup() {
     const grid = ref<GridModel>(TestModels.getGrid());
@@ -32,7 +40,6 @@ export default defineComponent({
 
     function onDragMove(event: InteractEvent) {
       grid.value.addPos(new Vector2(event.dx, event.dy));
-      InteractUtil.translateElem(grid.value.pos, event);
     }
 
     return {
@@ -45,5 +52,9 @@ export default defineComponent({
 <style>
 .drag {
   position: absolute;
+}
+#EditorGrid {
+  width: 10000px;
+  height: 10000px;
 }
 </style>
