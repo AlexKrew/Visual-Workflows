@@ -15,8 +15,9 @@ import NodeConnector from "./NodePort.vue";
 import { defineComponent, onMounted } from "vue";
 import NodeModel from "@/models/NodeModel";
 import interact from "interactjs";
-import { Vector2 } from "@/components/util/Vector";
+import Vector2 from "@/components/util/Vector";
 import InteractUtil from "@/components/util/InteractUtil";
+import { InteractEvent } from "@interactjs/types";
 
 export default defineComponent({
   components: {
@@ -29,12 +30,12 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props, ctx) {
+  setup(props) {
     onMounted(() => {
       interact(`#${props.nodeModel.id}`).draggable({}).on("dragmove", onDragMove);
     });
 
-    function onDragMove(event: any) {
+    function onDragMove(event: InteractEvent) {
       props.nodeModel.addPos(new Vector2(event.dx, event.dy));
       InteractUtil.translateElem(props.nodeModel.gridPos, event);
     }

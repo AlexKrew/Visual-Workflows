@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-lg elevation-10">
+  <div class="bg-white rounded-lg shadow-xl">
     <slot></slot>
   </div>
 </template>

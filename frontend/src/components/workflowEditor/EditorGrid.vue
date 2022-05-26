@@ -2,7 +2,7 @@
   <div class="drag bg-gray-400">
     <!-- Nodes -->
     <div v-for="node in grid.nodes" :key="node.id">
-      <EditorNode class="drag snap" :node-model="node" />
+      <EditorNode :node-model="node" />
     </div>
     <!-- Lines -->
     <!-- <NodeLine :curve="testCurve"></NodeLine> -->
@@ -12,13 +12,12 @@
 <script lang="ts">
 import { onMounted, ref, defineComponent } from "vue";
 import interact from "interactjs";
-import { Vector2 } from "@/components/util/Vector";
+import Vector2 from "@/components/util/Vector";
 import InteractUtil from "@/components/util/InteractUtil";
 import EditorNode from "@/components/workflowEditor/Node/NodeComponent.vue";
-import NodeLine from "@/components/workflowEditor/Node/NodeLine.vue";
-import { BezierCurve } from "@/components/util/BezierCurve";
 import GridModel from "@/models/GridModel";
 import TestModels from "@/models/TestModels";
+import { InteractEvent } from "@interactjs/types";
 
 export default defineComponent({
   components: {
@@ -31,7 +30,7 @@ export default defineComponent({
       interact(".drag").draggable({}).on("dragmove", onDragMove);
     });
 
-    function onDragMove(event: any) {
+    function onDragMove(event: InteractEvent) {
       grid.value.addPos(new Vector2(event.dx, event.dy));
       InteractUtil.translateElem(grid.value.pos, event);
     }

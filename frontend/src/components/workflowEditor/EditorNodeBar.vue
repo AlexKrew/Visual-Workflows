@@ -1,5 +1,5 @@
 <template>
-  <Card style="z-index: 10">
+  <Card class="bg-slate-200 absolute w-2/12 h-full z-10">
     <p>Node Bar</p>
   </Card>
 </template>

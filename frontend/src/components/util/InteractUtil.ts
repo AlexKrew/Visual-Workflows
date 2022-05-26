@@ -1,4 +1,5 @@
-import { Vector2 } from "./Vector";
+import Vector2 from "./Vector";
+import { InteractEvent } from "@interactjs/types";
 
 class InteractUtil {
   static posToGridPos(pos: Vector2, cellSize: number) {
@@ -7,7 +8,7 @@ class InteractUtil {
     return new Vector2(x, y);
   }
 
-  static translateElem(pos: Vector2, event: any) {
+  static translateElem(pos: Vector2, event: InteractEvent) {
     event.target.style.transform = "translate(" + pos.x + "px, " + pos.y + "px)";
   }
 }

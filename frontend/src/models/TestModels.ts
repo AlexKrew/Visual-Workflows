@@ -1,5 +1,5 @@
-import { BezierCurve } from "@/components/util/BezierCurve";
-import { Vector2 } from "@/components/util/Vector";
+import BezierCurve from "@/components/util/BezierCurve";
+import Vector2 from "@/components/util/Vector";
 import GridModel from "./GridModel";
 import NodeModel from "./NodeModel";
 import NodePortModel from "./NodePortModel";

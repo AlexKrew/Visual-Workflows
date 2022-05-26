@@ -1,4 +1,4 @@
-import { Vector2 } from "@/components/util/Vector";
+import Vector2 from "@/components/util/Vector";
 import NodeModel from "./NodeModel";
 
 class NodePortModel {
