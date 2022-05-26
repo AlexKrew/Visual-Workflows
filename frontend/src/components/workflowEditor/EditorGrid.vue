@@ -1,7 +1,10 @@
 <template>
-  <div class="drag bg-gray-400">
-    <EditorNode class="drag snap" />
-    <EditorNode class="drag snap" />
+  <div class="drag grid bg-gray-400">
+    <!-- Nodes -->
+    <div v-for="node in grid.nodes" :key="node.id">
+      <EditorNode class="drag node snap" :node-model="node" :id="node.id" />
+    </div>
+    <!-- Lines -->
     <NodeLine :curve="testCurve"></NodeLine>
   </div>
 </template>
@@ -14,6 +17,8 @@ import { InteractUtil } from "@/components/util/InteractUtil";
 import EditorNode from "@/components/workflowEditor/Node/NodeComponent.vue";
 import NodeLine from "@/components/workflowEditor/Node/NodeLine.vue";
 import { BezierCurve } from "@/components/util/BezierCurve";
+import GridModel from "@/models/GridModel";
+import TestModels from "@/models/TestModels";
 
 export default defineComponent({
   components: {
@@ -21,9 +26,9 @@ export default defineComponent({
     NodeLine,
   },
   setup() {
+    const grid = ref<GridModel>(TestModels.getGrid());
     var pos: Vector2 = new Vector2(0, 0);
     var gridPos: Vector2 = new Vector2(0, 0);
-
     var testCurve = ref(
       new BezierCurve(
         new Vector2(100, 100),
@@ -35,6 +40,10 @@ export default defineComponent({
 
     onMounted(() => {
       interact(".drag").draggable({}).on("dragmove", onDragMove);
+      console.log(grid.value.pos);
+      var t = grid.value;
+      t.pos = new Vector2(100, 100);
+      console.log(grid.value.pos);
     });
 
     function onDragMove(event: any) {
@@ -63,9 +72,14 @@ export default defineComponent({
 
     return {
       testCurve,
+      grid,
     };
   },
 });
 </script>
 
-<style></style>
+<style>
+.drag {
+  position: absolute;
+}
+</style>
