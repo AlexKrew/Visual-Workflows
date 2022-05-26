@@ -17,12 +17,24 @@ class Vector2 {
     this.y += vector.y;
   }
 
-  static add(vector1: Vector2, vector2: Vector2): Vector2 {
-    return new Vector2(vector1.x + vector2.x, vector1.y + vector2.y);
+  static add(...vectors: Vector2[]): Vector2 {
+    let x = 0;
+    let y = 0;
+    vectors.forEach((vector) => {
+      x += vector.x;
+      y += vector.y;
+    });
+    return new Vector2(x, y);
   }
 
-  static subtract(vector1: Vector2, vector2: Vector2): Vector2 {
-    return new Vector2(vector1.x - vector2.x, vector1.y - vector2.y);
+  static subtract(...vectors: Vector2[]): Vector2 {
+    let x = vectors[0].x;
+    let y = vectors[0].y;
+    for (let i = 1; i < vectors.length; i++) {
+      x -= vectors[i].x;
+      y -= vectors[i].y;
+    }
+    return new Vector2(x, y);
   }
 
   static lerp(vector1: Vector2, vector2: Vector2, percent: number): Vector2 {

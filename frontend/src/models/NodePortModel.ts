@@ -13,15 +13,14 @@ class NodePortModel {
   connections: NodeConnectionModel[] = [];
   tmpConnection: NodeConnectionModel | null = null;
 
-  constructor(id: string, title = "New Port", node: NodeModel, connectedTo = [], isInput = false) {
+  constructor(id: string, title = "New Port", node: NodeModel, isInput = false) {
     this.id = id;
     this.title = title;
     this.node = node;
-    this.connectedTo = connectedTo;
     this.isInput = isInput;
   }
 
-  setTmpConnection(connection: NodeConnectionModel | null) {
+  setTmpConnection(connection: NodeConnectionModel) {
     this.tmpConnection = connection;
   }
 
@@ -31,7 +30,7 @@ class NodePortModel {
   }
 
   updatePos() {
-    this.pos = Vector2.subtract(this.posAbs, this.node.posAbs);
+    this.pos = Vector2.subtract(this.posAbs, this.node.gridPos, this.node.grid.posAbs);
   }
 
   updatePosAbs() {
@@ -39,7 +38,7 @@ class NodePortModel {
   }
 
   getConnectionPos(): Vector2 {
-    return Vector2.subtract(this.posAbs, this.node.grid.posAbs);
+    return Vector2.add(this.pos, this.node.gridPos);
   }
 
   connectTo(port: NodePortModel, connection?: NodeConnectionModel, removeTmpConnecion?: boolean) {
@@ -50,10 +49,6 @@ class NodePortModel {
     if (removeTmpConnecion) {
       this.tmpConnection = null;
     }
-  }
-
-  toString() {
-    return `id: ${this.id}, title: ${this.title}, node: ${this.node.title}`;
   }
 }
 

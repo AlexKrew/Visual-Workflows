@@ -1,5 +1,5 @@
 <template>
-  <div :id="nodeModel.id" class="max-w-[200px] absolute w-[200px]" :style="{ left: nodeModel.pos.x + 'px', top: nodeModel.pos.y + 'px' }">
+  <div :id="nodeModel.id" class="max-w-[200px] absolute w-[200px]" :style="{ left: nodeModel.gridPos.x + 'px', top: nodeModel.gridPos.y + 'px' }">
     <Card>
       <h2 class="text-center">{{nodeModel.title}}</h2>
       <div class="w-full" v-for="port in nodeModel.ports" :key="port.id">

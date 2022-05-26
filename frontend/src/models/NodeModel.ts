@@ -19,17 +19,12 @@ class NodeModel {
     this.changePos(pos);
   }
 
-  addPort(port: NodePortModel) {
-    this.ports.push(port);
-  }
-
-  addPorts(ports: NodePortModel[]) {
-    ports.forEach((port) => this.addPort(port));
+  addPorts(...ports: NodePortModel[]) {
+    ports.forEach((port) => this.ports.push(port));
   }
 
   changePos(pos: Vector2) {
     this.pos = pos;
-    this.posAbs = Vector2.add(this.pos, this.grid.posAbs);
     this.updatePos();
   }
 
@@ -41,10 +36,6 @@ class NodeModel {
     this.posAbs = Vector2.add(this.pos, this.grid.posAbs);
     this.gridPos = InteractUtil.posToGridPos(this.pos, this.grid.cellSize);
     this.ports.forEach((port) => port.updatePosAbs());
-  }
-
-  toString() {
-    return `id: ${this.id}, title: ${this.title}, pos: ${this.pos}, ports: ${this.ports.toString()}`;
   }
 }
 

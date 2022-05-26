@@ -6,18 +6,13 @@ class GridModel {
   cellSize: number;
   nodes: NodeModel[] = [];
 
-  constructor(cellSize = 10, posAbs = new Vector2(0, 0), nodes: NodeModel[] = []) {
+  constructor(cellSize = 10, posAbs = new Vector2(0, 0)) {
     this.posAbs = posAbs;
     this.cellSize = cellSize;
-    this.nodes = nodes;
   }
 
-  addNode(node: NodeModel) {
-    this.nodes.push(node);
-  }
-
-  addNodes(nodes: NodeModel[]) {
-    nodes.forEach((node) => this.addNode(node));
+  addNodes(...nodes: NodeModel[]) {
+    nodes.forEach((node) => this.nodes.push(node));
   }
 
   addPos(posAbs: Vector2) {
