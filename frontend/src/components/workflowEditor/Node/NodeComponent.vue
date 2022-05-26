@@ -12,8 +12,11 @@
 <script lang="ts">
 import Card from "@/components/util/CardComponent.vue";
 import NodeConnector from "./NodePort.vue";
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from "vue";
 import NodeModel from "@/models/NodeModel";
+import interact from "interactjs";
+import { Vector2 } from "@/components/util/Vector";
+import InteractUtil from "@/components/util/InteractUtil";
 
 export default defineComponent({
   components: {
@@ -25,6 +28,16 @@ export default defineComponent({
       type: NodeModel,
       required: true,
     },
+  },
+  setup(props, ctx) {
+    onMounted(() => {
+      interact(`#${props.nodeModel.id}`).draggable({}).on("dragmove", onDragMove);
+    });
+
+    function onDragMove(event: any) {
+      props.nodeModel.addPos(new Vector2(event.dx, event.dy));
+      InteractUtil.translateElem(props.nodeModel.gridPos, event);
+    }
   },
 });
 </script>

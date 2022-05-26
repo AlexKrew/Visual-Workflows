@@ -3,10 +3,12 @@ import NodeModel from "./NodeModel";
 
 class GridModel {
   pos: Vector2;
+  cellSize: number;
   nodes: NodeModel[] = [];
 
-  constructor(pos = new Vector2(0, 0), nodes: NodeModel[] = []) {
+  constructor(cellSize = 10, pos = new Vector2(0, 0), nodes: NodeModel[] = []) {
     this.pos = pos;
+    this.cellSize = cellSize;
     this.nodes = nodes;
   }
 
@@ -18,8 +20,8 @@ class GridModel {
     nodes.forEach((node) => this.addNode(node));
   }
 
-  addPos(posChange: Vector2) {
-    this.pos.addVector(posChange);
+  addPos(pos: Vector2) {
+    this.pos.addVector(pos);
   }
 }
 
