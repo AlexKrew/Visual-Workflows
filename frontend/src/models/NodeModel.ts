@@ -37,6 +37,15 @@ class NodeModel {
   addPorts(...ports: NodePortModel[]) {
     ports.forEach((port) => this.ports.push(port));
   }
+
+  getPortByID(id: string): NodePortModel | null {
+    for (const port of this.ports) {
+      if (port.id == id) {
+        return port;
+      }
+    }
+    return null;
+  }
 }
 
 export default NodeModel;

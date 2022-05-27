@@ -1,5 +1,6 @@
 import Vector2 from "@/components/util/Vector";
 import NodeModel from "./NodeModel";
+import NodePortModel from "./NodePortModel";
 
 class GridModel {
   posAbs: Vector2;
@@ -18,6 +19,17 @@ class GridModel {
 
   addNodes(...nodes: NodeModel[]) {
     nodes.forEach((node) => this.nodes.push(node));
+  }
+
+  getPortByID(id: string): NodePortModel | null {
+    for (const node of this.nodes) {
+      const port = node.getPortByID(id);
+      if (port) {
+        return port;
+      }
+    }
+
+    return null;
   }
 }
 

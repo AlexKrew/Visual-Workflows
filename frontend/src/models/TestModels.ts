@@ -6,11 +6,11 @@ import NodePortModel from "./NodePortModel";
 
 class TestModels {
   static getGrid(): GridModel {
-    const grid = new GridModel(20, new Vector2(250, 50));
+    const grid = new GridModel(20, new Vector2(200, 20));
     grid.addNodes(
-      new NodeModel("N100", "Node1", grid),
-      new NodeModel("N200", "Node2", grid),
-      new NodeModel("N300", "Node3", grid)
+      new NodeModel("N100", "Node1", grid, new Vector2(100, 100)),
+      new NodeModel("N200", "Node2", grid, new Vector2(100, 200)),
+      new NodeModel("N300", "Node3", grid, new Vector2(100, 300))
     );
     grid.nodes[0].addPorts(
       new NodePortModel("P101", "Port 1", grid.nodes[0], true),
