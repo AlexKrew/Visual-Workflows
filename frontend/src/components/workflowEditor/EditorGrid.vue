@@ -6,7 +6,7 @@
   >
     <!-- Connections -->
     <svg id="svgID" width="10000" height="10000" xmlns="http://www.w3.org/2000/svg" class="absolute top-0 left-0">
-      <NodeConnection v-if="grid.nodes[2].ports[0].tmpConnection" :connection="grid.nodes[2].ports[0].tmpConnection"/>
+      <NodeConnection v-for="connection in grid.getAllConnections()" :key="connection.portOut.id" :connection="connection"/>
     </svg>
     <!-- Nodes -->
     <div v-for="node in grid.nodes" :key="node.id">

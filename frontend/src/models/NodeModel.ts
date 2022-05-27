@@ -2,6 +2,7 @@ import Vector2 from "@/components/util/Vector";
 import GridModel from "./GridModel";
 import NodePortModel from "./NodePortModel";
 import InteractUtil from "@/components/util/InteractUtil";
+import NodeConnectionModel from "./NodeConnectionModel";
 
 class NodeModel {
   id: string;
@@ -45,6 +46,17 @@ class NodeModel {
       }
     }
     return null;
+  }
+
+  getAllConnections(): NodeConnectionModel[] {
+    let connections: NodeConnectionModel[] = [];
+
+    this.ports.forEach((port) => {
+      connections = connections.concat(port.connections);
+      if (port.tmpConnection) connections.push(port.tmpConnection);
+    });
+
+    return connections;
   }
 }
 

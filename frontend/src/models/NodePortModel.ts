@@ -35,6 +35,16 @@ class NodePortModel {
     this.tmpConnection = connection;
   }
 
+  saveTmpConnection(portIn: NodePortModel) {
+    if (!this.tmpConnection) return;
+
+    this.tmpConnection?.setPortIn(portIn);
+    this.connections.push(this.tmpConnection);
+    this.tmpConnection = null;
+
+    console.log(this.connections[0]);
+  }
+
   connectTo(port: NodePortModel, connection?: NodeConnectionModel, removeTmpConnecion?: boolean) {
     this.connectedTo.push(port);
     if (!this.isInput && connection) {

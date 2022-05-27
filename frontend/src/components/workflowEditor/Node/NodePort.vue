@@ -95,10 +95,7 @@ export default defineComponent({
       let portOut = props.portModel.node.grid.getPortByID(event.relatedTarget.id);
       if(!portOut || !portOut.tmpConnection) return;
 
-      portOut.tmpConnection.setPortIn(props.portModel);
-
-      console.log(props.portModel.title);
-      console.log(event.relatedTarget.id)
+      portOut.saveTmpConnection(props.portModel);
     }
     //#endregion +++++ +++++ +++++
 

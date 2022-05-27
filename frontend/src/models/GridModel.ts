@@ -1,4 +1,5 @@
 import Vector2 from "@/components/util/Vector";
+import NodeConnectionModel from "./NodeConnectionModel";
 import NodeModel from "./NodeModel";
 import NodePortModel from "./NodePortModel";
 
@@ -30,6 +31,16 @@ class GridModel {
     }
 
     return null;
+  }
+
+  getAllConnections(): NodeConnectionModel[] {
+    let connections: NodeConnectionModel[] = [];
+
+    this.nodes.forEach((node) => {
+      connections = connections.concat(node.getAllConnections());
+    });
+
+    return connections;
   }
 }
 
