@@ -1,13 +1,16 @@
 import BezierCurve from "@/components/util/BezierCurve";
 import Vector2 from "@/components/util/Vector";
 import NodePortModel from "./NodePortModel";
+import { uuid } from "vue-uuid";
 
 class NodeConnectionModel {
+  id: string;
   portOut: NodePortModel;
   portIn: NodePortModel | undefined;
   mousePos: Vector2 | undefined;
 
   constructor(portOut: NodePortModel, portIn?: NodePortModel, mousePos?: Vector2) {
+    this.id = uuid.v4();
     this.portOut = portOut;
     this.portIn = portIn;
     this.mousePos = mousePos;

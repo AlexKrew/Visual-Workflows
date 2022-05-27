@@ -32,6 +32,7 @@ export default defineComponent({
     const portRef = ref<HTMLInputElement>();
     let isDragging = ref<boolean>(false);
     let mousePosRel = ref<Vector2>(new Vector2(0, 0));
+    let portOut: NodePortModel | null = null; // Reference to PortOut when Dragging from Input Port
 
     onMounted(() => {
       setPortPos();
@@ -59,7 +60,12 @@ export default defineComponent({
     //#region +++++ DragHandler +++++
     function onDragStart(event: InteractEvent) {
       if (props.portModel.isInput) {
-        // TODO Input
+        if (props.portModel.connections.length <= 0) return;
+        console.log("#");
+        portOut = props.portModel.connections[0].portOut;
+        portOut.moveConnectionToTmp(props.portModel.connections[0].id);
+        isDragging.value = true;
+        props.portModel.clearConnections();
       } else {
         props.portModel.setTmpConnection(
           new NodeConnectionModel(props.portModel, undefined, new Vector2(event.clientX, event.clientY))
@@ -68,32 +74,35 @@ export default defineComponent({
       }
     }
     function onDragMove(event: InteractEvent) {
+      const mousePos = new Vector2(event.clientX, event.clientY);
+      mousePosRel.value = Vector2.subtract(mousePos, props.portModel.gridPos, props.portModel.node.grid.posAbs);
       if (props.portModel.isInput) {
-        // ToDo Input
+        if(!portOut) return;
+        portOut.tmpConnection?.setMousePos(mousePos);
       } else {
-        const mousePos = new Vector2(event.clientX, event.clientY);
-        mousePosRel.value = Vector2.subtract(mousePos, props.portModel.gridPos, props.portModel.node.grid.posAbs);
         props.portModel.tmpConnection?.setMousePos(mousePos);
       }
     }
     function onDragEnd(event: InteractEvent) {
+      isDragging.value = false;
       if (props.portModel.isInput) {
-        // ToDo Input
+        if(!portOut) return;
+        portOut.setTmpConnection(null);
       } else {
-        isDragging.value = false;
+        props.portModel.setTmpConnection(null);
       }
     }
     //#endregion +++++ +++++ +++++
 
     //#region +++++ Dropzone Handler +++++
     function onDragEnter(event: InteractEvent) {
-      console.log("onDragEnter");
+      console.log("Hey");
     }
     function onDrop(event: InteractEvent) {
-      if(!event.relatedTarget) return;
+      if (!event.relatedTarget) return;
 
       let portOut = props.portModel.node.grid.getPortByID(event.relatedTarget.id);
-      if(!portOut || !portOut.tmpConnection) return;
+      if (!portOut || !portOut.tmpConnection) return;
 
       portOut.saveTmpConnection(props.portModel);
     }

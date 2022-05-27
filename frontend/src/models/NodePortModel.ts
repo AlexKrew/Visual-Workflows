@@ -31,7 +31,7 @@ class NodePortModel {
     this.posAbs = Vector2.add(this.gridPos, this.node.grid.posAbs);
   }
 
-  setTmpConnection(connection: NodeConnectionModel) {
+  setTmpConnection(connection: NodeConnectionModel | null) {
     this.tmpConnection = connection;
   }
 
@@ -40,9 +40,38 @@ class NodePortModel {
 
     this.tmpConnection?.setPortIn(portIn);
     this.connections.push(this.tmpConnection);
+    portIn.connections.push(this.tmpConnection);
     this.tmpConnection = null;
 
     console.log(this.connections[0]);
+  }
+
+  getConnectionFromID(id: string): NodeConnectionModel | null {
+    for (const connection of this.connections) {
+      if (connection.id == id) {
+        return connection;
+      }
+    }
+    if (this.tmpConnection?.id == id) {
+      return this.tmpConnection;
+    }
+
+    return null;
+  }
+
+  moveConnectionToTmp(id: string) {
+    const connection: NodeConnectionModel | null = this.getConnectionFromID(id);
+    if (!connection) return;
+
+    this.tmpConnection = connection;
+    const index = this.connections.indexOf(connection);
+    if (index >= 0) {
+      this.connections.splice(index, 1);
+    }
+  }
+
+  clearConnections() {
+    this.connections = [];
   }
 
   connectTo(port: NodePortModel, connection?: NodeConnectionModel, removeTmpConnecion?: boolean) {
