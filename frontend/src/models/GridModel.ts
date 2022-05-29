@@ -7,6 +7,8 @@ class GridModel {
   posAbs: Vector2;
   cellSize: number;
   nodes: NodeModel[] = [];
+  connections: NodeConnectionModel[] = [];
+  tmpConnectionIndex = -1; // the Connection that is currently dragged
 
   constructor(cellSize = 10, posAbs = new Vector2(0, 0)) {
     this.posAbs = posAbs;
@@ -33,15 +35,42 @@ class GridModel {
     return null;
   }
 
-  getAllConnections(): NodeConnectionModel[] {
-    let connections: NodeConnectionModel[] = [];
-
-    this.nodes.forEach((node) => {
-      connections = connections.concat(node.getAllConnections());
-    });
-
-    return connections;
+  //#region +++++ Connections +++++
+  addConnection(connection: NodeConnectionModel, isTmp = false) {
+    this.connections.push(connection);
+    if (isTmp) {
+      this.tmpConnectionIndex = this.connections.length - 1;
+    }
   }
+
+  getConnectionFromPortInID(id: string): NodePortModel | null {
+    for (const connection of this.connections) {
+      if (connection.portIn && connection.portIn.id == id) {
+        return connection.portIn;
+      }
+    }
+    return null;
+  }
+
+  resetTmpConnection(deleteConnection = false) {
+    if (deleteConnection) {
+      this.connections.splice(this.tmpConnectionIndex, 1);
+    }
+    this.tmpConnectionIndex = -1;
+  }
+
+  saveTmpConnection(portIn?: NodePortModel, portInID?: string) {
+    if (portIn) {
+      this.connections[this.tmpConnectionIndex].setPortIn(portIn);
+    } else if (portInID) {
+      const port = this.getPortByID(portInID);
+      if (port) {
+        this.connections[this.tmpConnectionIndex].setPortIn(port);
+      }
+    }
+    this.resetTmpConnection(false);
+  }
+  //#endregion
 }
 
 export default GridModel;

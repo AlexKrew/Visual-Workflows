@@ -1,11 +1,11 @@
 <template>
   <div class="fill-width flex">
     <div ref="portRef" :id="portModel.id" class="circle fill-width bg-gray-400" :class="circlePosClass">
-      <div
+      <!-- <div
         v-if="isDragging"
         class="circle fill-width absolute drop-number bg-blue-700"
         :style="{ left: mousePosRel.x + 'px', top: mousePosRel.y + 'px' }"
-      ></div>
+      ></div> -->
     </div>
     <span class="justify-center flex-auto">{{ portModel.title }}</span>
   </div>
@@ -30,9 +30,6 @@ export default defineComponent({
   setup(props) {
     let circlePosClass = props.portModel.isInput ? "" : "absolute right-0";
     const portRef = ref<HTMLInputElement>();
-    let isDragging = ref<boolean>(false);
-    let mousePosRel = ref<Vector2>(new Vector2(0, 0));
-    let portOut: NodePortModel | null = null; // Reference to PortOut when Dragging from Input Port
 
     onMounted(() => {
       setPortPos();
@@ -42,8 +39,8 @@ export default defineComponent({
         .on("dragmove", onDragMove)
         .on("dragend", onDragEnd)
         .dropzone({})
-        .on("drop", onDrop)
-        .on("dragenter", onDragEnter);
+        .on("drop", onDrop);
+      // .on("dragenter", onDragEnter);
     });
 
     function setPortPos() {
@@ -57,62 +54,48 @@ export default defineComponent({
       }
     }
 
-    //#region +++++ DragHandler +++++
     function onDragStart(event: InteractEvent) {
       if (props.portModel.isInput) {
-        if (props.portModel.connections.length <= 0) return;
-        console.log("#");
-        portOut = props.portModel.connections[0].portOut;
-        portOut.moveConnectionToTmp(props.portModel.connections[0].id);
-        isDragging.value = true;
-        props.portModel.clearConnections();
+        // TODO
       } else {
-        props.portModel.setTmpConnection(
-          new NodeConnectionModel(props.portModel, undefined, new Vector2(event.clientX, event.clientY))
+        props.portModel.node.grid.addConnection(
+          new NodeConnectionModel(props.portModel, undefined, new Vector2(event.clientX, event.clientY)),
+          true
         );
-        isDragging.value = true;
       }
     }
+
     function onDragMove(event: InteractEvent) {
-      const mousePos = new Vector2(event.clientX, event.clientY);
-      mousePosRel.value = Vector2.subtract(mousePos, props.portModel.gridPos, props.portModel.node.grid.posAbs);
       if (props.portModel.isInput) {
-        if(!portOut) return;
-        portOut.tmpConnection?.setMousePos(mousePos);
+        // TODO
       } else {
-        props.portModel.tmpConnection?.setMousePos(mousePos);
+        props.portModel.node.grid.connections[props.portModel.node.grid.tmpConnectionIndex].setMousePos(
+          new Vector2(event.clientX, event.clientY)
+        );
       }
     }
+
     function onDragEnd(event: InteractEvent) {
-      isDragging.value = false;
       if (props.portModel.isInput) {
-        if(!portOut) return;
-        portOut.setTmpConnection(null);
+        // TODO
       } else {
-        props.portModel.setTmpConnection(null);
+        props.portModel.node.grid.resetTmpConnection(true);
       }
     }
-    //#endregion +++++ +++++ +++++
 
-    //#region +++++ Dropzone Handler +++++
-    function onDragEnter(event: InteractEvent) {
-      console.log("Hey");
-    }
     function onDrop(event: InteractEvent) {
-      if (!event.relatedTarget) return;
-
-      let portOut = props.portModel.node.grid.getPortByID(event.relatedTarget.id);
-      if (!portOut || !portOut.tmpConnection) return;
-
-      portOut.saveTmpConnection(props.portModel);
+      // event.target         = the Element on which it gets dropped
+      // event.relatedTarget  = the Element which dropped
+      if(props.portModel.node.grid.getPortByID(event.target.id)?.isInput){
+        props.portModel.node.grid.saveTmpConnection(undefined, event.target.id);
+      } else{
+        props.portModel.node.grid.resetTmpConnection(true);
+      }
     }
-    //#endregion +++++ +++++ +++++
 
     return {
       circlePosClass,
       portRef,
-      isDragging,
-      mousePosRel,
     };
   },
 });
