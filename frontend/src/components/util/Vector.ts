@@ -43,6 +43,10 @@ class Vector2 {
     return new Vector2(x, y);
   }
 
+  static dist(vector1: Vector2, vector2: Vector2): number {
+    return Math.sqrt(Math.pow(vector2.x - vector1.x, 2) + Math.pow(vector2.y - vector1.y, 2));
+  }
+
   toString(decimal = 2, separator = ", ") {
     return this.x.toFixed(decimal) + separator + this.y.toFixed(decimal);
   }
