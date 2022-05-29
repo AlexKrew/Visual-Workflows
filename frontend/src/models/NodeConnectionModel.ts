@@ -26,13 +26,15 @@ class NodeConnectionModel {
 
   getCurve(): BezierCurve {
     const pos1 = this.portOut?.gridPos;
+    let pos2 = new Vector2(0, 0);
+    let pos3 = new Vector2(0, 0);
     const pos4 = this.portIn ? this.portIn.gridPos : this.mousePos;
-    let pos2 = pos1;
-    let pos3 = pos4;
+
     if (pos4) {
-      const centerPoint = pos1.x + (pos4.x - pos1.x) / 2;
-      pos2 = new Vector2(centerPoint, pos1.y);
-      pos3 = new Vector2(centerPoint, pos4.y);
+      const dist = Vector2.dist(pos1, pos4);
+      const multi = 0.5 * dist;
+      pos2 = Vector2.add(pos1, new Vector2(multi, 0));
+      pos3 = Vector2.add(pos4, new Vector2(-multi, 0));
     }
     return new BezierCurve(pos1, pos2, pos3, pos4);
   }

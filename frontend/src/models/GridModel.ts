@@ -43,16 +43,12 @@ class GridModel {
     }
   }
 
-  getConnectionFromPortInID(id: string): NodePortModel | null {
-    for (const connection of this.connections) {
-      if (connection.portIn && connection.portIn.id == id) {
-        return connection.portIn;
-      }
-    }
-    return null;
+  getConnectionFromPortInID(id: string): NodeConnectionModel | undefined {
+    return this.connections.find((connection) => connection.portIn?.id == id);
   }
 
   resetTmpConnection(deleteConnection = false) {
+    if (this.tmpConnectionIndex < 0) return;
     if (deleteConnection) {
       this.connections.splice(this.tmpConnectionIndex, 1);
     }
@@ -69,6 +65,14 @@ class GridModel {
       }
     }
     this.resetTmpConnection(false);
+  }
+
+  connectionToTmp(connection: NodeConnectionModel) {
+    const index = this.connections.indexOf(connection);
+    if (index >= 0) {
+      this.tmpConnectionIndex = index;
+      connection.portIn = undefined;
+    }
   }
   //#endregion
 }

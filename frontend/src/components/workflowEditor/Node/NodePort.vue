@@ -56,7 +56,12 @@ export default defineComponent({
 
     function onDragStart(event: InteractEvent) {
       if (props.portModel.isInput) {
-        // TODO
+        const connection: NodeConnectionModel | undefined = props.portModel.node.grid.getConnectionFromPortInID(
+          props.portModel.id
+        );
+        if (connection) {
+          props.portModel.node.grid.connectionToTmp(connection);
+        }
       } else {
         props.portModel.node.grid.addConnection(
           new NodeConnectionModel(props.portModel, undefined, new Vector2(event.clientX, event.clientY)),
@@ -66,9 +71,7 @@ export default defineComponent({
     }
 
     function onDragMove(event: InteractEvent) {
-      if (props.portModel.isInput) {
-        // TODO
-      } else {
+      if (props.portModel.node.grid.tmpConnectionIndex >= 0) {
         props.portModel.node.grid.connections[props.portModel.node.grid.tmpConnectionIndex].setMousePos(
           new Vector2(event.clientX, event.clientY)
         );
@@ -76,19 +79,15 @@ export default defineComponent({
     }
 
     function onDragEnd(event: InteractEvent) {
-      if (props.portModel.isInput) {
-        // TODO
-      } else {
-        props.portModel.node.grid.resetTmpConnection(true);
-      }
+      props.portModel.node.grid.resetTmpConnection(true);
     }
 
     function onDrop(event: InteractEvent) {
       // event.target         = the Element on which it gets dropped
       // event.relatedTarget  = the Element which dropped
-      if(props.portModel.node.grid.getPortByID(event.target.id)?.isInput){
+      if (props.portModel.node.grid.getPortByID(event.target.id)?.isInput) {
         props.portModel.node.grid.saveTmpConnection(undefined, event.target.id);
-      } else{
+      } else {
         props.portModel.node.grid.resetTmpConnection(true);
       }
     }
