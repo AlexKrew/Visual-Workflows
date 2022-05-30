@@ -24,7 +24,7 @@ class GridModel {
     nodes.forEach((node) => this.nodes.push(node));
   }
 
-  getPortByID(id: string): NodePortModel | null {
+  getPortByID(id: string): NodePortModel | undefined {
     for (const node of this.nodes) {
       const port = node.getPortByID(id);
       if (port) {
@@ -32,7 +32,7 @@ class GridModel {
       }
     }
 
-    return null;
+    return undefined;
   }
 
   //#region +++++ Connections +++++
@@ -43,37 +43,54 @@ class GridModel {
     }
   }
 
-  getConnectionFromPortInID(id: string): NodeConnectionModel | undefined {
-    return this.connections.find((connection) => connection.portIn?.id == id);
+  deleteConnection(id: string) {
+    const index = this.getConnectionIndex(id);
+    if (index < 0) {
+      throw new Error(`Can not delete Connection: ${id}`);
+    }
+    if (index == this.tmpConnectionIndex) {
+      this.tmpConnectionIndex = -1;
+    }
+    this.connections.splice(index, 1);
   }
 
-  resetTmpConnection(deleteConnection = false) {
+  setTmp(id: string) {
+    this.tmpConnectionIndex = this.getConnectionIndex(id);
+  }
+
+  resetTmp(deleteConnection = false) {
     if (this.tmpConnectionIndex < 0) return;
     if (deleteConnection) {
-      this.connections.splice(this.tmpConnectionIndex, 1);
+      this.deleteConnection(this.connections[this.tmpConnectionIndex].id);
     }
     this.tmpConnectionIndex = -1;
   }
 
-  saveTmpConnection(portIn?: NodePortModel, portInID?: string) {
-    if (portIn) {
-      this.connections[this.tmpConnectionIndex].setPortIn(portIn);
-    } else if (portInID) {
-      const port = this.getPortByID(portInID);
-      if (port) {
-        this.connections[this.tmpConnectionIndex].setPortIn(port);
-      }
-    }
-    this.resetTmpConnection(false);
+  getConnection(connectionId?: string, portInId?: string): NodeConnectionModel {
+    const connection = this.connections[this.getConnectionIndex(connectionId, portInId)];
+    return connection;
   }
 
-  connectionToTmp(connection: NodeConnectionModel) {
-    const index = this.connections.indexOf(connection);
-    if (index >= 0) {
-      this.tmpConnectionIndex = index;
-      connection.portIn = undefined;
-    }
+  getTmpConnection(): NodeConnectionModel {
+    return this.connections[this.tmpConnectionIndex];
   }
+
+  private getConnectionIndex(connectionId?: string, portInId?: string) {
+    const index = this.connections.findIndex((connection) => {
+      if (connectionId) {
+        return connection.id == connectionId;
+      } else if (portInId) {
+        return connection.portIn?.id == portInId;
+      }
+      return false;
+    });
+
+    if (index < 0) {
+      throw new Error(`No Connection Index found with id: ${connectionId}, or portInID: ${portInId}`);
+    }
+    return index;
+  }
+
   //#endregion
 }
 

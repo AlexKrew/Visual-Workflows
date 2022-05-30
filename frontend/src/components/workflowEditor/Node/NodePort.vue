@@ -56,11 +56,13 @@ export default defineComponent({
 
     function onDragStart(event: InteractEvent) {
       if (props.portModel.isInput) {
-        const connection: NodeConnectionModel | undefined = props.portModel.node.grid.getConnectionFromPortInID(
+        const connection: NodeConnectionModel | undefined = props.portModel.node.grid.getConnection(
+          undefined,
           props.portModel.id
         );
         if (connection) {
-          props.portModel.node.grid.connectionToTmp(connection);
+          connection.setPortIn(undefined);
+          props.portModel.node.grid.setTmp(connection.id);
         }
       } else {
         props.portModel.node.grid.addConnection(
@@ -79,16 +81,18 @@ export default defineComponent({
     }
 
     function onDragEnd(event: InteractEvent) {
-      props.portModel.node.grid.resetTmpConnection(true);
+      props.portModel.node.grid.resetTmp(true);
     }
 
     function onDrop(event: InteractEvent) {
       // event.target         = the Element on which it gets dropped
       // event.relatedTarget  = the Element which dropped
       if (props.portModel.node.grid.getPortByID(event.target.id)?.isInput) {
-        props.portModel.node.grid.saveTmpConnection(undefined, event.target.id);
+        const connection = props.portModel.node.grid.getTmpConnection();
+        connection.setPortIn(props.portModel.node.grid.getPortByID(event.target.id));
+        props.portModel.node.grid.resetTmp();
       } else {
-        props.portModel.node.grid.resetTmpConnection(true);
+        props.portModel.node.grid.resetTmp(true);
       }
     }
 
