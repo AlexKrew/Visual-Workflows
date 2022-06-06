@@ -26,6 +26,7 @@ func StartServer() {
 	// Register services / routes
 	registerHealthServices(v1)
 	registerDashboardServices(v1)
+	registerWorkflowServices(v1)
 
 	// Setup swagger api documentation
 	docs.SwaggerInfo.BasePath = "/api/v1"
