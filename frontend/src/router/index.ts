@@ -1,18 +1,22 @@
+import MainLayout from "@/layouts/MainLayout.vue";
+import IndexView from "@/views/IndexView.vue";
 import WorkflowEditorView from "@/views/WorkflowEditorView.vue";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
-    name: "home",
-    redirect: () => {
-      return { path: "/workflow-editor" };
-    },
+    path: '/',
+    component: MainLayout,
+    children: [
+      { path: '/', redirect: {name: 'home'} },
+      { path: 'overview', name: 'home', component: IndexView }
+    ]
   },
   {
-    path: "/workflow-editor",
-    name: "Workflow Editor",
+    path: "/workflow-editor/:workflowId",
+    name: "workflow-editor",
     component: WorkflowEditorView,
+    props: true,
   },
 ];
 
