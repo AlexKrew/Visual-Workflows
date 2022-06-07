@@ -54,9 +54,10 @@
 </template>
 
 <script lang="ts">
-import WorkflowListItem from "@/components/Overview/WorkflowListItem.vue"
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import WorkflowListItem from "@/components/Overview/WorkflowListItem.vue"
+import { workflowInstancesService } from '@/api';
 
 type Workflow = {
   id: string;
@@ -73,8 +74,8 @@ export enum WorkflowStatus {
   ShuttingDown = "shuttingdown",
 }
 const _workflows: Workflow[] = [
-  {id: 'wf1', name: 'The first workflow', status: WorkflowStatus.Loaded},
-  {id: 'wf2', name: 'Some other workflow', status: WorkflowStatus.Running}
+  { id: 'wf1', name: 'The first workflow', status: WorkflowStatus.Loaded },
+  { id: 'wf2', name: 'Some other workflow', status: WorkflowStatus.Running }
 ]
 
 export default {
@@ -86,6 +87,8 @@ export default {
 
     const workflows = ref<Workflow[]>(_workflows)
     const searchWorkflow = ref<string>('');
+
+    workflowInstancesService.getWorkflows()
 
     const filterWorkflows = (workflow: Workflow) => {
       return searchWorkflow.value === '' || workflow.name.toLowerCase().includes(searchWorkflow.value.toLowerCase())

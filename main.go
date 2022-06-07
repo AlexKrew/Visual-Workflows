@@ -7,8 +7,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello from main")
-
+	fmt.Println("Starting the server...")
 	server.StartServer()
 
 	// runtime := runtime.ConstructRuntime()
