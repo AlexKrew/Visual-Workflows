@@ -1,3 +1,4 @@
+import { WorkflowInfo } from "./dtos/WorkflowInfo";
 import { HTTP } from "./http/http_common";
 
 export interface WorkflowInstancesService {
@@ -12,29 +13,40 @@ export interface WorkflowInstancesService {
 
 export class WorkflowInstancesServiceImpl implements WorkflowInstancesService {
 
-  public async getWorkflows(): Promise<any> {
-      HTTP.get('/workflows')
-      .then(response => {
-        console.log("GET /workflows response:", response)
-      })
-      .catch(err => {
-        console.log("Failed to GET /workflows", err)
-      })
+  public async getWorkflows(): Promise<WorkflowInfo[]> {
+    try {
+      const response = await HTTP.get('/workflows')
+      console.log("GET /workflows response:", response)
+
+      const workflowInfos: WorkflowInfo[] = []
+
+      const data = response.data as unknown[];
+      for(const entry of data) {
+        const info = WorkflowInfo.fromJSON(entry)
+        workflowInfos.push(info)
+      }
+
+      return workflowInfos
+
+    } catch(err) {
+      console.log("Failed to GET /workflows", err)
+      return []
+    }
   }
 
   public async loadWorkflow(id: string): Promise<any> {
-      return null;
+    return null;
   }
 
   public async startWorkflow(id: string): Promise<any> {
-      return null;
+    return null;
   }
 
   public async stopWorkflow(id: string): Promise<any> {
-      return null;
+    return null;
   }
 
   public async shutdownWorkflow(id: string): Promise<any> {
-      return null;
+    return null;
   }
 }

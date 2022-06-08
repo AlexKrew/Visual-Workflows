@@ -31,8 +31,8 @@
 <script lang="ts">
 import { PropType, computed } from 'vue'
 import IconButton from "../IconButton.vue"
-import { WorkflowStatus } from '@/views/IndexView.vue'
 import { UploadIcon, PlayIcon, PauseIcon, ArchiveIcon } from "@heroicons/vue/solid"
+import { WorkflowStatus } from '@/api/dtos/WorkflowInfo';
 
 export default {
   emits: ['clickLoad', 'clickStart', 'clickStop', 'clickShutdown'],

@@ -58,25 +58,12 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import WorkflowListItem from "@/components/Overview/WorkflowListItem.vue"
 import { workflowInstancesService } from '@/api';
+import { WorkflowInfo } from '@/api/dtos/WorkflowInfo';
 
-type Workflow = {
-  id: string;
-  name: string;
-  status: WorkflowStatus;
-}
-export enum WorkflowStatus {
-  ShutDown = "shutdown",
-  Loading = "loading",
-  Loaded = "loaded",
-  Running = "running",
-  Stopping = "stopping",
-  Stopped = "stopped",
-  ShuttingDown = "shuttingdown",
-}
-const _workflows: Workflow[] = [
-  { id: 'wf1', name: 'The first workflow', status: WorkflowStatus.Loaded },
-  { id: 'wf2', name: 'Some other workflow', status: WorkflowStatus.Running }
-]
+// const _workflows: WorkflowInfo[] = [
+//   { id: 'wf1', name: 'The first workflow', status: WorkflowStatus.Loaded },
+//   { id: 'wf2', name: 'Some other workflow', status: WorkflowStatus.Running }
+// ]
 
 export default {
   components: {
@@ -85,12 +72,17 @@ export default {
   setup() {
     const router = useRouter()
 
-    const workflows = ref<Workflow[]>(_workflows)
+    const workflows = ref<WorkflowInfo[]>()
     const searchWorkflow = ref<string>('');
 
     workflowInstancesService.getWorkflows()
 
-    const filterWorkflows = (workflow: Workflow) => {
+    const fetchWorkflows = async () => {
+      const wfInfos = await workflowInstancesService.getWorkflows()
+      workflows.value = wfInfos;
+    }
+
+    const filterWorkflows = (workflow: WorkflowInfo) => {
       return searchWorkflow.value === '' || workflow.name.toLowerCase().includes(searchWorkflow.value.toLowerCase())
     }
 
@@ -100,6 +92,8 @@ export default {
         params: { workflowId }
       });
     }
+
+    fetchWorkflows()
 
     return {
       workflows,
