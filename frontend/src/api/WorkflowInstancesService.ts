@@ -32,6 +32,15 @@ export class WorkflowInstancesServiceImpl implements WorkflowInstancesService {
     }
   }
 
+  public async createWorkflow(name: string): Promise<any> {
+    try {
+      const response = await HTTP.post('/workflows/new', {name})
+      console.log("Response", response)
+    } catch(err) {
+      return err
+    }
+  }
+
   public async loadWorkflow(id: string): Promise<any> {
     return null;
   }

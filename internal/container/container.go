@@ -21,6 +21,12 @@ func Construct() WorkflowContainer {
 	return container
 }
 
+/* Use Cases */
+
+func (container *WorkflowContainer) CreateWorkflow(props storage.CreateWorkflowProps) (string, error) {
+	return storage.CreaeteWorkflow(props)
+}
+
 /* Storage */
 
 func (container *WorkflowContainer) GetAvailableWorkflows() ([]storage.WorkflowInfo, error) {
