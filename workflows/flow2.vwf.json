@@ -1,0 +1,52 @@
+{
+  "id": "flow2",
+  "name": "The second workflow",
+  "nodes": {
+    "node0": {
+      "id": "node0",
+      "type": "inject",
+      "label": "Inject",
+      "name": "",
+      "category": "core",
+      "inports": {},
+      "outports": {
+        "output": {
+          "label": "Output",
+          "type": "ANY"
+        }
+      }
+    },
+    "node1": {
+      "id": "node1",
+      "type": "debug",
+      "label": "Debug",
+      "name": "",
+      "category": "core",
+      "inports": {
+        "input": {
+          "label": "Input",
+          "type": "ANY"
+        }
+      },
+      "outports": {
+        "output": {
+          "label": "Output",
+          "type": "ANY"
+        }
+      }
+    }
+  },
+  "edges": {
+    "edge0-1": {
+      "id": "edge0-1",
+      "origin": {
+        "node": "node0",
+        "port": "output"
+      },
+      "target": {
+        "node": "node1",
+        "port": "input"
+      }
+    }
+  }
+}

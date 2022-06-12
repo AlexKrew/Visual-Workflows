@@ -17,7 +17,7 @@ type Runtime struct {
 }
 
 // Initialize prepares the runtime element for handling workflows
-func ConstructRuntime() Runtime {
+func Construct() (Runtime, error) {
 
 	rt := Runtime{}
 	rt.Initialized = false
@@ -26,13 +26,13 @@ func ConstructRuntime() Runtime {
 
 	err := rt.loadKnownNodes()
 	if err != nil {
-		panic("Failed to initialize runtime")
+		return Runtime{}, err
 	}
 
 	rt.Initialized = true
 	fmt.Println("Runtime initialized")
 
-	return rt
+	return rt, nil
 }
 
 func (rt *Runtime) loadKnownNodes() error {
