@@ -9,8 +9,6 @@ export interface WorkflowInstancesService {
   shutdownWorkflow(id: string): Promise<any>;
 }
 
-// TODO: add and setup axios
-
 export class WorkflowInstancesServiceImpl implements WorkflowInstancesService {
 
   public async getWorkflows(): Promise<WorkflowInfo[]> {

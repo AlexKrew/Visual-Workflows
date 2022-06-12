@@ -15,6 +15,7 @@
           <button
             type="button"
             class="ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            @click="showCreateWorkflowModal = true"
           >
             Create a new Workflow
           </button>
@@ -50,6 +51,13 @@
         </div>
       </div>
     </div>
+
+    <ModalContainer v-model="showCreateWorkflowModal">
+      <CreateWorkflowModal
+        @action="createNewWorkflow"
+        @cancel="showCreateWorkflowModal = false"
+      />
+    </ModalContainer>
   </main>
 </template>
 
@@ -59,6 +67,9 @@ import { useRouter } from "vue-router";
 import WorkflowListItem from "@/components/Overview/WorkflowListItem.vue"
 import { workflowInstancesService } from '@/api';
 import { WorkflowInfo } from '@/api/dtos/WorkflowInfo';
+import ModalContainer from '../components/common/ModalContainer.vue';
+import CreateWorkflowModal from '../components/Overview/CreateWorkflowModal.vue';
+import { CreateNewWorkflowProps } from "../components/Overview/types";
 
 // const _workflows: WorkflowInfo[] = [
 //   { id: 'wf1', name: 'The first workflow', status: WorkflowStatus.Loaded },
@@ -67,8 +78,10 @@ import { WorkflowInfo } from '@/api/dtos/WorkflowInfo';
 
 export default {
   components: {
-    WorkflowListItem
-  },
+    WorkflowListItem,
+    ModalContainer,
+    CreateWorkflowModal,
+},
   setup() {
     const router = useRouter()
 
@@ -95,6 +108,14 @@ export default {
 
     fetchWorkflows()
 
+    // -- Create Workflow Modal --
+    const showCreateWorkflowModal = ref(false);
+
+    const createNewWorkflow = (props: CreateNewWorkflowProps) => {
+      console.log("Create new worklow", props);
+      showCreateWorkflowModal.value = false;
+    }
+
     return {
       workflows,
 
@@ -102,6 +123,9 @@ export default {
       filterWorkflows,
 
       openEditor,
+
+      showCreateWorkflowModal,
+      createNewWorkflow,
     }
   }
 }
