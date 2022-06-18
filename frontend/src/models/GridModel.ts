@@ -6,6 +6,7 @@ import NodePortModel from "./NodePortModel";
 class GridModel {
   posAbs: Vector2;
   cellSize: number;
+
   nodes: NodeModel[] = [];
   connections: NodeConnectionModel[] = [];
   tmpConnectionIndex = -1; // the Connection that is currently dragged
@@ -16,16 +17,32 @@ class GridModel {
     nodes.forEach((node) => this.addNodes(node));
   }
 
-  addPos(posAbs: Vector2) {
-    this.posAbs.addVector(posAbs);
+  //#region Position
+  setPos(pos: Vector2) {
+    this.posAbs = pos;
     this.nodes.forEach((node) => node.updatePos());
   }
 
+  addPos(pos: Vector2) {
+    this.setPos(Vector2.add(this.posAbs, pos));
+  }
+  //#endregion
+
+  //#region Nodes and Ports
   addNodes(...nodes: NodeModel[]) {
     nodes.forEach((node) => {
       this.nodes.push(node);
       node.setGrid(this);
     });
+  }
+
+  removeNodes(...nodeID: string[]) {
+    //TODO
+  }
+
+  getNodeByID(nodeID: string): NodeModel | undefined {
+    //TODO
+    return undefined;
   }
 
   getPortByID(id: string): NodePortModel | undefined {
@@ -38,8 +55,9 @@ class GridModel {
 
     return undefined;
   }
+  //#endregion
 
-  //#region +++++ Connections +++++
+  //#region Connections
   addConnection(connection: NodeConnectionModel, isTmp = false) {
     this.connections.push(connection);
     if (isTmp) {

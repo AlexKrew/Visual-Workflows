@@ -32,7 +32,7 @@ export default defineComponent({
     const portRef = ref<HTMLInputElement>();
 
     onMounted(() => {
-      if (!props.portModel.node.grid) return;
+      if (!props.portModel.node?.grid) return;
       setPortPos();
       interact(`#${props.portModel.id}`)
         .draggable({})
@@ -45,7 +45,7 @@ export default defineComponent({
     });
 
     function setPortPos() {
-      if (!props.portModel.node.grid) return;
+      if (!props.portModel.node?.grid) return;
       if (portRef.value) {
         const rect: DOMRect = portRef.value.getBoundingClientRect();
 
@@ -57,7 +57,7 @@ export default defineComponent({
     }
 
     function onDragStart(event: InteractEvent) {
-      if (!props.portModel.node.grid) return;
+      if (!props.portModel.node?.grid) return;
       if (props.portModel.isInput) {
         const connection: NodeConnectionModel | undefined = props.portModel.node.grid.getConnection(
           undefined,
@@ -76,7 +76,7 @@ export default defineComponent({
     }
 
     function onDragMove(event: InteractEvent) {
-      if (!props.portModel.node.grid) return;
+      if (!props.portModel.node?.grid) return;
       if (props.portModel.node.grid.tmpConnectionIndex >= 0) {
         props.portModel.node.grid.connections[props.portModel.node.grid.tmpConnectionIndex].setMousePos(
           new Vector2(event.clientX, event.clientY)
@@ -85,12 +85,12 @@ export default defineComponent({
     }
 
     function onDragEnd(event: InteractEvent) {
-      if (!props.portModel.node.grid) return;
+      if (!props.portModel.node?.grid) return;
       props.portModel.node.grid.resetTmp(true);
     }
 
     function onDrop(event: InteractEvent) {
-      if (!props.portModel.node.grid) return;
+      if (!props.portModel.node?.grid) return;
       // event.target         = the Element on which it gets dropped
       // event.relatedTarget  = the Element which dropped
       if (props.portModel.node.grid.getPortByID(event.target.id)?.isInput) {

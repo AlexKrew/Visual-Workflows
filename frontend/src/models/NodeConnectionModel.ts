@@ -17,7 +17,7 @@ class NodeConnectionModel {
   }
 
   setMousePos(pos: Vector2) {
-    if (!this.portOut.node.grid) return;
+    if (!this.portOut.node?.grid) return;
     this.mousePos = Vector2.subtract(pos, this.portOut.node.grid.posAbs);
   }
 
