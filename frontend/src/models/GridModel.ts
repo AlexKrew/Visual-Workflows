@@ -1,61 +1,37 @@
 import Vector2 from "@/components/util/Vector";
+import EditorComponent from "./EditorComponent";
 import NodeConnectionModel from "./NodeConnectionModel";
 import NodeModel from "./NodeModel";
 import NodePortModel from "./NodePortModel";
 
-class GridModel {
-  posAbs: Vector2;
+class GridModel extends EditorComponent {
   cellSize: number;
 
-  nodes: NodeModel[] = [];
   connections: NodeConnectionModel[] = [];
   tmpConnectionIndex = -1; // the Connection that is currently dragged
 
-  constructor(cellSize = 10, posAbs = new Vector2(0, 0), ...nodes: NodeModel[]) {
-    this.posAbs = posAbs;
+  constructor(cellSize = 10, posRel = new Vector2(0, 0), ...nodes: NodeModel[]) {
+    super("GridID", "Grid");
+    this.posRel = posRel;
     this.cellSize = cellSize;
-    nodes.forEach((node) => this.addNodes(node));
+    nodes.forEach((node) => this.addChildren(node));
   }
 
-  //#region Position
-  setPos(pos: Vector2) {
-    this.posAbs = pos;
-    this.nodes.forEach((node) => node.updatePos());
+  updatePos(): void {
+    this.children.forEach((child) => child.updatePos);
   }
 
-  addPos(pos: Vector2) {
-    this.setPos(Vector2.add(this.posAbs, pos));
-  }
-  //#endregion
-
-  //#region Nodes and Ports
-  addNodes(...nodes: NodeModel[]) {
-    nodes.forEach((node) => {
-      this.nodes.push(node);
-      node.setGrid(this);
-    });
-  }
-
-  removeNodes(...nodeID: string[]) {
-    //TODO
-  }
-
-  getNodeByID(nodeID: string): NodeModel | undefined {
-    //TODO
-    return undefined;
-  }
-
+  // Can be integrated in EditorComponent recursive
   getPortByID(id: string): NodePortModel | undefined {
-    for (const node of this.nodes) {
-      const port = node.getPortByID(id);
+    for (const node of this.children) {
+      const port = node.getChildById(id);
       if (port) {
-        return port;
+        return port as NodePortModel;
       }
     }
 
     return undefined;
   }
-  //#endregion
 
   //#region Connections
   addConnection(connection: NodeConnectionModel, isTmp = false) {

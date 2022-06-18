@@ -17,8 +17,8 @@ class NodeConnectionModel {
   }
 
   setMousePos(pos: Vector2) {
-    if (!this.portOut.node?.grid) return;
-    this.mousePos = Vector2.subtract(pos, this.portOut.node.grid.posAbs);
+    if (!this.portOut.parent?.parent) return;
+    this.mousePos = Vector2.subtract(pos, this.portOut.parent.parent.posRel);
   }
 
   setPortIn(port: NodePortModel | undefined) {
@@ -26,10 +26,10 @@ class NodeConnectionModel {
   }
 
   getCurve(): BezierCurve {
-    const pos1 = this.portOut?.gridPos;
+    const pos1 = this.portOut?.posGrid;
     let pos2 = new Vector2(0, 0);
     let pos3 = new Vector2(0, 0);
-    const pos4 = this.portIn ? this.portIn.gridPos : this.mousePos;
+    const pos4 = this.portIn ? this.portIn.posGrid : this.mousePos;
 
     if (pos4) {
       const dist = Vector2.dist(pos1, pos4);

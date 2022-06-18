@@ -13,7 +13,9 @@
 
 <script lang="ts">
 import Vector2 from "@/components/util/Vector";
+import GridModel from "@/models/GridModel";
 import NodeConnectionModel from "@/models/NodeConnectionModel";
+import NodeModel from "@/models/NodeModel";
 import NodePortModel from "@/models/NodePortModel";
 import { InteractEvent } from "@interactjs/types";
 import interact from "interactjs";
@@ -30,9 +32,11 @@ export default defineComponent({
   setup(props) {
     let circlePosClass = props.portModel.isInput ? "" : "absolute right-0";
     const portRef = ref<HTMLInputElement>();
+    const node = props.portModel.parent as NodeModel;
+    const grid = props.portModel.parent?.parent as GridModel;
 
     onMounted(() => {
-      if (!props.portModel.node?.grid) return;
+      if (!props.portModel.parent?.parent) return;
       setPortPos();
       interact(`#${props.portModel.id}`)
         .draggable({})
@@ -45,30 +49,25 @@ export default defineComponent({
     });
 
     function setPortPos() {
-      if (!props.portModel.node?.grid) return;
-      if (portRef.value) {
-        const rect: DOMRect = portRef.value.getBoundingClientRect();
+      if (!grid || !node || !portRef.value) return;
+      const rect: DOMRect = portRef.value.getBoundingClientRect();
 
-        const posAbs = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
-        const pos = Vector2.subtract(posAbs, props.portModel.node.gridPos, props.portModel.node.grid.posAbs);
+      const posAbs = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
+      const pos = Vector2.subtract(posAbs, node.posGrid, grid.posRel);
 
-        props.portModel.setPos(pos);
-      }
+      props.portModel.setPos(pos);
     }
 
     function onDragStart(event: InteractEvent) {
-      if (!props.portModel.node?.grid) return;
+      if (!grid) return;
       if (props.portModel.isInput) {
-        const connection: NodeConnectionModel | undefined = props.portModel.node.grid.getConnection(
-          undefined,
-          props.portModel.id
-        );
+        const connection: NodeConnectionModel | undefined = grid.getConnection(undefined, props.portModel.id);
         if (connection) {
           connection.setPortIn(undefined);
-          props.portModel.node.grid.setTmp(connection.id);
+          grid.setTmp(connection.id);
         }
       } else {
-        props.portModel.node.grid.addConnection(
+        (grid as GridModel).addConnection(
           new NodeConnectionModel(props.portModel, undefined, new Vector2(event.clientX, event.clientY)),
           true
         );
@@ -76,29 +75,27 @@ export default defineComponent({
     }
 
     function onDragMove(event: InteractEvent) {
-      if (!props.portModel.node?.grid) return;
-      if (props.portModel.node.grid.tmpConnectionIndex >= 0) {
-        props.portModel.node.grid.connections[props.portModel.node.grid.tmpConnectionIndex].setMousePos(
-          new Vector2(event.clientX, event.clientY)
-        );
+      if (!grid) return;
+      if (grid.tmpConnectionIndex >= 0) {
+        grid.connections[grid.tmpConnectionIndex].setMousePos(new Vector2(event.clientX, event.clientY));
       }
     }
 
     function onDragEnd() {
-      if (!props.portModel.node?.grid) return;
-      props.portModel.node.grid.resetTmp(true);
+      if (!props.portModel.parent?.parent) return;
+      grid.resetTmp(true);
     }
 
     function onDrop(event: InteractEvent) {
-      if (!props.portModel.node?.grid) return;
+      if (!grid) return;
       // event.target         = the Element on which it gets dropped
       // event.relatedTarget  = the Element which dropped
-      if (props.portModel.node.grid.getPortByID(event.target.id)?.isInput) {
-        const connection = props.portModel.node.grid.getTmpConnection();
-        connection.setPortIn(props.portModel.node.grid.getPortByID(event.target.id));
-        props.portModel.node.grid.resetTmp();
+      if (grid.getPortByID(event.target.id)?.isInput) {
+        const connection = grid.getTmpConnection();
+        connection.setPortIn(grid.getPortByID(event.target.id));
+        grid.resetTmp();
       } else {
-        props.portModel.node.grid.resetTmp(true);
+        grid.resetTmp(true);
       }
     }
 
