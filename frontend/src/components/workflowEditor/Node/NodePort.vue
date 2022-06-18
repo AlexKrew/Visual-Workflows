@@ -84,7 +84,7 @@ export default defineComponent({
       }
     }
 
-    function onDragEnd(event: InteractEvent) {
+    function onDragEnd() {
       if (!props.portModel.node?.grid) return;
       props.portModel.node.grid.resetTmp(true);
     }

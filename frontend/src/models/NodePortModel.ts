@@ -1,5 +1,4 @@
 import Vector2 from "@/components/util/Vector";
-import NodeConnectionModel from "./NodeConnectionModel";
 import NodeModel from "./NodeModel";
 
 class NodePortModel {

@@ -31,7 +31,7 @@ export default defineComponent({
     NodeConnection,
   },
   setup() {
-    const grid = ref<GridModel>(TestModels.getGrid());
+    const grid = ref<GridModel>(TestModels.grid);
 
     onMounted(() => {
       interact("#EditorGrid").draggable({}).on("dragmove", onDragMove);

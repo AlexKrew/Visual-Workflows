@@ -4,35 +4,34 @@ import NodeModel from "./NodeModel";
 import NodePortModel from "./NodePortModel";
 
 class TestModels {
-  static getGrid(): GridModel {
-    const grid = new GridModel(
-      20,
-      new Vector2(200, 20),
-      new NodeModel(
-        "N100",
-        "Node1",
-        new Vector2(200, 100),
-        new NodePortModel("P101", "Port 1", true),
-        new NodePortModel("P102", "Port 2", false)
-      ),
-      new NodeModel(
-        "N200",
-        "Node2",
-        new Vector2(200, 200),
-        new NodePortModel("P201", "Port 1", true),
-        new NodePortModel("P202", "Port 2", true)
-      ),
-      new NodeModel(
-        "N300",
-        "Node3",
-        new Vector2(200, 300),
-        new NodePortModel("P301", "Port 1", false),
-        new NodePortModel("P302", "Port 2", false)
-      )
-    );
+  // Nodes
+  static nodes = [
+    new NodeModel(
+      "N100",
+      "HTTP Request",
+      new NodePortModel("P100", "Method", true),
+      new NodePortModel("P101", "URL", true),
+      new NodePortModel("P102", "Payload", true),
+      new NodePortModel("P103", "Response", false),
+      new NodePortModel("P104", "Response Code", false)
+    ),
+    new NodeModel("N200", "Debug", new NodePortModel("P200", "Input", true)),
+    new NodeModel(
+      "N300",
+      "Mail",
+      new NodePortModel("P300", "E-Mail", true),
+      new NodePortModel("P301", "Message", true)
+    ),
+  ];
 
-    return grid;
-  }
+  // Grid
+  static readonly grid = new GridModel(
+    20,
+    new Vector2(200, 20),
+    TestModels.nodes[0],
+    TestModels.nodes[1],
+    TestModels.nodes[2]
+  );
 }
 
 export default TestModels;

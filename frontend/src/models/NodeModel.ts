@@ -14,10 +14,9 @@ class NodeModel {
   posAbs: Vector2 = new Vector2(0, 0); // Absolute Pos
   gridPos: Vector2 = new Vector2(0, 0); // Pos relative to Grid with GridSnap
 
-  constructor(id: string, title = "New Node", pos = new Vector2(0, 0), ...ports: NodePortModel[]) {
+  constructor(id: string, title = "New Node", ...ports: NodePortModel[]) {
     this.id = id;
     this.title = title;
-    this.setPos(pos);
     ports.forEach((port) => this.addPort(port));
   }
 
