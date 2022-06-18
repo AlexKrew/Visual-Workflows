@@ -6,34 +6,41 @@ import InteractUtil from "@/components/util/InteractUtil";
 class NodeModel {
   id: string;
   title: string;
-  grid: GridModel; // Parent Grid
+
+  grid: GridModel | undefined; // Parent Grid
+  ports: NodePortModel[] = [];
+
   pos: Vector2 = new Vector2(0, 0); // Pos relative to Parent
   posAbs: Vector2 = new Vector2(0, 0); // Absolute Pos
   gridPos: Vector2 = new Vector2(0, 0); // Pos relative to Grid with GridSnap
-  ports: NodePortModel[] = [];
 
-  constructor(id: string, title = "New Node", grid: GridModel, pos = new Vector2(0, 0)) {
+  constructor(id: string, title = "New Node", pos = new Vector2(0, 0)) {
     this.id = id;
     this.title = title;
-    this.grid = grid;
-    this.changePos(pos);
+    this.setPos(pos);
   }
 
-  changePos(pos: Vector2) {
+  setGrid(grid: GridModel) {
+    this.grid = grid;
+    this.updatePos();
+  }
+
+  //#region Position
+  setPos(pos: Vector2) {
     this.pos = pos;
     this.updatePos();
   }
 
-  addPos(pos: Vector2) {
-    this.changePos(Vector2.add(this.pos, pos));
-  }
-
   updatePos() {
-    this.posAbs = Vector2.add(this.pos, this.grid.posAbs);
-    this.gridPos = InteractUtil.posToGridPos(this.pos, this.grid.cellSize);
-    this.ports.forEach((port) => port.updatePos());
+    if (this.grid) {
+      this.posAbs = Vector2.add(this.pos, this.grid.posAbs);
+      this.gridPos = InteractUtil.posToGridPos(this.pos, this.grid.cellSize);
+      this.ports.forEach((port) => port.updatePos());
+    }
   }
+  //#endregion
 
+  //#region Ports
   addPorts(...ports: NodePortModel[]) {
     ports.forEach((port) => this.ports.push(port));
   }
@@ -46,6 +53,7 @@ class NodeModel {
     }
     return null;
   }
+  //#endregion
 }
 
 export default NodeModel;

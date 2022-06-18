@@ -35,7 +35,7 @@ export default defineComponent({
     });
 
     function onDragMove(event: InteractEvent) {
-      props.nodeModel.addPos(new Vector2(event.dx, event.dy));
+      props.nodeModel.setPos(Vector2.add(props.nodeModel.pos, new Vector2(event.dx, event.dy)));
     }
   },
 });

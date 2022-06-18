@@ -25,8 +25,10 @@ class NodePortModel {
   }
 
   updatePos() {
-    this.gridPos = Vector2.add(this.pos, this.node.gridPos);
-    this.posAbs = Vector2.add(this.gridPos, this.node.grid.posAbs);
+    if (this.node.grid) {
+      this.gridPos = Vector2.add(this.pos, this.node.gridPos);
+      this.posAbs = Vector2.add(this.gridPos, this.node.grid.posAbs);
+    }
   }
 }
 

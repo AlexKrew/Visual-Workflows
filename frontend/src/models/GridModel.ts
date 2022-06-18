@@ -10,9 +10,10 @@ class GridModel {
   connections: NodeConnectionModel[] = [];
   tmpConnectionIndex = -1; // the Connection that is currently dragged
 
-  constructor(cellSize = 10, posAbs = new Vector2(0, 0)) {
+  constructor(cellSize = 10, posAbs = new Vector2(0, 0), ...nodes: NodeModel[]) {
     this.posAbs = posAbs;
     this.cellSize = cellSize;
+    nodes.forEach((node) => this.addNodes(node));
   }
 
   addPos(posAbs: Vector2) {
@@ -21,7 +22,10 @@ class GridModel {
   }
 
   addNodes(...nodes: NodeModel[]) {
-    nodes.forEach((node) => this.nodes.push(node));
+    nodes.forEach((node) => {
+      this.nodes.push(node);
+      node.setGrid(this);
+    });
   }
 
   getPortByID(id: string): NodePortModel | undefined {
