@@ -3,7 +3,7 @@
     <Card>
       <h2 class="text-center">{{nodeModel.title}}</h2>
       <div class="w-full" v-for="port in nodeModel.children" :key="port.id">
-        <NodeConnector :port-model="port" />
+        <NodePort :port-model="(port as NodePortModel)" />
       </div>
     </Card>
   </div>
@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import Card from "@/components/util/CardComponent.vue";
-import NodeConnector from "./NodePort.vue";
+import NodePort from "./NodePort.vue";
 import { defineComponent, onMounted } from "vue";
 import NodeModel from "@/models/NodeModel";
 import interact from "interactjs";
@@ -21,7 +21,7 @@ import { InteractEvent } from "@interactjs/types";
 export default defineComponent({
   components: {
     Card,
-    NodeConnector,
+    NodePort,
   },
   props: {
     nodeModel: {
