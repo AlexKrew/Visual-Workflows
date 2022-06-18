@@ -58,12 +58,12 @@
 </template>
 
 <script lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, defineComponent } from "vue";
 import { DialogPanel, DialogTitle, TransitionChild } from '@headlessui/vue'
 import { PlusCircleIcon } from '@heroicons/vue/outline'
 import { CreateNewWorkflowProps } from './types';
 
-export default {
+export default defineComponent({
   components: {
     DialogPanel,
     DialogTitle,
@@ -105,5 +105,5 @@ export default {
       onCancel,
     }
   }
-}
+})
 </script>
