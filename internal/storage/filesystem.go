@@ -3,14 +3,77 @@ package storage
 import (
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"visualWorkflows/internal/entities"
 )
 
-var pathToWorkflows string = "/workspaces/Visual-Workflows/workflows"
-var pathToNodes string = "/workspaces/Visual-Workflows/nodes"
+var (
+	// 	pathToWorkflowTemplates string = "/workspaces/Visual-Workflows/workflow-templates"
+	pathToWorkflows string = "/workspaces/Visual-Workflows/workflows"
+	pathToNodes     string = "/workspaces/Visual-Workflows/nodes"
+)
+
+var (
+	workflowFileSuffix = ".vwf.json"
+)
+
+// GetAvailableWorkflows reads all '.vwf.json' files inside the [pathToWorkflowTemplates] directory.
+func GetAvailableWorkflows() ([]WorkflowInfo, error) {
+	allFiles, err := os.ReadDir(pathToWorkflows)
+	if err != nil {
+		return []WorkflowInfo{}, err
+	}
+
+	infos := []WorkflowInfo{}
+
+	for _, entry := range allFiles {
+
+		if !isWorkflowFile(entry) {
+			continue
+		}
+
+		filename := fmt.Sprintf("%s/%s", pathToWorkflows, entry.Name())
+		workflowInfo, err := extractWorkflowInformation(filename)
+		if err != nil {
+			return []WorkflowInfo{}, err
+		}
+
+		infos = append(infos, workflowInfo)
+	}
+
+	return infos, nil
+}
+
+func isWorkflowFile(entry fs.DirEntry) bool {
+
+	if entry.IsDir() {
+		return false
+	}
+
+	if !strings.HasSuffix(entry.Name(), workflowFileSuffix) {
+		return false
+	}
+
+	return true
+}
+
+func extractWorkflowInformation(filename string) (WorkflowInfo, error) {
+
+	var info WorkflowInfo
+
+	byteValue, err := os.ReadFile(filename)
+	if err != nil {
+		return info, err
+	}
+
+	json.Unmarshal(byteValue, &info)
+
+	return info, nil
+}
 
 func LoadWorkflowDefinition(workflowID string) (entities.Workflow, error) {
 	fmt.Println("Reading the workflow from file")

@@ -2,15 +2,20 @@ package main
 
 import (
 	"fmt"
+	"visualWorkflows/internal/container"
 	"visualWorkflows/server"
-	// "visualWorkflows/internal/runtime"
 )
 
 func main() {
-	fmt.Println("Hello from main")
+	fmt.Println("Starting the server...")
 
-	server.StartServer()
+	runtimeContainer := container.Construct()
 
-	// runtime := runtime.ConstructRuntime()
-	// runtime.ExecuteWorkflow("flow1")
+	// availableWorkflows, err := storage.GetAvailableWorkflows()
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// fmt.Println("Available Workflows", availableWorkflows)
+
+	server.StartServer(&runtimeContainer)
 }
