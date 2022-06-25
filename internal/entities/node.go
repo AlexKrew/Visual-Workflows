@@ -1,42 +1,32 @@
 package entities
 
-import "fmt"
+type NodeID = string
 
 type Node struct {
-	ID       string                       `json:"id"`
-	Name     string                       `json:"name"`
-	Type     string                       `json:"type"`
-	Category string                       `json:"category"`
-	InPorts  map[PortID]PortConfiguration `json:"inports"`
-	OutPorts map[PortID]PortConfiguration `json:"outports"`
+	ID          NodeID
+	Name        string
+	Type        string
+	Category    string
+	InputPorts  map[PortID]Port
+	OutputPorts map[PortID]Port
 }
 
-type PortConfiguration struct {
-	Label string `json:"label"`
-	Type  string `json:"type"`
+func (node *Node) GetInputPortIds() []PortID {
+	portIds := []PortID{}
+
+	for id := range node.InputPorts {
+		portIds = append(portIds, id)
+	}
+
+	return portIds
 }
 
-type PortAddress struct {
-	NodeID string `json:"node"`
-	PortID string `json:"port"`
-}
-type PortID = string
-type UniquePortID = string
-
-func (node *Node) GetInPort(portID string) (PortConfiguration, bool) {
-	port, exists := node.InPorts[portID]
+func (node *Node) GetInputPort(portID string) (Port, bool) {
+	port, exists := node.InputPorts[portID]
 	return port, exists
 }
 
-func (node *Node) GetOutPort(portID string) (PortConfiguration, bool) {
-	port, exists := node.OutPorts[portID]
+func (node *Node) GetOutputPort(portID string) (Port, bool) {
+	port, exists := node.OutputPorts[portID]
 	return port, exists
-}
-
-func (port *PortConfiguration) IsCompatibleWith(other PortConfiguration) bool {
-	return port.Type == other.Type
-}
-
-func (pa *PortAddress) GetUniquePortID() UniquePortID {
-	return fmt.Sprintf("%s-%s", pa.NodeID, pa.PortID)
 }

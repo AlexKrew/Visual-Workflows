@@ -1,21 +1,23 @@
 package container
 
 import (
-	runtime "visualWorkflows/internal/runtime"
-	storage "visualWorkflows/internal/storage"
+	"fmt"
+	"visualWorkflows/internal/entities"
+	"visualWorkflows/internal/runtime"
+	"visualWorkflows/internal/storage"
 )
 
 // WorkflowContainer is a fassade between the webserver and the local
 // storage and workflow runtimes
 type WorkflowContainer struct {
-	workflows *[]runtime.Runtime
+	workflows map[entities.WorkflowID]runtime.Runtime
 }
 
 func Construct() WorkflowContainer {
-	workflows := []runtime.Runtime{}
+	workflows := map[entities.WorkflowID]runtime.Runtime{}
 
 	container := WorkflowContainer{
-		workflows: &workflows,
+		workflows: workflows,
 	}
 
 	return container
@@ -24,7 +26,25 @@ func Construct() WorkflowContainer {
 /* Use Cases */
 
 func (container *WorkflowContainer) CreateWorkflow(props storage.CreateWorkflowProps) (string, error) {
-	return storage.CreaeteWorkflow(props)
+	return storage.CreateWorkflow(props)
+}
+
+func (container *WorkflowContainer) LoadWorkflow(props storage.LoadWorkflowProps) error {
+
+	wfDefinition, err := storage.LoadWorkflowDefinition(props)
+	if err != nil {
+		return err
+	}
+
+	runtime, err := runtime.Initialize(wfDefinition)
+	if err != nil {
+		return err
+	}
+
+	container.workflows[runtime.Workflow.ID] = runtime
+	fmt.Println("Loaded workflow", runtime.Workflow.ID)
+
+	return nil
 }
 
 /* Storage */
