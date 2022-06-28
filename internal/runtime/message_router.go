@@ -7,25 +7,26 @@ import (
 )
 
 type MessageRouter struct {
-	InvertedIndex map[entities.UniquePortID]([]entities.PortAddress)
+	invertedIndex map[entities.UniquePortID]([]entities.PortAddress)
+	store         *MessageStore
 }
 
-func constructMessageRouter(rt *Runtime) (MessageRouter, error) {
-	router := MessageRouter{}
-	router.InvertedIndex = make(map[entities.UniquePortID][]entities.PortAddress)
+func constructMessageRouter(workflow entities.Workflow, ms *MessageStore) (MessageRouter, error) {
+	router := MessageRouter{
+		invertedIndex: make(map[entities.UniquePortID][]entities.PortAddress),
+		store:         ms,
+	}
 
-	edges := rt.Workflow.Edges
-	nodes := rt.Workflow.Nodes
-
-	err := router.generateInvertedIndex(edges, nodes)
-	if err != nil {
+	edges := workflow.Edges
+	nodes := workflow.Nodes
+	if err := router.buildInvertedIndex(edges, nodes); err != nil {
 		return MessageRouter{}, err
 	}
 
 	return router, nil
 }
 
-func (router *MessageRouter) generateInvertedIndex(edges map[string]entities.Edge, nodes map[string]entities.Node) error {
+func (router *MessageRouter) buildInvertedIndex(edges map[string]entities.Edge, nodes map[string]entities.Node) error {
 
 	for _, edge := range edges {
 		fmt.Println("Edge:", edge.ID)
@@ -38,8 +39,8 @@ func (router *MessageRouter) generateInvertedIndex(edges map[string]entities.Edg
 		}
 
 		// Check for existing ports
-		originPort, originPortExists := originNode.GetOutPort(edge.Origin.PortID)
-		targetPort, targetPortExists := targetNode.GetInPort(edge.Target.PortID)
+		originPort, originPortExists := originNode.GetOutputPort(edge.Origin.PortID)
+		targetPort, targetPortExists := targetNode.GetInputPort(edge.Target.PortID)
 		if !originPortExists || !targetPortExists {
 			return errors.New("origin and/or target port of an edge does not exist")
 		}
@@ -55,18 +56,40 @@ func (router *MessageRouter) generateInvertedIndex(edges map[string]entities.Edg
 		origin := edge.Origin.GetUniquePortID()
 		target := edge.Target
 
-		if router.InvertedIndex[origin] == nil {
-			router.InvertedIndex[origin] = make([]entities.PortAddress, 0)
+		if router.invertedIndex[origin] == nil {
+			router.invertedIndex[origin] = make([]entities.PortAddress, 0)
 		}
 
-		router.InvertedIndex[origin] = append(router.InvertedIndex[origin], target)
+		router.invertedIndex[origin] = append(router.invertedIndex[origin], target)
 		fmt.Println("Added index for", origin)
 	}
 
 	return nil
 }
 
-// publishMessage sends messages from an OutPort of a node to all connected nodes
-// func (router *MessageRouter) publishMessage(origin UniquePortID) error {
-// 	return nil
-// }
+// TODO: A publish messages function that takes in a map of OutputPortIds: WFMessage and distributes
+// all message to the correct ports in one step
+
+// publishMessage distributes a message to all connected ports defined by origin
+func (router *MessageRouter) publishMessage(origin entities.UniquePortID, message entities.WorkflowMessage) error {
+	connectedPorts, err := router.getConnectedPorts(origin)
+	if err != nil {
+		return err
+	}
+
+	for _, target := range connectedPorts {
+		// TODO: Error handling
+		router.store.StoreNewMessage(target, message)
+	}
+
+	return nil
+}
+
+func (router *MessageRouter) getConnectedPorts(origin entities.UniquePortID) ([]entities.PortAddress, error) {
+	ports, exists := router.invertedIndex[origin]
+	if !exists {
+		return []entities.PortAddress{}, errors.New("Fail")
+	}
+
+	return ports, nil
+}

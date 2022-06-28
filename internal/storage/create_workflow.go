@@ -6,7 +6,7 @@ type CreateWorkflowProps struct {
 	Name string
 }
 
-func CreaeteWorkflow(props CreateWorkflowProps) (string, error) {
+func CreateWorkflow(props CreateWorkflowProps) (string, error) {
 	fmt.Println("Create workflow", props)
 	return "1", nil
 }

@@ -9,10 +9,10 @@
       "name": "",
       "category": "core",
       "inports": {},
-      "outports": {
+      "outputPorts": {
         "output": {
           "label": "Output",
-          "type": "ANY"
+          "datatype": "ANY"
         }
       }
     },
@@ -22,16 +22,16 @@
       "label": "Debug",
       "name": "",
       "category": "core",
-      "inports": {
+      "inputPorts": {
         "input": {
           "label": "Input",
-          "type": "ANY"
+          "datatype": "ANY"
         }
       },
-      "outports": {
+      "outputPorts": {
         "output": {
           "label": "Output",
-          "type": "ANY"
+          "datatype": "ANY"
         }
       }
     }
@@ -39,14 +39,10 @@
   "edges": {
     "edge0-1": {
       "id": "edge0-1",
-      "origin": {
-        "node": "node0",
-        "port": "output"
-      },
-      "target": {
-        "node": "node1",
-        "port": "input"
-      }
+      "originNode": "node0",
+      "originPort": "output",
+      "targetNode": "node1",
+      "targetPort": "input"
     }
   }
 }

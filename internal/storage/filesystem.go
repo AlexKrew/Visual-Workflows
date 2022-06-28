@@ -4,14 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/fs"
-	"io/ioutil"
 	"os"
 	"strings"
-
-	"visualWorkflows/internal/entities"
 )
 
-var (
+const (
 	// 	pathToWorkflowTemplates string = "/workspaces/Visual-Workflows/workflow-templates"
 	pathToWorkflows string = "/workspaces/Visual-Workflows/workflows"
 	pathToNodes     string = "/workspaces/Visual-Workflows/nodes"
@@ -23,6 +20,7 @@ var (
 
 // GetAvailableWorkflows reads all '.vwf.json' files inside the [pathToWorkflowTemplates] directory.
 func GetAvailableWorkflows() ([]WorkflowInfo, error) {
+
 	allFiles, err := os.ReadDir(pathToWorkflows)
 	if err != nil {
 		return []WorkflowInfo{}, err
@@ -75,57 +73,35 @@ func extractWorkflowInformation(filename string) (WorkflowInfo, error) {
 	return info, nil
 }
 
-func LoadWorkflowDefinition(workflowID string) (entities.Workflow, error) {
-	fmt.Println("Reading the workflow from file")
+// func LoadKnownNodes() ([]entities.Node, error) {
 
-	filePath := fmt.Sprintf("%s/%s.vwf.json", pathToWorkflows, workflowID)
-	fmt.Println("Open", filePath)
+// 	// TODO: Load all .vwf-node.json files from folder
+// 	files := []string{"debug", "inject"}
 
-	jsonFile, err := os.Open(filePath)
-	if err != nil {
-		fmt.Println("Failed to open file")
-		return entities.Workflow{}, err
-	}
-	defer jsonFile.Close()
+// 	nodes := []entities.Node{}
 
-	byteValue, _ := ioutil.ReadAll(jsonFile)
+// 	for _, file := range files {
+// 		filePath := fmt.Sprintf("%s/%s.vwf-node.json", pathToNodes, file)
 
-	var config entities.Workflow
+// 		jsonFile, err := os.Open(filePath)
+// 		if err != nil {
+// 			fmt.Println("Failed to open node file")
+// 			return []entities.Node{}, err
+// 		}
+// 		defer jsonFile.Close()
 
-	json.Unmarshal(byteValue, &config)
-	fmt.Println("Loaded config of flow", config.Name)
+// 		node := loadNode(jsonFile)
+// 		nodes = append(nodes, node)
+// 	}
 
-	return config, nil
-}
+// 	return nodes, nil
+// }
 
-func LoadKnownNodes() ([]entities.Node, error) {
-	// TODO: Load all .vwf-node.json files from folder
-	files := []string{"debug", "inject"}
+// func loadNode(jsonFile *os.File) entities.Node {
+// 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
-	nodes := []entities.Node{}
+// 	var node entities.Node
 
-	for _, file := range files {
-		filePath := fmt.Sprintf("%s/%s.vwf-node.json", pathToNodes, file)
-
-		jsonFile, err := os.Open(filePath)
-		if err != nil {
-			fmt.Println("Failed to open node file")
-			return []entities.Node{}, err
-		}
-		defer jsonFile.Close()
-
-		node := loadNode(jsonFile)
-		nodes = append(nodes, node)
-	}
-
-	return nodes, nil
-}
-
-func loadNode(jsonFile *os.File) entities.Node {
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-
-	var node entities.Node
-
-	json.Unmarshal(byteValue, &node)
-	return node
-}
+// 	json.Unmarshal(byteValue, &node)
+// 	return node
+// }
