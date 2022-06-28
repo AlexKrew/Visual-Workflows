@@ -1,19 +1,31 @@
 <template>
-  <div class="fill-width flex relative">
-    <div
-      ref="portRef"
-      :id="portModel.id"
-      class="circle bg-blue-700 absolute transform translate-y-1"
-      :class="{ right: '0px' }"
-      :style="[
-        { width: portModel.portSize + 'px', height: portModel.portSize + 'px'},
-        portModel.isInput ? 'left: -' + portModel.portSize/2 + 'px;' : 'right: -' + portModel.portSize/2 + 'px;',
-      ]"
-    ></div>
-    <span 
-      class="justify-center flex-auto mx-3" 
-      :class="[portModel.isInput ? 'text-left' : 'text-right']"
-    >{{ portModel.title }}</span>
+  <div>
+    <!-- Port and Title -->
+    <div class="fill-width flex relative">
+      <div
+        ref="portRef"
+        :id="portModel.id"
+        class="circle bg-blue-700 absolute transform translate-y-1"
+        :class="{ right: '0px' }"
+        :style="[
+          { width: portModel.portSize + 'px', height: portModel.portSize + 'px' },
+          portModel.isInput ? 'left: -' + portModel.portSize / 2 + 'px;' : 'right: -' + portModel.portSize / 2 + 'px;',
+        ]"
+      ></div>
+      <span class="justify-center flex-auto mx-3" :class="[portModel.isInput ? 'text-left' : 'text-right']">{{
+        portModel.title
+      }}</span>
+    </div>
+
+    <!-- Default Text Field -->
+    <div class="px-2">
+      <textarea
+        ref="textAreaRef"
+        class="bg-gray-200 w-full px-1"
+        v-model="textAreaValue"
+        :style="[{ resize: 'none', height: portModel.textAreaScrollHeight + 'px', minHeight: '24px'}]"
+      ></textarea>
+    </div>
   </div>
 </template>
 
@@ -25,7 +37,7 @@ import NodeModel from "@/models/Node/NodeModel";
 import NodePortModel from "@/models/Node/NodePortModel";
 import { InteractEvent } from "@interactjs/types";
 import interact from "interactjs";
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, nextTick, onMounted, ref, watch } from "vue";
 
 export default defineComponent({
   components: {},
@@ -37,6 +49,10 @@ export default defineComponent({
   },
   setup(props) {
     const portRef = ref<HTMLInputElement>();
+    const textAreaRef = ref<HTMLInputElement>();
+
+    const textAreaValue = ref("");
+
     const node = props.portModel.parent as NodeModel;
     const grid = props.portModel.parent?.parent as GridModel;
 
@@ -50,15 +66,28 @@ export default defineComponent({
         .on("dragend", onDragEnd)
         .dropzone({})
         .on("drop", onDrop);
-      // .on("dragenter", onDragEnter);
     });
 
+    // Resize Text Area
+    watch(textAreaValue, () => {
+      props.portModel.changeTextAreaHeight(24, true); // Change to 0 to get accurate ScrollHeight to shrink textArea, pretty stupid System,
+      nextTick(function () {  // Wait one Tick for Style to take effect
+        let newHeight = textAreaRef.value?.scrollHeight;
+        if (newHeight) {
+          props.portModel.changeTextAreaHeight(newHeight, true);  // Change Height to real value
+        }
+      });
+    });
+
+    // Init Port Pos
     function setPortPos() {
       if (!grid || !node || !portRef.value) return;
       const rect: DOMRect = portRef.value.getBoundingClientRect();
 
       const posAbs = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
       const pos = Vector2.subtract(posAbs, node.posGridCell, grid.posRel);
+
+      console.log(pos);
 
       props.portModel.setPos(pos);
     }
@@ -108,6 +137,8 @@ export default defineComponent({
 
     return {
       portRef,
+      textAreaRef,
+      textAreaValue,
     };
   },
 });

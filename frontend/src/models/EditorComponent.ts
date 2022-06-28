@@ -33,14 +33,22 @@ abstract class EditorComponent {
     });
   }
 
-  getChildById(id: string): EditorComponent | undefined {
-    for (const child of this.children) {
+  getChildIndex(id: string): number {
+    let index = -1;
+    this.children.forEach((child, i) => {
       if (child.id == id) {
-        return child;
+        index = i;
       }
-    }
-    return undefined;
+    });
+    return index;
   }
+
+  getChildById(id: string): EditorComponent | undefined {
+    const index = this.getChildIndex(id);
+    if (index >= 0) return this.children[index];
+    else return undefined;
+  }
+
   //#endregion
 
   //#region Position
@@ -60,6 +68,12 @@ abstract class EditorComponent {
     else if (this.parent) this.posGridCell = Vector2.add(this.posRel, this.parent?.posGridCell);
 
     this.children.forEach((child) => child.updatePos());
+  }
+
+  addPosToChildren(pos: Vector2, startIndex = 0) {
+    for (let i = startIndex; i < this.children.length; i++) {
+      this.children[i].addPos(pos);
+    }
   }
   //#endregion
 }
