@@ -1,13 +1,19 @@
 <template>
-  <div class="fill-width flex">
-    <div ref="portRef" :id="portModel.id" class="circle fill-width bg-gray-400" :class="circlePosClass">
-      <!-- <div
-        v-if="isDragging"
-        class="circle fill-width absolute drop-number bg-blue-700"
-        :style="{ left: mousePosRel.x + 'px', top: mousePosRel.y + 'px' }"
-      ></div> -->
-    </div>
-    <span class="justify-center flex-auto">{{ portModel.title }}</span>
+  <div class="fill-width flex relative">
+    <div
+      ref="portRef"
+      :id="portModel.id"
+      class="circle bg-blue-700 absolute transform translate-y-1"
+      :class="{ right: '0px' }"
+      :style="[
+        { width: portModel.portSize + 'px', height: portModel.portSize + 'px'},
+        portModel.isInput ? 'left: -' + portModel.portSize/2 + 'px;' : 'right: -' + portModel.portSize/2 + 'px;',
+      ]"
+    ></div>
+    <span 
+      class="justify-center flex-auto mx-3" 
+      :class="[portModel.isInput ? 'text-left' : 'text-right']"
+    >{{ portModel.title }}</span>
   </div>
 </template>
 
@@ -30,7 +36,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    let circlePosClass = props.portModel.isInput ? "" : "absolute right-0";
     const portRef = ref<HTMLInputElement>();
     const node = props.portModel.parent as NodeModel;
     const grid = props.portModel.parent?.parent as GridModel;
@@ -58,6 +63,7 @@ export default defineComponent({
       props.portModel.setPos(pos);
     }
 
+    //#region InteractJS
     function onDragStart(event: InteractEvent) {
       if (!grid) return;
       if (props.portModel.isInput) {
@@ -98,9 +104,9 @@ export default defineComponent({
         grid.resetTmp(true);
       }
     }
+    //#endregion
 
     return {
-      circlePosClass,
       portRef,
     };
   },
@@ -109,10 +115,8 @@ export default defineComponent({
 
 <style>
 .circle {
-  width: 15px;
-  height: 15px;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  border-radius: 25px;
+  border-radius: 2500px;
+  -webkit-border-radius: 2500px;
+  -moz-border-radius: 2500px;
 }
 </style>
