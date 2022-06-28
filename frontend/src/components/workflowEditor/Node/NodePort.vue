@@ -87,8 +87,6 @@ export default defineComponent({
       const posAbs = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
       const pos = Vector2.subtract(posAbs, node.posGridCell, grid.posRel);
 
-      console.log(pos);
-
       props.portModel.setPos(pos);
     }
 
