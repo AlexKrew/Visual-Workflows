@@ -19,11 +19,11 @@
 import { onMounted, ref, defineComponent } from "vue";
 import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
-import NodeComponent from "@/components/workflowEditor/Node/NodeComponent.vue";
+import NodeComponent from "../Node/NodeComponent.vue";
 import GridModel from "@/models/GridModel";
-import TestModels from "@/models/TestModels";
+import TestModels from "@/models/Debug/TestModels";
 import { InteractEvent } from "@interactjs/types";
-import NodeConnection from "./Node/NodeConnection.vue";
+import NodeConnection from "../Node/NodeConnection.vue";
 
 export default defineComponent({
   components: {

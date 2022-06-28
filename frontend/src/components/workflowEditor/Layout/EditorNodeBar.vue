@@ -13,9 +13,9 @@
 </template>
 
 <script lang="ts">
-import Card from "@/components/util/CardComponent.vue";
-import NodeModel from "@/models/NodeModel";
-import TestModels from "@/models/TestModels";
+import Card from "@/components/CardComponent.vue";
+import NodeModel from "@/models/Node/NodeModel";
+import TestModels from "@/models/Debug/TestModels";
 export default {
   components: {
     Card,

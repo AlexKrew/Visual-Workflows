@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import Card from "@/components/util/CardComponent.vue";
+import Card from "@/components/CardComponent.vue";
 export default {
   components: {
     Card,

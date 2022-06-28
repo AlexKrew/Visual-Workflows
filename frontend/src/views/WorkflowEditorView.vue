@@ -7,9 +7,9 @@
 </template>
 
 <script lang="ts">
-import EditorNodeBar from "@/components/workflowEditor/EditorNodeBar.vue";
-import EditorGrid from "@/components/workflowEditor/EditorGrid.vue";
-import EditorInspector from "@/components/workflowEditor/EditorInspector.vue";
+import EditorNodeBar from "@/components/workflowEditor/Layout/EditorNodeBar.vue";
+import EditorGrid from "@/components/workflowEditor/Layout/EditorGrid.vue";
+import EditorInspector from "@/components/workflowEditor/Layout/EditorInspector.vue";
 
 export default {
   components: {

@@ -1,8 +1,8 @@
 import Vector2 from "@/components/util/Vector";
 import EditorComponent from "./EditorComponent";
-import NodeConnectionModel from "./NodeConnectionModel";
-import NodeModel from "./NodeModel";
-import NodePortModel from "./NodePortModel";
+import NodeConnectionModel from "./Node/NodeConnectionModel";
+import NodeModel from "./Node/NodeModel";
+import NodePortModel from "./Node/NodePortModel";
 
 class GridModel extends EditorComponent {
   cellSize: number;

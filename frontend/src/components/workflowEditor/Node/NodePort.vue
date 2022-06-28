@@ -14,9 +14,9 @@
 <script lang="ts">
 import Vector2 from "@/components/util/Vector";
 import GridModel from "@/models/GridModel";
-import NodeConnectionModel from "@/models/NodeConnectionModel";
-import NodeModel from "@/models/NodeModel";
-import NodePortModel from "@/models/NodePortModel";
+import NodeConnectionModel from "@/models/Node/NodeConnectionModel";
+import NodeModel from "@/models/Node/NodeModel";
+import NodePortModel from "@/models/Node/NodePortModel";
 import { InteractEvent } from "@interactjs/types";
 import interact from "interactjs";
 import { defineComponent, onMounted, ref } from "vue";

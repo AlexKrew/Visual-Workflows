@@ -1,7 +1,7 @@
 import Vector2 from "@/components/util/Vector";
-import GridModel from "./GridModel";
-import NodeModel from "./NodeModel";
-import NodePortModel from "./NodePortModel";
+import GridModel from "../GridModel";
+import NodeModel from "../Node/NodeModel";
+import NodePortModel from "../Node/NodePortModel";
 
 class TestModels {
   static nodeCategorys = ["Web Services", "Debug"];

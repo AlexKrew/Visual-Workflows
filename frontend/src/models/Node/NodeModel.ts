@@ -1,8 +1,8 @@
 import Vector2 from "@/components/util/Vector";
-import GridModel from "./GridModel";
+import GridModel from "../GridModel";
 import NodePortModel from "./NodePortModel";
 import InteractUtil from "@/components/util/InteractUtil";
-import EditorComponent from "./EditorComponent";
+import EditorComponent from "../EditorComponent";
 
 class NodeModel extends EditorComponent {
   category: string;

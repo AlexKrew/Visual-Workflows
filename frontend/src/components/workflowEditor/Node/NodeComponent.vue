@@ -10,10 +10,10 @@
 </template>
 
 <script lang="ts">
-import Card from "@/components/util/CardComponent.vue";
+import Card from "@/components/CardComponent.vue";
 import NodePort from "./NodePort.vue";
 import { defineComponent, onMounted } from "vue";
-import NodeModel from "@/models/NodeModel";
+import NodeModel from "@/models/Node/NodeModel";
 import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
 import { InteractEvent } from "@interactjs/types";

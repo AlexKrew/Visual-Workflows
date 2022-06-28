@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import NodeConnectionModel from "@/models/NodeConnectionModel";
+import NodeConnectionModel from "@/models/Node/NodeConnectionModel";
 import { defineComponent, onMounted } from "vue";
 
 export default defineComponent({
@@ -15,7 +15,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup() {
     onMounted(() => {
       //
     });
