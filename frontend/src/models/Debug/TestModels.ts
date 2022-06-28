@@ -30,7 +30,6 @@ class TestModels {
 
   // Grid
   static readonly grid = new GridModel(
-    20,
     new Vector2(200, 20),
     TestModels.nodes[0],
     TestModels.nodes[1],

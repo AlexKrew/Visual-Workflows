@@ -8,17 +8,9 @@ class NodeModel extends EditorComponent {
   category: string;
 
   constructor(id: string, title = "New Node", category: string, ...ports: NodePortModel[]) {
-    super(id, title);
+    super(id, title, true);
     this.category = category;
     ports.forEach((port) => this.addChildren(port));
-  }
-
-  updatePos() {
-    if (this.parent) {
-      this.posAbs = Vector2.add(this.posRel, this.parent.posAbs);
-      this.posGrid = InteractUtil.posToGridPos(this.posRel, (this.parent as GridModel).cellSize);
-      this.children.forEach((child) => child.updatePos());
-    }
   }
 }
 

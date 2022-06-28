@@ -53,7 +53,7 @@ export default defineComponent({
       const rect: DOMRect = portRef.value.getBoundingClientRect();
 
       const posAbs = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
-      const pos = Vector2.subtract(posAbs, node.posGrid, grid.posRel);
+      const pos = Vector2.subtract(posAbs, node.posGridCell, grid.posRel);
 
       props.portModel.setPos(pos);
     }

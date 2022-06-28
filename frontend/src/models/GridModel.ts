@@ -5,15 +5,14 @@ import NodeModel from "./Node/NodeModel";
 import NodePortModel from "./Node/NodePortModel";
 
 class GridModel extends EditorComponent {
-  cellSize: number;
+  static cellSize = 20;
 
   connections: NodeConnectionModel[] = [];
   tmpConnectionIndex = -1; // the Connection that is currently dragged
 
-  constructor(cellSize = 10, posRel = new Vector2(0, 0), ...nodes: NodeModel[]) {
-    super("GridID", "Grid");
+  constructor(posRel = new Vector2(0, 0), ...nodes: NodeModel[]) {
+    super("GridID", "Grid", false);
     this.posRel = posRel;
-    this.cellSize = cellSize;
     nodes.forEach((node) => this.addChildren(node));
   }
 
