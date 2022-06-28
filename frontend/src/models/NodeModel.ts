@@ -5,8 +5,11 @@ import InteractUtil from "@/components/util/InteractUtil";
 import EditorComponent from "./EditorComponent";
 
 class NodeModel extends EditorComponent {
-  constructor(id: string, title = "New Node", ...ports: NodePortModel[]) {
+  category: string;
+
+  constructor(id: string, title = "New Node", category: string, ...ports: NodePortModel[]) {
     super(id, title);
+    this.category = category;
     ports.forEach((port) => this.addChildren(port));
   }
 
