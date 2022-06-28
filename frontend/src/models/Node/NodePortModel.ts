@@ -1,4 +1,3 @@
-import Vector2 from "@/components/util/Vector";
 import EditorComponent from "../EditorComponent";
 
 class NodePortModel extends EditorComponent {
