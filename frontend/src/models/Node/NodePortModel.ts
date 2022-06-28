@@ -2,15 +2,17 @@ import Vector2 from "@/components/util/Vector";
 import EditorComponent from "../EditorComponent";
 
 class NodePortModel extends EditorComponent {
+  placeholder: string;
   isInput: boolean;
   portSize = 15;
   hasDefaultField: boolean;
   textAreaScrollHeight = 24;
 
-  constructor(id: string, title = "New Port", isInput = false, hasDefaultField = false) {
+  constructor(id: string, title = "New Port", isInput = false, hasDefaultField = false, placeholder = "") {
     super(id, title, false);
     this.isInput = isInput;
     this.hasDefaultField = hasDefaultField;
+    this.placeholder = placeholder;
   }
 
   changeTextAreaHeight(newHeight: number, resizeChilds = false) {

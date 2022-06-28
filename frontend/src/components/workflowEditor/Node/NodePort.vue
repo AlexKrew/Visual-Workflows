@@ -18,11 +18,12 @@
     </div>
 
     <!-- Default Text Field -->
-    <div class="px-2">
+    <div v-if="portModel.hasDefaultField" class="px-2">
       <textarea
         ref="textAreaRef"
         class="bg-gray-200 w-full px-1"
         v-model="textAreaValue"
+        :placeholder="portModel.placeholder"
         :style="[{ resize: 'none', height: portModel.textAreaScrollHeight + 'px', minHeight: '24px'}]"
       ></textarea>
     </div>
