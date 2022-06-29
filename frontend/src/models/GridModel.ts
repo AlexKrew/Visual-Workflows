@@ -15,6 +15,10 @@ class GridModel extends EditorComponent {
     this.posRel = posRel;
   }
 
+  clone(): EditorComponent {
+    throw new Error("Method not implemented.");
+  }
+
   updatePos(): void {
     this.children.forEach((child) => child.updatePos);
   }

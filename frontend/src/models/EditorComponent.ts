@@ -21,6 +21,8 @@ abstract class EditorComponent {
     children.forEach((child) => this.addChildren(child));
   }
 
+  abstract clone(): EditorComponent;
+
   //#region Parent & Child
   setParent(parent: EditorComponent) {
     this.parent = parent;

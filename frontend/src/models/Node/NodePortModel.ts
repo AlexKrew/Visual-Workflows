@@ -1,5 +1,6 @@
 import Vector2 from "@/components/util/Vector";
 import EditorComponent from "../EditorComponent";
+import { uuid } from "vue-uuid";
 
 class NodePortModel extends EditorComponent {
   placeholder: string;
@@ -13,6 +14,10 @@ class NodePortModel extends EditorComponent {
     this.isInput = isInput;
     this.hasDefaultField = hasDefaultField;
     this.placeholder = placeholder;
+  }
+
+  clone(): EditorComponent {
+    return new NodePortModel(uuid.v4(), this.title, this.isInput, this.hasDefaultField, this.placeholder);
   }
 
   changeTextAreaHeight(newHeight: number, resizeChilds = false) {
