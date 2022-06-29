@@ -10,10 +10,9 @@ class GridModel extends EditorComponent {
   connections: NodeConnectionModel[] = [];
   tmpConnectionIndex = -1; // the Connection that is currently dragged
 
-  constructor(posRel = new Vector2(0, 0), ...nodes: NodeModel[]) {
-    super("GridID", "Grid", false);
+  constructor(posRel = new Vector2(0, 0), nodes: NodeModel[]) {
+    super("GridID", "Grid", false, nodes);
     this.posRel = posRel;
-    nodes.forEach((node) => this.addChildren(node));
   }
 
   updatePos(): void {

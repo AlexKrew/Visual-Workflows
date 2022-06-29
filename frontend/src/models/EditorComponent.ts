@@ -14,10 +14,11 @@ abstract class EditorComponent {
   posGridCell: Vector2 = new Vector2(0, 0); // Pos relative to Grid with GridSnap
   snapToGrid = false;
 
-  constructor(id: string, title: string, snapToGrid: boolean) {
+  constructor(id: string, title: string, snapToGrid: boolean, children: EditorComponent[] = []) {
     this.id = id;
     this.title = title;
     this.snapToGrid = snapToGrid;
+    children.forEach((child) => this.addChildren(child));
   }
 
   //#region Parent & Child

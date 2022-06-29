@@ -8,33 +8,26 @@ class TestModels {
 
   // Nodes
   static nodes = [
-    new NodeModel(
-      "N100",
-      "HTTP Request",
-      this.nodeCategorys[0],
+    new NodeModel("N100", "HTTP Request", this.nodeCategorys[0], [
       new NodePortModel("P100", "Method", true),
       new NodePortModel("P101", "URL", true, true, "someURL.com"),
       new NodePortModel("P102", "Payload", true, true, "Header:{...}"),
       new NodePortModel("P103", "Response", false),
-      new NodePortModel("P104", "Response Code", false)
-    ),
-    new NodeModel("N200", "Debug", this.nodeCategorys[1], new NodePortModel("P200", "Input", true, true, "Print")),
-    new NodeModel(
-      "N300",
-      "Mail",
-      this.nodeCategorys[0],
+      new NodePortModel("P104", "Response Code", false),
+    ]),
+    new NodeModel("N200", "Debug", this.nodeCategorys[1], [new NodePortModel("P200", "Input", true, true, "Print")]),
+    new NodeModel("N300", "Mail", this.nodeCategorys[0], [
       new NodePortModel("P300", "E-Mail", true, true, "some@email.com"),
-      new NodePortModel("P301", "Message", true, true, "Dear Someone, ...")
-    ),
+      new NodePortModel("P301", "Message", true, true, "Dear Someone, ..."),
+    ]),
   ];
 
   // Grid
-  static readonly grid = new GridModel(
-    new Vector2(200, 20),
+  static readonly grid = new GridModel(new Vector2(200, 20), [
     TestModels.nodes[0],
     TestModels.nodes[1],
-    TestModels.nodes[2]
-  );
+    TestModels.nodes[2],
+  ]);
 }
 
 export default TestModels;
