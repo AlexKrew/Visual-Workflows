@@ -8,7 +8,6 @@
       <h2 class="text-center">{{ nodeModel.title }}</h2>
       <div class="w-full">
         <NodePort v-for="port in nodeModel.children" :key="port.id" :port-model="(port as NodePortModel)" />
-        <NodePort v-for="port in nodeModel.addedPorts" :key="port.id" :port-model="(port as NodePortModel)" />
       </div>
       <div v-if="nodeModel.addablePorts.length > 0" class="w-full flex justify-center">
         <button

@@ -1,11 +1,12 @@
 import NodePortModel from "./NodePortModel";
 import EditorComponent from "../EditorComponent";
 import { uuid } from "vue-uuid";
+import { emitter } from "@/components/util/Emittery";
 
 class NodeModel extends EditorComponent {
   category: string;
   addablePorts: NodePortModel[];
-  addedPorts: NodePortModel[] = [];
+  addedPorts: string[] = [];
 
   constructor(
     id: string,
@@ -26,7 +27,11 @@ class NodeModel extends EditorComponent {
   addAddablePorts() {
     //TODO
     this.addablePorts.forEach((port) => {
-      this.addedPorts.push(port.clone() as NodePortModel);
+      const portClone = port.clone() as NodePortModel;
+      portClone.setParent(this);
+      this.addedPorts.push(portClone.id);
+      this.addChildren(portClone);
+      emitter.emit("PortsUpdatePos", this);
     });
   }
 

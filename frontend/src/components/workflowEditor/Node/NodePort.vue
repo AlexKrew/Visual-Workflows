@@ -24,7 +24,7 @@
         class="bg-gray-200 w-full px-1"
         v-model="textAreaValue"
         :placeholder="portModel.placeholder"
-        :style="[{ resize: 'none', height: portModel.textAreaScrollHeight + 'px', minHeight: '24px'}]"
+        :style="[{ resize: 'none', height: textAreaHeight + 'px', minHeight: '24px' }]"
       ></textarea>
     </div>
   </div>
@@ -39,6 +39,7 @@ import NodePortModel from "@/models/Node/NodePortModel";
 import { InteractEvent } from "@interactjs/types";
 import interact from "interactjs";
 import { defineComponent, nextTick, onMounted, ref, watch } from "vue";
+import { emitter } from "@/components/util/Emittery";
 
 export default defineComponent({
   components: {},
@@ -53,6 +54,7 @@ export default defineComponent({
     const textAreaRef = ref<HTMLInputElement>();
 
     const textAreaValue = ref("");
+    const textAreaHeight = ref(24);
 
     const node = props.portModel.parent as NodeModel;
     const grid = props.portModel.parent?.parent as GridModel;
@@ -69,13 +71,21 @@ export default defineComponent({
         .on("drop", onDrop);
     });
 
+    emitter.on("PortsUpdatePos", (parent) => {
+      if (parent == props.portModel.parent) setPortPos();
+    });
+
     // Resize Text Area
     watch(textAreaValue, () => {
-      props.portModel.changeTextAreaHeight(24, true); // Change to 0 to get accurate ScrollHeight to shrink textArea, pretty stupid System,
-      nextTick(function () {  // Wait one Tick for Style to take effect
+      let oldHeight = textAreaHeight.value;
+      textAreaHeight.value = 0; // Change to 0 to get accurate ScrollHeight to shrink textArea, pretty stupid System,
+
+      nextTick(function () {
+        // Wait one Tick for Style to take effect
         let newHeight = textAreaRef.value?.scrollHeight;
         if (newHeight) {
-          props.portModel.changeTextAreaHeight(newHeight, true);  // Change Height to real value
+          textAreaHeight.value = newHeight; // Change Height to real value
+          if (oldHeight != newHeight) emitter.emit("PortsUpdatePos", props.portModel.parent as NodeModel);
         }
       });
     });
@@ -121,7 +131,9 @@ export default defineComponent({
     }
 
     function onDrop(event: InteractEvent) {
+      console.log("##");
       if (!grid) return;
+      
       // event.target         = the Element on which it gets dropped
       // event.relatedTarget  = the Element which dropped
       if (grid.getPortByID(event.target.id)?.isInput) {
@@ -138,6 +150,7 @@ export default defineComponent({
       portRef,
       textAreaRef,
       textAreaValue,
+      textAreaHeight,
     };
   },
 });
