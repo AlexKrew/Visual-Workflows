@@ -22,7 +22,7 @@ class NodeModel extends EditorComponent {
 
   clone(): EditorComponent {
     const node = new NodeModel(
-      uuid.v4(),
+      "node-" + uuid.v4(),
       this.title,
       this.category,
       this.children as NodePortModel[],
