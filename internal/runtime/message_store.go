@@ -7,11 +7,13 @@ import (
 // MessageStore holds the latest messages for each InputPort of each Node in a Workflow.
 type MessageStore struct {
 	cachedMessages map[entities.NodeID](map[entities.PortID]entities.WorkflowMessage)
+
+	runtime *Runtime
 }
 
 // constructMessageStore uses the Nodes and Ports in a Workflow to initialize
 // a new MessageStore with initial messages defined in Workflow.
-func constructMessageStore(workflow entities.Workflow) (MessageStore, error) {
+func constructMessageStore(workflow entities.Workflow, runtime *Runtime) (*MessageStore, error) {
 
 	initialMessages := make(map[entities.NodeID](map[entities.PortID]entities.WorkflowMessage))
 
@@ -31,9 +33,11 @@ func constructMessageStore(workflow entities.Workflow) (MessageStore, error) {
 
 	mc := MessageStore{
 		cachedMessages: initialMessages,
+
+		runtime: runtime,
 	}
 
-	return mc, nil
+	return &mc, nil
 }
 
 func (mc *MessageStore) setMessage(address entities.PortAddress, message entities.WorkflowMessage) error {
@@ -61,6 +65,23 @@ func (mc *MessageStore) StoreNewMessage(address entities.PortAddress, message en
 	}
 
 	// Publish message
+	mc.runtime.EventStreamer.invokeEvent(
+		buildMessagesReceivedEvent(
+			MessagesReceivedBody{
+				nodeId: address.NodeID,
+			},
+		),
+	)
 
 	return nil
+}
+
+func (mc *MessageStore) GetMessagesFor(nodeID entities.NodeID) (map[entities.PortID]entities.WorkflowMessage, error) {
+
+	messages, exists := mc.cachedMessages[nodeID]
+	if !exists {
+		return nil, missingNodeCacheKeyError(nodeID)
+	}
+
+	return messages, nil
 }

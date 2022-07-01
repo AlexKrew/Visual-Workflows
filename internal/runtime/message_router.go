@@ -11,7 +11,7 @@ type MessageRouter struct {
 	store         *MessageStore
 }
 
-func constructMessageRouter(workflow entities.Workflow, ms *MessageStore) (MessageRouter, error) {
+func constructMessageRouter(workflow entities.Workflow, ms *MessageStore) (*MessageRouter, error) {
 	router := MessageRouter{
 		invertedIndex: make(map[entities.UniquePortID][]entities.PortAddress),
 		store:         ms,
@@ -20,16 +20,15 @@ func constructMessageRouter(workflow entities.Workflow, ms *MessageStore) (Messa
 	edges := workflow.Edges
 	nodes := workflow.Nodes
 	if err := router.buildInvertedIndex(edges, nodes); err != nil {
-		return MessageRouter{}, err
+		return &MessageRouter{}, err
 	}
 
-	return router, nil
+	return &router, nil
 }
 
 func (router *MessageRouter) buildInvertedIndex(edges map[string]entities.Edge, nodes map[string]entities.Node) error {
 
 	for _, edge := range edges {
-		fmt.Println("Edge:", edge.ID)
 
 		// Check for existing nodes
 		originNode, originNodeExists := nodes[edge.Origin.NodeID]
