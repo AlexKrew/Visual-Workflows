@@ -15,7 +15,15 @@ class NodePortModel extends EditorComponent {
   }
 
   clone(): EditorComponent {
-    return new NodePortModel("port-" + uuid.v4(), this.title, this.isInput, this.hasDefaultField, this.placeholder);
+    const port = new NodePortModel(
+      "port-" + uuid.v4(),
+      this.title,
+      this.isInput,
+      this.hasDefaultField,
+      this.placeholder
+    );
+    if (this.parent) port.setParent(this.parent);
+    return port;
   }
 }
 
