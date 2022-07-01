@@ -131,9 +131,8 @@ export default defineComponent({
     }
 
     function onDrop(event: InteractEvent) {
-      console.log("##");
       if (!grid) return;
-      
+
       // event.target         = the Element on which it gets dropped
       // event.relatedTarget  = the Element which dropped
       if (grid.getPortByID(event.target.id)?.isInput) {
