@@ -3,7 +3,7 @@ package runtime
 import (
 	"errors"
 	"fmt"
-	"visualWorkflows/internal/entities"
+	"visualWorkflows/shared/entities"
 )
 
 func missingNodeCacheKeyError(nodeID entities.NodeID) error {

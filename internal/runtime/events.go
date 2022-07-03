@@ -1,7 +1,8 @@
 package runtime
 
 import (
-	"visualWorkflows/internal/entities"
+	"visualWorkflows/shared/entities"
+	"visualWorkflows/shared/utils"
 
 	"github.com/google/uuid"
 )
@@ -11,6 +12,7 @@ type EventType = int16
 
 const (
 	ETMessagesReceived EventType = iota
+	ETJobResultReceived
 )
 
 type Event struct {
@@ -21,7 +23,7 @@ type Event struct {
 
 func buildNewEvent(body any, t EventType) Event {
 	return Event{
-		ID:   getNewUUID(),
+		ID:   utils.GetNewUUID(),
 		Type: t,
 		Body: body,
 	}
@@ -35,6 +37,15 @@ type MessagesReceivedBody struct {
 
 func buildMessagesReceivedEvent(body MessagesReceivedBody) Event {
 	return buildNewEvent(body, ETMessagesReceived)
+}
+
+/* JobResultReceived Event */
+type JobResultReceivedBody struct {
+	Result entities.JobResult
+}
+
+func buildJobResultReceivedEvent(body JobResultReceivedBody) Event {
+	return buildNewEvent(body, ETJobResultReceived)
 }
 
 /* ExampleEvent */
