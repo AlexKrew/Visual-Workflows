@@ -17,6 +17,10 @@ class Vector2 {
     this.y += vector.y;
   }
 
+  negateReturn(): Vector2 {
+    return new Vector2(-this.x, -this.y);
+  }
+
   static add(...vectors: Vector2[]): Vector2 {
     let x = 0;
     let y = 0;

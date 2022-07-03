@@ -7,7 +7,7 @@
     <Card>
       <h2 class="text-center">{{ nodeModel.title }}</h2>
       <div class="w-full">
-        <NodePort v-for="port in nodeModel.children" :key="port.id" :port-model="(port as NodePortModel)" />
+        <NodePort v-for="port in ports" :key="port.id" :port-model="port" />
       </div>
       <div v-if="nodeModel.addablePorts.length > 0" class="w-full flex justify-center">
         <button
@@ -24,11 +24,12 @@
 <script lang="ts">
 import Card from "@/components/CardComponent.vue";
 import NodePort from "./NodePort.vue";
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 import NodeModel from "@/models/Node/NodeModel";
 import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
 import { InteractEvent } from "@interactjs/types";
+import NodePortModel from "@/models/Node/NodePortModel";
 
 export default defineComponent({
   components: {
@@ -42,8 +43,14 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const ports = ref<NodePortModel[]>(props.nodeModel.children as NodePortModel[]);
+
     onMounted(() => {
       interact(`#${props.nodeModel.id}`).draggable({}).on("dragmove", onDragMove);
+    });
+
+    onUnmounted(() => {
+      interact(`#${props.nodeModel.id}`).unset();
     });
 
     function onDragMove(event: InteractEvent) {
@@ -56,6 +63,7 @@ export default defineComponent({
 
     return {
       onAddAddablePorts,
+      ports,
     };
   },
 });

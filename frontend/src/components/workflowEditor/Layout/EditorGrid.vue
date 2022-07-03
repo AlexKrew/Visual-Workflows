@@ -9,14 +9,12 @@
       <NodeConnection v-for="connection in grid.connections" :key="connection.id" :connection="connection" />
     </svg>
     <!-- Nodes -->
-    <div v-for="node in grid.children" :key="node.id">
-      <NodeComponent :node-model="node" />
-    </div>
+    <NodeComponent v-for="node in nodes" :key="node.id" :node-model="node" />
   </div>
 </template>
 
 <script lang="ts">
-import { onMounted, ref, defineComponent } from "vue";
+import { onMounted, ref, defineComponent, onUnmounted } from "vue";
 import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
 import NodeComponent from "../Node/NodeComponent.vue";
@@ -24,6 +22,7 @@ import GridModel from "@/models/GridModel";
 import TestModels from "@/models/Debug/TestModels";
 import { InteractEvent } from "@interactjs/types";
 import NodeConnection from "../Node/NodeConnection.vue";
+import NodeModel from "@/models/Node/NodeModel";
 
 export default defineComponent({
   components: {
@@ -32,9 +31,14 @@ export default defineComponent({
   },
   setup() {
     const grid = ref<GridModel>(TestModels.grid);
+    const nodes = ref<NodeModel[]>(grid.value.children as NodeModel[]);
 
     onMounted(() => {
       interact("#EditorGrid").draggable({}).on("dragmove", onDragMove);
+    });
+
+    onUnmounted(() => {
+      interact("#EditorGrid").unset();
     });
 
     function onDragMove(event: InteractEvent) {
@@ -43,6 +47,7 @@ export default defineComponent({
 
     return {
       grid,
+      nodes,
     };
   },
 });

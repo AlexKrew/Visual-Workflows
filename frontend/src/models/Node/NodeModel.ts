@@ -21,7 +21,15 @@ class NodeModel extends EditorComponent {
   }
 
   clone(): EditorComponent {
-    return new NodeModel(uuid.v4(), this.title, this.category, this.children as NodePortModel[], this.addablePorts);
+    const node = new NodeModel("node-" + uuid.v4(), this.title, this.category, [], this.addablePorts);
+
+    this.children.forEach((child) => {
+      node.addChildren(child.clone());
+    });
+
+    node.addedPorts = this.addedPorts;
+    if (this.parent) node.setParent(this.parent);
+    return node;
   }
 
   addAddablePorts() {

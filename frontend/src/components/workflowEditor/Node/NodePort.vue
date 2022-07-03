@@ -38,7 +38,7 @@ import NodeModel from "@/models/Node/NodeModel";
 import NodePortModel from "@/models/Node/NodePortModel";
 import { InteractEvent } from "@interactjs/types";
 import interact from "interactjs";
-import { defineComponent, nextTick, onMounted, ref, watch } from "vue";
+import { defineComponent, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import { emitter } from "@/components/util/Emittery";
 
 export default defineComponent({
@@ -69,6 +69,10 @@ export default defineComponent({
         .on("dragend", onDragEnd)
         .dropzone({})
         .on("drop", onDrop);
+    });
+
+    onUnmounted(() => {
+      interact(`#${props.portModel.id}`).unset();
     });
 
     emitter.on("PortsUpdatePos", (parent) => {

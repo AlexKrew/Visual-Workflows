@@ -66,8 +66,12 @@ class GridModel extends EditorComponent {
     this.tmpConnectionIndex = -1;
   }
 
-  getConnection(connectionId?: string, portInId?: string): NodeConnectionModel {
-    const connection = this.connections[this.getConnectionIndex(connectionId, portInId)];
+  getConnection(connectionId?: string, portInId?: string): NodeConnectionModel | undefined {
+    const index = this.getConnectionIndex(connectionId, portInId);
+
+    if (index < 0) return undefined;
+
+    const connection = this.connections[index];
     return connection;
   }
 
@@ -85,9 +89,6 @@ class GridModel extends EditorComponent {
       return false;
     });
 
-    if (index < 0) {
-      throw new Error(`No Connection Index found with id: ${connectionId}, or portInID: ${portInId}`);
-    }
     return index;
   }
 
