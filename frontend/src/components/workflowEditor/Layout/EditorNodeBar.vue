@@ -9,7 +9,7 @@
         </Card>
       </div>
     </div>
-    <NodeComponent v-if="curDragNode" :node-model="curDragNode" />
+    <NodeComponent v-if="curDragNode" :key="curDragNode.id" :node-model="curDragNode" />
   </Card>
 </template>
 
@@ -20,9 +20,10 @@ import TestModels from "@/models/Debug/TestModels";
 import { onMounted, onUnmounted, ref } from "vue";
 import interact from "interactjs";
 import { InteractEvent } from "@interactjs/types";
-import { emitter } from "@/components/util/Emittery";
 import NodeComponent from "../Node/NodeComponent.vue";
 import Vector2 from "@/components/util/Vector";
+import EditorComponent from "@/models/EditorComponent";
+import { emitter } from "@/components/util/Emittery";
 export default {
   components: {
     Card,
@@ -37,10 +38,19 @@ export default {
 
     onMounted(() => {
       nodes.forEach((node) => {
-        interact(`#${node.id}`).draggable({}).on("dragstart", onDragStart).on("dragmove", onDragMove);
-        // .on("dragend", onDragEnd)
+        interact(`#${node.id}`)
+          .draggable({})
+          .on("dragstart", onDragStart)
+          .on("dragmove", onDragMove)
+          .on("dragend", onDragEnd);
         // .on("drop", onDrop);
       });
+    });
+
+    onUnmounted(() => {
+      nodes.forEach((node) => {
+        interact(`#${node.id}`).unset();
+      })
     });
 
     function nodesFromCategory(category: string): NodeModel[] {
@@ -73,8 +83,17 @@ export default {
     }
 
     function onDragMove(event: InteractEvent) {
-      if(curDragNode.value){
+      if (curDragNode.value) {
         curDragNode.value.addPos(new Vector2(event.dx, event.dy));
+      }
+    }
+
+    function onDragEnd(event: InteractEvent) {
+      if (curDragNode.value) {
+        curDragNode.value.addPos(grid.posRel.negateReturn());
+        grid.addChildren(curDragNode.value);
+        curDragNode.value = undefined;
+        emitter.emit("UpdateWorkflowEditor");
       }
     }
     //#endregion

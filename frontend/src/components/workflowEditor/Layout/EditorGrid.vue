@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { onMounted, ref, defineComponent } from "vue";
+import { onMounted, ref, defineComponent, onUnmounted } from "vue";
 import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
 import NodeComponent from "../Node/NodeComponent.vue";
@@ -35,6 +35,10 @@ export default defineComponent({
 
     onMounted(() => {
       interact("#EditorGrid").draggable({}).on("dragmove", onDragMove);
+    });
+
+    onUnmounted(() => {
+      interact("#EditorGrid").unset();
     });
 
     function onDragMove(event: InteractEvent) {

@@ -24,7 +24,7 @@
 <script lang="ts">
 import Card from "@/components/CardComponent.vue";
 import NodePort from "./NodePort.vue";
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 import NodeModel from "@/models/Node/NodeModel";
 import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
@@ -47,7 +47,10 @@ export default defineComponent({
 
     onMounted(() => {
       interact(`#${props.nodeModel.id}`).draggable({}).on("dragmove", onDragMove);
-      console.log(props.nodeModel.posRel);
+    });
+
+    onUnmounted(() => {
+      interact(`#${props.nodeModel.id}`).unset();
     });
 
     function onDragMove(event: InteractEvent) {
@@ -60,7 +63,7 @@ export default defineComponent({
 
     return {
       onAddAddablePorts,
-      ports
+      ports,
     };
   },
 });
