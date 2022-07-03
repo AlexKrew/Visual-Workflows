@@ -22,7 +22,6 @@ import interact from "interactjs";
 import { InteractEvent } from "@interactjs/types";
 import NodeComponent from "../Node/NodeComponent.vue";
 import Vector2 from "@/components/util/Vector";
-import EditorComponent from "@/models/EditorComponent";
 import { emitter } from "@/components/util/Emittery";
 export default {
   components: {
@@ -88,7 +87,7 @@ export default {
       }
     }
 
-    function onDragEnd(event: InteractEvent) {
+    function onDragEnd() {
       if (curDragNode.value) {
         curDragNode.value.addPos(grid.posRel.negateReturn());
         grid.addChildren(curDragNode.value);

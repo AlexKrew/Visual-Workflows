@@ -1,5 +1,4 @@
 import Vector2 from "./Vector";
-import { InteractEvent } from "@interactjs/types";
 
 class InteractUtil {
   static posToGridPos(pos: Vector2, cellSize: number) {
