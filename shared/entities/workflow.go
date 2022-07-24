@@ -49,6 +49,7 @@ func WorkflowFromDefinition(definition storage.WorkflowDefinition) (Workflow, er
 		workflow.Nodes[id] = Node{
 			ID:          node.ID,
 			Name:        node.Name,
+			Type:        node.Type,
 			InputPorts:  inputPorts,
 			OutputPorts: outputPorts,
 		}

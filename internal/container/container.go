@@ -3,15 +3,18 @@ package container
 import (
 	"errors"
 	"fmt"
-	"visualWorkflows/internal/entities"
 	"visualWorkflows/internal/runtime"
 	"visualWorkflows/internal/storage"
+	"visualWorkflows/shared/entities"
+
+	wc "visualWorkflows/workerclient"
 )
 
 // WorkflowContainer is a fassade between the webserver and the local
 // storage and workflow runtimes
 type WorkflowContainer struct {
 	runtimes map[entities.WorkflowID]*runtime.Runtime
+	Events   chan interface{}
 }
 
 func Construct() WorkflowContainer {
@@ -22,6 +25,11 @@ func Construct() WorkflowContainer {
 	}
 
 	return container
+}
+
+func (container *WorkflowContainer) RegisterWorker(runtimeID string, worker *wc.WorkerClient) {
+	r := container.runtimes[runtimeID]
+	r.RegisterWorker(worker)
 }
 
 /* Use Cases */
@@ -43,6 +51,8 @@ func (container *WorkflowContainer) LoadWorkflow(props storage.LoadWorkflowProps
 		return err
 	}
 
+	go container.registerCallbacks(run.Events)
+
 	container.runtimes[run.Workflow.ID] = &run
 	fmt.Println("Loaded workflow", run.Workflow.ID)
 
@@ -58,6 +68,18 @@ func (container *WorkflowContainer) StartWorkflow(id string) error {
 	r.Start()
 
 	return nil
+}
+
+func (c *WorkflowContainer) registerCallbacks(ch chan interface{}) {
+	event := <-ch
+	// TODO: switch
+	c.publishLog(event)
+
+}
+
+func (c *WorkflowContainer) publishLog(log interface{}) {
+	fmt.Println("----Container: pub logs", log)
+	c.Events <- log
 }
 
 /* Storage */

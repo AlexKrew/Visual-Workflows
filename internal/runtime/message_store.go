@@ -1,7 +1,7 @@
 package runtime
 
 import (
-	"visualWorkflows/internal/entities"
+	"visualWorkflows/shared/entities"
 )
 
 // MessageStore holds the latest messages for each InputPort of each Node in a Workflow.

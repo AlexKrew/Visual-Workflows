@@ -1,8 +1,9 @@
 package runtime
 
 import (
-	"visualWorkflows/internal/entities"
 	"visualWorkflows/internal/storage"
+	"visualWorkflows/shared/entities"
+	wc "visualWorkflows/workerclient"
 )
 
 type Runtime struct {
@@ -13,6 +14,14 @@ type Runtime struct {
 	Store         *MessageStore
 	EventStreamer *EventStreamer
 	JobQueue      *JobQueue
+
+	// TODO: Logger
+
+	// Only Runtime Events - not the same as the events in EventStreamer
+	Events chan interface{}
+
+	// TODO: Move workers map to container
+	Workers []*wc.WorkerClient
 }
 
 func Initialize(runtime *Runtime, workflowDefinition storage.WorkflowDefinition) error {
@@ -52,6 +61,8 @@ func Initialize(runtime *Runtime, workflowDefinition storage.WorkflowDefinition)
 	runtime.Store = store
 	runtime.EventStreamer = eventStreamer
 	runtime.JobQueue = jobQueue
+	runtime.Workers = make([]*wc.WorkerClient, 0)
+	runtime.Events = make(chan interface{})
 
 	runtime.initialized = true
 
@@ -60,8 +71,13 @@ func Initialize(runtime *Runtime, workflowDefinition storage.WorkflowDefinition)
 	return nil
 }
 
+func (r *Runtime) RegisterWorker(worker *wc.WorkerClient) {
+	r.Workers = append(r.Workers, worker)
+}
+
 func registerOperations(eventStreamer *EventStreamer) {
 	go eventStreamer.addOperation(createJobOperation)
+	go eventStreamer.addOperation(handleJobResultOperation)
 }
 
 func (r *Runtime) Start() {

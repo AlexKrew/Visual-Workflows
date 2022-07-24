@@ -2,7 +2,7 @@ package runtime
 
 import (
 	"fmt"
-	"visualWorkflows/internal/entities"
+	"visualWorkflows/shared/entities"
 
 	"github.com/reactivex/rxgo/v2"
 )
@@ -23,11 +23,16 @@ func createJobOperation(observable *rxgo.Observable, props OperationProps) {
 
 			fmt.Println("Messages for", body.nodeId, messages)
 			if !hasEmptyMessage(messages) {
-				jobProps := ProcessJobProps{
-					NodeID: body.nodeId,
-					Input:  messages,
+
+				// TODO: Find a better way
+				node := props.eventStreamer.runtime.Workflow.Nodes[body.nodeId]
+
+				jobProps := entities.ProcessJobProps{
+					NodeID:   body.nodeId,
+					NodeType: node.Type,
+					Input:    messages,
 				}
-				props.jobQueue.addJob(buildProcessJob(jobProps))
+				props.jobQueue.addJob(entities.BuildProcessJob(jobProps))
 			}
 
 		}, func(err error) {}, func() {})

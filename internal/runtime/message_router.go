@@ -3,7 +3,7 @@ package runtime
 import (
 	"errors"
 	"fmt"
-	"visualWorkflows/internal/entities"
+	"visualWorkflows/shared/entities"
 )
 
 type MessageRouter struct {

@@ -8,5 +8,6 @@ type OperationProps struct {
 	eventStreamer *EventStreamer
 	messageStore  *MessageStore
 	jobQueue      *JobQueue
+	runtimeEvents chan interface{}
 }
 type Operation func(*rxgo.Observable, OperationProps)
