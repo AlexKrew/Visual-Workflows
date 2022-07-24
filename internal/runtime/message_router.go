@@ -71,10 +71,8 @@ func (router *MessageRouter) buildInvertedIndex(edges map[string]entities.Edge, 
 
 // publishMessage distributes a message to all connected ports defined by origin
 func (router *MessageRouter) publishMessage(origin entities.UniquePortID, message entities.WorkflowMessage) error {
-	connectedPorts, err := router.getConnectedPorts(origin)
-	if err != nil {
-		return err
-	}
+	fmt.Println("Pub message for", origin, router)
+	connectedPorts := router.getConnectedPorts(origin)
 
 	for _, target := range connectedPorts {
 		// TODO: Error handling
@@ -84,11 +82,12 @@ func (router *MessageRouter) publishMessage(origin entities.UniquePortID, messag
 	return nil
 }
 
-func (router *MessageRouter) getConnectedPorts(origin entities.UniquePortID) ([]entities.PortAddress, error) {
+func (router *MessageRouter) getConnectedPorts(origin entities.UniquePortID) []entities.PortAddress {
 	ports, exists := router.invertedIndex[origin]
 	if !exists {
-		return []entities.PortAddress{}, errors.New("Fail")
+		fmt.Println("[MessageRouter]: Output port", origin, "is not connected to another Input port")
+		return []entities.PortAddress{}
 	}
 
-	return ports, nil
+	return ports
 }

@@ -4,13 +4,13 @@
   "label": "Debug",
   "name": "",
   "category": "core",
-  "inports": {
+  "inputPorts": {
     "input": {
       "label": "Input",
       "type": "ANY"
     }
   },
-  "outports": {
+  "outputPorts": {
     "output": {
       "label": "Output",
       "type": "ANY"

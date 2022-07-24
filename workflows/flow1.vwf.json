@@ -8,7 +8,6 @@
       "label": "Inject",
       "name": "",
       "category": "core",
-      "inports": {},
       "outputPorts": {
         "output": {
           "label": "Output",
@@ -18,6 +17,29 @@
     },
     "node1": {
       "id": "node1",
+      "type": "http-request",
+      "label": "HttpRequest",
+      "name": "",
+      "category": "core",
+      "inputPorts": {
+        "url": {
+          "label": "url",
+          "datatype": "ANY"
+        }
+      },
+      "outputPorts": {
+        "code": {
+          "label": "code",
+          "datatype": "ANY"
+        },
+        "data": {
+          "label": "data",
+          "datatype": "ANY"
+        }
+      }
+    },
+    "node2": {
+      "id": "node2",
       "type": "debug",
       "label": "Debug",
       "name": "",
@@ -42,6 +64,13 @@
       "originNode": "node0",
       "originPort": "output",
       "targetNode": "node1",
+      "targetPort": "url"
+    },
+    "edge1-2": {
+      "id": "edge1-2",
+      "originNode": "node1",
+      "originPort": "data",
+      "targetNode": "node2",
       "targetPort": "input"
     }
   }

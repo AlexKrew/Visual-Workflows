@@ -1,6 +1,8 @@
 package entities
 
-import "visualWorkflows/internal/storage"
+import (
+	"visualWorkflows/internal/storage"
+)
 
 type WorkflowID = string
 
@@ -27,7 +29,7 @@ func WorkflowFromDefinition(definition storage.WorkflowDefinition) (Workflow, er
 		// Mapping of InputPorts
 		inputPorts := map[PortID]Port{}
 		for id, inputPortDef := range node.InputPorts {
-			port, err := PortFromDefinition(inputPortDef)
+			port, err := InputPortFromDefinition(inputPortDef)
 			if err != nil {
 				return Workflow{}, err
 			}
@@ -38,7 +40,7 @@ func WorkflowFromDefinition(definition storage.WorkflowDefinition) (Workflow, er
 		// Mapping of OutputPorts
 		outputPorts := map[PortID]Port{}
 		for id, outputPortDef := range node.OutputPorts {
-			port, err := PortFromDefinition(outputPortDef)
+			port, err := OutputPortFromDefinition(outputPortDef)
 			if err != nil {
 				return Workflow{}, err
 			}

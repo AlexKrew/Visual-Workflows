@@ -27,6 +27,7 @@ func (es *EventStreamer) addOperation(op Operation) error {
 	op(es.Stream, OperationProps{
 		eventStreamer: es,
 		messageStore:  es.runtime.Store,
+		messageRouter: es.runtime.Router,
 		jobQueue:      es.runtime.JobQueue,
 		runtimeEvents: es.runtime.Events,
 	})
@@ -36,6 +37,6 @@ func (es *EventStreamer) addOperation(op Operation) error {
 }
 
 func (es *EventStreamer) invokeEvent(event Event) {
-	fmt.Println("Invoke EVENT", event)
+	fmt.Println("Invoke EVENT", event.Type)
 	es.eventSource <- rxgo.Of(event)
 }

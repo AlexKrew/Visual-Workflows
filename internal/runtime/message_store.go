@@ -1,6 +1,7 @@
 package runtime
 
 import (
+	"fmt"
 	"visualWorkflows/shared/entities"
 )
 
@@ -27,7 +28,6 @@ func constructMessageStore(workflow entities.Workflow, runtime *Runtime) (*Messa
 			port, _ := node.GetInputPort(portId)
 			message := port.GetMessage()
 			initialMessages[nodeId][portId] = message
-
 		}
 	}
 
@@ -53,6 +53,7 @@ func (mc *MessageStore) setMessage(address entities.PortAddress, message entitie
 	}
 
 	nodeMessages[address.PortID] = message
+	fmt.Println("Store message for", address.NodeID, address.PortID)
 
 	return nil
 }

@@ -21,7 +21,7 @@ func createJobOperation(observable *rxgo.Observable, props OperationProps) {
 				fmt.Println(err)
 			}
 
-			fmt.Println("Messages for", body.nodeId, messages)
+			fmt.Println("Messages for", body.nodeId)
 			if !hasEmptyMessage(messages) {
 
 				// TODO: Find a better way

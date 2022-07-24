@@ -30,6 +30,7 @@ func LoadWorkflowDefinition(props LoadWorkflowProps) (WorkflowDefinition, error)
 
 	json.Unmarshal(byteValue, &definition)
 	fmt.Println("Loaded definition", definition.Name)
+	fmt.Println(definition)
 
 	return definition, nil
 }

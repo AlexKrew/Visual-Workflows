@@ -20,7 +20,18 @@ type PortAddress struct {
 	PortID string
 }
 
-func PortFromDefinition(definition storage.InputPortDefinition) (Port, error) {
+func InputPortFromDefinition(definition storage.InputPortDefinition) (Port, error) {
+
+	port := Port{
+		Label:    definition.Label,
+		DataType: definition.DataType,
+		Message:  EmptyMessage(),
+	}
+
+	return port, nil
+}
+
+func OutputPortFromDefinition(definition storage.OutputPortDefinition) (Port, error) {
 
 	port := Port{
 		Label:    definition.Label,

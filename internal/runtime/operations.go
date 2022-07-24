@@ -7,6 +7,7 @@ import (
 type OperationProps struct {
 	eventStreamer *EventStreamer
 	messageStore  *MessageStore
+	messageRouter *MessageRouter
 	jobQueue      *JobQueue
 	runtimeEvents chan interface{}
 }

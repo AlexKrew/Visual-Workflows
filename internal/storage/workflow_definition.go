@@ -26,6 +26,12 @@ type EdgeDefinition struct {
 type InputPortDefinition struct {
 	Label    string `json:"label"`
 	DataType string `json:"datatype"`
+	// TODO: Add message field
+}
+type OutputPortDefinition struct {
+	Label    string `json:"label"`
+	DataType string `json:"datatype"`
+	// TODO: Add message field
 }
 
-type OutputPortDefinition = InputPortDefinition
+// type OutputPortDefinition = InputPortDefinition
