@@ -1,13 +1,13 @@
 import Vector2 from "@/components/util/Vector";
 import EditorComponent from "./EditorComponent";
-import NodeConnectionModel from "./Node/NodeConnectionModel";
+import EdgeModel from "./Node/EdgeModel";
 import NodeModel from "./Node/NodeModel";
-import NodePortModel from "./Node/NodePortModel";
+import PortModel from "./Node/PortModel";
 
 class GridModel extends EditorComponent {
   static cellSize = 20;
 
-  connections: NodeConnectionModel[] = [];
+  connections: EdgeModel[] = [];
   tmpConnectionIndex = -1; // the Connection that is currently dragged
 
   constructor(posRel = new Vector2(0, 0), nodes: NodeModel[]) {
@@ -24,7 +24,7 @@ class GridModel extends EditorComponent {
   }
 
   // Can be integrated in EditorComponent recursive
-  getPortByID(id: string): NodePortModel | undefined {
+  getPortByID(id: string): PortModel | undefined {
     let result = undefined;
 
     this.children.forEach((node) => {
@@ -36,7 +36,7 @@ class GridModel extends EditorComponent {
   }
 
   //#region Connections
-  addConnection(connection: NodeConnectionModel, isTmp = false) {
+  addConnection(connection: EdgeModel, isTmp = false) {
     this.connections.push(connection);
     if (isTmp) {
       this.tmpConnectionIndex = this.connections.length - 1;
@@ -66,7 +66,7 @@ class GridModel extends EditorComponent {
     this.tmpConnectionIndex = -1;
   }
 
-  getConnection(connectionId?: string, portInId?: string): NodeConnectionModel | undefined {
+  getConnection(connectionId?: string, portInId?: string): EdgeModel | undefined {
     const index = this.getConnectionIndex(connectionId, portInId);
 
     if (index < 0) return undefined;
@@ -75,7 +75,7 @@ class GridModel extends EditorComponent {
     return connection;
   }
 
-  getTmpConnection(): NodeConnectionModel {
+  getTmpConnection(): EdgeModel {
     return this.connections[this.tmpConnectionIndex];
   }
 

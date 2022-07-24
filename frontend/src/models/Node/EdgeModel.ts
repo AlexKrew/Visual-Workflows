@@ -1,9 +1,9 @@
 import BezierCurve from "@/components/util/BezierCurve";
 import Vector2 from "@/components/util/Vector";
-import NodePortModel from "./NodePortModel";
+import NodePortModel from "./PortModel";
 import { uuid } from "vue-uuid";
 
-class NodeConnectionModel {
+class EdgeModel {
   id: string;
   portOut: NodePortModel;
   portIn: NodePortModel | undefined;
@@ -41,4 +41,4 @@ class NodeConnectionModel {
   }
 }
 
-export default NodeConnectionModel;
+export default EdgeModel;

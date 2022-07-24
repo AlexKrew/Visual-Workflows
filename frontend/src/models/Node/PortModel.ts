@@ -1,7 +1,7 @@
 import EditorComponent from "../EditorComponent";
 import { uuid } from "vue-uuid";
 
-class NodePortModel extends EditorComponent {
+class PortModel extends EditorComponent {
   placeholder: string;
   isInput: boolean;
   portSize = 15;
@@ -15,16 +15,10 @@ class NodePortModel extends EditorComponent {
   }
 
   clone(): EditorComponent {
-    const port = new NodePortModel(
-      "port-" + uuid.v4(),
-      this.title,
-      this.isInput,
-      this.hasDefaultField,
-      this.placeholder
-    );
+    const port = new PortModel("port-" + uuid.v4(), this.title, this.isInput, this.hasDefaultField, this.placeholder);
     if (this.parent) port.setParent(this.parent);
     return port;
   }
 }
 
-export default NodePortModel;
+export default PortModel;

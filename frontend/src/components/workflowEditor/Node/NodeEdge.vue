@@ -5,13 +5,13 @@
 </template>
 
 <script lang="ts">
-import NodeConnectionModel from "@/models/Node/NodeConnectionModel";
+import EdgeModel from "@/models/Node/EdgeModel";
 import { defineComponent, onMounted } from "vue";
 
 export default defineComponent({
   props: {
     connection: {
-      type: NodeConnectionModel,
+      type: EdgeModel,
       required: true,
     },
   },

@@ -29,7 +29,7 @@ import NodeModel from "@/models/Node/NodeModel";
 import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
 import { InteractEvent } from "@interactjs/types";
-import NodePortModel from "@/models/Node/NodePortModel";
+import PortModel from "@/models/Node/PortModel";
 
 export default defineComponent({
   components: {
@@ -43,7 +43,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const ports = ref<NodePortModel[]>(props.nodeModel.children as NodePortModel[]);
+    const ports = ref<PortModel[]>(props.nodeModel.children as PortModel[]);
 
     onMounted(() => {
       interact(`#${props.nodeModel.id}`).draggable({}).on("dragmove", onDragMove);

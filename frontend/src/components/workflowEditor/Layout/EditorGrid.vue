@@ -21,13 +21,13 @@ import NodeComponent from "../Node/NodeComponent.vue";
 import GridModel from "@/models/GridModel";
 import TestModels from "@/models/Debug/TestModels";
 import { InteractEvent } from "@interactjs/types";
-import NodeConnection from "../Node/NodeConnection.vue";
+import NodeEdge from "../Node/NodeEdge.vue";
 import NodeModel from "@/models/Node/NodeModel";
 
 export default defineComponent({
   components: {
     NodeComponent,
-    NodeConnection,
+    NodeConnection: NodeEdge,
   },
   setup() {
     const grid = ref<GridModel>(TestModels.grid);

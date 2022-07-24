@@ -33,9 +33,9 @@
 <script lang="ts">
 import Vector2 from "@/components/util/Vector";
 import GridModel from "@/models/GridModel";
-import NodeConnectionModel from "@/models/Node/NodeConnectionModel";
+import EdgeModel from "@/models/Node/EdgeModel";
 import NodeModel from "@/models/Node/NodeModel";
-import NodePortModel from "@/models/Node/NodePortModel";
+import PortModel from "@/models/Node/PortModel";
 import { InteractEvent } from "@interactjs/types";
 import interact from "interactjs";
 import { defineComponent, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
@@ -45,7 +45,7 @@ export default defineComponent({
   components: {},
   props: {
     portModel: {
-      type: NodePortModel,
+      type: PortModel,
       required: true,
     },
   },
@@ -109,14 +109,14 @@ export default defineComponent({
     function onDragStart(event: InteractEvent) {
       if (!grid) return;
       if (props.portModel.isInput) {
-        const connection: NodeConnectionModel | undefined = grid.getConnection(undefined, props.portModel.id);
+        const connection: EdgeModel | undefined = grid.getConnection(undefined, props.portModel.id);
         if (connection) {
           connection.setPortIn(undefined);
           grid.setTmp(connection.id);
         }
       } else {
         (grid as GridModel).addConnection(
-          new NodeConnectionModel(props.portModel, undefined, new Vector2(event.clientX, event.clientY)),
+          new EdgeModel(props.portModel, undefined, new Vector2(event.clientX, event.clientY)),
           true
         );
       }

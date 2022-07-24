@@ -1,4 +1,3 @@
-import InteractUtil from "@/components/util/InteractUtil";
 import Vector2 from "@/components/util/Vector";
 import GridModel from "./GridModel";
 
@@ -67,7 +66,7 @@ abstract class EditorComponent {
   updatePos(): void {
     if (this.parent) this.posGrid = Vector2.add(this.posRel, this.parent?.posGrid);
 
-    if (this.snapToGrid) this.posGridCell = InteractUtil.posToGridPos(this.posGrid, GridModel.cellSize);
+    if (this.snapToGrid) this.posGridCell = EditorComponent.posToGridPos(this.posGrid, GridModel.cellSize);
     else if (this.parent) this.posGridCell = Vector2.add(this.posRel, this.parent?.posGridCell);
 
     this.children.forEach((child) => child.updatePos());
@@ -77,6 +76,12 @@ abstract class EditorComponent {
     for (let i = startIndex; i < this.children.length; i++) {
       this.children[i].addPos(pos);
     }
+  }
+
+  static posToGridPos(pos: Vector2, cellSize: number) {
+    const x = Math.floor(pos.x / cellSize) * cellSize;
+    const y = Math.floor(pos.y / cellSize) * cellSize;
+    return new Vector2(x, y);
   }
   //#endregion
 }
