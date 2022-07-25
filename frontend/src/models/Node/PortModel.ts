@@ -8,6 +8,9 @@ class PortModel extends EditorComponent {
   hasDefaultField: boolean;
   defaultValue = "";
 
+  added = false;
+  groupID = "";
+
   constructor(
     id: string,
     label = "New Port",
@@ -33,6 +36,11 @@ class PortModel extends EditorComponent {
     this.defaultValue = text;
   }
 
+  setGroupID(id: string) {
+    this.added = true;
+    this.groupID = id;
+  }
+
   //#region Serialization
   static fromJSON(json: JSON): PortModel {
     const port = new PortModel(
@@ -44,18 +52,21 @@ class PortModel extends EditorComponent {
       json["default-value" as keyof JSON] as string
     );
 
+    // port.groupID = json["group-id" as keyof JSON] as string;
+    // port.added = JSON.parse(json["added" as keyof JSON] as string);
+
     return port;
   }
   toJSON(): JSON {
     const json = JSON.parse(JSON.stringify({}));
 
     json["id"] = this.id;
-    json["group-id"] = ""; // TODO
-    json["added"] = false; // TODO
+    json["group-id"] = this.groupID; // TODO
+    json["added"] = this.added; // TODO
     json["label"] = this.label;
     json["is-input"] = this.isInput;
     json["datatype"] = "ANY"; // TODO
-    json["default-value"] = ""; // TODO
+    json["default-value"] = this.defaultValue;
 
     return json;
   }

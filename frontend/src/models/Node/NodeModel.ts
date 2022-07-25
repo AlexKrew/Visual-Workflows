@@ -26,11 +26,14 @@ class NodeModel extends EditorComponent {
     return node;
   }
 
+  // Adds every addable Ports once, sets their group ID and reloads every Port position
   addAddablePorts() {
-    //TODO
+    const groupID = uuid.v4();
     this.addablePorts.forEach((port) => {
       const portClone = port.clone() as PortModel;
       portClone.setParent(this);
+      portClone.setGroupID(groupID);
+
       this.addedPorts.push(portClone.id);
       this.addChildren(portClone);
       emitter.emit("PortsUpdatePos", this);
