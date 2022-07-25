@@ -52,7 +52,8 @@ class NodeModel extends EditorComponent {
     json["id"] = this.id;
     json["name"] = this.title;
     json["type"] = "Debug"; // TODO
-    // json["ui"]["position"] = [this.posGrid.x, this.posGrid.y];
+    json["ui"] = {};
+    json["ui"]["position"] = [this.posGrid.x, this.posGrid.y];
     json["ports"] = [];
 
     this.children.forEach((child) => {

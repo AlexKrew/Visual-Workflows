@@ -6,6 +6,12 @@
             "id": "N1",
             "name": "HTTP Request",
             "type": "Debug",
+            "ui": {
+                "position": [
+                    0,
+                    0
+                ]
+            },
             "ports": [
                 {
                     "id": "N1-P1",
@@ -58,6 +64,12 @@
             "id": "N2",
             "name": "Debug",
             "type": "Debug",
+            "ui": {
+                "position": [
+                    0,
+                    0
+                ]
+            },
             "ports": [
                 {
                     "id": "N2-P1",
@@ -83,6 +95,12 @@
             "id": "N3",
             "name": "Mail",
             "type": "Debug",
+            "ui": {
+                "position": [
+                    0,
+                    0
+                ]
+            },
             "ports": [
                 {
                     "id": "N3-P1",
