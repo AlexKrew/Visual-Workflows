@@ -87,7 +87,7 @@ abstract class EditorComponent implements ISerializable {
   //#endregion
 
   //#region
-  abstract fromJSON(json: JSON): void;
+  abstract fromJSON(json: JSON): ISerializable;
   abstract toJSON(): JSON;
   //#endregion
 }

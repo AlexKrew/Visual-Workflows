@@ -42,7 +42,7 @@ class EdgeModel implements ISerializable {
   }
 
   //#region Serialization
-  fromJSON(json: JSON): void {
+  fromJSON(json: JSON): ISerializable {
     throw new Error("Method not implemented.");
   }
   toJSON(): JSON {

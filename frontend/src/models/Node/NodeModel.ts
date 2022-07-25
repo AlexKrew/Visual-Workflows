@@ -2,6 +2,7 @@ import PortModel from "./PortModel";
 import EditorComponent from "../EditorComponent";
 import { uuid } from "vue-uuid";
 import { emitter } from "@/components/util/Emittery";
+import ISerializable from "../ISerializable";
 
 class NodeModel extends EditorComponent {
   category: string;
@@ -42,7 +43,7 @@ class NodeModel extends EditorComponent {
   }
 
   //#region Serialization
-  fromJSON(json: JSON): void {
+  fromJSON(json: JSON): ISerializable {
     throw new Error("Method not implemented.");
   }
   toJSON(): JSON {

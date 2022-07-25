@@ -1,5 +1,6 @@
 import Vector2 from "@/components/util/Vector";
 import EditorComponent from "./EditorComponent";
+import ISerializable from "./ISerializable";
 import EdgeModel from "./Node/EdgeModel";
 import NodeModel from "./Node/NodeModel";
 import PortModel from "./Node/PortModel";
@@ -95,9 +96,10 @@ class GridModel extends EditorComponent {
   //#endregion
 
   //#region Serialization
-  fromJSON(json: JSON): void {
+  fromJSON(json: JSON): ISerializable {
     throw new Error("Method not implemented.");
   }
+
   toJSON(): JSON {
     const json = JSON.parse(JSON.stringify({}));
 

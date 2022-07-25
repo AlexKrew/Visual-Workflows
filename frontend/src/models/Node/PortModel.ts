@@ -1,5 +1,6 @@
 import EditorComponent from "../EditorComponent";
 import { uuid } from "vue-uuid";
+import ISerializable from "../ISerializable";
 
 class PortModel extends EditorComponent {
   placeholder: string;
@@ -21,7 +22,7 @@ class PortModel extends EditorComponent {
   }
 
   //#region Serialization
-  fromJSON(json: JSON): void {
+  fromJSON(json: JSON): ISerializable {
     throw new Error("Method not implemented.");
   }
   toJSON(): JSON {
@@ -30,8 +31,9 @@ class PortModel extends EditorComponent {
     json["id"] = this.id;
     json["group-id"] = ""; // TODO
     json["added"] = false; // TODO
+    json["label"] = this.title;
     json["is-input"] = this.isInput;
-    json["type"] = "ANY"; // TODO
+    json["datatype"] = "ANY"; // TODO
     json["default-value"] = ""; // TODO
 
     return json;

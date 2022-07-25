@@ -1,5 +1,5 @@
 interface ISerializable {
-  fromJSON(json: JSON): void;
+  fromJSON(json: JSON): ISerializable;
   toJSON(): JSON;
 }
 

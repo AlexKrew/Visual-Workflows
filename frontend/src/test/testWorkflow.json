@@ -1,0 +1,109 @@
+{
+    "id": "GridID",
+    "name": "Workflow Name",
+    "nodes": [
+        {
+            "id": "N1",
+            "name": "HTTP Request",
+            "type": "Debug",
+            "ports": [
+                {
+                    "id": "N1-P1",
+                    "group-id": "",
+                    "added": false,
+                    "label": "Method",
+                    "is-input": true,
+                    "datatype": "ANY",
+                    "default-value": ""
+                },
+                {
+                    "id": "N1-P2",
+                    "group-id": "",
+                    "added": false,
+                    "label": "URL",
+                    "is-input": true,
+                    "datatype": "ANY",
+                    "default-value": ""
+                },
+                {
+                    "id": "N1-P3",
+                    "group-id": "",
+                    "added": false,
+                    "label": "Payload",
+                    "is-input": true,
+                    "datatype": "ANY",
+                    "default-value": ""
+                },
+                {
+                    "id": "N1-P4",
+                    "group-id": "",
+                    "added": false,
+                    "label": "Response",
+                    "is-input": false,
+                    "datatype": "ANY",
+                    "default-value": ""
+                },
+                {
+                    "id": "N1-P5",
+                    "group-id": "",
+                    "added": false,
+                    "label": "Response Code",
+                    "is-input": false,
+                    "datatype": "ANY",
+                    "default-value": ""
+                }
+            ]
+        },
+        {
+            "id": "N2",
+            "name": "Debug",
+            "type": "Debug",
+            "ports": [
+                {
+                    "id": "N2-P1",
+                    "group-id": "",
+                    "added": false,
+                    "label": "Input",
+                    "is-input": true,
+                    "datatype": "ANY",
+                    "default-value": ""
+                },
+                {
+                    "id": "N2-P2",
+                    "group-id": "",
+                    "added": false,
+                    "label": "Output",
+                    "is-input": false,
+                    "datatype": "ANY",
+                    "default-value": ""
+                }
+            ]
+        },
+        {
+            "id": "N3",
+            "name": "Mail",
+            "type": "Debug",
+            "ports": [
+                {
+                    "id": "N3-P1",
+                    "group-id": "",
+                    "added": false,
+                    "label": "E-Mail",
+                    "is-input": true,
+                    "datatype": "ANY",
+                    "default-value": ""
+                },
+                {
+                    "id": "P3-P2",
+                    "group-id": "",
+                    "added": false,
+                    "label": "Message",
+                    "is-input": true,
+                    "datatype": "ANY",
+                    "default-value": ""
+                }
+            ]
+        }
+    ],
+    "edges": []
+}
