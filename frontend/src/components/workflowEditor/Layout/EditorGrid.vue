@@ -19,7 +19,7 @@ import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
 import NodeComponent from "../Node/NodeComponent.vue";
 import GridModel from "@/models/GridModel";
-import TestModels from "@/models/Debug/TestModels";
+import TestModels from "@/models/Data/GridData";
 import { InteractEvent } from "@interactjs/types";
 import NodeEdge from "../Node/NodeEdge.vue";
 import NodeModel from "@/models/Node/NodeModel";

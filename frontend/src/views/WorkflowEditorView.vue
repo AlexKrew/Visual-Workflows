@@ -13,7 +13,7 @@ import EditorInspector from "@/components/workflowEditor/Layout/EditorInspector.
 import { emitter } from "@/components/util/Emittery";
 import { onMounted, ref } from "vue";
 import workflowJSON from "../test/testWorkflow.json";
-import TestModels from "@/models/Debug/TestModels";
+import TestModels from "@/models/Data/GridData";
 import GridModel from "@/models/GridModel";
 
 export default {

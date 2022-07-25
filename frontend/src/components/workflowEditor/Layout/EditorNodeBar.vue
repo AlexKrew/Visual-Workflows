@@ -16,7 +16,7 @@
 <script lang="ts">
 import Card from "@/components/CardComponent.vue";
 import NodeModel from "@/models/Node/NodeModel";
-import TestModels from "@/models/Debug/TestModels";
+import TestModels from "@/models/Data/GridData";
 import { onMounted, onUnmounted, ref } from "vue";
 import interact from "interactjs";
 import { InteractEvent } from "@interactjs/types";
