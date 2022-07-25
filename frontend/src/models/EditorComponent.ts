@@ -1,7 +1,8 @@
 import Vector2 from "@/components/util/Vector";
 import GridModel from "./GridModel";
+import ISerializable from "./ISerializable";
 
-abstract class EditorComponent {
+abstract class EditorComponent implements ISerializable {
   readonly id: string;
   title: string;
 
@@ -83,6 +84,11 @@ abstract class EditorComponent {
     const y = Math.floor(pos.y / cellSize) * cellSize;
     return new Vector2(x, y);
   }
+  //#endregion
+
+  //#region
+  abstract fromJSON(json: JSON): void;
+  abstract toJSON(): JSON;
   //#endregion
 }
 

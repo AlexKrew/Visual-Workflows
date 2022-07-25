@@ -19,6 +19,24 @@ class PortModel extends EditorComponent {
     if (this.parent) port.setParent(this.parent);
     return port;
   }
+
+  //#region Serialization
+  fromJSON(json: JSON): void {
+    throw new Error("Method not implemented.");
+  }
+  toJSON(): JSON {
+    const json = JSON.parse(JSON.stringify({}));
+
+    json["id"] = this.id;
+    json["group-id"] = ""; // TODO
+    json["added"] = false; // TODO
+    json["is-input"] = this.isInput;
+    json["type"] = "ANY"; // TODO
+    json["default-value"] = ""; // TODO
+
+    return json;
+  }
+  //#endregion Serialization
 }
 
 export default PortModel;

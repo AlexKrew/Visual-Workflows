@@ -6,7 +6,7 @@
   >
     <!-- Connections -->
     <svg id="svgID" width="10000" height="10000" xmlns="http://www.w3.org/2000/svg" class="absolute top-0 left-0">
-      <NodeConnection v-for="connection in grid.connections" :key="connection.id" :connection="connection" />
+      <NodeEdge v-for="edge in grid.edges" :key="edge.id" :edge="edge" />
     </svg>
     <!-- Nodes -->
     <NodeComponent v-for="node in nodes" :key="node.id" :node-model="node" />
@@ -27,7 +27,7 @@ import NodeModel from "@/models/Node/NodeModel";
 export default defineComponent({
   components: {
     NodeComponent,
-    NodeConnection: NodeEdge,
+    NodeEdge: NodeEdge,
   },
   setup() {
     const grid = ref<GridModel>(TestModels.grid);
@@ -35,6 +35,8 @@ export default defineComponent({
 
     onMounted(() => {
       interact("#EditorGrid").draggable({}).on("dragmove", onDragMove);
+
+      console.log(grid.value.toJSON());
     });
 
     onUnmounted(() => {

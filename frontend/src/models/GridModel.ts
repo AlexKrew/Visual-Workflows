@@ -7,8 +7,8 @@ import PortModel from "./Node/PortModel";
 class GridModel extends EditorComponent {
   static cellSize = 20;
 
-  connections: EdgeModel[] = [];
-  tmpConnectionIndex = -1; // the Connection that is currently dragged
+  edges: EdgeModel[] = [];
+  tmpEdgeIndex = -1; // the Connection that is currently dragged
 
   constructor(posRel = new Vector2(0, 0), nodes: NodeModel[]) {
     super("GridID", "Grid", false, nodes);
@@ -36,55 +36,55 @@ class GridModel extends EditorComponent {
   }
 
   //#region Connections
-  addConnection(connection: EdgeModel, isTmp = false) {
-    this.connections.push(connection);
+  addEdge(edge: EdgeModel, isTmp = false) {
+    this.edges.push(edge);
     if (isTmp) {
-      this.tmpConnectionIndex = this.connections.length - 1;
+      this.tmpEdgeIndex = this.edges.length - 1;
     }
   }
 
-  deleteConnection(id: string) {
-    const index = this.getConnectionIndex(id);
+  deleteEdge(id: string) {
+    const index = this.getEdgeIndex(id);
     if (index < 0) {
       throw new Error(`Can not delete Connection: ${id}`);
     }
-    if (index == this.tmpConnectionIndex) {
-      this.tmpConnectionIndex = -1;
+    if (index == this.tmpEdgeIndex) {
+      this.tmpEdgeIndex = -1;
     }
-    this.connections.splice(index, 1);
+    this.edges.splice(index, 1);
   }
 
   setTmp(id: string) {
-    this.tmpConnectionIndex = this.getConnectionIndex(id);
+    this.tmpEdgeIndex = this.getEdgeIndex(id);
   }
 
-  resetTmp(deleteConnection = false) {
-    if (this.tmpConnectionIndex < 0) return;
-    if (deleteConnection) {
-      this.deleteConnection(this.connections[this.tmpConnectionIndex].id);
+  resetTmp(deleteEdge = false) {
+    if (this.tmpEdgeIndex < 0) return;
+    if (deleteEdge) {
+      this.deleteEdge(this.edges[this.tmpEdgeIndex].id);
     }
-    this.tmpConnectionIndex = -1;
+    this.tmpEdgeIndex = -1;
   }
 
-  getConnection(connectionId?: string, portInId?: string): EdgeModel | undefined {
-    const index = this.getConnectionIndex(connectionId, portInId);
+  getEdge(edgeID?: string, portInId?: string): EdgeModel | undefined {
+    const index = this.getEdgeIndex(edgeID, portInId);
 
     if (index < 0) return undefined;
 
-    const connection = this.connections[index];
+    const connection = this.edges[index];
     return connection;
   }
 
-  getTmpConnection(): EdgeModel {
-    return this.connections[this.tmpConnectionIndex];
+  getTmpEdge(): EdgeModel {
+    return this.edges[this.tmpEdgeIndex];
   }
 
-  private getConnectionIndex(connectionId?: string, portInId?: string) {
-    const index = this.connections.findIndex((connection) => {
-      if (connectionId) {
-        return connection.id == connectionId;
+  private getEdgeIndex(edgeID?: string, portInId?: string) {
+    const index = this.edges.findIndex((edge) => {
+      if (edgeID) {
+        return edge.id == edgeID;
       } else if (portInId) {
-        return connection.portIn?.id == portInId;
+        return edge.portIn?.id == portInId;
       }
       return false;
     });
@@ -93,6 +93,29 @@ class GridModel extends EditorComponent {
   }
 
   //#endregion
+
+  //#region Serialization
+  fromJSON(json: JSON): void {
+    throw new Error("Method not implemented.");
+  }
+  toJSON(): JSON {
+    const json = JSON.parse(JSON.stringify({}));
+
+    json["id"] = this.id;
+    json["name"] = "Workflow Name"; //TODO
+    json["nodes"] = [];
+    json["edges"] = [];
+
+    this.children.forEach((child) => {
+      json["nodes"].push(child.toJSON());
+    });
+    this.edges.forEach((edge) => {
+      json["edges"].push(edge.toJSON());
+    });
+
+    return json;
+  }
+  //#endregion Serialization
 }
 
 export default GridModel;

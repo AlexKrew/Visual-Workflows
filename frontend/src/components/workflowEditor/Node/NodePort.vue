@@ -109,13 +109,13 @@ export default defineComponent({
     function onDragStart(event: InteractEvent) {
       if (!grid) return;
       if (props.portModel.isInput) {
-        const connection: EdgeModel | undefined = grid.getConnection(undefined, props.portModel.id);
+        const connection: EdgeModel | undefined = grid.getEdge(undefined, props.portModel.id);
         if (connection) {
           connection.setPortIn(undefined);
           grid.setTmp(connection.id);
         }
       } else {
-        (grid as GridModel).addConnection(
+        (grid as GridModel).addEdge(
           new EdgeModel(props.portModel, undefined, new Vector2(event.clientX, event.clientY)),
           true
         );
@@ -124,8 +124,8 @@ export default defineComponent({
 
     function onDragMove(event: InteractEvent) {
       if (!grid) return;
-      if (grid.tmpConnectionIndex >= 0) {
-        grid.connections[grid.tmpConnectionIndex].setMousePos(new Vector2(event.clientX, event.clientY));
+      if (grid.tmpEdgeIndex >= 0) {
+        grid.edges[grid.tmpEdgeIndex].setMousePos(new Vector2(event.clientX, event.clientY));
       }
     }
 
@@ -140,7 +140,7 @@ export default defineComponent({
       // event.target         = the Element on which it gets dropped
       // event.relatedTarget  = the Element which dropped
       if (grid.getPortByID(event.target.id)?.isInput) {
-        const connection = grid.getTmpConnection();
+        const connection = grid.getTmpEdge();
         connection.setPortIn(grid.getPortByID(event.target.id));
         grid.resetTmp();
       } else {

@@ -40,6 +40,27 @@ class NodeModel extends EditorComponent {
   removeAddablePorts() {
     //TODO
   }
+
+  //#region Serialization
+  fromJSON(json: JSON): void {
+    throw new Error("Method not implemented.");
+  }
+  toJSON(): JSON {
+    const json = JSON.parse(JSON.stringify({}));
+
+    json["id"] = this.id;
+    json["name"] = this.title;
+    json["type"] = "Debug"; // TODO
+    // json["ui"]["position"] = [this.posGrid.x, this.posGrid.y];
+    json["ports"] = [];
+
+    this.children.forEach((child) => {
+      json["ports"].push(child.toJSON());
+    });
+
+    return json;
+  }
+  //#endregion
 }
 
 export default NodeModel;
