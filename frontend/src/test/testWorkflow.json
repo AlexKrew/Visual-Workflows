@@ -3,7 +3,7 @@
     "name": "Workflow Name",
     "nodes": [
         {
-            "id": "N1",
+            "id": "N1ooo",
             "name": "HTTP Request",
             "type": "Debug",
             "ui": {
@@ -14,16 +14,16 @@
             },
             "ports": [
                 {
-                    "id": "N1-P1",
+                    "id": "N1-P1ooo",
                     "group-id": "",
                     "added": false,
                     "label": "Method",
                     "is-input": true,
                     "datatype": "ANY",
-                    "default-value": ""
+                    "default-value": "test value"
                 },
                 {
-                    "id": "N1-P2",
+                    "id": "N1-P2ooo",
                     "group-id": "",
                     "added": false,
                     "label": "URL",
@@ -32,7 +32,7 @@
                     "default-value": ""
                 },
                 {
-                    "id": "N1-P3",
+                    "id": "N1-P3ooo",
                     "group-id": "",
                     "added": false,
                     "label": "Payload",
@@ -41,7 +41,7 @@
                     "default-value": ""
                 },
                 {
-                    "id": "N1-P4",
+                    "id": "N1-P4ooo",
                     "group-id": "",
                     "added": false,
                     "label": "Response",
@@ -50,7 +50,7 @@
                     "default-value": ""
                 },
                 {
-                    "id": "N1-P5",
+                    "id": "N1-P5ooo",
                     "group-id": "",
                     "added": false,
                     "label": "Response Code",
@@ -61,7 +61,7 @@
             ]
         },
         {
-            "id": "N2",
+            "id": "N2ooo",
             "name": "Debug",
             "type": "Debug",
             "ui": {
@@ -72,7 +72,7 @@
             },
             "ports": [
                 {
-                    "id": "N2-P1",
+                    "id": "N2-P1ooo",
                     "group-id": "",
                     "added": false,
                     "label": "Input",
@@ -81,7 +81,7 @@
                     "default-value": ""
                 },
                 {
-                    "id": "N2-P2",
+                    "id": "N2-P2ooo",
                     "group-id": "",
                     "added": false,
                     "label": "Output",
@@ -92,7 +92,7 @@
             ]
         },
         {
-            "id": "N3",
+            "id": "N3ooo",
             "name": "Mail",
             "type": "Debug",
             "ui": {
@@ -103,7 +103,7 @@
             },
             "ports": [
                 {
-                    "id": "N3-P1",
+                    "id": "N3-P1ooo",
                     "group-id": "",
                     "added": false,
                     "label": "E-Mail",
@@ -112,7 +112,7 @@
                     "default-value": ""
                 },
                 {
-                    "id": "P3-P2",
+                    "id": "P3-P2ooo",
                     "group-id": "",
                     "added": false,
                     "label": "Message",

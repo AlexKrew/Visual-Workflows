@@ -53,7 +53,7 @@ export default defineComponent({
     const portRef = ref<HTMLInputElement>();
     const textAreaRef = ref<HTMLInputElement>();
 
-    const textAreaValue = ref("");
+    const textAreaValue = ref(props.portModel.defaultValue);
     const textAreaHeight = ref(24);
 
     const node = props.portModel.parent as NodeModel;
@@ -81,6 +81,8 @@ export default defineComponent({
 
     // Resize Text Area
     watch(textAreaValue, () => {
+      props.portModel.setDefaultValue(textAreaValue.value);
+
       let oldHeight = textAreaHeight.value;
       textAreaHeight.value = 0; // Change to 0 to get accurate ScrollHeight to shrink textArea, pretty stupid System,
 

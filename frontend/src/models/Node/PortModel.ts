@@ -6,18 +6,31 @@ class PortModel extends EditorComponent {
   isInput: boolean;
   portSize = 15;
   hasDefaultField: boolean;
+  defaultValue = "";
 
-  constructor(id: string, label = "New Port", isInput = false, hasDefaultField = false, placeholder = "") {
+  constructor(
+    id: string,
+    label = "New Port",
+    isInput = false,
+    hasDefaultField = false,
+    placeholder = "",
+    defaultValue = ""
+  ) {
     super(id, label, false);
     this.isInput = isInput;
     this.hasDefaultField = hasDefaultField;
     this.placeholder = placeholder;
+    this.defaultValue = defaultValue;
   }
 
   clone(): EditorComponent {
     const port = new PortModel("port-" + uuid.v4(), this.label, this.isInput, this.hasDefaultField, this.placeholder);
     if (this.parent) port.setParent(this.parent);
     return port;
+  }
+
+  setDefaultValue(text: string) {
+    this.defaultValue = text;
   }
 
   //#region Serialization
@@ -27,6 +40,7 @@ class PortModel extends EditorComponent {
       json["label" as keyof JSON] as string,
       JSON.parse(json["is-input" as keyof JSON] as string),
       true,
+      json["default-value" as keyof JSON] as string,
       json["default-value" as keyof JSON] as string
     );
 
