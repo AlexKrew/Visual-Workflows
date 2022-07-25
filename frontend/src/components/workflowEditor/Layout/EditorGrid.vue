@@ -35,8 +35,6 @@ export default defineComponent({
 
     onMounted(() => {
       interact("#EditorGrid").draggable({}).on("dragmove", onDragMove);
-
-      console.log(grid.value.toJSON());
     });
 
     onUnmounted(() => {

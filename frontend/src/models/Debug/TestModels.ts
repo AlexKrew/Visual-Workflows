@@ -38,10 +38,10 @@ class TestModels {
   ];
 
   // Grid
-  static readonly grid = new GridModel(new Vector2(220, 0), [
-    TestModels.nodes[0],
-    TestModels.nodes[1],
-    TestModels.nodes[2],
+  static grid = new GridModel(new Vector2(220, 0), [
+    // TestModels.nodes[0],
+    // TestModels.nodes[1],
+    // TestModels.nodes[2],
     // TestModels.nodes[3],
   ]);
 }

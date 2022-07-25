@@ -1,10 +1,9 @@
 import Vector2 from "@/components/util/Vector";
 import GridModel from "./GridModel";
-import ISerializable from "./ISerializable";
 
-abstract class EditorComponent implements ISerializable {
+abstract class EditorComponent {
   readonly id: string;
-  title: string;
+  label: string;
 
   parent: EditorComponent | undefined;
   children: EditorComponent[] = [];
@@ -16,7 +15,7 @@ abstract class EditorComponent implements ISerializable {
 
   constructor(id: string, title: string, snapToGrid: boolean, children: EditorComponent[] = []) {
     this.id = id;
-    this.title = title;
+    this.label = title;
     this.snapToGrid = snapToGrid;
     children.forEach((child) => this.addChildren(child));
   }
@@ -84,11 +83,6 @@ abstract class EditorComponent implements ISerializable {
     const y = Math.floor(pos.y / cellSize) * cellSize;
     return new Vector2(x, y);
   }
-  //#endregion
-
-  //#region
-  abstract fromJSON(json: JSON): ISerializable;
-  abstract toJSON(): JSON;
   //#endregion
 }
 

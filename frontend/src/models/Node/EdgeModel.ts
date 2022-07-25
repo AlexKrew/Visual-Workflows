@@ -2,9 +2,8 @@ import BezierCurve from "@/components/util/BezierCurve";
 import Vector2 from "@/components/util/Vector";
 import NodePortModel from "./PortModel";
 import { uuid } from "vue-uuid";
-import ISerializable from "../ISerializable";
 
-class EdgeModel implements ISerializable {
+class EdgeModel {
   id: string;
   portOut: NodePortModel;
   portIn: NodePortModel | undefined;
@@ -42,7 +41,7 @@ class EdgeModel implements ISerializable {
   }
 
   //#region Serialization
-  fromJSON(json: JSON): ISerializable {
+  static fromJSON(json: JSON): EdgeModel {
     throw new Error("Method not implemented.");
   }
   toJSON(): JSON {

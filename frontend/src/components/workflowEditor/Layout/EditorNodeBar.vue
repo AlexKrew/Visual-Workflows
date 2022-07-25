@@ -5,7 +5,7 @@
       <h1 class="text-xl font-bold">{{ category }}</h1>
       <div v-for="node in nodesFromCategory(category)" :key="node.id" :id="node.id" :ref="(el) => cards.push(el)">
         <Card class="m-5">
-          <p class="text-center">{{ node.title }}</p>
+          <p class="text-center">{{ node.label }}</p>
         </Card>
       </div>
     </div>

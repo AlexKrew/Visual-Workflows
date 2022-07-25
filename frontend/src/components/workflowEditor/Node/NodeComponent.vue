@@ -5,7 +5,7 @@
     :style="{ left: nodeModel.posGridCell.x + 'px', top: nodeModel.posGridCell.y + 'px' }"
   >
     <Card>
-      <h2 class="text-center">{{ nodeModel.title }}</h2>
+      <h2 class="text-center">{{ nodeModel.label }}</h2>
       <div class="w-full">
         <NodePort v-for="port in ports" :key="port.id" :port-model="port" />
       </div>

@@ -13,7 +13,7 @@
         ]"
       ></div>
       <span class="justify-center flex-auto mx-3" :class="[portModel.isInput ? 'text-left' : 'text-right']">{{
-        portModel.title
+        portModel.label
       }}</span>
     </div>
 

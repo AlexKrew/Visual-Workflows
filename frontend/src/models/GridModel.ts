@@ -1,6 +1,5 @@
 import Vector2 from "@/components/util/Vector";
 import EditorComponent from "./EditorComponent";
-import ISerializable from "./ISerializable";
 import EdgeModel from "./Node/EdgeModel";
 import NodeModel from "./Node/NodeModel";
 import PortModel from "./Node/PortModel";
@@ -96,8 +95,20 @@ class GridModel extends EditorComponent {
   //#endregion
 
   //#region Serialization
-  fromJSON(json: JSON): ISerializable {
-    throw new Error("Method not implemented.");
+  static fromJSON(json: JSON): GridModel {
+    // Add Nodes
+    const nodesJSON = JSON.parse(JSON.stringify(json["nodes" as keyof JSON]));
+    const nodes: NodeModel[] = [];
+    nodesJSON.forEach((node: JSON) => {
+      nodes.push(NodeModel.fromJSON(node));
+    });
+
+    console.log(nodes);
+
+    // Add Edges
+    // Add Grid
+
+    return new GridModel(new Vector2(220, 0), nodes);
   }
 
   toJSON(): JSON {
@@ -109,10 +120,10 @@ class GridModel extends EditorComponent {
     json["edges"] = [];
 
     this.children.forEach((child) => {
-      json["nodes"].push(child.toJSON());
+      json["nodes"].push((child as NodeModel).toJSON());
     });
     this.edges.forEach((edge) => {
-      json["edges"].push(edge.toJSON());
+      json["edges"].push((edge as EdgeModel).toJSON());
     });
 
     return json;

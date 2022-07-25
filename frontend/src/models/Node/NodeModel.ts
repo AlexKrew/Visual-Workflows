@@ -2,7 +2,6 @@ import PortModel from "./PortModel";
 import EditorComponent from "../EditorComponent";
 import { uuid } from "vue-uuid";
 import { emitter } from "@/components/util/Emittery";
-import ISerializable from "../ISerializable";
 
 class NodeModel extends EditorComponent {
   category: string;
@@ -16,7 +15,7 @@ class NodeModel extends EditorComponent {
   }
 
   clone(): EditorComponent {
-    const node = new NodeModel("node-" + uuid.v4(), this.title, this.category, [], this.addablePorts);
+    const node = new NodeModel("node-" + uuid.v4(), this.label, this.category, [], this.addablePorts);
 
     this.children.forEach((child) => {
       node.addChildren(child.clone());
@@ -43,21 +42,27 @@ class NodeModel extends EditorComponent {
   }
 
   //#region Serialization
-  fromJSON(json: JSON): ISerializable {
-    throw new Error("Method not implemented.");
+  static fromJSON(json: JSON): NodeModel {
+    const portsJson = JSON.parse(JSON.stringify(json["ports" as keyof JSON]));
+    const ports: PortModel[] = [];
+    portsJson.forEach((port: JSON) => {
+      ports.push(PortModel.fromJSON(port));
+    });
+
+    return new NodeModel(json["id" as keyof JSON] as string, json["name" as keyof JSON] as string, "Imported", ports);
   }
   toJSON(): JSON {
     const json = JSON.parse(JSON.stringify({}));
 
     json["id"] = this.id;
-    json["name"] = this.title;
+    json["name"] = this.label;
     json["type"] = "Debug"; // TODO
     json["ui"] = {};
     json["ui"]["position"] = [this.posGrid.x, this.posGrid.y];
     json["ports"] = [];
 
     this.children.forEach((child) => {
-      json["ports"].push(child.toJSON());
+      json["ports"].push((child as PortModel).toJSON());
     });
 
     return json;
