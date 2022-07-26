@@ -15,7 +15,13 @@
           "datatype": "ANY",
           "is_input": false
         }
-      ]
+      ],
+      "ui": {
+        "position": [
+          120,
+          200
+        ]
+      }
     },
     {
       "id": "node1",
@@ -42,7 +48,13 @@
           "datatype": "ANY",
           "is_input": false
         }
-      ]
+      ],
+      "ui": {
+        "position": [
+          400,
+          300
+        ]
+      }
     },
     {
       "id": "node2",
@@ -63,7 +75,13 @@
           "datatype": "ANY",
           "is_input": false
         }
-      ]
+      ],
+      "ui": {
+        "position": [
+          50,
+          50
+        ]
+      }
     }
   ],
   "edges": [

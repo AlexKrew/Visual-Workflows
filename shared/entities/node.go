@@ -9,6 +9,7 @@ type Node struct {
 	Name  string `json:"name"`
 	Type  string `json:"type"`
 	Ports []Port `json:"ports"`
+	UI    UI     `json:"ui"`
 }
 
 func (node *Node) GetInputPortIds() []PortID {

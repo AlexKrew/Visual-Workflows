@@ -1,8 +1,15 @@
 <template>
+
   <div class="flex flex-row fill-height" :key="updateKey">
-    <EditorNodeBar />
-    <EditorGrid />
-    <EditorInspector />
+    <div v-if="isLoading">
+      <p>Loading</p>
+    </div>
+
+    <template v-else>
+      <EditorNodeBar />
+      <EditorGrid />
+      <EditorInspector />
+    </template>
   </div>
 </template>
 
@@ -11,29 +18,37 @@ import EditorNodeBar from "@/components/workflowEditor/Layout/EditorNodeBar.vue"
 import EditorGrid from "@/components/workflowEditor/Layout/EditorGrid.vue";
 import EditorInspector from "@/components/workflowEditor/Layout/EditorInspector.vue";
 import { emitter } from "@/components/util/Emittery";
-import { onBeforeMount, onMounted, ref } from "vue";
+import { defineComponent, onBeforeMount, onMounted, ref } from "vue";
 import EmptyWorkflowJSON from "../models/Data/JSON/EmptyWorkflow.json"
 import test1 from "../test/test1.json";
 import GridData from "@/models/Data/GridData";
+import { workflowInstancesService } from "@/api";
 
-export default {
+export default defineComponent({
   components: {
     EditorNodeBar,
     EditorGrid,
     EditorInspector,
   },
-  setup() {
+  props: {
+    workflowId: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
     let updateKey = ref(0);
+    const isLoading = ref(true);
 
-    onBeforeMount(() => {
+    onBeforeMount(async () => {
       // Load all default Nodes from Nodes.json
       GridData.loadDefaultNodes();
 
       // Load Empty Initial Workflow
-      GridData.loadWorkflow(JSON.parse(JSON.stringify(test1)));
-
-      console.log(GridData.grid)
-
+      const workflowJSON = await workflowInstancesService.loadWorkflow(props.workflowId)
+      // GridData.loadWorkflow(JSON.parse(JSON.stringify(test1)));
+      GridData.loadWorkflow(JSON.parse(JSON.stringify(workflowJSON)));
+      isLoading.value = false
     });
 
     onMounted(() => {
@@ -48,9 +63,10 @@ export default {
 
     return {
       updateKey,
+      isLoading
     };
   },
-};
+});
 </script>
 
 <style></style>
