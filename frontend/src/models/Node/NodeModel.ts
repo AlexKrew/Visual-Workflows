@@ -20,6 +20,8 @@ class NodeModel extends EditorComponent {
     this.data.ports.forEach((port) => {
       this.addChildren(new PortModel(port));
     });
+
+    this.data.addablePorts = [];
   }
 
   clone(): EditorComponent {
