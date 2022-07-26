@@ -5,9 +5,9 @@ import "visualWorkflows/internal/storage"
 type EdgeID = string
 
 type Edge struct {
-	ID     EdgeID
-	Origin PortAddress
-	Target PortAddress
+	ID     EdgeID      `json:"id"`
+	Origin PortAddress `json:"origin"`
+	Target PortAddress `json:"target"`
 }
 
 func EdgeFromDefinition(definition storage.EdgeDefinition) (Edge, error) {
