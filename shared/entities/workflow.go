@@ -42,6 +42,7 @@ func WorkflowFromDefinition(definition storage.WorkflowDefinition) (Workflow, er
 			Name:  node.Name,
 			Type:  node.Type,
 			Ports: ports,
+			UI:    UIFromDefinition(node.UI),
 		})
 	}
 

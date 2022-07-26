@@ -47,6 +47,7 @@ export class WorkflowInstancesServiceImpl implements WorkflowInstancesService {
     try {
       const response = await HTTP.get("/workflows/" + id);
       console.log("Response", response);
+      return response.data["workflow"]
     } catch (e) {
       console.log("Failed to GET /workflows/" + id + "\n", e);
     }

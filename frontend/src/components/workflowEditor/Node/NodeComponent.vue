@@ -43,6 +43,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    console.log("NODEMODEL", props.nodeModel.data.addablePorts)
     const ports = ref<PortModel[]>(props.nodeModel.children as PortModel[]);
 
     onMounted(() => {
