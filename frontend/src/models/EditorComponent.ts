@@ -17,7 +17,7 @@ abstract class EditorComponent {
   constructor(id: string, snapToGrid: boolean, children: EditorComponent[] = []) {
     this.id = id;
     this.snapToGrid = snapToGrid;
-    children.forEach((child) => this.addChildren(child));
+    children.forEach((child) => this.addChild(child, false));
   }
 
   abstract clone(): EditorComponent;
@@ -28,16 +28,14 @@ abstract class EditorComponent {
     this.updatePos();
   }
 
-  addChildren(...children: EditorComponent[]) {
-    children.forEach((child) => {
-      this.children.push(child);
-      child.setParent(this);
-    });
+  addChild(child: EditorComponent, addToData: boolean) {
+    this.children.push(child);
+    child.setParent(this);
 
-    this.addChildrenOverload(...children);
+    if (addToData) this.addChildToData(child);
   }
 
-  abstract addChildrenOverload(...children: EditorComponent[]): void;
+  abstract addChildToData(child: EditorComponent): void;
 
   getChildIndex(id: string): number {
     let index = -1;

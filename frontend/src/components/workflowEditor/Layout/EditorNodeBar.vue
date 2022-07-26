@@ -90,7 +90,7 @@ export default {
     function onDragEnd() {
       if (curDragNode.value) {
         curDragNode.value.addPos(grid.posRel.negateReturn());
-        grid.addChildren(curDragNode.value);
+        grid.addChild(curDragNode.value, true);
         curDragNode.value = undefined;
         emitter.emit("UpdateWorkflowEditor");
       }

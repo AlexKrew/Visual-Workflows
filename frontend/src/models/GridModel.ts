@@ -11,17 +11,17 @@ class GridModel extends EditorComponent {
   edges: EdgeModel[] = [];
   tmpEdgeIndex = -1; // the Connection that is currently dragged
 
-  constructor(data: WorkflowType, posRel = new Vector2(0, 0)) {
+  constructor(data: WorkflowType) {
     super(data.id, false);
     this.data = data;
-    this.posRel = posRel;
+    this.posRel = new Vector2(200, 0);
 
     data.nodes.forEach((node) => {
-      this.addChildren(new NodeModel(node));
+      this.addChild(new NodeModel(node), false);
     });
   }
 
-  loadEdges(){
+  loadEdges() {
     this.data.edges.forEach((edge) => {
       this.edges.push(new EdgeModel(edge));
     });
@@ -31,10 +31,8 @@ class GridModel extends EditorComponent {
     throw new Error("Method not implemented.");
   }
 
-  addChildrenOverload(...children: EditorComponent[]): void {
-    children.forEach((child) => {
-      this.data.nodes.push((child as NodeModel).data);
-    });
+  addChildToData(child: EditorComponent): void {
+    this.data.nodes.push((child as NodeModel).data);
   }
 
   updatePos(): void {
@@ -53,7 +51,7 @@ class GridModel extends EditorComponent {
     return result;
   }
 
-  //#region Connections
+  //#region Edges
   addEdge(edge: EdgeModel, isTmp = false) {
     this.data.edges.push(edge.data);
     this.edges.push(edge);

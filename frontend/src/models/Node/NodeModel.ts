@@ -18,7 +18,7 @@ class NodeModel extends EditorComponent {
     this.setPos(pos);
 
     this.data.ports.forEach((port) => {
-      this.addChildren(new PortModel(port));
+      this.addChild(new PortModel(port), false);
     });
 
     this.data.addablePorts = [];
@@ -44,6 +44,10 @@ class NodeModel extends EditorComponent {
     return node;
   }
 
+  addChildToData(child: EditorComponent): void {
+    throw new Error("Method not implemented.");
+  }
+
   addChildrenOverload(...children: EditorComponent[]): void {
     return;
   }
@@ -57,7 +61,7 @@ class NodeModel extends EditorComponent {
       portClone.setGroupID(groupID);
 
       this.addedPorts.push(portClone.id);
-      this.addChildren(portClone);
+      this.addChild(portClone, false);
       emitter.emit("PortsUpdatePos", this);
     });
   }
