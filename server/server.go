@@ -62,6 +62,7 @@ func setupCORS(router *gin.Engine) {
 		cors.Config{
 			AllowOrigins: []string{"*"},
 			AllowMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+			AllowHeaders: []string{"*"},
 		},
 	))
 }

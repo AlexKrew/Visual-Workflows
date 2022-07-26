@@ -5,8 +5,7 @@
     {
       "id": "node0",
       "type": "inject",
-      "label": "Inject",
-      "name": "",
+      "name": "Inject",
       "category": "core",
       "ports": [
         {
@@ -26,8 +25,7 @@
     {
       "id": "node1",
       "type": "http-request",
-      "label": "HttpRequest",
-      "name": "",
+      "name": "HttpRequest",
       "category": "core",
       "ports": [
         {
@@ -59,8 +57,7 @@
     {
       "id": "node2",
       "type": "debug",
-      "label": "Debug",
-      "name": "",
+      "name": "Debug",
       "category": "core",
       "ports": [
         {

@@ -6,6 +6,7 @@
 </template>
 
 <script lang="ts">
+import { workflowInstancesService } from "@/api";
 import Card from "@/components/CardComponent.vue";
 import GridData from "@/models/Data/GridData";
 export default {
@@ -13,8 +14,10 @@ export default {
     Card,
   },
   setup() {
-    function onDeploy(){
+    
+    async function onDeploy(){
       console.log(GridData.workflow);
+      await workflowInstancesService.updateWorkflow(GridData.workflow.id, JSON.parse(JSON.stringify(GridData.workflow)))
     }
 
     return{

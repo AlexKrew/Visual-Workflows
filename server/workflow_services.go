@@ -1,9 +1,12 @@
 package server
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	container "visualWorkflows/internal/container"
+	"visualWorkflows/shared/entities"
 
 	"github.com/gin-gonic/gin"
 )
@@ -29,9 +32,15 @@ func getWorkflow(c *gin.Context) {
 	}
 	// return c.JSON(http.StatusOK, workflow)
 	c.JSON(http.StatusOK, gin.H{"workflow": workflow})
-	return
 }
 
 func updateWorkflow(c *gin.Context) {
-
+	jsonData, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		fmt.Println("ERROR", err.Error())
+	}
+	var workflow entities.Workflow
+	json.Unmarshal(jsonData, &workflow)
+	fmt.Println("WORKFLOW", workflow)
+	c.String(http.StatusOK, "Correct")
 }
