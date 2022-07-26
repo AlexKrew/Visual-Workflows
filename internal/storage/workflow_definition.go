@@ -35,8 +35,8 @@ type EdgeDefinition struct {
 }
 
 type EdgeEnd struct {
-	Node string `json:"node"`
-	Port string `json:"port"`
+	NodeID string `json:"node_id"`
+	PortID string `json:"port_id"`
 }
 
 // type InputPortDefinition struct {

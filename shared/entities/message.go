@@ -10,8 +10,8 @@ const (
 )
 
 type WorkflowMessage struct {
-	DataType MessageType
-	Value    any
+	DataType MessageType `json:"datatype"`
+	Value    any         `json:"value"`
 }
 
 /* Builder functions */

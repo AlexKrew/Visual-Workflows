@@ -10,17 +10,17 @@ type GroupPortID = string
 type UniquePortID = string
 
 type Port struct {
-	ID           PortID
-	Label        string
-	DataType     string
-	DefaultValue WorkflowMessage
-	Added        bool
-	IsInput      bool
+	ID           PortID          `json:"id"`
+	Label        string          `json:"label"`
+	DataType     string          `json:"datatype"`
+	DefaultValue WorkflowMessage `json:"default_value"`
+	Added        bool            `json:"added"`
+	IsInput      bool            `json:"is_input"`
 }
 
 type PortAddress struct {
-	NodeID string
-	PortID string
+	NodeID string `json:"node_id"`
+	PortID string `json:"port_id"`
 }
 
 func PortFromDefinition(definition storage.PortDefinition) (Port, error) {

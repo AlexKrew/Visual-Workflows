@@ -7,11 +7,11 @@ import (
 type WorkflowID = string
 
 type Workflow struct {
-	ID   WorkflowID
-	Name string
+	ID   WorkflowID `json:"id"`
+	Name string     `json:"name"`
 
-	Nodes []Node
-	Edges []Edge
+	Nodes []Node `json:"nodes"`
+	Edges []Edge `json:"edges"`
 }
 
 // WorkflowFromDefinition is a mapper function

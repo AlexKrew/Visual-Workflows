@@ -5,11 +5,10 @@ import "fmt"
 type NodeID = string
 
 type Node struct {
-	ID       NodeID
-	Name     string
-	Type     string
-	Category string
-	Ports    []Port
+	ID    NodeID `json:"id"`
+	Name  string `json:"name"`
+	Type  string `json:"type"`
+	Ports []Port `json:"ports"`
 }
 
 func (node *Node) GetInputPortIds() []PortID {

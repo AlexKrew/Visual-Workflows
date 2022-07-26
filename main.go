@@ -5,6 +5,7 @@ import (
 	"sync"
 	"visualWorkflows/internal/container"
 	"visualWorkflows/internal/storage"
+	"visualWorkflows/server"
 	wc "visualWorkflows/workerclient"
 )
 
@@ -16,6 +17,9 @@ func main() {
 	fmt.Println("Starting the server...")
 
 	runtimeContainer := container.Construct()
+
+	go server.StartServer(&runtimeContainer)
+
 	err := runtimeContainer.LoadWorkflow(storage.LoadWorkflowProps{
 		ID: "flow1",
 	})
@@ -27,7 +31,7 @@ func main() {
 	worker1 := wc.ConstructWorker()
 	runtimeContainer.RegisterWorker("flow1", worker1)
 
-	runtimeContainer.StartWorkflow("flow1")
+	go runtimeContainer.StartWorkflow("flow1")
 
 	wg.Wait()
 

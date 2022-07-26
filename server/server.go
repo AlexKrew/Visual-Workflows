@@ -32,6 +32,7 @@ func StartServer(runtimeContainer *wf.WorkflowContainer) {
 	// Register services / routes
 
 	registerOverviewServices(v1, runtimeContainer)
+	registerWorkflowServices(v1, runtimeContainer)
 	registerHealthServices(v1)
 	registerEditorServices(v1)
 

@@ -71,6 +71,15 @@ func (container *WorkflowContainer) StartWorkflow(id string) error {
 	return nil
 }
 
+func (container *WorkflowContainer) GetWorkflowById(id string) (entities.Workflow, error) {
+	r, exists := container.runtimes[id]
+	if !exists {
+		return entities.Workflow{}, errors.New("workflow not loaded")
+	}
+
+	return r.Workflow, nil
+}
+
 func (c *WorkflowContainer) registerCallbacks(ch chan interface{}) {
 	event := <-ch
 	// TODO: switch

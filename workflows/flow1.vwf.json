@@ -70,23 +70,23 @@
     {
       "id": "edge0-1",
       "origin": {
-        "node": "node0",
-        "port": "output"
+        "node_id": "node0",
+        "port_id": "output"
       },
       "target": {
-        "node": "node1",
-        "port": "url"
+        "node_id": "node1",
+        "port_id": "url"
       }
     },
     {
       "id": "edge1-2",
       "origin": {
-        "node": "node1",
-        "port": "data"
+        "node_id": "node1",
+        "port_id": "data"
       },
       "target": {
-        "node": "node2",
-        "port": "input"
+        "node_id": "node2",
+        "port_id": "input"
       }
     }
   ]
