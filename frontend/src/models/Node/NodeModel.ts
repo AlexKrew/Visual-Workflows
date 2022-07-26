@@ -2,7 +2,7 @@ import PortModel from "./PortModel";
 import EditorComponent from "../EditorComponent";
 import { uuid } from "vue-uuid";
 import { emitter } from "@/components/util/Emittery";
-import { NodeType } from "../Data/Types";
+import { NodeType, PortType } from "../Data/Types";
 
 class NodeModel extends EditorComponent {
   data: NodeType;
@@ -18,11 +18,20 @@ class NodeModel extends EditorComponent {
   }
 
   clone(): EditorComponent {
+    // Shallow Clone the Node Data
     const newData: NodeType = { ...this.data };
-    newData.id = uuid.v4();
+    newData.id = "Node-" + uuid.v4();
+
+    // Shallow Clone ports
+    const newPorts: PortType[] = [];
+    newData.ports.forEach((port) => {
+      const newPort: PortType = { ...port };
+      newPort.id = "Port-" + uuid.v4();
+      newPorts.push(newPort);
+    });
+    newData.ports = newPorts;
 
     const node = new NodeModel(newData);
-    node.addedPorts = this.addedPorts;
     if (this.parent) node.setParent(this.parent);
 
     return node;

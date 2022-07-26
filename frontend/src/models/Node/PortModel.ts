@@ -13,7 +13,7 @@ class PortModel extends EditorComponent {
 
   clone(): EditorComponent {
     const newData: PortType = { ...this.data };
-    newData.id = uuid.v4();
+    newData.id = "Port-" + uuid.v4();
 
     const port = new PortModel(newData);
     if (this.parent) port.setParent(this.parent);
