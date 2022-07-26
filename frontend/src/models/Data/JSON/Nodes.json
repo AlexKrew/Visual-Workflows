@@ -187,5 +187,27 @@
       }
     ],
     "addablePorts": []
+  },
+  {
+    "id": "N5",
+    "name": "Inject",
+    "category": "Control",
+    "type": "Inject",
+    "ui": {
+      "position": [0, 0]
+    },
+    "ports": [
+      {
+        "id": "N5-P1",
+        "label": "Output",
+        "groupID": "",
+        "added": false,
+        "is_input": false,
+        "hasDefaultField": true,
+        "defaultValue": "",
+        "defaultPlaceholder": "Output Text..."
+      }
+    ],
+    "addablePorts": []
   }
 ]

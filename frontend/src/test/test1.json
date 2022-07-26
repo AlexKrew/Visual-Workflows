@@ -3,16 +3,38 @@
   "name": "Empty Workflow",
   "nodes": [
     {
-      "id": "Node-751ac13d-5235-4f54-aea3-2e5d5d1b9c5f",
+      "id": "Node-c1bba315-16a0-40c0-8f2a-476d31b51e8f",
+      "name": "Inject",
+      "category": "Control",
+      "type": "Inject",
+      "ui": {
+        "position": [92.54142761230469, 140.53460693359375]
+      },
+      "ports": [
+        {
+          "id": "Port-3834377b-47b0-466f-96f1-b32abec993c1",
+          "label": "Output",
+          "groupID": "",
+          "added": false,
+          "is_input": false,
+          "hasDefaultField": true,
+          "defaultValue": "Server1/",
+          "defaultPlaceholder": "Output Text..."
+        }
+      ],
+      "addablePorts": []
+    },
+    {
+      "id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
       "name": "HTTP Request",
       "category": "Web Services",
       "type": "HTTP",
       "ui": {
-        "position": [146.79212951660156, 240.9388885498047]
+        "position": [364.3738098144531, 223.83401489257812]
       },
       "ports": [
         {
-          "id": "Port-a6a6044c-c90e-41c1-a158-0cf1c0e61e8e",
+          "id": "Port-eeb1e2ae-9362-4a19-a146-a97988c0cebe",
           "label": "Method",
           "groupID": "",
           "added": false,
@@ -22,17 +44,17 @@
           "defaultPlaceholder": ""
         },
         {
-          "id": "Port-b01e0043-e5ab-4906-9fb3-d0da34e245ce",
+          "id": "Port-5cb1c250-776f-479f-a206-cbb652fdfd28",
           "label": "URL",
           "groupID": "",
           "added": false,
           "is_input": true,
           "hasDefaultField": true,
-          "defaultValue": "Server1",
+          "defaultValue": "",
           "defaultPlaceholder": "someURL.com"
         },
         {
-          "id": "Port-f4872398-2823-4e6b-9282-624e11b75aa8",
+          "id": "Port-c10b669b-c36e-4d2c-9ca3-7bf394910766",
           "label": "Payload",
           "groupID": "",
           "added": false,
@@ -42,7 +64,7 @@
           "defaultPlaceholder": "Header:{...}"
         },
         {
-          "id": "Port-1c828e61-aa1d-4cc8-8c99-a4b1f77381b6",
+          "id": "Port-82ceb70d-974d-4540-8721-7b44cb3de674",
           "label": "Response",
           "groupID": "",
           "added": false,
@@ -52,7 +74,7 @@
           "defaultPlaceholder": ""
         },
         {
-          "id": "Port-36dc4667-e1e5-4b74-99ee-294320c17742",
+          "id": "Port-78d218ab-8fc9-4524-9227-e0ed67ad2a05",
           "label": "Response Code",
           "groupID": "",
           "added": false,
@@ -65,48 +87,16 @@
       "addablePorts": []
     },
     {
-      "id": "Node-0c54491a-80c1-476b-9a5a-99bdc1c0641c",
-      "name": "Mail",
-      "category": "Web Services",
-      "type": "Mail",
-      "ui": {
-        "position": [503.16539001464844, 272.26048278808594]
-      },
-      "ports": [
-        {
-          "id": "Port-7ddf3c7f-064d-4fe3-9b73-eb13a2687ebd",
-          "label": "E-Mail",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": true,
-          "defaultValue": "test@gmail.com",
-          "defaultPlaceholder": "some@email.com"
-        },
-        {
-          "id": "Port-47459cb7-fc9b-45da-b3db-11c0e33aa4df",
-          "label": "Message",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": true,
-          "defaultValue": "",
-          "defaultPlaceholder": "Dear Someone, ..."
-        }
-      ],
-      "addablePorts": []
-    },
-    {
-      "id": "Node-bf8e94e7-7543-4be7-b1fc-4877b253e3f0",
+      "id": "Node-b2858d88-a91e-49e5-bbd1-87093123f891",
       "name": "Debug",
       "category": "Debug",
       "type": "Debug",
       "ui": {
-        "position": [500.0778503417969, 522.3243713378906]
+        "position": [625.0051727294922, 295.1733703613281]
       },
       "ports": [
         {
-          "id": "Port-216a25d1-335a-4028-afc3-d60a59d8a172",
+          "id": "Port-9b3762a9-8946-414a-ae09-ec0394e8b924",
           "label": "Input",
           "groupID": "",
           "added": false,
@@ -116,7 +106,39 @@
           "defaultPlaceholder": "Output Text..."
         },
         {
-          "id": "Port-9f0d3b2f-0859-44b0-977e-ba0ecae16ce0",
+          "id": "Port-2bc7fe64-e47e-45a7-9646-a614440c85fe",
+          "label": "Output",
+          "groupID": "",
+          "added": false,
+          "is_input": false,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        }
+      ],
+      "addablePorts": []
+    },
+    {
+      "id": "Node-88ca67d5-0f3c-4e47-9f6a-4624e388cecf",
+      "name": "Debug",
+      "category": "Debug",
+      "type": "Debug",
+      "ui": {
+        "position": [625.0051727294922, 295.1733703613281]
+      },
+      "ports": [
+        {
+          "id": "Port-6f5541d2-1023-41ff-872e-4bea803a40d3",
+          "label": "Input",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": true,
+          "defaultValue": "",
+          "defaultPlaceholder": "Output Text..."
+        },
+        {
+          "id": "Port-cb3aed20-6ff7-4a01-8ecf-54203b9de8df",
           "label": "Output",
           "groupID": "",
           "added": false,
@@ -131,25 +153,36 @@
   ],
   "edges": [
     {
-      "id": "e466e829-baa3-44ed-b075-c70d7c0a4ed1",
+      "id": "ea3c6afd-f79c-444b-8688-e0933fdb179b",
       "origin": {
-        "node_id": "Node-751ac13d-5235-4f54-aea3-2e5d5d1b9c5f",
-        "port_id": "Port-36dc4667-e1e5-4b74-99ee-294320c17742"
+        "node_id": "Node-c1bba315-16a0-40c0-8f2a-476d31b51e8f",
+        "port_id": "Port-3834377b-47b0-466f-96f1-b32abec993c1"
       },
       "target": {
-        "node_id": "Node-bf8e94e7-7543-4be7-b1fc-4877b253e3f0",
-        "port_id": "Port-216a25d1-335a-4028-afc3-d60a59d8a172"
+        "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
+        "port_id": "Port-5cb1c250-776f-479f-a206-cbb652fdfd28"
       }
     },
     {
-      "id": "5bcf4460-576f-4cbe-bb25-117b3ae36737",
+      "id": "5296f280-b130-45af-becb-40aa28c0f1ab",
       "origin": {
-        "node_id": "Node-751ac13d-5235-4f54-aea3-2e5d5d1b9c5f",
-        "port_id": "Port-1c828e61-aa1d-4cc8-8c99-a4b1f77381b6"
+        "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
+        "port_id": "Port-82ceb70d-974d-4540-8721-7b44cb3de674"
       },
       "target": {
-        "node_id": "Node-0c54491a-80c1-476b-9a5a-99bdc1c0641c",
-        "port_id": "Port-47459cb7-fc9b-45da-b3db-11c0e33aa4df"
+        "node_id": "Node-b2858d88-a91e-49e5-bbd1-87093123f891",
+        "port_id": "Port-9b3762a9-8946-414a-ae09-ec0394e8b924"
+      }
+    },
+    {
+      "id": "e468bcfc-a661-4d51-b5a8-679d539993bd",
+      "origin": {
+        "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
+        "port_id": "Port-78d218ab-8fc9-4524-9227-e0ed67ad2a05"
+      },
+      "target": {
+        "node_id": "Node-88ca67d5-0f3c-4e47-9f6a-4624e388cecf",
+        "port_id": "Port-6f5541d2-1023-41ff-872e-4bea803a40d3"
       }
     }
   ]
