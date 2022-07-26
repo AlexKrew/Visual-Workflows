@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row fill-height" :key="updateKey">
     <EditorNodeBar />
-    <EditorGrid/>
+    <EditorGrid />
     <EditorInspector />
   </div>
 </template>
@@ -11,10 +11,11 @@ import EditorNodeBar from "@/components/workflowEditor/Layout/EditorNodeBar.vue"
 import EditorGrid from "@/components/workflowEditor/Layout/EditorGrid.vue";
 import EditorInspector from "@/components/workflowEditor/Layout/EditorInspector.vue";
 import { emitter } from "@/components/util/Emittery";
-import { onMounted, ref } from "vue";
+import { onBeforeMount, onMounted, ref } from "vue";
 import workflowJSON from "../test/testWorkflow.json";
 import TestModels from "@/models/Data/GridData";
 import GridModel from "@/models/GridModel";
+import GridData from "@/models/Data/GridData";
 
 export default {
   components: {
@@ -25,16 +26,20 @@ export default {
   setup() {
     let updateKey = ref(0);
 
-    onMounted(() => {
-      let json: JSON = JSON.parse(JSON.stringify(workflowJSON));
-      TestModels.grid = GridModel.fromJSON(json);
-      emitter.emit("UpdateWorkflowEditor");
-      console.log(TestModels.grid);
-    }),
-
-    emitter.on("UpdateWorkflowEditor", () => {
-      updateKey.value++;
+    onBeforeMount(() => {
+      // Load all default Nodes from Nodes.json
+      GridData.loadDefaultNodes();
     });
+
+    onMounted(() => {
+      // Loads current Workflow
+      // let json: JSON = JSON.parse(JSON.stringify(workflowJSON));
+      // TestModels.grid = GridModel.fromJSON(json);
+      // emitter.emit("UpdateWorkflowEditor");
+    }),
+      emitter.on("UpdateWorkflowEditor", () => {
+        updateKey.value++;
+      });
 
     return {
       updateKey,

@@ -5,7 +5,7 @@
       <h1 class="text-xl font-bold">{{ category }}</h1>
       <div v-for="node in nodesFromCategory(category)" :key="node.id" :id="node.id" :ref="(el) => cards.push(el)">
         <Card class="m-5">
-          <p class="text-center">{{ node.label }}</p>
+          <p class="text-center">{{ node.name }}</p>
         </Card>
       </div>
     </div>
@@ -16,7 +16,7 @@
 <script lang="ts">
 import Card from "@/components/CardComponent.vue";
 import NodeModel from "@/models/Node/NodeModel";
-import TestModels from "@/models/Data/GridData";
+import GridData from "@/models/Data/GridData";
 import { onMounted, onUnmounted, ref } from "vue";
 import interact from "interactjs";
 import { InteractEvent } from "@interactjs/types";
@@ -29,9 +29,9 @@ export default {
     NodeComponent,
   },
   setup() {
-    let categorys = TestModels.nodeCategorys;
-    let nodes = TestModels.nodes;
-    let grid = TestModels.grid;
+    let categorys = GridData.nodeCategorys;
+    let nodes = GridData.nodes;
+    let grid = GridData.grid;
     const curDragNode = ref<NodeModel | undefined>();
     const cards = ref<HTMLDivElement[]>([]);
 
@@ -49,7 +49,7 @@ export default {
     onUnmounted(() => {
       nodes.forEach((node) => {
         interact(`#${node.id}`).unset();
-      })
+      });
     });
 
     function nodesFromCategory(category: string): NodeModel[] {

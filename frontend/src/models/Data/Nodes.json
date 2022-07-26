@@ -1,0 +1,121 @@
+[
+  {
+    "id": "N1",
+    "name": "HTTP Request",
+    "category": "Web Services",
+    "type": "HTTP",
+    "ports": [
+      {
+        "id": "N1-P1",
+        "name": "Method",
+        "groupID": "",
+        "added": false,
+        "is_input": true,
+        "hasDefaultField": false,
+        "defaultValue": "",
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N1-P2",
+        "name": "URL",
+        "groupID": "",
+        "added": false,
+        "is_input": true,
+        "hasDefaultField": true,
+        "defaultValue": "",
+        "defaultPlaceholder": "someURL.com"
+      },
+      {
+        "id": "N1-P3",
+        "name": "Payload",
+        "groupID": "",
+        "added": false,
+        "is_input": true,
+        "hasDefaultField": true,
+        "defaultValue": "",
+        "defaultPlaceholder": "Header:{...}"
+      },
+      {
+        "id": "N1-P4",
+        "name": "Response",
+        "groupID": "",
+        "added": false,
+        "is_input": false,
+        "hasDefaultField": false,
+        "defaultValue": "",
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N1-P5",
+        "name": "Response Code",
+        "groupID": "",
+        "added": false,
+        "is_input": false,
+        "hasDefaultField": false,
+        "defaultValue": "",
+        "defaultPlaceholder": ""
+      }
+    ],
+    "addablePorts": []
+  },
+  {
+    "id": "N2",
+    "name": "Switch",
+    "category": "Control",
+    "type": "Switch",
+    "ports": [
+      {
+        "id": "N2-P1",
+        "name": "Check",
+        "groupID": "",
+        "added": false,
+        "is_input": true,
+        "hasDefaultField": false,
+        "defaultValue": "",
+        "defaultPlaceholder": ""
+      }
+    ],
+    "addablePorts": [
+      {
+        "id": "N2-AP1",
+        "name": "Operator",
+        "groupID": "",
+        "added": false,
+        "is_input": true,
+        "hasDefaultField": false,
+        "defaultValue": "",
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N2-AP2",
+        "name": "Value",
+        "groupID": "",
+        "added": false,
+        "is_input": true,
+        "hasDefaultField": false,
+        "defaultValue": "",
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N2-AP3",
+        "name": "In",
+        "groupID": "",
+        "added": false,
+        "is_input": true,
+        "hasDefaultField": false,
+        "defaultValue": "",
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N2-AP4",
+        "name": "Out",
+        "groupID": "",
+        "added": false,
+        "is_input": false,
+        "hasDefaultField": false,
+        "defaultValue": "",
+        "defaultPlaceholder": ""
+      }
+    ]
+  }
+]
