@@ -1,6 +1,6 @@
 <template>
     <!-- <svg id="svgID" width="1000" height="1000" xmlns="http://www.w3.org/2000/svg"> -->
-    <path :id="edge.id" :d="edge.getCurve().toSVGString()" stroke="black" fill="transparent" class="absolute top-0 left-0"/>
+    <path :id="edge.data.id" :d="edge.getCurve().toSVGString()" stroke="black" fill="transparent" class="absolute top-0 left-0"/>
     <!-- </svg> -->
 </template>
 

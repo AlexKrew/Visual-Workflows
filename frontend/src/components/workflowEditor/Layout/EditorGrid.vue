@@ -6,7 +6,7 @@
   >
     <!-- Connections -->
     <svg id="svgID" width="10000" height="10000" xmlns="http://www.w3.org/2000/svg" class="absolute top-0 left-0">
-      <NodeEdge v-for="edge in grid.edges" :key="edge.id" :edge="edge" />
+      <NodeEdge v-for="edge in grid.edges" :key="edge.data.id" :edge="edge" />
     </svg>
     <!-- Nodes -->
     <NodeComponent v-for="node in nodes" :key="node.id" :node-model="node" />

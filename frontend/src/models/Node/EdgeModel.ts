@@ -1,35 +1,61 @@
 import BezierCurve from "@/components/util/BezierCurve";
 import Vector2 from "@/components/util/Vector";
 import NodePortModel from "./PortModel";
+import { EdgeType } from "../Data/Types";
+import GridData from "../Data/GridData";
+import NodeModel from "./NodeModel";
 import { uuid } from "vue-uuid";
 
 class EdgeModel {
-  id: string;
-  portOut: NodePortModel;
-  portIn: NodePortModel | undefined;
+  data: EdgeType;
+  origin: NodePortModel | undefined;
+  target: NodePortModel | undefined;
   mousePos: Vector2 | undefined;
 
-  constructor(portOut: NodePortModel, portIn?: NodePortModel, mousePos?: Vector2) {
-    this.id = uuid.v4();
-    this.portOut = portOut;
-    this.portIn = portIn;
-    this.mousePos = mousePos;
+  constructor(data: EdgeType) {
+    this.data = data;
+    this.setPortsFromData();
   }
 
-  setMousePos(pos: Vector2) {
-    if (!this.portOut.parent?.parent) return;
-    this.mousePos = Vector2.subtract(pos, this.portOut.parent.parent.posRel);
+  static NewEdgeFromPort(originPort: NodePortModel): EdgeModel {
+    const newEdge: EdgeType = {
+      id: uuid.v4(),
+      origin: {
+        node_id: (originPort.parent as NodeModel).data.id,
+        port_id: originPort.data.id,
+      },
+      target: {
+        node_id: "",
+        port_id: "",
+      },
+    };
+
+    return new EdgeModel(newEdge);
+  }
+
+  setPortsFromData() {
+    this.target = GridData.grid.getPortByID(this.data.target.port_id);
+    const originPort = GridData.grid.getPortByID(this.data.origin.port_id);
+    if (originPort) this.origin = originPort;
+    else throw new Error("No Port found with ID: " + this.data.origin.port_id);
   }
 
   setPortIn(port: NodePortModel | undefined) {
-    this.portIn = port;
+    this.data.target.node_id = port ? (port.parent as NodeModel).data.id : "";
+    this.data.target.port_id = port ? port.data.id : "";
+    this.setPortsFromData();
+  }
+
+  setMousePos(pos: Vector2) {
+    if (!this.origin?.parent?.parent) return;
+    this.mousePos = Vector2.subtract(pos, this.origin.parent.parent.posRel);
   }
 
   getCurve(): BezierCurve {
-    const pos1 = this.portOut?.posGridCell;
+    const pos1 = this.origin ? this.origin.posGridCell : new Vector2(0, 0);
     let pos2 = new Vector2(0, 0);
     let pos3 = new Vector2(0, 0);
-    const pos4 = this.portIn ? this.portIn.posGridCell : this.mousePos;
+    const pos4 = this.target ? this.target.posGridCell : this.mousePos;
 
     if (pos4) {
       const dist = Vector2.dist(pos1, pos4);
@@ -39,23 +65,6 @@ class EdgeModel {
     }
     return new BezierCurve(pos1, pos2, pos3, pos4);
   }
-
-  //#region Serialization
-  static fromJSON(json: JSON): EdgeModel {
-    throw new Error("Method not implemented.");
-  }
-  toJSON(): JSON {
-    const json = JSON.parse(JSON.stringify({}));
-
-    json["id"] = this.id;
-    json["target"]["node"] = this.portIn?.parent;
-    json["target"]["port"] = this.portIn;
-    json["origin"]["node"] = this.portOut?.parent;
-    json["origin"]["port"] = this.portOut;
-
-    return json;
-  }
-  //#endregion
 }
 
 export default EdgeModel;

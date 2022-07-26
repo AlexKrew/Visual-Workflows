@@ -19,13 +19,12 @@ class GridData {
     nodeTypes.forEach((node) => {
       GridData.nodes.push(new NodeModel(node));
     });
-
-    console.log(nodeTypes);
   }
 
   static loadWorkflow(json: JSON) {
     this.workflow = JSON.parse(JSON.stringify(json));
     GridData.grid = new GridModel(this.workflow, new Vector2(220, 0));
+    GridData.grid.loadEdges();
   }
 
   // Nodes

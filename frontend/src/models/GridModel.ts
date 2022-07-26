@@ -19,9 +19,12 @@ class GridModel extends EditorComponent {
     data.nodes.forEach((node) => {
       this.addChildren(new NodeModel(node));
     });
-    // data.edges.forEach((edge) => {
-    //   this.edges;
-    // });
+  }
+
+  loadEdges(){
+    this.data.edges.forEach((edge) => {
+      this.edges.push(new EdgeModel(edge));
+    });
   }
 
   clone(): EditorComponent {
@@ -52,6 +55,7 @@ class GridModel extends EditorComponent {
 
   //#region Connections
   addEdge(edge: EdgeModel, isTmp = false) {
+    this.data.edges.push(edge.data);
     this.edges.push(edge);
     if (isTmp) {
       this.tmpEdgeIndex = this.edges.length - 1;
@@ -59,14 +63,21 @@ class GridModel extends EditorComponent {
   }
 
   deleteEdge(id: string) {
-    const index = this.getEdgeIndex(id);
-    if (index < 0) {
-      throw new Error(`Can not delete Connection: ${id}`);
-    }
-    if (index == this.tmpEdgeIndex) {
-      this.tmpEdgeIndex = -1;
-    }
-    this.edges.splice(index, 1);
+    // Delete Edge from Data
+    this.data.edges.splice(
+      this.data.edges.findIndex((edge) => {
+        edge.id == id;
+      }),
+      1
+    );
+
+    // Delete Edge From Edges
+    this.edges.splice(
+      this.edges.findIndex((edge) => {
+        edge.data.id == id;
+      }),
+      1
+    );
   }
 
   setTmp(id: string) {
@@ -76,7 +87,7 @@ class GridModel extends EditorComponent {
   resetTmp(deleteEdge = false) {
     if (this.tmpEdgeIndex < 0) return;
     if (deleteEdge) {
-      this.deleteEdge(this.edges[this.tmpEdgeIndex].id);
+      this.deleteEdge(this.edges[this.tmpEdgeIndex].data.id);
     }
     this.tmpEdgeIndex = -1;
   }
@@ -97,9 +108,9 @@ class GridModel extends EditorComponent {
   private getEdgeIndex(edgeID?: string, portInId?: string) {
     const index = this.edges.findIndex((edge) => {
       if (edgeID) {
-        return edge.id == edgeID;
+        return edge.data.id == edgeID;
       } else if (portInId) {
-        return edge.portIn?.id == portInId;
+        return edge.target?.id == portInId;
       }
       return false;
     });

@@ -114,11 +114,11 @@ export default defineComponent({
         const connection: EdgeModel | undefined = grid.getEdge(undefined, props.portModel.id);
         if (connection) {
           connection.setPortIn(undefined);
-          grid.setTmp(connection.id);
+          grid.setTmp(connection.data.id);
         }
       } else {
         (grid as GridModel).addEdge(
-          new EdgeModel(props.portModel, undefined, new Vector2(event.clientX, event.clientY)),
+          EdgeModel.NewEdgeFromPort(props.portModel),
           true
         );
       }
