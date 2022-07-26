@@ -27,16 +27,12 @@ func StartServer(runtimeContainer *wf.WorkflowContainer) {
 
 	v1 := router.Group("/api/v1")
 
-	// Register services / routes
-	registerHealthServices(v1)
-	registerDashboardServices(v1)
-	registerWorkflowServices(v1)
-
 	port := 8000
 
 	// Register services / routes
 
 	registerOverviewServices(v1, runtimeContainer)
+	registerWorkflowServices(v1, runtimeContainer)
 	registerHealthServices(v1)
 	registerEditorServices(v1)
 

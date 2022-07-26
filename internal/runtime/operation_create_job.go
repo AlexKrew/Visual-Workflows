@@ -21,11 +21,12 @@ func createJobOperation(observable *rxgo.Observable, props OperationProps) {
 				fmt.Println(err)
 			}
 
-			fmt.Println("Messages for", body.nodeId, messages)
+			fmt.Println("Messages for", body.nodeId)
 			if !hasEmptyMessage(messages) {
 
 				// TODO: Find a better way
-				node := props.eventStreamer.runtime.Workflow.Nodes[body.nodeId]
+				// node := props.eventStreamer.runtime.Workflow.Nodes[body.nodeId]
+				node, _ := entities.GetNodeById(body.nodeId, props.eventStreamer.runtime.Workflow.Nodes)
 
 				jobProps := entities.ProcessJobProps{
 					NodeID:   body.nodeId,

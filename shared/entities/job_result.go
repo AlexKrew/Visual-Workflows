@@ -4,14 +4,16 @@ import "visualWorkflows/shared/utils"
 
 type JobResult struct {
 	ID     utils.UUID
+	NodeId NodeID
 	Logs   []string
 	Output map[PortID]WorkflowMessage
 	Errors []error
 }
 
-func JobResultError(id utils.UUID, err error) JobResult {
+func JobResultError(origin Job, err error) JobResult {
 	return JobResult{
-		ID:     id,
+		ID:     origin.ID,
+		NodeId: origin.NodeId,
 		Errors: []error{err},
 	}
 }

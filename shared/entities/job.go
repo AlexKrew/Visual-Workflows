@@ -2,11 +2,9 @@ package entities
 
 import (
 	shared "visualWorkflows/shared/utils"
-
-	"github.com/google/uuid"
 )
 
-type JobID = uuid.UUID
+type JobID = shared.UUID
 type JobType = int16
 
 const (
@@ -15,6 +13,7 @@ const (
 
 type Job struct {
 	ID      JobID
+	NodeId  NodeID
 	Type    JobType
 	Payload any
 }
@@ -28,6 +27,7 @@ type ProcessJobProps struct {
 func BuildProcessJob(payload ProcessJobProps) Job {
 	return Job{
 		ID:      shared.GetNewUUID(),
+		NodeId:  payload.NodeID,
 		Type:    JTProcess,
 		Payload: payload,
 	}

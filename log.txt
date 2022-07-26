@@ -1,0 +1,14 @@
+Starting the server...
+Reading the workflow from file at /workspaces/Visual-Workflows/workflows/flow1.vwf.json
+Reading the workflow definition
+Loaded definition Workflow no.1
+{flow1 Workflow no.1 map[node0:{node0  inject map[] map[output:{Output ANY}]} node1:{node1  http-request map[url:{url ANY}] map[code:{code ANY} data:{data ANY}]} node2:{node2  debug map[input:{Input ANY}] map[output:{Output ANY}]}] map[edge0-1:{edge0-1 node0 output node1 url} edge1-2:{edge1-2 node1 data node2 input}]}
+Added index for node0-output
+Added index for node1-data
+Loaded workflow flow1
+Store message for node1 url
+Invoke EVENT 0
+Messages for node1
+Added job 0
+Execute Node http-request
+Http: Get https://api2.binance.com/api/v3/ticker/24hr

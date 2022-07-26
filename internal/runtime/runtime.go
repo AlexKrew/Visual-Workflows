@@ -83,8 +83,8 @@ func registerOperations(eventStreamer *EventStreamer) {
 func (r *Runtime) Start() {
 	r.Store.StoreNewMessage(entities.PortAddress{
 		NodeID: "node1",
-		PortID: "input",
-	}, entities.BooleanMessage(true))
+		PortID: "url",
+	}, entities.StringMessage("https://api2.binance.com/api/v3/ticker/24hr"))
 }
 
 func (r *Runtime) Stop() {

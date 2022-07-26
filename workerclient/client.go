@@ -26,7 +26,7 @@ func (wc *WorkerClient) ProcessJob(job entities.Job, back chan entities.JobResul
 	}
 
 	if err != nil {
-		back <- entities.JobResultError(job.ID, err)
+		back <- entities.JobResultError(job, err)
 		return
 	}
 

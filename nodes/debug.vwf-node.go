@@ -14,7 +14,7 @@ func ProcessDebug(input entities.Input, output *entities.Output, ctx *node.Workf
 
 	msgToLog := input.GetMessage("input")
 
-	ctx.Log(fmt.Sprintf("%v", msgToLog)) // convert any interface to string
+	// ctx.Log(fmt.Sprintf("%v", msgToLog)) // convert any interface to string
 	fmt.Println("Debug:", msgToLog)
 
 	output.Add("output", msgToLog)

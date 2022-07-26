@@ -65,9 +65,19 @@ func (container *WorkflowContainer) StartWorkflow(id string) error {
 	if !exists {
 		return errors.New("workflow not loaded")
 	}
+	fmt.Println("---- Starting workflow ----")
 	r.Start()
 
 	return nil
+}
+
+func (container *WorkflowContainer) GetWorkflowById(id string) (entities.Workflow, error) {
+	r, exists := container.runtimes[id]
+	if !exists {
+		return entities.Workflow{}, errors.New("workflow not loaded")
+	}
+
+	return r.Workflow, nil
 }
 
 func (c *WorkflowContainer) registerCallbacks(ch chan interface{}) {
@@ -78,7 +88,6 @@ func (c *WorkflowContainer) registerCallbacks(ch chan interface{}) {
 }
 
 func (c *WorkflowContainer) publishLog(log interface{}) {
-	fmt.Println("----Container: pub logs", log)
 	c.Events <- log
 }
 

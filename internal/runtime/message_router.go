@@ -26,13 +26,14 @@ func constructMessageRouter(workflow entities.Workflow, ms *MessageStore) (*Mess
 	return &router, nil
 }
 
-func (router *MessageRouter) buildInvertedIndex(edges map[string]entities.Edge, nodes map[string]entities.Node) error {
+func (router *MessageRouter) buildInvertedIndex(edges []entities.Edge, nodes []entities.Node) error {
 
 	for _, edge := range edges {
 
 		// Check for existing nodes
-		originNode, originNodeExists := nodes[edge.Origin.NodeID]
-		targetNode, targetNodeExists := nodes[edge.Target.NodeID]
+		originNode, originNodeExists := getNodeById(edge.Origin.NodeID, nodes)
+		targetNode, targetNodeExists := getNodeById(edge.Target.NodeID, nodes)
+
 		if !originNodeExists || !targetNodeExists {
 			return errors.New("origin and/or target node of an edge is missing in the workflow")
 		}
@@ -66,15 +67,23 @@ func (router *MessageRouter) buildInvertedIndex(edges map[string]entities.Edge, 
 	return nil
 }
 
+func getNodeById(nodeID entities.NodeID, nodes []entities.Node) (entities.Node, bool) {
+	for _, node := range nodes {
+		if node.ID == nodeID {
+			return node, true
+		}
+	}
+
+	return entities.Node{}, false
+}
+
 // TODO: A publish messages function that takes in a map of OutputPortIds: WFMessage and distributes
 // all message to the correct ports in one step
 
 // publishMessage distributes a message to all connected ports defined by origin
 func (router *MessageRouter) publishMessage(origin entities.UniquePortID, message entities.WorkflowMessage) error {
-	connectedPorts, err := router.getConnectedPorts(origin)
-	if err != nil {
-		return err
-	}
+	fmt.Println("Pub message for", origin, router)
+	connectedPorts := router.getConnectedPorts(origin)
 
 	for _, target := range connectedPorts {
 		// TODO: Error handling
@@ -84,11 +93,12 @@ func (router *MessageRouter) publishMessage(origin entities.UniquePortID, messag
 	return nil
 }
 
-func (router *MessageRouter) getConnectedPorts(origin entities.UniquePortID) ([]entities.PortAddress, error) {
+func (router *MessageRouter) getConnectedPorts(origin entities.UniquePortID) []entities.PortAddress {
 	ports, exists := router.invertedIndex[origin]
 	if !exists {
-		return []entities.PortAddress{}, errors.New("Fail")
+		fmt.Println("[MessageRouter]: Output port", origin, "is not connected to another Input port")
+		return []entities.PortAddress{}
 	}
 
-	return ports, nil
+	return ports
 }

@@ -1,6 +1,7 @@
 package nodes
 
 import (
+	"fmt"
 	"visualWorkflows/shared/entities"
 	"visualWorkflows/shared/node"
 )
@@ -10,7 +11,10 @@ import (
 // }
 
 func ProcessInject(input entities.Input, output *entities.Output, ctx *node.WorkflowContextProxy) error {
-	ctx.Log("Hello from the inject node")
+
+	msg := input.GetMessage("input")
+	fmt.Println("Inject", msg)
+
 	return nil
 }
 
