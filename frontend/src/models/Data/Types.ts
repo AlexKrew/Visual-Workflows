@@ -1,7 +1,8 @@
 type WorkflowType = {
   id: string;
   name: string;
-  nodes: Node[];
+  nodes: NodeType[];
+  edges: EdgeType[];
 };
 
 type NodeType = {
@@ -16,7 +17,7 @@ type NodeType = {
 type PortType = {
   id: string;
   groupID: string;
-  name: string;
+  label: string;
   added: boolean;
   is_input: boolean;
   hasDefaultField: boolean;
@@ -24,4 +25,16 @@ type PortType = {
   defaultPlaceholder: string;
 };
 
-export { WorkflowType, NodeType, PortType };
+type EdgeType = {
+  id: string;
+  origin: {
+    node_id: string;
+    port_id: string;
+  };
+  target: {
+    node_id: string;
+    port_id: string;
+  };
+};
+
+export { WorkflowType, NodeType, PortType, EdgeType };

@@ -3,7 +3,6 @@ import GridModel from "./GridModel";
 
 abstract class EditorComponent {
   readonly id: string;
-  label: string;
 
   parent: EditorComponent | undefined;
   children: EditorComponent[] = [];
@@ -13,9 +12,8 @@ abstract class EditorComponent {
   posGridCell: Vector2 = new Vector2(0, 0); // Pos relative to Grid with GridSnap
   snapToGrid = false;
 
-  constructor(id: string, title: string, snapToGrid: boolean, children: EditorComponent[] = []) {
+  constructor(id: string, snapToGrid: boolean, children: EditorComponent[] = []) {
     this.id = id;
-    this.label = title;
     this.snapToGrid = snapToGrid;
     children.forEach((child) => this.addChildren(child));
   }

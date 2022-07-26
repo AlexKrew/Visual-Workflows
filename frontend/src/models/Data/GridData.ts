@@ -1,23 +1,26 @@
 import Vector2 from "@/components/util/Vector";
 import GridModel from "../GridModel";
 import NodeModel from "../Node/NodeModel";
-import NodesJSON from "./Nodes.json";
-import { NodeType } from "./Types";
+import NodesJSON from "./JSON/Nodes.json";
+import { NodeType, WorkflowType } from "./Types";
 
 class GridData {
-  static nodeCategorys = ["Web Services", "Debug", "Control"];
-  static nodeTypes = ["Http", "Debug", "Mail", "Switch"];
+  static nodeCategorys = ["Web Services", "Debug", "Control"]; // TODO Dynamic
+  static nodeTypes = ["Http", "Debug", "Mail", "Switch"]; // TODO Dynamic
 
-  static grid = new GridModel(new Vector2(220, 0), [
-    // TestModels.nodes[0],
-    // TestModels.nodes[1],
-    // TestModels.nodes[2],
-    // TestModels.nodes[3],
-  ]);
+  static grid: GridModel;
   static nodes: NodeModel[] = [];
 
   static loadDefaultNodes() {
     const nodeTypes: NodeType[] = JSON.parse(JSON.stringify(NodesJSON));
+    nodeTypes.forEach((node) => {
+      GridData.nodes.push(new NodeModel(node));
+    });
+  }
+
+  static loadWorkflow(json: JSON) {
+    const workflow: WorkflowType = JSON.parse(JSON.stringify(json));
+    GridData.grid = new GridModel(workflow, new Vector2(220, 0));
   }
 
   // Nodes

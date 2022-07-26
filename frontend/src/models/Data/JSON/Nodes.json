@@ -7,7 +7,7 @@
     "ports": [
       {
         "id": "N1-P1",
-        "name": "Method",
+        "label": "Method",
         "groupID": "",
         "added": false,
         "is_input": true,
@@ -17,7 +17,7 @@
       },
       {
         "id": "N1-P2",
-        "name": "URL",
+        "label": "URL",
         "groupID": "",
         "added": false,
         "is_input": true,
@@ -27,7 +27,7 @@
       },
       {
         "id": "N1-P3",
-        "name": "Payload",
+        "label": "Payload",
         "groupID": "",
         "added": false,
         "is_input": true,
@@ -37,7 +37,7 @@
       },
       {
         "id": "N1-P4",
-        "name": "Response",
+        "label": "Response",
         "groupID": "",
         "added": false,
         "is_input": false,
@@ -47,7 +47,7 @@
       },
       {
         "id": "N1-P5",
-        "name": "Response Code",
+        "label": "Response Code",
         "groupID": "",
         "added": false,
         "is_input": false,
@@ -66,7 +66,7 @@
     "ports": [
       {
         "id": "N2-P1",
-        "name": "Check",
+        "label": "Check",
         "groupID": "",
         "added": false,
         "is_input": true,
@@ -78,7 +78,7 @@
     "addablePorts": [
       {
         "id": "N2-AP1",
-        "name": "Operator",
+        "label": "Operator",
         "groupID": "",
         "added": false,
         "is_input": true,
@@ -88,7 +88,7 @@
       },
       {
         "id": "N2-AP2",
-        "name": "Value",
+        "label": "Value",
         "groupID": "",
         "added": false,
         "is_input": true,
@@ -98,7 +98,7 @@
       },
       {
         "id": "N2-AP3",
-        "name": "In",
+        "label": "In",
         "groupID": "",
         "added": false,
         "is_input": true,
@@ -108,7 +108,7 @@
       },
       {
         "id": "N2-AP4",
-        "name": "Out",
+        "label": "Out",
         "groupID": "",
         "added": false,
         "is_input": false,

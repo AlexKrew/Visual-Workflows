@@ -9,21 +9,21 @@
         :class="{ right: '0px' }"
         :style="[
           { width: portModel.portSize + 'px', height: portModel.portSize + 'px' },
-          portModel.isInput ? 'left: -' + portModel.portSize / 2 + 'px;' : 'right: -' + portModel.portSize / 2 + 'px;',
+          portModel.data.is_input ? 'left: -' + portModel.portSize / 2 + 'px;' : 'right: -' + portModel.portSize / 2 + 'px;',
         ]"
       ></div>
-      <span class="justify-center flex-auto mx-3" :class="[portModel.isInput ? 'text-left' : 'text-right']">{{
-        portModel.label
+      <span class="justify-center flex-auto mx-3" :class="[portModel.data.is_input ? 'text-left' : 'text-right']">{{
+        portModel.data.label
       }}</span>
     </div>
 
     <!-- Default Text Field -->
-    <div v-if="portModel.hasDefaultField" class="px-2">
+    <div v-if="portModel.data.hasDefaultField" class="px-2">
       <textarea
         ref="textAreaRef"
         class="bg-gray-200 w-full px-1"
         v-model="textAreaValue"
-        :placeholder="portModel.placeholder"
+        :placeholder="portModel.data.defaultPlaceholder"
         :style="[{ resize: 'none', height: textAreaHeight + 'px', minHeight: '24px' }]"
       ></textarea>
     </div>
@@ -53,7 +53,7 @@ export default defineComponent({
     const portRef = ref<HTMLInputElement>();
     const textAreaRef = ref<HTMLInputElement>();
 
-    const textAreaValue = ref(props.portModel.defaultValue);
+    const textAreaValue = ref(props.portModel.data.defaultValue);
     const textAreaHeight = ref(24);
 
     const node = props.portModel.parent as NodeModel;
@@ -110,7 +110,7 @@ export default defineComponent({
     //#region InteractJS
     function onDragStart(event: InteractEvent) {
       if (!grid) return;
-      if (props.portModel.isInput) {
+      if (props.portModel.data.is_input) {
         const connection: EdgeModel | undefined = grid.getEdge(undefined, props.portModel.id);
         if (connection) {
           connection.setPortIn(undefined);
@@ -141,7 +141,7 @@ export default defineComponent({
 
       // event.target         = the Element on which it gets dropped
       // event.relatedTarget  = the Element which dropped
-      if (grid.getPortByID(event.target.id)?.isInput) {
+      if (grid.getPortByID(event.target.id)?.data.is_input) {
         const connection = grid.getTmpEdge();
         connection.setPortIn(grid.getPortByID(event.target.id));
         grid.resetTmp();

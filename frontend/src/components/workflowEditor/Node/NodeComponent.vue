@@ -5,11 +5,11 @@
     :style="{ left: nodeModel.posGridCell.x + 'px', top: nodeModel.posGridCell.y + 'px' }"
   >
     <Card>
-      <h2 class="text-center">{{ nodeModel.label }}</h2>
+      <h2 class="text-center">{{ nodeModel.data.name }}</h2>
       <div class="w-full">
         <NodePort v-for="port in ports" :key="port.id" :port-model="port" />
       </div>
-      <div v-if="nodeModel.addablePorts.length > 0" class="w-full flex justify-center">
+      <div v-if="nodeModel.data.addablePorts.length > 0" class="w-full flex justify-center">
         <button
           class="w-full p-1 m-3 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded"
           @click="onAddAddablePorts()"

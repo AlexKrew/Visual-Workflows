@@ -1,18 +1,28 @@
 import Vector2 from "@/components/util/Vector";
+import { WorkflowType } from "./Data/Types";
 import EditorComponent from "./EditorComponent";
 import EdgeModel from "./Node/EdgeModel";
 import NodeModel from "./Node/NodeModel";
 import PortModel from "./Node/PortModel";
 
 class GridModel extends EditorComponent {
+  data: WorkflowType;
   static cellSize = 20;
 
   edges: EdgeModel[] = [];
   tmpEdgeIndex = -1; // the Connection that is currently dragged
 
-  constructor(posRel = new Vector2(0, 0), nodes: NodeModel[]) {
-    super("GridID", "Grid", false, nodes);
+  constructor(data: WorkflowType, posRel = new Vector2(0, 0)) {
+    super(data.id, false);
+    this.data = data;
     this.posRel = posRel;
+
+    data.nodes.forEach((node) => {
+      this.addChildren(new NodeModel(node));
+    });
+    // data.edges.forEach((edge) => {
+    //   this.edges;
+    // });
   }
 
   clone(): EditorComponent {
@@ -93,42 +103,6 @@ class GridModel extends EditorComponent {
   }
 
   //#endregion
-
-  //#region Serialization
-  static fromJSON(json: JSON): GridModel {
-    // Add Nodes
-    const nodesJSON = JSON.parse(JSON.stringify(json["nodes" as keyof JSON]));
-    const nodes: NodeModel[] = [];
-    nodesJSON.forEach((node: JSON) => {
-      nodes.push(NodeModel.fromJSON(node));
-    });
-
-    console.log(nodes);
-
-    // Add Edges
-    // Add Grid
-
-    return new GridModel(new Vector2(220, 0), nodes);
-  }
-
-  toJSON(): JSON {
-    const json = JSON.parse(JSON.stringify({}));
-
-    json["id"] = this.id;
-    json["name"] = "Workflow Name"; //TODO
-    json["nodes"] = [];
-    json["edges"] = [];
-
-    this.children.forEach((child) => {
-      json["nodes"].push((child as NodeModel).toJSON());
-    });
-    this.edges.forEach((edge) => {
-      json["edges"].push((edge as EdgeModel).toJSON());
-    });
-
-    return json;
-  }
-  //#endregion Serialization
 }
 
 export default GridModel;
