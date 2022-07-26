@@ -10,8 +10,8 @@ type Workflow struct {
 	ID   WorkflowID
 	Name string
 
-	Nodes map[NodeID]Node
-	Edges map[EdgeID]Edge
+	Nodes []Node
+	Edges []Edge
 }
 
 // WorkflowFromDefinition is a mapper function
@@ -21,50 +21,38 @@ func WorkflowFromDefinition(definition storage.WorkflowDefinition) (Workflow, er
 
 	workflow.ID = definition.ID
 	workflow.Name = definition.Name
-	workflow.Nodes = make(map[string]Node)
-	workflow.Edges = make(map[string]Edge)
+	workflow.Nodes = []Node{}
+	workflow.Edges = []Edge{}
+	// workflow.Edges = make(map[string]Edge)
 
-	for id, node := range definition.Nodes {
+	for _, node := range definition.Nodes {
 
-		// Mapping of InputPorts
-		inputPorts := map[PortID]Port{}
-		for id, inputPortDef := range node.InputPorts {
-			port, err := InputPortFromDefinition(inputPortDef)
+		ports := []Port{}
+		for _, portDef := range node.Ports {
+			port, err := PortFromDefinition(portDef)
 			if err != nil {
 				return Workflow{}, err
 			}
 
-			inputPorts[id] = port
+			ports = append(ports, port)
 		}
 
-		// Mapping of OutputPorts
-		outputPorts := map[PortID]Port{}
-		for id, outputPortDef := range node.OutputPorts {
-			port, err := OutputPortFromDefinition(outputPortDef)
-			if err != nil {
-				return Workflow{}, err
-			}
-
-			outputPorts[id] = port
-		}
-
-		workflow.Nodes[id] = Node{
-			ID:          node.ID,
-			Name:        node.Name,
-			Type:        node.Type,
-			InputPorts:  inputPorts,
-			OutputPorts: outputPorts,
-		}
+		workflow.Nodes = append(workflow.Nodes, Node{
+			ID:    node.ID,
+			Name:  node.Name,
+			Type:  node.Type,
+			Ports: ports,
+		})
 	}
 
 	// Mapping of Edges
-	for id, edgeDef := range definition.Edges {
+	for _, edgeDef := range definition.Edges {
 		edge, err := EdgeFromDefinition(edgeDef)
 		if err != nil {
 			return Workflow{}, err
 		}
 
-		workflow.Edges[id] = edge
+		workflow.Edges = append(workflow.Edges, edge)
 	}
 
 	return workflow, nil

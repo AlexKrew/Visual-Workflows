@@ -1,77 +1,93 @@
 {
   "id": "flow1",
   "name": "Workflow no.1",
-  "nodes": {
-    "node0": {
+  "nodes": [
+    {
       "id": "node0",
       "type": "inject",
       "label": "Inject",
       "name": "",
       "category": "core",
-      "outputPorts": {
-        "output": {
+      "ports": [
+        {
+          "id": "output",
           "label": "Output",
-          "datatype": "ANY"
+          "datatype": "ANY",
+          "is_input": false
         }
-      }
+      ]
     },
-    "node1": {
+    {
       "id": "node1",
       "type": "http-request",
       "label": "HttpRequest",
       "name": "",
       "category": "core",
-      "inputPorts": {
-        "url": {
+      "ports": [
+        {
+          "id": "url",
           "label": "url",
-          "datatype": "ANY"
-        }
-      },
-      "outputPorts": {
-        "code": {
-          "label": "code",
-          "datatype": "ANY"
+          "datatype": "ANY",
+          "is_input": true
         },
-        "data": {
+        {
+          "id": "code",
+          "label": "code",
+          "datatype": "ANY",
+          "is_input": false
+        },
+        {
+          "id": "data",
           "label": "data",
-          "datatype": "ANY"
+          "datatype": "ANY",
+          "is_input": false
         }
-      }
+      ]
     },
-    "node2": {
+    {
       "id": "node2",
       "type": "debug",
       "label": "Debug",
       "name": "",
       "category": "core",
-      "inputPorts": {
-        "input": {
+      "ports": [
+        {
+          "id": "input",
           "label": "Input",
-          "datatype": "ANY"
-        }
-      },
-      "outputPorts": {
-        "output": {
+          "datatype": "ANY",
+          "is_input": true
+        },
+        {
+          "id": "output",
           "label": "Output",
-          "datatype": "ANY"
+          "datatype": "ANY",
+          "is_input": false
         }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge0-1",
+      "origin": {
+        "node": "node0",
+        "port": "output"
+      },
+      "target": {
+        "node": "node1",
+        "port": "url"
+      }
+    },
+    {
+      "id": "edge1-2",
+      "origin": {
+        "node": "node1",
+        "port": "data"
+      },
+      "target": {
+        "node": "node2",
+        "port": "input"
       }
     }
-  },
-  "edges": {
-    "edge0-1": {
-      "id": "edge0-1",
-      "originNode": "node0",
-      "originPort": "output",
-      "targetNode": "node1",
-      "targetPort": "url"
-    },
-    "edge1-2": {
-      "id": "edge1-2",
-      "originNode": "node1",
-      "originPort": "data",
-      "targetNode": "node2",
-      "targetPort": "input"
-    }
-  }
+  ]
 }

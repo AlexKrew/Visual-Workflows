@@ -12,12 +12,12 @@ type Edge struct {
 
 func EdgeFromDefinition(definition storage.EdgeDefinition) (Edge, error) {
 	origin := PortAddress{
-		NodeID: definition.OriginNode,
-		PortID: definition.OriginPort,
+		NodeID: definition.Origin.Node,
+		PortID: definition.Origin.Port,
 	}
 	target := PortAddress{
-		NodeID: definition.TargetNode,
-		PortID: definition.TargetPort,
+		NodeID: definition.Target.Node,
+		PortID: definition.Target.Port,
 	}
 
 	edge := Edge{

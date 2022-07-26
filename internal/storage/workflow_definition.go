@@ -1,37 +1,53 @@
 package storage
 
 type WorkflowDefinition struct {
-	ID    string `json:"id"`
-	Name  string `json:"name"`
-	Nodes map[string]NodeDefinition
-	Edges map[string]EdgeDefinition
+	ID    string           `json:"id"`
+	Name  string           `json:"name"`
+	Nodes []NodeDefinition `json:"nodes"`
+	Edges []EdgeDefinition `json:"edges"`
 }
 
 type NodeDefinition struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	Type        string `json:"type"`
-	InputPorts  map[string]InputPortDefinition
-	OutputPorts map[string]OutputPortDefinition
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Type  string `json:"type"`
+	Ports []PortDefinition
+	UI    UIDefinition
+}
+
+type PortDefinition struct {
+	ID           string `json:"id"`
+	Label        string `json:"label"`
+	DataType     string `json:"datatype"`
+	IsInput      bool   `json:"is_input"`
+	Added        bool   `json:"added"`
+	DefaultValue any    `json:"default_value"`
+}
+
+type UIDefinition struct {
+	Position []int `json:"position"`
 }
 
 type EdgeDefinition struct {
-	ID         string `json:"id"`
-	OriginNode string `json:"originNode"`
-	OriginPort string `json:"originPort"`
-	TargetNode string `json:"targetNode"`
-	TargetPort string `json:"targetPort"`
+	ID     string  `json:"id"`
+	Origin EdgeEnd `json:"origin"`
+	Target EdgeEnd `json:"target"`
 }
 
-type InputPortDefinition struct {
-	Label    string `json:"label"`
-	DataType string `json:"datatype"`
-	// TODO: Add message field
+type EdgeEnd struct {
+	Node string `json:"node"`
+	Port string `json:"port"`
 }
-type OutputPortDefinition struct {
-	Label    string `json:"label"`
-	DataType string `json:"datatype"`
-	// TODO: Add message field
-}
+
+// type InputPortDefinition struct {
+// 	Label    string `json:"label"`
+// 	DataType string `json:"datatype"`
+// 	// TODO: Add message field
+// }
+// type OutputPortDefinition struct {
+// 	Label    string `json:"label"`
+// 	DataType string `json:"datatype"`
+// 	// TODO: Add message field
+// }
 
 // type OutputPortDefinition = InputPortDefinition

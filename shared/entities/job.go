@@ -2,11 +2,9 @@ package entities
 
 import (
 	shared "visualWorkflows/shared/utils"
-
-	"github.com/google/uuid"
 )
 
-type JobID = uuid.UUID
+type JobID = shared.UUID
 type JobType = int16
 
 const (
