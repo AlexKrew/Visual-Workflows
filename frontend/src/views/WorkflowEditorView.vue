@@ -20,7 +20,7 @@ import EditorInspector from "@/components/workflowEditor/Layout/EditorInspector.
 import { emitter } from "@/components/util/Emittery";
 import { defineComponent, onBeforeMount, onMounted, ref } from "vue";
 import EmptyWorkflowJSON from "../models/Data/JSON/EmptyWorkflow.json"
-import test1 from "../test/test1.json";
+import testJSON from "../test/test1.json"
 import GridData from "@/models/Data/GridData";
 import { workflowInstancesService } from "@/api";
 
@@ -46,7 +46,7 @@ export default defineComponent({
 
       // Load Empty Initial Workflow
       const workflowJSON = await workflowInstancesService.loadWorkflow(props.workflowId)
-      // GridData.loadWorkflow(JSON.parse(JSON.stringify(test1)));
+      // GridData.loadWorkflow(JSON.parse(JSON.stringify(testJSON)));
       GridData.loadWorkflow(JSON.parse(JSON.stringify(workflowJSON)));
       isLoading.value = false
     });

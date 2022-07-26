@@ -5,7 +5,7 @@
     "category": "Web Services",
     "type": "HTTP",
     "ui": {
-      "position": [10, 20]
+      "position": [0, 0]
     },
     "ports": [
       {
@@ -67,7 +67,7 @@
     "category": "Control",
     "type": "Switch",
     "ui": {
-      "position": [20, 20]
+      "position": [0, 0]
     },
     "ports": [
       {
@@ -123,5 +123,69 @@
         "defaultPlaceholder": ""
       }
     ]
+  },
+  {
+    "id": "N3",
+    "name": "Debug",
+    "category": "Debug",
+    "type": "Debug",
+    "ui": {
+      "position": [0, 0]
+    },
+    "ports": [
+      {
+        "id": "N3-P1",
+        "label": "Input",
+        "groupID": "",
+        "added": false,
+        "is_input": true,
+        "hasDefaultField": true,
+        "defaultValue": "",
+        "defaultPlaceholder": "Output Text..."
+      },
+      {
+        "id": "N3-P2",
+        "label": "Output",
+        "groupID": "",
+        "added": false,
+        "is_input": false,
+        "hasDefaultField": false,
+        "defaultValue": "",
+        "defaultPlaceholder": ""
+      }
+    ],
+    "addablePorts": []
+  },
+  {
+    "id": "N4",
+    "name": "Mail",
+    "category": "Web Services",
+    "type": "Mail",
+    "ui": {
+      "position": [0, 0]
+    },
+    "ports": [
+      {
+        "id": "N4-P1",
+        "label": "E-Mail",
+        "groupID": "",
+        "added": false,
+        "is_input": true,
+        "hasDefaultField": true,
+        "defaultValue": "",
+        "defaultPlaceholder": "some@email.com"
+      },
+      {
+        "id": "N4-P2",
+        "label": "Message",
+        "groupID": "",
+        "added": false,
+        "is_input": true,
+        "hasDefaultField": true,
+        "defaultValue": "",
+        "defaultPlaceholder": "Dear Someone, ..."
+      }
+    ],
+    "addablePorts": []
   }
 ]

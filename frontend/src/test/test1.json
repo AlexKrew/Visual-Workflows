@@ -3,16 +3,16 @@
   "name": "Empty Workflow",
   "nodes": [
     {
-      "id": "Node-9c639a78-a3ea-43b7-ac44-bad0bab6e441",
+      "id": "Node-751ac13d-5235-4f54-aea3-2e5d5d1b9c5f",
       "name": "HTTP Request",
       "category": "Web Services",
       "type": "HTTP",
       "ui": {
-        "position": [22.665252685546875, 72]
+        "position": [146.79212951660156, 240.9388885498047]
       },
       "ports": [
         {
-          "id": "Port-3812ad1e-6d65-4c50-9f07-7ff9ad57ca36",
+          "id": "Port-a6a6044c-c90e-41c1-a158-0cf1c0e61e8e",
           "label": "Method",
           "groupID": "",
           "added": false,
@@ -22,27 +22,27 @@
           "defaultPlaceholder": ""
         },
         {
-          "id": "Port-1155ac0c-79f8-4532-ae3b-1bbbe18f8f92",
+          "id": "Port-b01e0043-e5ab-4906-9fb3-d0da34e245ce",
           "label": "URL",
           "groupID": "",
           "added": false,
           "is_input": true,
           "hasDefaultField": true,
-          "defaultValue": "myURL",
+          "defaultValue": "Server1",
           "defaultPlaceholder": "someURL.com"
         },
         {
-          "id": "Port-8617827b-1910-4c0c-a1be-2cbbab498309",
+          "id": "Port-f4872398-2823-4e6b-9282-624e11b75aa8",
           "label": "Payload",
           "groupID": "",
           "added": false,
           "is_input": true,
           "hasDefaultField": true,
-          "defaultValue": "Header:###",
+          "defaultValue": "",
           "defaultPlaceholder": "Header:{...}"
         },
         {
-          "id": "Port-a4d40419-b5af-4c45-a195-a20a64899c14",
+          "id": "Port-1c828e61-aa1d-4cc8-8c99-a4b1f77381b6",
           "label": "Response",
           "groupID": "",
           "added": false,
@@ -52,7 +52,7 @@
           "defaultPlaceholder": ""
         },
         {
-          "id": "Port-ae755e51-3959-4849-83ad-ad8aad15d1eb",
+          "id": "Port-36dc4667-e1e5-4b74-99ee-294320c17742",
           "label": "Response Code",
           "groupID": "",
           "added": false,
@@ -65,120 +65,59 @@
       "addablePorts": []
     },
     {
-      "id": "Node-fa8bda8c-51c5-47aa-bb45-07dad3e4531f",
-      "name": "Switch",
-      "category": "Control",
-      "type": "Switch",
+      "id": "Node-0c54491a-80c1-476b-9a5a-99bdc1c0641c",
+      "name": "Mail",
+      "category": "Web Services",
+      "type": "Mail",
       "ui": {
-        "position": [407.76422119140625, 88.31259155273438]
+        "position": [503.16539001464844, 272.26048278808594]
       },
       "ports": [
         {
-          "id": "Port-77da13dd-b497-44b7-8f1c-216d03cbb2e6",
-          "label": "Check",
+          "id": "Port-7ddf3c7f-064d-4fe3-9b73-eb13a2687ebd",
+          "label": "E-Mail",
           "groupID": "",
           "added": false,
           "is_input": true,
-          "hasDefaultField": false,
+          "hasDefaultField": true,
+          "defaultValue": "test@gmail.com",
+          "defaultPlaceholder": "some@email.com"
+        },
+        {
+          "id": "Port-47459cb7-fc9b-45da-b3db-11c0e33aa4df",
+          "label": "Message",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": true,
           "defaultValue": "",
-          "defaultPlaceholder": ""
+          "defaultPlaceholder": "Dear Someone, ..."
         }
       ],
-      "addablePorts": [
-        {
-          "id": "N2-AP1",
-          "label": "Operator",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        },
-        {
-          "id": "N2-AP2",
-          "label": "Value",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        },
-        {
-          "id": "N2-AP3",
-          "label": "In",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        },
-        {
-          "id": "N2-AP4",
-          "label": "Out",
-          "groupID": "",
-          "added": false,
-          "is_input": false,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        }
-      ]
+      "addablePorts": []
     },
     {
-      "id": "Node-9c639a78-a3ea-43b7-ac44-bad0bab6e441",
-      "name": "HTTP Request",
-      "category": "Web Services",
-      "type": "HTTP",
+      "id": "Node-bf8e94e7-7543-4be7-b1fc-4877b253e3f0",
+      "name": "Debug",
+      "category": "Debug",
+      "type": "Debug",
       "ui": {
-        "position": [22.665252685546875, 72]
+        "position": [500.0778503417969, 522.3243713378906]
       },
       "ports": [
         {
-          "id": "Port-3812ad1e-6d65-4c50-9f07-7ff9ad57ca36",
-          "label": "Method",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        },
-        {
-          "id": "Port-1155ac0c-79f8-4532-ae3b-1bbbe18f8f92",
-          "label": "URL",
+          "id": "Port-216a25d1-335a-4028-afc3-d60a59d8a172",
+          "label": "Input",
           "groupID": "",
           "added": false,
           "is_input": true,
           "hasDefaultField": true,
-          "defaultValue": "myURL",
-          "defaultPlaceholder": "someURL.com"
-        },
-        {
-          "id": "Port-8617827b-1910-4c0c-a1be-2cbbab498309",
-          "label": "Payload",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": true,
-          "defaultValue": "Header:###",
-          "defaultPlaceholder": "Header:{...}"
-        },
-        {
-          "id": "Port-a4d40419-b5af-4c45-a195-a20a64899c14",
-          "label": "Response",
-          "groupID": "",
-          "added": false,
-          "is_input": false,
-          "hasDefaultField": false,
           "defaultValue": "",
-          "defaultPlaceholder": ""
+          "defaultPlaceholder": "Output Text..."
         },
         {
-          "id": "Port-ae755e51-3959-4849-83ad-ad8aad15d1eb",
-          "label": "Response Code",
+          "id": "Port-9f0d3b2f-0859-44b0-977e-ba0ecae16ce0",
+          "label": "Output",
           "groupID": "",
           "added": false,
           "is_input": false,
@@ -188,70 +127,30 @@
         }
       ],
       "addablePorts": []
-    },
-    {
-      "id": "Node-fa8bda8c-51c5-47aa-bb45-07dad3e4531f",
-      "name": "Switch",
-      "category": "Control",
-      "type": "Switch",
-      "ui": {
-        "position": [407.76422119140625, 88.31259155273438]
-      },
-      "ports": [
-        {
-          "id": "Port-77da13dd-b497-44b7-8f1c-216d03cbb2e6",
-          "label": "Check",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        }
-      ],
-      "addablePorts": [
-        {
-          "id": "N2-AP1",
-          "label": "Operator",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        },
-        {
-          "id": "N2-AP2",
-          "label": "Value",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        },
-        {
-          "id": "N2-AP3",
-          "label": "In",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        },
-        {
-          "id": "N2-AP4",
-          "label": "Out",
-          "groupID": "",
-          "added": false,
-          "is_input": false,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        }
-      ]
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "id": "e466e829-baa3-44ed-b075-c70d7c0a4ed1",
+      "origin": {
+        "node_id": "Node-751ac13d-5235-4f54-aea3-2e5d5d1b9c5f",
+        "port_id": "Port-36dc4667-e1e5-4b74-99ee-294320c17742"
+      },
+      "target": {
+        "node_id": "Node-bf8e94e7-7543-4be7-b1fc-4877b253e3f0",
+        "port_id": "Port-216a25d1-335a-4028-afc3-d60a59d8a172"
+      }
+    },
+    {
+      "id": "5bcf4460-576f-4cbe-bb25-117b3ae36737",
+      "origin": {
+        "node_id": "Node-751ac13d-5235-4f54-aea3-2e5d5d1b9c5f",
+        "port_id": "Port-1c828e61-aa1d-4cc8-8c99-a4b1f77381b6"
+      },
+      "target": {
+        "node_id": "Node-0c54491a-80c1-476b-9a5a-99bdc1c0641c",
+        "port_id": "Port-47459cb7-fc9b-45da-b3db-11c0e33aa4df"
+      }
+    }
+  ]
 }
