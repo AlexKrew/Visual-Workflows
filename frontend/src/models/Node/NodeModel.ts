@@ -3,6 +3,8 @@ import EditorComponent from "../EditorComponent";
 import { uuid } from "vue-uuid";
 import { emitter } from "@/components/util/Emittery";
 import { NodeType, PortType } from "../Data/Types";
+import Vector2 from "@/components/util/Vector";
+import GridData from "../Data/GridData";
 
 class NodeModel extends EditorComponent {
   data: NodeType;
@@ -11,6 +13,9 @@ class NodeModel extends EditorComponent {
   constructor(data: NodeType) {
     super(data.id, true);
     this.data = data;
+
+    const pos = new Vector2(data.ui.position[0], data.ui.position[1]);
+    this.setPos(pos);
 
     this.data.ports.forEach((port) => {
       this.addChildren(new PortModel(port));
@@ -37,6 +42,10 @@ class NodeModel extends EditorComponent {
     return node;
   }
 
+  addChildrenOverload(...children: EditorComponent[]): void {
+    return;
+  }
+
   // Adds every addable Ports once, sets their group ID and reloads every Port position
   addAddablePorts() {
     const groupID = uuid.v4();
@@ -53,6 +62,10 @@ class NodeModel extends EditorComponent {
 
   removeAddablePorts() {
     //TODO
+  }
+
+  updatePosOverload(): void {
+    this.data.ui.position = [this.posRel.x, this.posRel.y];
   }
 }
 

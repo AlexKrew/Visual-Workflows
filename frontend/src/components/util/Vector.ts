@@ -17,6 +17,11 @@ class Vector2 {
     this.y += vector.y;
   }
 
+  multiply(i: number) {
+    this.x * i;
+    this.y * i;
+  }
+
   negateReturn(): Vector2 {
     return new Vector2(-this.x, -this.y);
   }

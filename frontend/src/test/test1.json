@@ -1,0 +1,257 @@
+{
+  "id": "W1",
+  "name": "Empty Workflow",
+  "nodes": [
+    {
+      "id": "Node-9c639a78-a3ea-43b7-ac44-bad0bab6e441",
+      "name": "HTTP Request",
+      "category": "Web Services",
+      "type": "HTTP",
+      "ui": {
+        "position": [22.665252685546875, 72]
+      },
+      "ports": [
+        {
+          "id": "Port-3812ad1e-6d65-4c50-9f07-7ff9ad57ca36",
+          "label": "Method",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "Port-1155ac0c-79f8-4532-ae3b-1bbbe18f8f92",
+          "label": "URL",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": true,
+          "defaultValue": "myURL",
+          "defaultPlaceholder": "someURL.com"
+        },
+        {
+          "id": "Port-8617827b-1910-4c0c-a1be-2cbbab498309",
+          "label": "Payload",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": true,
+          "defaultValue": "Header:###",
+          "defaultPlaceholder": "Header:{...}"
+        },
+        {
+          "id": "Port-a4d40419-b5af-4c45-a195-a20a64899c14",
+          "label": "Response",
+          "groupID": "",
+          "added": false,
+          "is_input": false,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "Port-ae755e51-3959-4849-83ad-ad8aad15d1eb",
+          "label": "Response Code",
+          "groupID": "",
+          "added": false,
+          "is_input": false,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        }
+      ],
+      "addablePorts": []
+    },
+    {
+      "id": "Node-fa8bda8c-51c5-47aa-bb45-07dad3e4531f",
+      "name": "Switch",
+      "category": "Control",
+      "type": "Switch",
+      "ui": {
+        "position": [407.76422119140625, 88.31259155273438]
+      },
+      "ports": [
+        {
+          "id": "Port-77da13dd-b497-44b7-8f1c-216d03cbb2e6",
+          "label": "Check",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        }
+      ],
+      "addablePorts": [
+        {
+          "id": "N2-AP1",
+          "label": "Operator",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "N2-AP2",
+          "label": "Value",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "N2-AP3",
+          "label": "In",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "N2-AP4",
+          "label": "Out",
+          "groupID": "",
+          "added": false,
+          "is_input": false,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        }
+      ]
+    },
+    {
+      "id": "Node-9c639a78-a3ea-43b7-ac44-bad0bab6e441",
+      "name": "HTTP Request",
+      "category": "Web Services",
+      "type": "HTTP",
+      "ui": {
+        "position": [22.665252685546875, 72]
+      },
+      "ports": [
+        {
+          "id": "Port-3812ad1e-6d65-4c50-9f07-7ff9ad57ca36",
+          "label": "Method",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "Port-1155ac0c-79f8-4532-ae3b-1bbbe18f8f92",
+          "label": "URL",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": true,
+          "defaultValue": "myURL",
+          "defaultPlaceholder": "someURL.com"
+        },
+        {
+          "id": "Port-8617827b-1910-4c0c-a1be-2cbbab498309",
+          "label": "Payload",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": true,
+          "defaultValue": "Header:###",
+          "defaultPlaceholder": "Header:{...}"
+        },
+        {
+          "id": "Port-a4d40419-b5af-4c45-a195-a20a64899c14",
+          "label": "Response",
+          "groupID": "",
+          "added": false,
+          "is_input": false,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "Port-ae755e51-3959-4849-83ad-ad8aad15d1eb",
+          "label": "Response Code",
+          "groupID": "",
+          "added": false,
+          "is_input": false,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        }
+      ],
+      "addablePorts": []
+    },
+    {
+      "id": "Node-fa8bda8c-51c5-47aa-bb45-07dad3e4531f",
+      "name": "Switch",
+      "category": "Control",
+      "type": "Switch",
+      "ui": {
+        "position": [407.76422119140625, 88.31259155273438]
+      },
+      "ports": [
+        {
+          "id": "Port-77da13dd-b497-44b7-8f1c-216d03cbb2e6",
+          "label": "Check",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        }
+      ],
+      "addablePorts": [
+        {
+          "id": "N2-AP1",
+          "label": "Operator",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "N2-AP2",
+          "label": "Value",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "N2-AP3",
+          "label": "In",
+          "groupID": "",
+          "added": false,
+          "is_input": true,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "N2-AP4",
+          "label": "Out",
+          "groupID": "",
+          "added": false,
+          "is_input": false,
+          "hasDefaultField": false,
+          "defaultValue": "",
+          "defaultPlaceholder": ""
+        }
+      ]
+    }
+  ],
+  "edges": []
+}

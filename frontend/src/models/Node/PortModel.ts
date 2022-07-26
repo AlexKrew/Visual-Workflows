@@ -29,6 +29,14 @@ class PortModel extends EditorComponent {
     this.data.added = true;
     this.data.groupID = id;
   }
+
+  updatePosOverload(): void {
+    return;
+  }
+
+  addChildrenOverload(...children: EditorComponent[]): void {
+    return;
+  }
 }
 
 export default PortModel;

@@ -12,6 +12,9 @@ type NodeType = {
   type: string;
   ports: PortType[];
   addablePorts: PortType[];
+  ui: {
+    position: number[];
+  };
 };
 
 type PortType = {

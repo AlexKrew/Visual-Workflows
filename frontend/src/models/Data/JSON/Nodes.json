@@ -4,6 +4,9 @@
     "name": "HTTP Request",
     "category": "Web Services",
     "type": "HTTP",
+    "ui": {
+      "position": [10, 20]
+    },
     "ports": [
       {
         "id": "N1-P1",
@@ -63,6 +66,9 @@
     "name": "Switch",
     "category": "Control",
     "type": "Switch",
+    "ui": {
+      "position": [20, 20]
+    },
     "ports": [
       {
         "id": "N2-P1",

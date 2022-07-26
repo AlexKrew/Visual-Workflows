@@ -58,7 +58,7 @@ export default {
 
     function addNode(node: NodeModel) {
       curDragNode.value = node.clone() as NodeModel;
-      curDragNode.value.setParent(grid);
+      curDragNode.value.setParent(GridData.grid);
 
       const div = cards.value.find((div) => div.id == node.id);
       if (div) {

@@ -1,66 +1,6 @@
 {
   "id": "W1",
   "name": "Empty Workflow",
-  "nodes": [
-    {
-      "id": "N1-Custom",
-      "name": "HTTP Request",
-      "category": "Web Services",
-      "type": "HTTP",
-      "ports": [
-        {
-          "id": "N1-P1",
-          "label": "Method",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        },
-        {
-          "id": "N1-P2",
-          "label": "URL",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": true,
-          "defaultValue": "",
-          "defaultPlaceholder": "someURL.com"
-        },
-        {
-          "id": "N1-P3",
-          "label": "Payload",
-          "groupID": "",
-          "added": false,
-          "is_input": true,
-          "hasDefaultField": true,
-          "defaultValue": "",
-          "defaultPlaceholder": "Header:{...}"
-        },
-        {
-          "id": "N1-P4",
-          "label": "Response",
-          "groupID": "",
-          "added": false,
-          "is_input": false,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        },
-        {
-          "id": "N1-P5",
-          "label": "Response Code",
-          "groupID": "",
-          "added": false,
-          "is_input": false,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
-        }
-      ],
-      "addablePorts": []
-    }
-  ],
+  "nodes": [],
   "edges": []
 }

@@ -8,19 +8,24 @@ class GridData {
   static nodeCategorys = ["Web Services", "Debug", "Control"]; // TODO Dynamic
   static nodeTypes = ["Http", "Debug", "Mail", "Switch"]; // TODO Dynamic
 
+  static workflow: WorkflowType;
   static grid: GridModel;
   static nodes: NodeModel[] = [];
+
+  static cellSize = 20;
 
   static loadDefaultNodes() {
     const nodeTypes: NodeType[] = JSON.parse(JSON.stringify(NodesJSON));
     nodeTypes.forEach((node) => {
       GridData.nodes.push(new NodeModel(node));
     });
+
+    console.log(nodeTypes);
   }
 
   static loadWorkflow(json: JSON) {
-    const workflow: WorkflowType = JSON.parse(JSON.stringify(json));
-    GridData.grid = new GridModel(workflow, new Vector2(220, 0));
+    this.workflow = JSON.parse(JSON.stringify(json));
+    GridData.grid = new GridModel(this.workflow, new Vector2(220, 0));
   }
 
   // Nodes

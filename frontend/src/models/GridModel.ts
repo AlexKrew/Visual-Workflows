@@ -7,7 +7,6 @@ import PortModel from "./Node/PortModel";
 
 class GridModel extends EditorComponent {
   data: WorkflowType;
-  static cellSize = 20;
 
   edges: EdgeModel[] = [];
   tmpEdgeIndex = -1; // the Connection that is currently dragged
@@ -27,6 +26,12 @@ class GridModel extends EditorComponent {
 
   clone(): EditorComponent {
     throw new Error("Method not implemented.");
+  }
+
+  addChildrenOverload(...children: EditorComponent[]): void {
+    children.forEach((child) => {
+      this.data.nodes.push((child as NodeModel).data);
+    });
   }
 
   updatePos(): void {
@@ -101,8 +106,11 @@ class GridModel extends EditorComponent {
 
     return index;
   }
-
   //#endregion
+
+  updatePosOverload(): void {
+    return;
+  }
 }
 
 export default GridModel;

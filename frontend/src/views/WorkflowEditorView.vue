@@ -13,6 +13,7 @@ import EditorInspector from "@/components/workflowEditor/Layout/EditorInspector.
 import { emitter } from "@/components/util/Emittery";
 import { onBeforeMount, onMounted, ref } from "vue";
 import EmptyWorkflowJSON from "../models/Data/JSON/EmptyWorkflow.json"
+import test1 from "../test/test1.json";
 import GridData from "@/models/Data/GridData";
 
 export default {
@@ -29,7 +30,7 @@ export default {
       GridData.loadDefaultNodes();
 
       // Load Empty Initial Workflow
-      GridData.loadWorkflow(JSON.parse(JSON.stringify(EmptyWorkflowJSON)));
+      GridData.loadWorkflow(JSON.parse(JSON.stringify(test1)));
 
       console.log(GridData.grid)
 
