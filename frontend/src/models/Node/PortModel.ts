@@ -26,12 +26,12 @@ class PortModel extends EditorComponent {
   }
 
   setDefaultValue(text: string) {
-    this.data.defaultValue = text;
+    this.data.default_value.value = text;
   }
 
   setGroupID(id: string) {
     this.data.added = true;
-    this.data.groupID = id;
+    this.data.group_id = id;
   }
 
   updatePosOverload(): void {

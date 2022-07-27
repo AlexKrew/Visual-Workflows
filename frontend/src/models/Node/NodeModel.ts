@@ -17,7 +17,15 @@ class NodeModel extends EditorComponent {
     const pos = new Vector2(data.ui.position[0], data.ui.position[1]);
     this.setPos(pos);
 
-    this.data.ports.forEach((port) => {
+    // Add Ports and Get Missing Fields from the global default Nodes
+    const defaultNode = GridData.nodes.find((node) => node.data.type == this.data.type)?.data;
+    this.data.ports.forEach((port, index) => {
+      const defaultPort = defaultNode?.ports[index];
+      if (defaultPort) {
+        port.hasDefaultField = defaultPort.hasDefaultField;
+        port.defaultPlaceholder = defaultPort.defaultPlaceholder;
+      }
+
       this.addChild(new PortModel(port), false);
     });
 

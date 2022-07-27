@@ -56,7 +56,7 @@ export default defineComponent({
     const portRef = ref<HTMLInputElement>();
     const textAreaRef = ref<HTMLInputElement>();
 
-    const textAreaValue = ref(props.portModel.data.defaultValue);
+    const textAreaValue = ref(props.portModel.data.default_value.value);
     const textAreaHeight = ref(24);
 
     const node = props.portModel.parent as NodeModel;

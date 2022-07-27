@@ -19,12 +19,15 @@ type NodeType = {
 
 type PortType = {
   id: string;
-  groupID: string;
+  group_id: string;
   label: string;
   added: boolean;
   is_input: boolean;
+  default_value: {
+    datatype: "STRING";
+    value: string;
+  };
   hasDefaultField: boolean;
-  defaultValue: string;
   defaultPlaceholder: string;
 };
 
