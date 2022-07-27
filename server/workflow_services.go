@@ -38,9 +38,21 @@ func updateWorkflow(c *gin.Context) {
 	jsonData, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
 		fmt.Println("ERROR", err.Error())
+		c.String(http.StatusBadRequest, "Error")
 	}
+
 	var workflow entities.Workflow
-	json.Unmarshal(jsonData, &workflow)
-	fmt.Println("WORKFLOW", workflow)
+	err = json.Unmarshal(jsonData, &workflow)
+	if err != nil {
+		fmt.Println("ERROR", err.Error())
+		c.String(http.StatusBadRequest, "Error")
+	}
+
+	err = wfContainer.SaveWorkflow(workflow.ID, workflow)
+	if err != nil {
+		fmt.Println("ERROR", err.Error())
+		c.String(http.StatusBadRequest, "Error")
+	}
+
 	c.String(http.StatusOK, "Correct")
 }

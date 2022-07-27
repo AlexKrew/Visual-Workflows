@@ -8,11 +8,11 @@ type WorkflowDefinition struct {
 }
 
 type NodeDefinition struct {
-	ID    string `json:"id"`
-	Name  string `json:"name"`
-	Type  string `json:"type"`
-	Ports []PortDefinition
-	UI    UIDefinition
+	ID    string           `json:"id"`
+	Name  string           `json:"name"`
+	Type  string           `json:"type"`
+	Ports []PortDefinition `json:"ports"`
+	UI    UIDefinition     `json:"ui"`
 }
 
 type PortDefinition struct {

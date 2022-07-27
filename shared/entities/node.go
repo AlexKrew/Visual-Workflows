@@ -1,6 +1,9 @@
 package entities
 
-import "fmt"
+import (
+	"fmt"
+	"visualWorkflows/internal/storage"
+)
 
 type NodeID = string
 
@@ -10,6 +13,52 @@ type Node struct {
 	Type  string `json:"type"`
 	Ports []Port `json:"ports"`
 	UI    UI     `json:"ui"`
+}
+
+func NodeFromDefinition(definition storage.NodeDefinition) (Node, error) {
+
+	ports := []Port{}
+	for _, portDef := range definition.Ports {
+		port, err := PortFromDefinition(portDef)
+		if err != nil {
+			return Node{}, err
+		}
+
+		ports = append(ports, port)
+	}
+
+	node := Node{
+		ID:    definition.ID,
+		Name:  definition.Name,
+		Type:  definition.Type,
+		Ports: ports,
+		UI:    UIFromDefinition(definition.UI),
+	}
+
+	return node, nil
+}
+
+func (node *Node) ToDefinition() (storage.NodeDefinition, error) {
+
+	ports := []storage.PortDefinition{}
+	for _, port := range node.Ports {
+		portDef, err := port.ToDefinition()
+		if err != nil {
+			return storage.NodeDefinition{}, err
+		}
+
+		ports = append(ports, portDef)
+	}
+
+	def := storage.NodeDefinition{
+		ID:    node.ID,
+		Name:  node.Name,
+		Type:  node.Type,
+		Ports: ports,
+		UI:    storage.UIDefinition(node.UI),
+	}
+
+	return def, nil
 }
 
 func (node *Node) GetInputPortIds() []PortID {
