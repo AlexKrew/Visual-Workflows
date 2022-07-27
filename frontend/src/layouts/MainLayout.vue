@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-full">
-    <Disclosure as="nav" class="bg-white shadow-sm">
+    <Disclosure as="nav" class="bg-white shadow-sm relative z-10">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
           <div class="flex">
@@ -19,7 +19,7 @@
       </DisclosurePanel>
     </Disclosure>
 
-    <div class="py-10">
+    <div>
       <router-view />
     </div>
   </div>
@@ -30,5 +30,6 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 
 const navigation = [
   { name: 'Overview', href: '#', current: true },
+  { name: 'Workflow Editor', href: '#', current: true },
 ]
 </script>

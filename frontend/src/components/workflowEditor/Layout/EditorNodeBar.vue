@@ -1,5 +1,5 @@
 <template>
-  <Card class="bg-slate-200 absolute w-2/12 h-full z-10">
+  <Card class="bg-gray-100 absolute w-2/12 h-full z-10">
     <p>Node Bar</p>
     <div v-for="category in categorys" :key="category">
       <h1 class="text-xl font-bold">{{ category }}</h1>

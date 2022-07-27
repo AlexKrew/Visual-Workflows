@@ -1,5 +1,5 @@
 <template>
-  <Card class="bg-gray-200 absolute right-0 w-2/12 h-full z-10">
+  <Card class="bg-gray-100 absolute right-0 w-2/12 h-full z-10">
     <p>Inspector</p>
     <button @click="onDeploy">Deploy</button>
   </Card>

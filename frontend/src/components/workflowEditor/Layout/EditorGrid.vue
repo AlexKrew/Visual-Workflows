@@ -1,7 +1,7 @@
 <template>
   <div
     id="EditorGrid"
-    class="drag absolute bg-gray-400 top"
+    class="drag absolute bg-gray-500 top"
     :style="{ left: grid.posRel.x + 'px', top: grid.posRel.y + 'px' }"
   >
     <!-- Connections -->

@@ -122,7 +122,6 @@ export default defineComponent({
       } else {
         (grid as GridModel).addEdge(EdgeModel.NewEdgeFromPort(props.portModel), true);
       }
-      console.log(GridData.grid.edges);
     }
 
     function onDragMove(event: InteractEvent) {
