@@ -22,6 +22,7 @@ class GridModel extends EditorComponent {
   }
 
   loadEdges() {
+    this.edges = [];
     this.data.edges.forEach((edge) => {
       this.edges.push(new EdgeModel(edge));
     });
@@ -61,21 +62,14 @@ class GridModel extends EditorComponent {
   }
 
   deleteEdge(id: string) {
-    // Delete Edge from Data
     this.data.edges.splice(
       this.data.edges.findIndex((edge) => {
-        edge.id == id;
+        return edge.id == id;
       }),
       1
     );
 
-    // Delete Edge From Edges
-    this.edges.splice(
-      this.edges.findIndex((edge) => {
-        edge.data.id == id;
-      }),
-      1
-    );
+    this.loadEdges();
   }
 
   setTmp(id: string) {

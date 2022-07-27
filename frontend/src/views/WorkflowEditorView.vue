@@ -46,8 +46,8 @@ export default defineComponent({
 
       // Load Empty Initial Workflow
       const workflowJSON = await workflowInstancesService.loadWorkflow(props.workflowId)
-      // GridData.loadWorkflow(JSON.parse(JSON.stringify(testJSON)));
-      GridData.loadWorkflow(JSON.parse(JSON.stringify(workflowJSON)));
+      GridData.loadWorkflow(JSON.parse(JSON.stringify(testJSON)));
+      // GridData.loadWorkflow(JSON.parse(JSON.stringify(workflowJSON)));
       isLoading.value = false
     });
 
