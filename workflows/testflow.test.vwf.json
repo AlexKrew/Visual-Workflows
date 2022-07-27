@@ -1,0 +1,181 @@
+{
+ "id": "testflow",
+ "name": "Empty Workflow",
+ "nodes": [
+  {
+   "id": "Node-c1bba315-16a0-40c0-8f2a-476d31b51e8f",
+   "name": "Inject",
+   "type": "Inject",
+   "Ports": [
+    {
+     "id": "Port-3834377b-47b0-466f-96f1-b32abec993c1",
+     "label": "Output",
+     "datatype": "",
+     "is_input": false,
+     "added": false,
+     "default_value": {
+      "datatype": 0,
+      "value": null
+     }
+    }
+   ],
+   "UI": {
+    "position": [
+     178,
+     224
+    ]
+   }
+  },
+  {
+   "id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
+   "name": "HTTP Request",
+   "type": "HTTP",
+   "Ports": [
+    {
+     "id": "Port-eeb1e2ae-9362-4a19-a146-a97988c0cebe",
+     "label": "Method",
+     "datatype": "",
+     "is_input": true,
+     "added": false,
+     "default_value": {
+      "datatype": 0,
+      "value": null
+     }
+    },
+    {
+     "id": "Port-5cb1c250-776f-479f-a206-cbb652fdfd28",
+     "label": "URL",
+     "datatype": "",
+     "is_input": true,
+     "added": false,
+     "default_value": {
+      "datatype": 0,
+      "value": null
+     }
+    },
+    {
+     "id": "Port-c10b669b-c36e-4d2c-9ca3-7bf394910766",
+     "label": "Payload",
+     "datatype": "",
+     "is_input": true,
+     "added": false,
+     "default_value": {
+      "datatype": 0,
+      "value": null
+     }
+    },
+    {
+     "id": "Port-82ceb70d-974d-4540-8721-7b44cb3de674",
+     "label": "Response",
+     "datatype": "",
+     "is_input": false,
+     "added": false,
+     "default_value": {
+      "datatype": 0,
+      "value": null
+     }
+    },
+    {
+     "id": "Port-78d218ab-8fc9-4524-9227-e0ed67ad2a05",
+     "label": "Response Code",
+     "datatype": "",
+     "is_input": false,
+     "added": false,
+     "default_value": {
+      "datatype": 0,
+      "value": null
+     }
+    }
+   ],
+   "UI": {
+    "position": [
+     460,
+     148
+    ]
+   }
+  },
+  {
+   "id": "Node-b2858d88-a91e-49e5-bbd1-87093123f891",
+   "name": "Debug",
+   "type": "Debug",
+   "Ports": [
+    {
+     "id": "Port-9b3762a9-8946-414a-ae09-ec0394e8b924",
+     "label": "Input",
+     "datatype": "",
+     "is_input": true,
+     "added": false,
+     "default_value": {
+      "datatype": 0,
+      "value": null
+     }
+    },
+    {
+     "id": "Port-2bc7fe64-e47e-45a7-9646-a614440c85fe",
+     "label": "Output",
+     "datatype": "",
+     "is_input": false,
+     "added": false,
+     "default_value": {
+      "datatype": 0,
+      "value": null
+     }
+    }
+   ],
+   "UI": {
+    "position": [
+     879,
+     94
+    ]
+   }
+  },
+  {
+   "id": "Node-88ca67d5-0f3c-4e47-9f6a-4624e388cecf",
+   "name": "Debug",
+   "type": "Debug",
+   "Ports": [
+    {
+     "id": "Port-6f5541d2-1023-41ff-872e-4bea803a40d3",
+     "label": "Input",
+     "datatype": "",
+     "is_input": true,
+     "added": false,
+     "default_value": {
+      "datatype": 0,
+      "value": null
+     }
+    },
+    {
+     "id": "Port-cb3aed20-6ff7-4a01-8ecf-54203b9de8df",
+     "label": "Output",
+     "datatype": "",
+     "is_input": false,
+     "added": false,
+     "default_value": {
+      "datatype": 0,
+      "value": null
+     }
+    }
+   ],
+   "UI": {
+    "position": [
+     760,
+     239
+    ]
+   }
+  }
+ ],
+ "edges": [
+  {
+   "id": "ea3c6afd-f79c-444b-8688-e0933fdb179b",
+   "origin": {
+    "node_id": "Node-c1bba315-16a0-40c0-8f2a-476d31b51e8f",
+    "port_id": "Port-3834377b-47b0-466f-96f1-b32abec993c1"
+   },
+   "target": {
+    "node_id": "",
+    "port_id": ""
+   }
+  }
+ ]
+}

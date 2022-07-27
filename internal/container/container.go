@@ -59,6 +59,15 @@ func (container *WorkflowContainer) LoadWorkflow(props storage.LoadWorkflowProps
 	return nil
 }
 
+func (container *WorkflowContainer) SaveWorkflow(workflowId string, workflow entities.Workflow) error {
+	workflowDef, err := workflow.ToDefinition()
+	if err != nil {
+		return err
+	}
+
+	return storage.SaveWorkflow(workflowId, workflowDef)
+}
+
 func (container *WorkflowContainer) StartWorkflow(id string) error {
 
 	r, exists := container.runtimes[id]

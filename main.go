@@ -23,6 +23,9 @@ func main() {
 	err := runtimeContainer.LoadWorkflow(storage.LoadWorkflowProps{
 		ID: "flow1",
 	})
+	err = runtimeContainer.LoadWorkflow(storage.LoadWorkflowProps{
+		ID: "testflow",
+	})
 
 	if err != nil {
 		panic(err)

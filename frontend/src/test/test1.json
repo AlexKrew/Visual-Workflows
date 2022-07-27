@@ -8,7 +8,10 @@
       "category": "Control",
       "type": "Inject",
       "ui": {
-        "position": [92.54142761230469, 140.53460693359375]
+        "position": [
+          300,
+          250
+        ]
       },
       "ports": [
         {
@@ -30,7 +33,10 @@
       "category": "Web Services",
       "type": "HTTP",
       "ui": {
-        "position": [364.3738098144531, 223.83401489257812]
+        "position": [
+          645,
+          220
+        ]
       },
       "ports": [
         {
@@ -92,7 +98,10 @@
       "category": "Debug",
       "type": "Debug",
       "ui": {
-        "position": [625.0051727294922, 295.1733703613281]
+        "position": [
+          1005,
+          180
+        ]
       },
       "ports": [
         {
@@ -124,7 +133,10 @@
       "category": "Debug",
       "type": "Debug",
       "ui": {
-        "position": [635.5146331787109, 424.9226989746094]
+        "position": [
+          1005,
+          350
+        ]
       },
       "ports": [
         {

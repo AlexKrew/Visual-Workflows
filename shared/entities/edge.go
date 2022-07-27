@@ -28,3 +28,20 @@ func EdgeFromDefinition(definition storage.EdgeDefinition) (Edge, error) {
 
 	return edge, nil
 }
+
+func (edge *Edge) ToDefinition() (storage.EdgeDefinition, error) {
+
+	def := storage.EdgeDefinition{
+		ID: edge.ID,
+		Origin: storage.EdgeEnd{
+			NodeID: edge.Origin.NodeID,
+			PortID: edge.Origin.PortID,
+		},
+		Target: storage.EdgeEnd{
+			NodeID: edge.Target.NodeID,
+			PortID: edge.Target.PortID,
+		},
+	}
+
+	return def, nil
+}

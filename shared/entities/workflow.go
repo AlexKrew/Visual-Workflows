@@ -23,27 +23,15 @@ func WorkflowFromDefinition(definition storage.WorkflowDefinition) (Workflow, er
 	workflow.Name = definition.Name
 	workflow.Nodes = []Node{}
 	workflow.Edges = []Edge{}
-	// workflow.Edges = make(map[string]Edge)
 
-	for _, node := range definition.Nodes {
+	for _, nodeDef := range definition.Nodes {
 
-		ports := []Port{}
-		for _, portDef := range node.Ports {
-			port, err := PortFromDefinition(portDef)
-			if err != nil {
-				return Workflow{}, err
-			}
-
-			ports = append(ports, port)
+		node, err := NodeFromDefinition(nodeDef)
+		if err != nil {
+			return Workflow{}, nil
 		}
 
-		workflow.Nodes = append(workflow.Nodes, Node{
-			ID:    node.ID,
-			Name:  node.Name,
-			Type:  node.Type,
-			Ports: ports,
-			UI:    UIFromDefinition(node.UI),
-		})
+		workflow.Nodes = append(workflow.Nodes, node)
 	}
 
 	// Mapping of Edges
@@ -57,6 +45,38 @@ func WorkflowFromDefinition(definition storage.WorkflowDefinition) (Workflow, er
 	}
 
 	return workflow, nil
+}
+
+func (workflow *Workflow) ToDefinition() (storage.WorkflowDefinition, error) {
+
+	nodes := []storage.NodeDefinition{}
+	for _, node := range workflow.Nodes {
+		nodeDef, err := node.ToDefinition()
+		if err != nil {
+			return storage.WorkflowDefinition{}, err
+		}
+
+		nodes = append(nodes, nodeDef)
+	}
+
+	edges := []storage.EdgeDefinition{}
+	for _, edge := range workflow.Edges {
+		edgeDef, err := edge.ToDefinition()
+		if err != nil {
+			return storage.WorkflowDefinition{}, err
+		}
+
+		edges = append(edges, edgeDef)
+	}
+
+	workflowDef := storage.WorkflowDefinition{
+		ID:    workflow.ID,
+		Name:  workflow.Name,
+		Nodes: nodes,
+		Edges: edges,
+	}
+
+	return workflowDef, nil
 }
 
 func (wf *Workflow) AddNode(node Node) error {

@@ -37,6 +37,20 @@ func PortFromDefinition(definition storage.PortDefinition) (Port, error) {
 	return port, nil
 }
 
+func (port *Port) ToDefinition() (storage.PortDefinition, error) {
+
+	portDef := storage.PortDefinition{
+		ID:           port.ID,
+		Label:        port.Label,
+		DataType:     port.DataType,
+		IsInput:      port.IsInput,
+		Added:        port.Added,
+		DefaultValue: port.DefaultValue,
+	}
+
+	return portDef, nil
+}
+
 func (port *Port) IsCompatibleWith(other Port) bool {
 	return port.DataType == other.DataType
 }
