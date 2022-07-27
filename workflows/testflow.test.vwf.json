@@ -6,7 +6,7 @@
    "id": "Node-c1bba315-16a0-40c0-8f2a-476d31b51e8f",
    "name": "Inject",
    "type": "Inject",
-   "Ports": [
+   "ports": [
     {
      "id": "Port-3834377b-47b0-466f-96f1-b32abec993c1",
      "label": "Output",
@@ -19,10 +19,10 @@
      }
     }
    ],
-   "UI": {
+   "ui": {
     "position": [
-     178,
-     224
+     92,
+     140
     ]
    }
   },
@@ -30,7 +30,7 @@
    "id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
    "name": "HTTP Request",
    "type": "HTTP",
-   "Ports": [
+   "ports": [
     {
      "id": "Port-eeb1e2ae-9362-4a19-a146-a97988c0cebe",
      "label": "Method",
@@ -87,10 +87,10 @@
      }
     }
    ],
-   "UI": {
+   "ui": {
     "position": [
-     460,
-     148
+     364,
+     223
     ]
    }
   },
@@ -98,7 +98,7 @@
    "id": "Node-b2858d88-a91e-49e5-bbd1-87093123f891",
    "name": "Debug",
    "type": "Debug",
-   "Ports": [
+   "ports": [
     {
      "id": "Port-9b3762a9-8946-414a-ae09-ec0394e8b924",
      "label": "Input",
@@ -122,10 +122,10 @@
      }
     }
    ],
-   "UI": {
+   "ui": {
     "position": [
-     879,
-     94
+     809,
+     132
     ]
    }
   },
@@ -133,7 +133,7 @@
    "id": "Node-88ca67d5-0f3c-4e47-9f6a-4624e388cecf",
    "name": "Debug",
    "type": "Debug",
-   "Ports": [
+   "ports": [
     {
      "id": "Port-6f5541d2-1023-41ff-872e-4bea803a40d3",
      "label": "Input",
@@ -157,10 +157,10 @@
      }
     }
    ],
-   "UI": {
+   "ui": {
     "position": [
-     760,
-     239
+     635,
+     424
     ]
    }
   }
@@ -173,8 +173,30 @@
     "port_id": "Port-3834377b-47b0-466f-96f1-b32abec993c1"
    },
    "target": {
-    "node_id": "",
-    "port_id": ""
+    "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
+    "port_id": "Port-5cb1c250-776f-479f-a206-cbb652fdfd28"
+   }
+  },
+  {
+   "id": "5296f280-b130-45af-becb-40aa28c0f1ab",
+   "origin": {
+    "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
+    "port_id": "Port-82ceb70d-974d-4540-8721-7b44cb3de674"
+   },
+   "target": {
+    "node_id": "Node-b2858d88-a91e-49e5-bbd1-87093123f891",
+    "port_id": "Port-9b3762a9-8946-414a-ae09-ec0394e8b924"
+   }
+  },
+  {
+   "id": "e468bcfc-a661-4d51-b5a8-679d539993bd",
+   "origin": {
+    "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
+    "port_id": "Port-78d218ab-8fc9-4524-9227-e0ed67ad2a05"
+   },
+   "target": {
+    "node_id": "Node-88ca67d5-0f3c-4e47-9f6a-4624e388cecf",
+    "port_id": "Port-6f5541d2-1023-41ff-872e-4bea803a40d3"
    }
   }
  ]
