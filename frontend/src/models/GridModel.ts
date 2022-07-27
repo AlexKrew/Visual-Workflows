@@ -14,7 +14,7 @@ class GridModel extends EditorComponent {
   constructor(data: WorkflowType) {
     super(data.id, false);
     this.data = data;
-    this.posRel = new Vector2(200, 0);
+    this.posRel = new Vector2(0, 64);
 
     data.nodes.forEach((node) => {
       this.addChild(new NodeModel(node), false);

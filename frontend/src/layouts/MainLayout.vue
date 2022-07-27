@@ -25,11 +25,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 
 const navigation = [
-  { name: 'Overview', href: '#', current: true },
-  { name: 'Workflow Editor', href: '#', current: true },
+  { name: 'Overview', href: '/', current: true },
+  { name: 'Workflow Editor', href: '/workflow-editor/flow1', current: false },
 ]
 </script>

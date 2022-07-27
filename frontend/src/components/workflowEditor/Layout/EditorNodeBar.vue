@@ -1,6 +1,5 @@
 <template>
-  <Card class="bg-gray-100 absolute w-2/12 h-full z-10">
-    <p>Node Bar</p>
+  <Card class="bg-gray-100 absolute w-2/12 z-10 p-3 top-20 left-5">
     <div v-for="category in categorys" :key="category">
       <h1 class="text-xl font-bold">{{ category }}</h1>
       <div v-for="node in nodesFromCategory(category)" :key="node.id" :id="node.id" :ref="(el) => cards.push(el)">

@@ -8,21 +8,19 @@
       "category": "Control",
       "type": "Inject",
       "ui": {
-        "position": [
-          300,
-          250
-        ]
+        "position": [300, 250]
       },
       "ports": [
         {
           "id": "Port-3834377b-47b0-466f-96f1-b32abec993c1",
           "label": "Output",
-          "groupID": "",
+          "group_id": "",
           "added": false,
           "is_input": false,
-          "hasDefaultField": true,
-          "defaultValue": "Server1/",
-          "defaultPlaceholder": "Output Text..."
+          "default_value": {
+            "datatype": "STRING",
+            "value": "Server1/"
+          }
         }
       ],
       "addablePorts": []
@@ -33,61 +31,63 @@
       "category": "Web Services",
       "type": "HTTP",
       "ui": {
-        "position": [
-          645,
-          220
-        ]
+        "position": [645, 220]
       },
       "ports": [
         {
           "id": "Port-eeb1e2ae-9362-4a19-a146-a97988c0cebe",
           "label": "Method",
-          "groupID": "",
+          "group_id": "",
           "added": false,
           "is_input": true,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          }
         },
         {
           "id": "Port-5cb1c250-776f-479f-a206-cbb652fdfd28",
           "label": "URL",
-          "groupID": "",
+          "group_id": "",
           "added": false,
           "is_input": true,
-          "hasDefaultField": true,
-          "defaultValue": "",
-          "defaultPlaceholder": "someURL.com"
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          }
         },
         {
           "id": "Port-c10b669b-c36e-4d2c-9ca3-7bf394910766",
           "label": "Payload",
-          "groupID": "",
+          "group_id": "",
           "added": false,
           "is_input": true,
-          "hasDefaultField": true,
-          "defaultValue": "",
-          "defaultPlaceholder": "Header:{...}"
+          "default_value": {
+            "datatype": "STRING",
+            "value": "Header"
+          }
         },
         {
           "id": "Port-82ceb70d-974d-4540-8721-7b44cb3de674",
           "label": "Response",
-          "groupID": "",
+          "group_id": "",
           "added": false,
           "is_input": false,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          }
         },
         {
           "id": "Port-78d218ab-8fc9-4524-9227-e0ed67ad2a05",
           "label": "Response Code",
-          "groupID": "",
+          "group_id": "",
           "added": false,
           "is_input": false,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          }
         }
       ],
       "addablePorts": []
@@ -98,31 +98,30 @@
       "category": "Debug",
       "type": "Debug",
       "ui": {
-        "position": [
-          1005,
-          180
-        ]
+        "position": [1005, 180]
       },
       "ports": [
         {
           "id": "Port-9b3762a9-8946-414a-ae09-ec0394e8b924",
           "label": "Input",
-          "groupID": "",
+          "group_id": "",
           "added": false,
           "is_input": true,
-          "hasDefaultField": true,
-          "defaultValue": "",
-          "defaultPlaceholder": "Output Text..."
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          }
         },
         {
           "id": "Port-2bc7fe64-e47e-45a7-9646-a614440c85fe",
           "label": "Output",
-          "groupID": "",
+          "group_id": "",
           "added": false,
           "is_input": false,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          }
         }
       ],
       "addablePorts": []
@@ -133,31 +132,30 @@
       "category": "Debug",
       "type": "Debug",
       "ui": {
-        "position": [
-          1005,
-          350
-        ]
+        "position": [1005, 350]
       },
       "ports": [
         {
           "id": "Port-6f5541d2-1023-41ff-872e-4bea803a40d3",
           "label": "Input",
-          "groupID": "",
+          "group_id": "",
           "added": false,
           "is_input": true,
-          "hasDefaultField": true,
-          "defaultValue": "",
-          "defaultPlaceholder": "Output Text..."
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          }
         },
         {
           "id": "Port-cb3aed20-6ff7-4a01-8ecf-54203b9de8df",
           "label": "Output",
-          "groupID": "",
+          "group_id": "",
           "added": false,
           "is_input": false,
-          "hasDefaultField": false,
-          "defaultValue": "",
-          "defaultPlaceholder": ""
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          }
         }
       ],
       "addablePorts": []

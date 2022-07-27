@@ -1,7 +1,10 @@
 <template>
-  <Card class="bg-gray-100 absolute right-0 w-2/12 h-full z-10">
-    <p>Inspector</p>
-    <button @click="onDeploy">Deploy</button>
+  <Card class="bg-gray-100 absolute w-2/12 z-10 p-3 top-20 right-5">
+    <div class="w-full">
+      <button @click="onDeploy" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+        <p class="text-center">Deploy</p>
+      </button>
+    </div>
   </Card>
 </template>
 
@@ -14,16 +17,18 @@ export default {
     Card,
   },
   setup() {
-    
-    async function onDeploy(){
+    async function onDeploy() {
       console.log(GridData.workflow);
-      await workflowInstancesService.updateWorkflow(GridData.workflow.id, JSON.parse(JSON.stringify(GridData.workflow)))
+      await workflowInstancesService.updateWorkflow(
+        GridData.workflow.id,
+        JSON.parse(JSON.stringify(GridData.workflow))
+      );
     }
 
-    return{
-      onDeploy
-    }
-  }
+    return {
+      onDeploy,
+    };
+  },
 };
 </script>
 
