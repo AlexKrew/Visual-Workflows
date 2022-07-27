@@ -20,7 +20,7 @@
     </div>
 
     <!-- Default Text Field -->
-    <div v-if="portModel.data.hasDefaultField" class="px-2">
+    <div v-if="portModel.data.hasDefaultField" class="px-2 pb-3">
       <textarea
         ref="textAreaRef"
         class="bg-gray-200 w-full px-1"
