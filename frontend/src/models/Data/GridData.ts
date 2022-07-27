@@ -25,10 +25,6 @@ class GridData {
     this.workflow = JSON.parse(JSON.stringify(json));
     GridData.grid = new GridModel(this.workflow);
     GridData.grid.loadEdges();
-
-    console.log("Loaded Workflow", GridData.workflow);
-    console.log("Loaded Data:", GridData.grid.data);
-    console.log("Loaded Models:", GridData.grid);
   }
 
   // Nodes

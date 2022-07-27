@@ -9,7 +9,9 @@
         :class="{ right: '0px' }"
         :style="[
           { width: portModel.portSize + 'px', height: portModel.portSize + 'px' },
-          portModel.data.is_input ? 'left: -' + portModel.portSize / 2 + 'px;' : 'right: -' + portModel.portSize / 2 + 'px;',
+          portModel.data.is_input
+            ? 'left: -' + portModel.portSize / 2 + 'px;'
+            : 'right: -' + portModel.portSize / 2 + 'px;',
         ]"
       ></div>
       <span class="justify-center flex-auto mx-3" :class="[portModel.data.is_input ? 'text-left' : 'text-right']">{{
@@ -40,6 +42,7 @@ import { InteractEvent } from "@interactjs/types";
 import interact from "interactjs";
 import { defineComponent, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import { emitter } from "@/components/util/Emittery";
+import GridData from "@/models/Data/GridData";
 
 export default defineComponent({
   components: {},
@@ -117,11 +120,9 @@ export default defineComponent({
           grid.setTmp(connection.data.id);
         }
       } else {
-        (grid as GridModel).addEdge(
-          EdgeModel.NewEdgeFromPort(props.portModel),
-          true
-        );
+        (grid as GridModel).addEdge(EdgeModel.NewEdgeFromPort(props.portModel), true);
       }
+      console.log(GridData.grid.edges);
     }
 
     function onDragMove(event: InteractEvent) {
