@@ -1,14 +1,16 @@
 <template>
-  <Card class="bg-gray-100 absolute w-2/12 z-10 p-3 top-20 left-3">
-    <div v-for="category in categorys" :key="category">
-      <h1 class="text-xl font-bold">{{ category }}</h1>
-      <div v-for="node in nodesFromCategory(category)" :key="node.id" :id="node.id" :ref="(el) => cards.push(el)">
-        <Card class="m-5">
-          <p class="text-center">{{ node.data.name }}</p>
-        </Card>
+  <Card class="absolute w-2/12 z-10 top-4 left-3" header="Node Bar" :collapsible="true">
+    <div class="p-3">
+      <div v-for="category in categorys" :key="category">
+        <h1 class="text-xl font-bold">{{ category }}</h1>
+        <div v-for="node in nodesFromCategory(category)" :key="node.id" :id="node.id" :ref="(el) => cards.push(el)">
+          <Card class="m-5">
+            <p class="text-center">{{ node.data.name }}</p>
+          </Card>
+        </div>
       </div>
+      <NodeComponent v-if="curDragNode" :key="curDragNode.id" :node-model="curDragNode" />
     </div>
-    <NodeComponent v-if="curDragNode" :key="curDragNode.id" :node-model="curDragNode" />
   </Card>
 </template>
 

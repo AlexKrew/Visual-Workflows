@@ -7,10 +7,9 @@
         </button>
       </div>
     </Card>
-    <Card class="h-1/2 p-2">
-      <h2 class="font-bold text-center">Debug Console</h2>
-      <div class="overflow-y-auto h-[95%]">
-        <div v-for="log in logs" :key="log.id" class="pb-2">
+    <Card :collapsible="true" header="Debug Console" height-class="h-1/2">
+      <div class="overflow-y-auto h-[90%]">
+        <div v-for="log in logs" :key="log.id" class="p-2">
           <p class="font-semibold">[{{ DateTime.getTime(log.time) }}]</p>
           <p>{{ log.message }}</p>
         </div>
