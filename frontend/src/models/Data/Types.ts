@@ -43,4 +43,10 @@ type EdgeType = {
   };
 };
 
-export { WorkflowType, NodeType, PortType, EdgeType };
+type LogType = {
+  id: string;
+  time: Date;
+  message: string;
+};
+
+export { WorkflowType, NodeType, PortType, EdgeType, LogType };
