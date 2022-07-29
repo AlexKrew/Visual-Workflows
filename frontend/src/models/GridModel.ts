@@ -1,5 +1,7 @@
+import { emitter } from "@/components/util/Emittery";
 import Vector2 from "@/components/util/Vector";
-import { WorkflowType } from "./Data/Types";
+import GridData from "./Data/GridData";
+import { EdgeType, WorkflowType } from "./Data/Types";
 import EditorComponent from "./EditorComponent";
 import EdgeModel from "./Node/EdgeModel";
 import NodeModel from "./Node/NodeModel";
@@ -36,6 +38,23 @@ class GridModel extends EditorComponent {
     this.data.nodes.push((child as NodeModel).data);
   }
 
+  removeChild(id: string): void {
+    // Remove Edges
+    const edges: EdgeType[] = this.data.edges.filter((edge) => edge.origin.node_id == id || edge.target.node_id == id);
+    edges.forEach((edge) => this.deleteEdge(edge.id));
+    console.log(edges, "EDGES");
+
+    // Remove Child From Data
+    const childData = this.data.nodes.find((node) => node.id == id);
+    if (childData) this.data.nodes.splice(this.data.nodes.indexOf(childData), 1);
+
+    //Remove Child
+    const child = this.children.find((child) => child.id == id);
+    if (child) {
+      this.children.splice(this.children.indexOf(child), 1);
+    }
+  }
+
   updatePos(): void {
     this.children.forEach((child) => child.updatePos);
   }
@@ -63,9 +82,7 @@ class GridModel extends EditorComponent {
 
   deleteEdge(id: string) {
     this.data.edges.splice(
-      this.data.edges.findIndex((edge) => {
-        return edge.id == id;
-      }),
+      this.data.edges.findIndex((edge) => edge.id == id),
       1
     );
 

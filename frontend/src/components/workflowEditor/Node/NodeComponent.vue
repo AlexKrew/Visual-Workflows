@@ -5,7 +5,21 @@
     :style="{ left: nodeModel.posGridCell.x + 'px', top: nodeModel.posGridCell.y + 'px' }"
   >
     <Card>
-      <h2 class="text-center">{{ nodeModel.data.name }}</h2>
+    <button @click="onDeleteNode" class="absolute top-1 right-1">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="18px" height="18px">
+        <path
+          fill="#e15b64"
+          d="M80.75 5h-61.5C11.393 5 5 11.393 5 19.25v61.5C5 88.607 11.393 95 19.25 95h61.5C88.607 95 95 88.607 95 80.75v-61.5C95 11.393 88.607 5 80.75 5zM69.445 62.374a5 5 0 1 1-7.072 7.071L50 57.071 37.626 69.445c-.977.976-2.256 1.464-3.536 1.464s-2.559-.488-3.536-1.464a5 5 0 0 1 0-7.071L42.929 50 30.555 37.626a5 5 0 1 1 7.071-7.071L50 42.929l12.374-12.374a5.001 5.001 0 0 1 7.071 7.071L57.071 50l12.374 12.374z"
+          style="fill: rgb(225, 91, 100)"
+        ></path>
+        <path
+          fill="#fff"
+          d="M69.445 30.555a5.001 5.001 0 0 0-7.071 0L50 42.929 37.626 30.555a5.001 5.001 0 0 0-7.071 7.071L42.929 50 30.555 62.374a5 5 0 1 0 7.072 7.071L50 57.071l12.374 12.374c.977.976 2.256 1.464 3.536 1.464s2.559-.488 3.536-1.464a5 5 0 0 0 0-7.071L57.071 50l12.374-12.374a5 5 0 0 0 0-7.071z"
+          style="fill: rgb(255, 255, 255)"
+        ></path>
+      </svg>
+    </button>
+      <h2 class="text-center font-bold py-1">{{ nodeModel.data.name }}</h2>
       <div class="w-full">
         <NodePort v-for="port in ports" :key="port.id" :port-model="port" />
       </div>
@@ -30,6 +44,7 @@ import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
 import { InteractEvent } from "@interactjs/types";
 import PortModel from "@/models/Node/PortModel";
+import GridData from "@/models/Data/GridData";
 
 export default defineComponent({
   components: {
@@ -61,8 +76,15 @@ export default defineComponent({
       props.nodeModel.addAddablePorts();
     }
 
+    function onDeleteNode(){
+      if(!props.nodeModel.parent) return;
+
+      props.nodeModel.parent.removeChild(props.nodeModel.id);
+    }
+
     return {
       onAddAddablePorts,
+      onDeleteNode,
       ports,
     };
   },

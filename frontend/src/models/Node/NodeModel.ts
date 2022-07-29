@@ -56,6 +56,10 @@ class NodeModel extends EditorComponent {
     throw new Error("Method not implemented.");
   }
 
+  removeChild(id: string): void {
+    throw new Error("Method not implemented.");
+  }
+
   addChildrenOverload(...children: EditorComponent[]): void {
     return;
   }

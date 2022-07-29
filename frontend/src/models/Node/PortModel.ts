@@ -25,6 +25,10 @@ class PortModel extends EditorComponent {
     throw new Error("Method not implemented.");
   }
 
+  removeChild(id: string): void {
+    throw new Error("Method not implemented.");
+  }
+
   setDefaultValue(text: string) {
     this.data.default_value.value = text;
   }

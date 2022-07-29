@@ -34,8 +34,9 @@ abstract class EditorComponent {
 
     if (addToData) this.addChildToData(child);
   }
-
   abstract addChildToData(child: EditorComponent): void;
+
+  abstract removeChild(id: string): void;
 
   getChildIndex(id: string): number {
     let index = -1;
