@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts">
+import { workflowInstancesService } from "@/api";
 import Card from "@/components/CardComponent.vue";
 import DateTime from "@/components/util/DateTime";
 import GridData from "@/models/Data/GridData";
@@ -33,15 +34,15 @@ export default {
     const logElements = ref<HTMLDivElement[]>([]);
 
     async function onDeploy() {
-      // await workflowInstancesService.updateWorkflow(
-      //   GridData.workflow.id,
-      //   JSON.parse(JSON.stringify(GridData.workflow))
-      // );
-      logs.value.push({
-        id: "",
-        time: new Date(),
-        message: "Deployed",
-      });
+      await workflowInstancesService
+        .updateWorkflow(GridData.workflow.id, JSON.parse(JSON.stringify(GridData.workflow)))
+        .then(() => {
+          logs.value.push({
+            id: "",
+            time: new Date(),
+            message: "Deployed",
+          });
+        });
     }
 
     return {
