@@ -8,7 +8,6 @@ import GridData from "../Data/GridData";
 
 class NodeModel extends EditorComponent {
   data: NodeType;
-  addedPorts: string[] = []; // Can be removed
 
   constructor(data: NodeType) {
     super(data.id, true);
@@ -19,17 +18,21 @@ class NodeModel extends EditorComponent {
 
     // Add Ports and Get Missing Fields from the global default Nodes
     const defaultNode = GridData.nodes.find((node) => node.data.type == this.data.type)?.data;
-    this.data.ports.forEach((port, index) => {
-      const defaultPort = defaultNode?.ports[index];
-      if (defaultPort) {
-        port.hasDefaultField = defaultPort.hasDefaultField;
-        port.defaultPlaceholder = defaultPort.defaultPlaceholder;
-      }
+    if (defaultNode) {
+      // Get Missing Fields for Ports
+      this.data.ports.forEach((port, index) => {
+        const defaultPort = defaultNode?.ports[index];
+        if (defaultPort) {
+          port.hasDefaultField = defaultPort.hasDefaultField;
+          port.defaultPlaceholder = defaultPort.defaultPlaceholder;
+        }
 
-      this.addChild(new PortModel(port), false);
-    });
+        this.addChild(new PortModel(port), false);
+      });
 
-    this.data.addablePorts = [];
+      // Get Addable Ports
+      this.data.addablePorts = defaultNode?.addablePorts;
+    }
   }
 
   clone(): EditorComponent {
@@ -68,14 +71,17 @@ class NodeModel extends EditorComponent {
   addAddablePorts() {
     const groupID = uuid.v4();
     this.data.addablePorts.forEach((port) => {
-      const portClone = new PortModel({ ...port });
-      portClone.setParent(this);
-      portClone.setGroupID(groupID);
+      const portClone: PortType = { ...port };
+      portClone.id = uuid.v4();
+      portClone.group_id = groupID;
+      portClone.added = true;
 
-      this.addedPorts.push(portClone.id);
-      this.addChild(portClone, false);
-      emitter.emit("PortsUpdatePos", this);
+      this.data.ports.push(portClone);
+      this.addChild(new PortModel(portClone), false);
     });
+
+    emitter.emit("PortsUpdatePos", this);
+    console.log(this);
   }
 
   removeAddablePorts() {

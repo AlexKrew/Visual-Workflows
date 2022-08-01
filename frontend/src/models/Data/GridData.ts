@@ -1,7 +1,7 @@
 import GridModel from "../GridModel";
 import NodeModel from "../Node/NodeModel";
 import NodesJSON from "./JSON/Nodes.json";
-import { LogType, NodeType, WorkflowType } from "./Types";
+import { LogType, NodeType, PortType, WorkflowType } from "./Types";
 
 class GridData {
   static nodeCategorys = ["Web Services", "Debug", "Control"]; // TODO Dynamic
@@ -15,9 +15,10 @@ class GridData {
 
   static loadDefaultNodes() {
     const nodeTypes: NodeType[] = JSON.parse(JSON.stringify(NodesJSON));
-    nodeTypes.forEach((node) => {
-      GridData.nodes.push(new NodeModel(node));
-    });
+
+    for (let i = 0; i < nodeTypes.length; i++) {
+      GridData.nodes.push(new NodeModel(nodeTypes[i]));
+    }
   }
 
   static loadWorkflow(json: JSON) {

@@ -159,6 +159,135 @@
         }
       ],
       "addablePorts": []
+    },
+    {
+      "id": "Node-88ca67d5-0f3c-4e47-9f6a-3624e488decf",
+      "name": "Switch",
+      "category": "Control",
+      "type": "Switch",
+      "ui": {
+        "position": [300, 400]
+      },
+      "ports": [
+        {
+          "id": "N2-P1",
+          "label": "Check",
+          "group_id": "",
+          "added": false,
+          "is_input": true,
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          },
+          "hasDefaultField": false,
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "N2-AP1-1",
+          "label": "Operator",
+          "group_id": "N2-GroupID-1",
+          "added": true,
+          "is_input": true,
+          "default_value": {
+            "datatype": "",
+            "value": ">="
+          },
+          "hasDefaultField": true,
+          "defaultPlaceholder": "==, !=, >=, ..."
+        },
+        {
+          "id": "N2-AP1-2",
+          "label": "Value",
+          "group_id": "N2-GroupID-1",
+          "added": true,
+          "is_input": true,
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          },
+          "hasDefaultField": false,
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "N2-AP1-3",
+          "label": "In",
+          "group_id": "N2-GroupID-1",
+          "added": true,
+          "is_input": true,
+          "default_value": {
+            "datatype": "",
+            "value": "Output Text"
+          },
+          "hasDefaultField": true,
+          "defaultPlaceholder": "In -> Out"
+        },
+        {
+          "id": "N2-AP1-4",
+          "label": "Out",
+          "group_id": "N2-GroupID-1",
+          "added": true,
+          "is_input": false,
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          },
+          "hasDefaultField": false,
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "N2-AP2-1",
+          "label": "Operator",
+          "group_id": "N2-GroupID-2",
+          "added": true,
+          "is_input": true,
+          "default_value": {
+            "datatype": "",
+            "value": "!="
+          },
+          "hasDefaultField": true,
+          "defaultPlaceholder": "==, !=, >=, ..."
+        },
+        {
+          "id": "N2-AP2-2",
+          "label": "Value",
+          "group_id": "N2-GroupID-2",
+          "added": true,
+          "is_input": true,
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          },
+          "hasDefaultField": false,
+          "defaultPlaceholder": ""
+        },
+        {
+          "id": "N2-AP2-3",
+          "label": "In",
+          "group_id": "N2-GroupID-2",
+          "added": true,
+          "is_input": true,
+          "default_value": {
+            "datatype": "",
+            "value": "Texterino"
+          },
+          "hasDefaultField": true,
+          "defaultPlaceholder": "In -> Out"
+        },
+        {
+          "id": "N2-AP2-4",
+          "label": "Out",
+          "group_id": "N2-GroupID-2",
+          "added": true,
+          "is_input": false,
+          "default_value": {
+            "datatype": "",
+            "value": ""
+          },
+          "hasDefaultField": false,
+          "defaultPlaceholder": ""
+        }
+      ],
+      "addablePorts": []
     }
   ],
   "edges": [

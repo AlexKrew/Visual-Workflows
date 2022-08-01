@@ -11,7 +11,7 @@
       {
         "id": "N1-P1",
         "label": "Method",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": true,
         "default_value": {
@@ -24,7 +24,7 @@
       {
         "id": "N1-P2",
         "label": "URL",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": true,
         "default_value": {
@@ -37,7 +37,7 @@
       {
         "id": "N1-P3",
         "label": "Payload",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": true,
         "default_value": {
@@ -50,7 +50,7 @@
       {
         "id": "N1-P4",
         "label": "Response",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": false,
         "default_value": {
@@ -63,7 +63,7 @@
       {
         "id": "N1-P5",
         "label": "Response Code",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": false,
         "default_value": {
@@ -88,7 +88,7 @@
       {
         "id": "N2-P1",
         "label": "Check",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": true,
         "default_value": {
@@ -103,20 +103,20 @@
       {
         "id": "N2-AP1",
         "label": "Operator",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": true,
         "default_value": {
           "datatype": "",
           "value": ""
         },
-        "hasDefaultField": false,
-        "defaultPlaceholder": ""
+        "hasDefaultField": true,
+        "defaultPlaceholder": "==, !=, >=, ..."
       },
       {
         "id": "N2-AP2",
         "label": "Value",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": true,
         "default_value": {
@@ -129,20 +129,20 @@
       {
         "id": "N2-AP3",
         "label": "In",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": true,
         "default_value": {
           "datatype": "",
           "value": ""
         },
-        "hasDefaultField": false,
-        "defaultPlaceholder": ""
+        "hasDefaultField": true,
+        "defaultPlaceholder": "In -> Out"
       },
       {
         "id": "N2-AP4",
         "label": "Out",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": false,
         "default_value": {
@@ -166,7 +166,7 @@
       {
         "id": "N3-P1",
         "label": "Input",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": true,
         "default_value": {
@@ -179,7 +179,7 @@
       {
         "id": "N3-P2",
         "label": "Output",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": false,
         "default_value": {
@@ -204,7 +204,7 @@
       {
         "id": "N4-P1",
         "label": "E-Mail",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": true,
         "default_value": {
@@ -217,7 +217,7 @@
       {
         "id": "N4-P2",
         "label": "Message",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": true,
         "default_value": {
@@ -242,7 +242,7 @@
       {
         "id": "N5-P1",
         "label": "Output",
-        "groupID": "",
+        "group_id": "",
         "added": false,
         "is_input": false,
         "default_value": {
