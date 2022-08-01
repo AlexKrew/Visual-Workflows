@@ -5,6 +5,7 @@ import { emitter } from "@/components/util/Emittery";
 import { NodeType, PortType } from "../Data/Types";
 import Vector2 from "@/components/util/Vector";
 import GridData from "../Data/GridData";
+import GridModel from "../GridModel";
 
 class NodeModel extends EditorComponent {
   data: NodeType;
@@ -60,7 +61,11 @@ class NodeModel extends EditorComponent {
   }
 
   removeChild(id: string): void {
-    throw new Error("Method not implemented.");
+    (this.parent as GridModel).removeEdges(undefined, undefined, id);
+
+    const index = this.children.findIndex((port) => (port as PortModel).data.id == id);
+    this.children.splice(index, 1);
+    this.data.ports.splice(index, 1);
   }
 
   addChildrenOverload(...children: EditorComponent[]): void {
@@ -69,10 +74,10 @@ class NodeModel extends EditorComponent {
 
   // Adds every addable Ports once, sets their group ID and reloads every Port position
   addAddablePorts() {
-    const groupID = uuid.v4();
+    const groupID = "Group-" + uuid.v4();
     this.data.addablePorts.forEach((port) => {
       const portClone: PortType = { ...port };
-      portClone.id = uuid.v4();
+      portClone.id = "Port-" + uuid.v4();
       portClone.group_id = groupID;
       portClone.added = true;
 
@@ -81,11 +86,16 @@ class NodeModel extends EditorComponent {
     });
 
     emitter.emit("PortsUpdatePos", this);
-    console.log(this);
   }
 
-  removeAddablePorts() {
-    //TODO
+  removeAddablePorts(groupID: string) {
+    const ports: PortModel[] = this.children.filter(
+      (port) => (port as PortModel).data.group_id == groupID
+    ) as PortModel[];
+
+    ports.forEach((port) => this.removeChild(port.data.id));
+
+    emitter.emit("PortsUpdatePos", this);
   }
 
   updatePosOverload(): void {

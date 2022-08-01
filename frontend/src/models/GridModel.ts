@@ -40,9 +40,7 @@ class GridModel extends EditorComponent {
 
   removeChild(id: string): void {
     // Remove Edges
-    const edges: EdgeType[] = this.data.edges.filter((edge) => edge.origin.node_id == id || edge.target.node_id == id);
-    edges.forEach((edge) => this.deleteEdge(edge.id));
-    console.log(edges, "EDGES");
+    this.removeEdges(undefined, id, undefined);
 
     // Remove Child From Data
     const childData = this.data.nodes.find((node) => node.id == id);
@@ -53,6 +51,19 @@ class GridModel extends EditorComponent {
     if (child) {
       this.children.splice(this.children.indexOf(child), 1);
     }
+  }
+
+  removeEdges(edgeID?: string, nodeID?: string, portID?: string) {
+    let edges: EdgeType[] = [];
+
+    if (edgeID) edges = this.data.edges.filter((edge) => edge.id == edgeID);
+    else if (nodeID)
+      edges = this.data.edges.filter((edge) => edge.origin.node_id == nodeID || edge.target.node_id == nodeID);
+    else if (portID)
+      edges = this.data.edges.filter((edge) => edge.origin.port_id == portID || edge.target.port_id == portID);
+    else return;
+
+    edges.forEach((edge) => this.deleteEdge(edge.id));
   }
 
   updatePos(): void {
