@@ -2,18 +2,16 @@ package server
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	container "visualWorkflows/internal/container"
-	"visualWorkflows/shared/entities"
+	"workflows/internal/workflows"
 
 	"github.com/gin-gonic/gin"
 )
 
-func registerWorkflowServices(rg *gin.RouterGroup, container *container.WorkflowContainer) {
-	wfContainer = container
-
+func registerWorkflowServices(rg *gin.RouterGroup) {
 	workflows := rg.Group("/workflows")
 	{
 		workflows.GET("/:id", getWorkflow)
@@ -25,9 +23,9 @@ func getWorkflow(c *gin.Context) {
 	var workflowId string = c.Param("id")
 	fmt.Println("GET WORKFLOW", workflowId)
 
-	workflow, err := wfContainer.GetWorkflowById(workflowId)
-	if err != nil {
-		c.String(http.StatusBadRequest, err.Error())
+	workflow, exists := WFHelper.WorkflowById(workflowId)
+	if !exists {
+		c.String(http.StatusBadRequest, errors.New("workflow does not exist").Error())
 		return
 	}
 	// return c.JSON(http.StatusOK, workflow)
@@ -41,14 +39,14 @@ func updateWorkflow(c *gin.Context) {
 		c.String(http.StatusBadRequest, "Error")
 	}
 
-	var workflow entities.Workflow
+	var workflow workflows.Workflow
 	err = json.Unmarshal(jsonData, &workflow)
 	if err != nil {
 		fmt.Println("ERROR", err.Error())
 		c.String(http.StatusBadRequest, "Error")
 	}
 
-	err = wfContainer.SaveWorkflow(workflow.ID, workflow)
+	err = WFHelper.PublishChanges(workflow)
 	if err != nil {
 		fmt.Println("ERROR", err.Error())
 		c.String(http.StatusBadRequest, "Error")

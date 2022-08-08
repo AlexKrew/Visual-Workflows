@@ -1,48 +1,78 @@
 package main
 
 import (
-	"fmt"
 	"sync"
-	"visualWorkflows/internal/container"
-	"visualWorkflows/internal/storage"
-	"visualWorkflows/server"
-	wc "visualWorkflows/workerclient"
+	"time"
+	"workflows/internal/processors/sysout_exporter"
+	"workflows/internal/processors/workflow_processor"
+	"workflows/internal/utils"
+	"workflows/internal/workflows"
 )
 
 var wg sync.WaitGroup
 
 func main() {
+
 	wg.Add(5)
 
-	fmt.Println("Starting the server...")
+	eventStream := workflows.ConstructEventStream()
 
-	runtimeContainer := container.Construct()
+	// Register Processors
+	registerSysoutExporter(eventStream, "/Users/mfa/code/master/project-2/engine/logs/logs.jsonl")
 
-	go server.StartServer(&runtimeContainer)
+	// Mandatory: Workflow logic
+	registerWorkflowProcessor(eventStream)
 
-	err := runtimeContainer.LoadWorkflow(storage.LoadWorkflowProps{
-		ID: "flow1",
-	})
-	err = runtimeContainer.LoadWorkflow(storage.LoadWorkflowProps{
-		ID: "testflow",
-	})
+	time.Sleep(1 * time.Second)
 
+	// Test sysout-exporter
+	// go testSysoutExporter(eventStream)
+	go testCreateWorkflowInstance(eventStream, "3d48d394-08e4-4858-a936-4fc7201be0a2")
+
+	wg.Wait()
+}
+
+func registerSysoutExporter(eventStream *workflows.EventStream, logfile string) *sysout_exporter.SysoutExporter {
+	sysoutExporter, err := sysout_exporter.ConstructSysoutExporter(logfile)
+	if err != nil {
+		panic(err)
+	}
+	sysoutExporter.Register(eventStream)
+	return sysoutExporter
+}
+
+func registerWorkflowProcessor(eventStream *workflows.EventStream) *workflow_processor.WorkflowProcessor {
+	workflowProcessor, err := workflow_processor.ConstructWorkflowProcessor()
 	if err != nil {
 		panic(err)
 	}
 
-	worker1 := wc.ConstructWorker()
-	runtimeContainer.RegisterWorker("flow1", worker1)
+	workflowProcessor.Register(eventStream)
+	return workflowProcessor
+}
 
-	go runtimeContainer.StartWorkflow("flow1")
+func testSysoutExporter(eventStream *workflows.EventStream) {
+	eventStream.AddEvent(createTestEvent())
+	time.Sleep(2 * time.Second)
+	eventStream.AddEvent(createTestEvent())
+	time.Sleep(2 * time.Second)
+	eventStream.AddEvent(createTestEvent())
+	time.Sleep(2 * time.Second)
+	eventStream.AddEvent(createTestEvent())
+}
 
-	wg.Wait()
+func createTestEvent() workflows.WorkflowEvent {
+	return workflows.NewWorkflowStartedEvent(workflows.WorkflowStartedEventBody{
+		WorkflowID: utils.GetNewUUID(),
+	})
+}
 
-	// availableWorkflows, err := storage.GetAvailableWorkflows()
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// fmt.Println("Available Workflows", availableWorkflows)
+func testCreateWorkflowInstance(eventStream *workflows.EventStream, id string) {
+	eventStream.AddCommand(createTestCommand(id))
+}
 
-	// server.StartServer(&runtimeContainer)
+func createTestCommand(id string) workflows.WorkflowCommand {
+	return workflows.NewCreateWorkflowInstanceCommand(workflows.CreateWorkflowInstanceCommandBody{
+		WorkflowID: id,
+	})
 }

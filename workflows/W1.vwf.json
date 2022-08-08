@@ -1,5 +1,5 @@
 {
- "id": "testflow",
+ "id": "W1",
  "name": "Empty Workflow",
  "nodes": [
   {
@@ -21,8 +21,8 @@
    ],
    "ui": {
     "position": [
-     394,
-     176
+     300,
+     250
     ]
    }
   },
@@ -38,8 +38,8 @@
      "is_input": true,
      "added": false,
      "default_value": {
-      "datatype": "STRING",
-      "value": ""
+      "datatype": "",
+      "value": null
      }
     },
     {
@@ -49,8 +49,8 @@
      "is_input": true,
      "added": false,
      "default_value": {
-      "datatype": "STRING",
-      "value": ""
+      "datatype": "",
+      "value": null
      }
     },
     {
@@ -61,7 +61,7 @@
      "added": false,
      "default_value": {
       "datatype": "STRING",
-      "value": "Header2"
+      "value": "Header"
      }
     },
     {
@@ -71,8 +71,8 @@
      "is_input": false,
      "added": false,
      "default_value": {
-      "datatype": "STRING",
-      "value": ""
+      "datatype": "",
+      "value": null
      }
     },
     {
@@ -82,15 +82,15 @@
      "is_input": false,
      "added": false,
      "default_value": {
-      "datatype": "STRING",
-      "value": ""
+      "datatype": "",
+      "value": null
      }
     }
    ],
    "ui": {
     "position": [
-     721,
-     205
+     645,
+     220
     ]
    }
   },
@@ -106,8 +106,8 @@
      "is_input": true,
      "added": false,
      "default_value": {
-      "datatype": "STRING",
-      "value": ""
+      "datatype": "",
+      "value": null
      }
     },
     {
@@ -117,8 +117,8 @@
      "is_input": false,
      "added": false,
      "default_value": {
-      "datatype": "STRING",
-      "value": ""
+      "datatype": "",
+      "value": null
      }
     }
    ],
@@ -141,8 +141,8 @@
      "is_input": true,
      "added": false,
      "default_value": {
-      "datatype": "STRING",
-      "value": ""
+      "datatype": "",
+      "value": null
      }
     },
     {
@@ -152,8 +152,8 @@
      "is_input": false,
      "added": false,
      "default_value": {
-      "datatype": "STRING",
-      "value": ""
+      "datatype": "",
+      "value": null
      }
     }
    ],
@@ -178,7 +178,7 @@
    }
   },
   {
-   "id": "e4073854-c79f-4174-9447-9daa2cc729bc",
+   "id": "e468bcfc-a661-4d51-b5a8-679d539993bd",
    "origin": {
     "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
     "port_id": "Port-78d218ab-8fc9-4524-9227-e0ed67ad2a05"
@@ -186,17 +186,6 @@
    "target": {
     "node_id": "Node-88ca67d5-0f3c-4e47-9f6a-4624e388cecf",
     "port_id": "Port-6f5541d2-1023-41ff-872e-4bea803a40d3"
-   }
-  },
-  {
-   "id": "3aff3db0-89f1-447a-8f94-df5e1d296794",
-   "origin": {
-    "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
-    "port_id": "Port-82ceb70d-974d-4540-8721-7b44cb3de674"
-   },
-   "target": {
-    "node_id": "Node-b2858d88-a91e-49e5-bbd1-87093123f891",
-    "port_id": "Port-9b3762a9-8946-414a-ae09-ec0394e8b924"
    }
   }
  ]
