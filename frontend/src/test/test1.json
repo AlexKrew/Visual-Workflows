@@ -17,6 +17,7 @@
           "group_id": "",
           "added": false,
           "is_input": false,
+          "is_trigger": false,
           "default_value": {
             "datatype": "STRING",
             "value": "Server1/"
@@ -40,6 +41,7 @@
           "group_id": "",
           "added": false,
           "is_input": true,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""
@@ -51,6 +53,7 @@
           "group_id": "",
           "added": false,
           "is_input": true,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""
@@ -62,6 +65,7 @@
           "group_id": "",
           "added": false,
           "is_input": true,
+          "is_trigger": false,
           "default_value": {
             "datatype": "STRING",
             "value": "Header"
@@ -73,6 +77,7 @@
           "group_id": "",
           "added": false,
           "is_input": false,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""
@@ -84,6 +89,7 @@
           "group_id": "",
           "added": false,
           "is_input": false,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""
@@ -107,6 +113,7 @@
           "group_id": "",
           "added": false,
           "is_input": true,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""
@@ -118,6 +125,7 @@
           "group_id": "",
           "added": false,
           "is_input": false,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""
@@ -141,6 +149,7 @@
           "group_id": "",
           "added": false,
           "is_input": true,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""
@@ -152,6 +161,7 @@
           "group_id": "",
           "added": false,
           "is_input": false,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""
@@ -175,6 +185,7 @@
           "group_id": "",
           "added": false,
           "is_input": true,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""
@@ -188,6 +199,7 @@
           "group_id": "N2-GroupID-1",
           "added": true,
           "is_input": true,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ">="
@@ -201,6 +213,7 @@
           "group_id": "N2-GroupID-1",
           "added": true,
           "is_input": true,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""
@@ -214,6 +227,7 @@
           "group_id": "N2-GroupID-1",
           "added": true,
           "is_input": true,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": "Output Text"
@@ -227,6 +241,7 @@
           "group_id": "N2-GroupID-1",
           "added": true,
           "is_input": false,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""
@@ -240,6 +255,7 @@
           "group_id": "N2-GroupID-2",
           "added": true,
           "is_input": true,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": "!="
@@ -253,6 +269,7 @@
           "group_id": "N2-GroupID-2",
           "added": true,
           "is_input": true,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""
@@ -266,6 +283,7 @@
           "group_id": "N2-GroupID-2",
           "added": true,
           "is_input": true,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": "Texterino"
@@ -279,6 +297,7 @@
           "group_id": "N2-GroupID-2",
           "added": true,
           "is_input": false,
+          "is_trigger": false,
           "default_value": {
             "datatype": "",
             "value": ""

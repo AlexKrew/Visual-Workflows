@@ -23,6 +23,7 @@ type PortType = {
   label: string;
   added: boolean;
   is_input: boolean;
+  is_trigger: boolean;
   default_value: {
     datatype: "STRING";
     value: string;
