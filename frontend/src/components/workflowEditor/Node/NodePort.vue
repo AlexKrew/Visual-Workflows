@@ -192,6 +192,6 @@ export default defineComponent({
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
 
-  border-left: 15px solid rgb(255, 164, 94);
+  border-left: 15px solid rgb(54, 54, 54);
 }
 </style>

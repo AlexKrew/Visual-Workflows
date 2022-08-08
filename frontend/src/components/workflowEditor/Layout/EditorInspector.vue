@@ -24,7 +24,7 @@ import Card from "@/components/CardComponent.vue";
 import DateTime from "@/components/util/DateTime";
 import GridData from "@/models/Data/GridData";
 import { LogType } from "@/models/Data/Types";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 export default {
   components: {
     Card,
@@ -32,6 +32,11 @@ export default {
   setup() {
     let logs = ref<LogType[]>(GridData.logs);
     const logElements = ref<HTMLDivElement[]>([]);
+
+    // const connection = new WebSocket("");
+    // connection.onmessage = (event) => {
+    //   //
+    // };
 
     async function onDeploy() {
       await workflowInstancesService
