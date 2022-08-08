@@ -56,6 +56,10 @@ class NodeModel extends EditorComponent {
     return node;
   }
 
+  setName(name: string) {
+    this.data.name = name;
+  }
+
   addChildToData(child: EditorComponent): void {
     throw new Error("Method not implemented.");
   }

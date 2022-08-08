@@ -22,12 +22,22 @@
       </button>
 
       <!-- Node Name -->
-      <h2 class="text-center font-bold py-1">{{ nodeModel.data.name }}</h2>
+      <h2 v-show="!showNameField" @click="openField(true)" class="text-center font-bold py-1">
+        {{ nodeModel.data.name }}
+      </h2>
+      <input
+        ref="nameFieldRef"
+        type="text"
+        v-model="name"
+        v-show="showNameField"
+        @focus="openField(true)"
+        @blur="openField(false)"
+        class="border rounded-lg p-1 font-bold w-[90%] text-center"
+      />
 
       <!-- Ports -->
       <div class="w-full">
         <div v-for="port in ports" :key="port.id">
-
           <!-- Seperator with Deletion for Addable Ports -->
           <div v-if="checkLastGroupID(port.data)" class="relative w-full my-4">
             <div class="w-11/12 border-t border-gray-400 mx-auto"></div>
@@ -68,7 +78,7 @@
 <script lang="ts">
 import Card from "@/components/CardComponent.vue";
 import NodePort from "./NodePort.vue";
-import { defineComponent, onMounted, onUnmounted, ref } from "vue";
+import { defineComponent, nextTick, onMounted, onUnmounted, ref } from "vue";
 import NodeModel from "@/models/Node/NodeModel";
 import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
@@ -93,6 +103,10 @@ export default defineComponent({
     const ports = ref<PortModel[]>(props.nodeModel.children as PortModel[]);
     let lastGroupID = "";
 
+    const showNameField = ref(false);
+    const nameFieldRef = ref<HTMLInputElement>();
+    const name = ref<string>(props.nodeModel.data.name);
+
     onMounted(() => {
       interact(`#${props.nodeModel.id}`).draggable({}).on("dragmove", onDragMove);
     });
@@ -116,11 +130,10 @@ export default defineComponent({
       props.nodeModel.parent.removeChild(props.nodeModel.id);
     }
 
-    function onDeleteAddablePorts(groupID: string){
+    function onDeleteAddablePorts(groupID: string) {
       lastGroupID = "";
       props.nodeModel.removeAddablePorts(groupID);
-      
-    } 
+    }
 
     function checkLastGroupID(port: PortType): boolean {
       if (port.added && lastGroupID != port.group_id) {
@@ -130,12 +143,31 @@ export default defineComponent({
       return false;
     }
 
+    //#region Editable Name Field
+    function openField(bool: boolean) {
+      showNameField.value = bool;
+
+      if (bool) {
+        nextTick(function () {
+          nameFieldRef.value?.focus();
+        });
+      }
+      else{
+        props.nodeModel.setName(name.value);
+      }
+    }
+    //#endregion
+
     return {
       onAddAddablePorts,
       onDeleteNode,
       checkLastGroupID,
       onDeleteAddablePorts,
       ports,
+      showNameField,
+      nameFieldRef,
+      openField,
+      name,
     };
   },
 });
