@@ -12,6 +12,24 @@
       },
       "ports": [
         {
+          "id": "Port-3834377b-47b0-466f-9999-b32abec993c1",
+          "label": "Trigger In",
+          "group_id": "",
+          "added": false,
+          "is_input": true,
+          "is_trigger": true,
+          "default_value": {}
+        },
+        {
+          "id": "Port-3834377b-47b0-466f-9998-b32abec993c1",
+          "label": "Trigger Out",
+          "group_id": "",
+          "added": false,
+          "is_input": false,
+          "is_trigger": true,
+          "default_value": {}
+        },
+        {
           "id": "Port-3834377b-47b0-466f-96f1-b32abec993c1",
           "label": "Output",
           "group_id": "",
@@ -35,6 +53,24 @@
         "position": [645, 220]
       },
       "ports": [
+        {
+          "id": "Port-3834377b-47b0-466f-9997-b32abec993c1",
+          "label": "Trigger In",
+          "group_id": "",
+          "added": false,
+          "is_input": true,
+          "is_trigger": true,
+          "default_value": {}
+        },
+        {
+          "id": "Port-3834377b-47b0-466f-9996-b32abec993c1",
+          "label": "Trigger Out",
+          "group_id": "",
+          "added": false,
+          "is_input": false,
+          "is_trigger": true,
+          "default_value": {}
+        },
         {
           "id": "Port-eeb1e2ae-9362-4a19-a146-a97988c0cebe",
           "label": "Method",
@@ -108,6 +144,24 @@
       },
       "ports": [
         {
+          "id": "Port-3834377b-47b0-466f-9995-b32abec993c1",
+          "label": "Trigger In",
+          "group_id": "",
+          "added": false,
+          "is_input": true,
+          "is_trigger": true,
+          "default_value": {}
+        },
+        {
+          "id": "Port-3834377b-47b0-466f-9994-b32abec993c1",
+          "label": "Trigger Out",
+          "group_id": "",
+          "added": false,
+          "is_input": false,
+          "is_trigger": true,
+          "default_value": {}
+        },
+        {
           "id": "Port-9b3762a9-8946-414a-ae09-ec0394e8b924",
           "label": "Input",
           "group_id": "",
@@ -144,6 +198,24 @@
       },
       "ports": [
         {
+          "id": "Port-3834377b-47b0-466f-9993-b32abec993c1",
+          "label": "Trigger In",
+          "group_id": "",
+          "added": false,
+          "is_input": true,
+          "is_trigger": true,
+          "default_value": {}
+        },
+        {
+          "id": "Port-3834377b-47b0-466f-9992-b32abec993c1",
+          "label": "Trigger Out",
+          "group_id": "",
+          "added": false,
+          "is_input": false,
+          "is_trigger": true,
+          "default_value": {}
+        },
+        {
           "id": "Port-6f5541d2-1023-41ff-872e-4bea803a40d3",
           "label": "Input",
           "group_id": "",
@@ -179,6 +251,24 @@
         "position": [300, 400]
       },
       "ports": [
+        {
+          "id": "Port-3834377b-47b0-466f-9991-b32abec993c1",
+          "label": "Trigger In",
+          "group_id": "",
+          "added": false,
+          "is_input": true,
+          "is_trigger": true,
+          "default_value": {}
+        },
+        {
+          "id": "Port-3834377b-47b0-466f-9990-b32abec993c1",
+          "label": "Trigger Out",
+          "group_id": "",
+          "added": false,
+          "is_input": false,
+          "is_trigger": true,
+          "default_value": {}
+        },
         {
           "id": "N2-P1",
           "label": "Check",

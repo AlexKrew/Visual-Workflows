@@ -9,6 +9,28 @@
     },
     "ports": [
       {
+        "id": "N1-T1",
+        "label": "Trigger In",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N1-T2",
+        "label": "Trigger Out",
+        "group_id": "",
+        "added": false,
+        "is_input": false,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
         "id": "N1-P1",
         "label": "Method",
         "group_id": "",
@@ -85,6 +107,28 @@
       "position": [0, 0]
     },
     "ports": [
+      {
+        "id": "N2-T1",
+        "label": "Trigger In",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N2-T2",
+        "label": "Trigger Out",
+        "group_id": "",
+        "added": false,
+        "is_input": false,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
       {
         "id": "N2-P1",
         "label": "Check",
@@ -164,6 +208,28 @@
     },
     "ports": [
       {
+        "id": "N3-T1",
+        "label": "Trigger In",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N3-T2",
+        "label": "Trigger Out",
+        "group_id": "",
+        "added": false,
+        "is_input": false,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
         "id": "N3-P1",
         "label": "Input",
         "group_id": "",
@@ -202,6 +268,28 @@
     },
     "ports": [
       {
+        "id": "N4-T1",
+        "label": "Trigger In",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N4-T2",
+        "label": "Trigger Out",
+        "group_id": "",
+        "added": false,
+        "is_input": false,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
         "id": "N4-P1",
         "label": "E-Mail",
         "group_id": "",
@@ -239,6 +327,28 @@
       "position": [0, 0]
     },
     "ports": [
+      {
+        "id": "N5-T1",
+        "label": "Trigger In",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N5-T2",
+        "label": "Trigger Out",
+        "group_id": "",
+        "added": false,
+        "is_input": false,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
       {
         "id": "N5-P1",
         "label": "Output",

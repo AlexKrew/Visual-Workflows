@@ -2,7 +2,24 @@
   <div>
     <!-- Port and Title -->
     <div class="fill-width flex relative">
+      <!-- Trigger Port -->
       <div
+        v-if="portModel.data.is_trigger"
+        ref="portRef"
+        :id="portModel.id"
+        class="arrow-right absolute transform translate-y-1"
+        :class="[{ right: '0px' }]"
+        :style="[
+          { width: portModel.portSize + 'px', height: portModel.portSize + 'px' },
+          portModel.data.is_input
+            ? 'left: -' + portModel.portSize / 3 + 'px;'
+            : 'right: -' + portModel.portSize / 2 + 'px;',
+        ]"
+      ></div>
+
+      <!-- Normal Port -->
+      <div
+        v-else
         ref="portRef"
         :id="portModel.id"
         class="circle bg-blue-700 absolute transform translate-y-1"
@@ -14,6 +31,8 @@
             : 'right: -' + portModel.portSize / 2 + 'px;',
         ]"
       ></div>
+
+      <!-- Port Label -->
       <span class="justify-center flex-auto mx-3" :class="[portModel.data.is_input ? 'text-left' : 'text-right']">{{
         portModel.data.label
       }}</span>
@@ -166,5 +185,13 @@ export default defineComponent({
   border-radius: 2500px;
   -webkit-border-radius: 2500px;
   -moz-border-radius: 2500px;
+}
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+
+  border-left: 15px solid rgb(255, 164, 94);
 }
 </style>
