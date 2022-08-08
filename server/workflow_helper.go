@@ -20,11 +20,11 @@ func (helper *WorkflowHelper) GetAvailableWorkflows() {
 }
 
 func (helper *WorkflowHelper) WorkflowById(id workflows.WorkflowID) (workflows.Workflow, bool) {
-	container, exists := helper.workflowProcessor.Containers[id]
+	workflow, exists := helper.workflowProcessor.WorkflowByID(id)
 	if !exists {
 		return workflows.Workflow{}, false
 	}
-	return container.Workflow, true
+	return workflow, true
 }
 
 func (helper *WorkflowHelper) CreateNewWorkflow(name string) {

@@ -9,7 +9,7 @@ import (
 )
 
 type WorkflowProcessor struct {
-	Containers map[string]workflows.WorkflowContainer
+	Containers map[workflows.WorkflowContainerID]workflows.WorkflowContainer
 
 	EventStream *workflows.EventStream
 }
@@ -21,6 +21,16 @@ func ConstructWorkflowProcessor() (*WorkflowProcessor, error) {
 	return &WorkflowProcessor{
 		Containers: containers,
 	}, nil
+}
+
+func (processor *WorkflowProcessor) WorkflowByID(workflowId workflows.WorkflowID) (workflows.Workflow, bool) {
+	for _, container := range processor.Containers {
+		if container.Workflow.ID == workflowId {
+			return container.Workflow, true
+		}
+	}
+
+	return workflows.Workflow{}, false
 }
 
 func (processor *WorkflowProcessor) Register(eventStream *workflows.EventStream) {

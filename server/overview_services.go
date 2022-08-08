@@ -2,6 +2,7 @@ package server
 
 import (
 	"net/http"
+	"workflows/internal/workflows"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,13 +16,12 @@ func registerOverviewServices(rg *gin.RouterGroup) {
 }
 
 func getWorkflows(c *gin.Context) {
-	// wfInfos, err := wfContainer.GetAvailableWorkflows()
-	// if err != nil {
-	// 	panic(err)
-	// }
+	wfInfos, err := workflows.AvailableWorkflows()
+	if err != nil {
+		panic(err)
+	}
 
-	// c.JSON(http.StatusOK, wfInfos)
-	c.JSON(http.StatusOK, nil)
+	c.JSON(http.StatusOK, wfInfos)
 }
 
 func createWorkflow(c *gin.Context) {

@@ -4,14 +4,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/fs"
 	"io/ioutil"
 	"os"
+	"strings"
 	"workflows/internal/utils"
 )
 
 const (
-	pathToWorkflows string = "/Users/mfa/code/master/project-2/engine/example-workflows"
-	pathToNodes     string = "/workspaces/Visual-Workflows/nodes"
+	pathToWorkflows string = "./workflows"
+	pathToNodes     string = "./nodes"
 )
 
 var (
@@ -44,4 +46,63 @@ func WorkflowToFilesystem(workflow Workflow) error {
 	err := ioutil.WriteFile(filePath, file, 0644)
 
 	return err
+}
+
+type WorkflowInfo struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
+func AvailableWorkflows() ([]WorkflowInfo, error) {
+
+	allFiles, err := os.ReadDir(pathToWorkflows)
+	if err != nil {
+		return []WorkflowInfo{}, err
+	}
+
+	infos := []WorkflowInfo{}
+
+	for _, entry := range allFiles {
+
+		if !isWorkflowFile(entry) {
+			continue
+		}
+
+		filename := fmt.Sprintf("%s/%s", pathToWorkflows, entry.Name())
+		workflowInfo, err := extractWorkflowInformation(filename)
+		if err != nil {
+			return []WorkflowInfo{}, err
+		}
+
+		infos = append(infos, workflowInfo)
+	}
+
+	return infos, nil
+}
+
+func isWorkflowFile(entry fs.DirEntry) bool {
+
+	if entry.IsDir() {
+		return false
+	}
+
+	if !strings.HasSuffix(entry.Name(), workflowFileSuffix) {
+		return false
+	}
+
+	return true
+}
+
+func extractWorkflowInformation(filename string) (WorkflowInfo, error) {
+
+	var info WorkflowInfo
+
+	byteValue, err := os.ReadFile(filename)
+	if err != nil {
+		return info, err
+	}
+
+	json.Unmarshal(byteValue, &info)
+
+	return info, nil
 }

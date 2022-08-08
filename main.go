@@ -7,6 +7,7 @@ import (
 	"workflows/internal/processors/workflow_processor"
 	"workflows/internal/utils"
 	"workflows/internal/workflows"
+	"workflows/server"
 )
 
 var wg sync.WaitGroup
@@ -18,16 +19,18 @@ func main() {
 	eventStream := workflows.ConstructEventStream()
 
 	// Register Processors
-	registerSysoutExporter(eventStream, "/Users/mfa/code/master/project-2/engine/logs/logs.jsonl")
+	registerSysoutExporter(eventStream, "./logs/log.jsonl")
 
 	// Mandatory: Workflow logic
-	registerWorkflowProcessor(eventStream)
+	wfProcessor := registerWorkflowProcessor(eventStream)
 
 	time.Sleep(1 * time.Second)
 
 	// Test sysout-exporter
 	// go testSysoutExporter(eventStream)
 	go testCreateWorkflowInstance(eventStream, "3d48d394-08e4-4858-a936-4fc7201be0a2")
+
+	go server.StartServer(wfProcessor)
 
 	wg.Wait()
 }

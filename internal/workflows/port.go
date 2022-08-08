@@ -16,7 +16,7 @@ type Port struct {
 	Label          string  `json:"label"`
 	Datatype       string  `json:"datatype"`
 	IsInputPort    bool    `json:"is_input"`
-	DefaultMessage Message `json:"default_message"`
+	DefaultMessage Message `json:"default_value"`
 }
 
 func PortByID(id PortID, ports []Port) (Port, bool) {
