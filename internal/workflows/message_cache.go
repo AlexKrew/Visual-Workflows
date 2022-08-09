@@ -8,7 +8,7 @@ type MessageCache struct {
 	NodeMessageStores map[NodeID]StoredMessages
 }
 
-type StoredMessages = map[PortID]Message
+type StoredMessages = map[string]Message
 
 func ConstructMessageCache(workflow *Workflow) (MessageCache, error) {
 
@@ -23,7 +23,7 @@ func ConstructMessageCache(workflow *Workflow) (MessageCache, error) {
 
 			if port.IsInputPort {
 				portMessage := port.DefaultMessage
-				store[port.ID] = portMessage
+				store[port.Identifier] = portMessage
 			}
 
 		}
@@ -46,8 +46,18 @@ func (cache *MessageCache) MessagesForNodeId(nodeId NodeID) (StoredMessages, boo
 
 func (cache *MessageCache) SetMessage(portAddr PortAddress, message Message) {
 
+	node, exists := cache.Workflow.NodeByID(portAddr.NodeID)
+	if !exists {
+		panic("node does not exist")
+	}
+
+	port, exists := node.PortByID(portAddr.PortID)
+	if !exists {
+		panic("port does not exist")
+	}
+
 	nodePorts := cache.NodeMessageStores[portAddr.NodeID]
-	nodePorts[portAddr.PortID] = message
+	nodePorts[port.Identifier] = message
 
 	fmt.Println("Updated message for ", portAddr)
 }

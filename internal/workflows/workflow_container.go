@@ -63,12 +63,23 @@ func (container *WorkflowContainer) Start() {
 }
 
 func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[string]Message) {
-	for portId, message := range output {
+	for portIdentifier, message := range output {
+
+		node, exists := container.Workflow.NodeByID(nodeId)
+		if !exists {
+			panic("node does not exist")
+		}
+
+		portId, exists := node.PortByIdentifier(portIdentifier)
+		if !exists {
+			panic("port by ident does not exist")
+		}
 
 		addr := PortAddress{
 			NodeID: nodeId,
 			PortID: portId,
 		}
+
 		uAddr := addr.UniquePortID()
 		connPorts, exists := container.MessageRouter.connectedPorts[uAddr]
 		if !exists {
@@ -77,6 +88,7 @@ func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[stri
 		}
 
 		for _, connPort := range connPorts {
+			fmt.Println("SET MESSAGE", connPort, message)
 			container.MessageCache.SetMessage(connPort, message)
 		}
 

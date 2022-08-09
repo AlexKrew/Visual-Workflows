@@ -13,6 +13,7 @@ type Ports = []Port
 
 type Port struct {
 	ID             PortID  `json:"id"`
+	Identifier     string  `json:"identifier"`
 	Label          string  `json:"label"`
 	Datatype       string  `json:"datatype"`
 	IsInputPort    bool    `json:"is_input"`
