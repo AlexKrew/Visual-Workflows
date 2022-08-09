@@ -1,0 +1,259 @@
+{
+  "id": "3d48d394-08e4-4858-a936-4fc7201be0a2.vwf",
+  "name": "My Testflow",
+  "nodes": [
+    {
+      "id": "inject1",
+      "name": "Inject",
+      "type": "Inject",
+      "ports": [
+        {
+          "id": "trigger-in",
+          "label": "Trigger",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": true,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": ""
+          }
+        },
+        {
+          "id": "trigger-out",
+          "label": "Trigger",
+          "datatype": "",
+          "is_input": false,
+          "is_trigger": true,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": ""
+          }
+        },
+        {
+          "id": "output",
+          "label": "Output",
+          "datatype": "",
+          "is_input": false,
+          "is_trigger": false,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": "http://google.com"
+          }
+        }
+      ],
+      "ui": {
+        "position": [
+          394,
+          176
+        ]
+      }
+    },
+    {
+      "id": "http1",
+      "name": "HTTP Request",
+      "type": "HTTP",
+      "ports": [
+        {
+          "id": "trigger-in",
+          "label": "Trigger",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": true,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": ""
+          }
+        },
+        {
+          "id": "trigger-out",
+          "label": "Trigger",
+          "datatype": "",
+          "is_input": false,
+          "is_trigger": true,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": ""
+          }
+        },
+        {
+          "id": "method",
+          "label": "Method",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": "GET"
+          }
+        },
+        {
+          "id": "url",
+          "label": "URL",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": ""
+          }
+        },
+        {
+          "id": "payload",
+          "label": "Payload",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": ""
+          }
+        },
+        {
+          "id": "response",
+          "label": "Response",
+          "datatype": "",
+          "is_input": false,
+          "is_trigger": false,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": ""
+          }
+        },
+        {
+          "id": "response-code",
+          "label": "Response Code",
+          "datatype": "",
+          "is_input": false,
+          "is_trigger": false,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": ""
+          }
+        }
+      ],
+      "ui": {
+        "position": [
+          721,
+          205
+        ]
+      }
+    },
+    {
+      "id": "debug1",
+      "name": "Debug",
+      "type": "Debug",
+      "ports": [
+        {
+          "id": "trigger-in",
+          "label": "Trigger",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": true,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": ""
+          }
+        },
+        {
+          "id": "trigger-out",
+          "label": "Trigger",
+          "datatype": "",
+          "is_input": false,
+          "is_trigger": true,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": ""
+          }
+        },
+        {
+          "id": "input",
+          "label": "Input",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": ""
+          }
+        },
+        {
+          "id": "output",
+          "label": "Output",
+          "datatype": "",
+          "is_input": false,
+          "is_trigger": false,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": ""
+          }
+        }
+      ],
+      "ui": {
+        "position": [
+          1005,
+          180
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "inject-http",
+      "origin": {
+        "node_id": "inject1",
+        "port_id": "trigger-out"
+      },
+      "target": {
+        "node_id": "http1",
+        "port_id": "trigger-in"
+      }
+    },
+    {
+      "id": "http-debug1",
+      "origin": {
+        "node_id": "http1",
+        "port_id": "trigger-out"
+      },
+      "target": {
+        "node_id": "debug1",
+        "port_id": "trigger-in"
+      }
+    },
+    {
+      "id": "ea3c6afd-f79c-444b-8688-e0933fdb179b",
+      "origin": {
+        "node_id": "inject1",
+        "port_id": "output"
+      },
+      "target": {
+        "node_id": "http1",
+        "port_id": "url"
+      }
+    },
+    {
+      "id": "3aff3db0-89f1-447a-8f94-df5e1d296794",
+      "origin": {
+        "node_id": "http1",
+        "port_id": "response-code"
+      },
+      "target": {
+        "node_id": "debug1",
+        "port_id": "input"
+      }
+    }
+  ]
+}
