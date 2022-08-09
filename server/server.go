@@ -100,6 +100,7 @@ func setupWebsocket(router *gin.Engine, events chan any) {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Println("WAITING FOR EVENT")
 		}
 
 	})
@@ -109,12 +110,9 @@ func registerEventsHandler(observable *rxgo.Observable, debugEvents *chan any) {
 	(*observable).ForEach(func(i interface{}) {
 		event := i.(workflows.WorkflowEvent)
 
-		fmt.Println("SERVER EVENT", event.Type, workflows.DebugEvent)
-
 		switch event.Type {
 		case workflows.DebugEvent:
-			fmt.Println("DEBUG EVENT IN SERVER", event)
-			// (*debugEvents) <- event
+			(*debugEvents) <- event
 
 		}
 
