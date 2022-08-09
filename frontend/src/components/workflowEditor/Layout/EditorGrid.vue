@@ -1,8 +1,8 @@
 <template>
   <div
-    id="EditorGrid"
-    class="drag absolute bg-gray-500 top"
+    class="drag absolute bg-gray-500 top w-[10000px] h-[10000px]"
     :style="{ left: grid.posRel.x + 'px', top: grid.posRel.y + 'px' }"
+    @scroll.prevent
   >
     <!-- Connections -->
     <svg id="svgID" width="10000" height="10000" xmlns="http://www.w3.org/2000/svg" class="absolute top-0 left-0">
@@ -56,9 +56,5 @@ export default defineComponent({
 <style>
 .drag {
   position: absolute;
-}
-#EditorGrid {
-  width: 10000px;
-  height: 10000px;
 }
 </style>
