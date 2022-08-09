@@ -11,7 +11,7 @@ type WorkflowEvent struct {
 	ID        utils.UUID        `json:"id"`
 	Type      WorkflowEventType `json:"type"`
 	Body      any               `json:"body"`
-	CreatedAt time.Time         `json:"created_at"`
+	CreatedAt int64             `json:"created_at"`
 }
 
 const (
@@ -33,7 +33,7 @@ func createWorkflowEvent(event WorkflowEventType, body any) WorkflowEvent {
 		ID:        utils.GetNewUUID(),
 		Type:      event,
 		Body:      body,
-		CreatedAt: time.Now(),
+		CreatedAt: time.Now().UnixMilli(),
 	}
 }
 

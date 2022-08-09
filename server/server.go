@@ -114,7 +114,15 @@ func registerEventsHandler(observable *rxgo.Observable, debugEvents *chan any) {
 		switch event.Type {
 		case workflows.DebugEvent:
 			fmt.Println("DEBUG EVENT IN SERVER", event)
-			// (*debugEvents) <- event
+
+			body := event.Body.(workflows.DebugEventBody)
+
+			message := make(map[string]any)
+			message["id"] = event.ID
+			message["timestamp"] = event.CreatedAt
+			message["message"] = body.Value
+
+			(*debugEvents) <- message
 
 		}
 
