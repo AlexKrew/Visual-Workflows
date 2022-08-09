@@ -35,10 +35,8 @@ func (processor *WorkflowProcessor) WorkflowByID(workflowId workflows.WorkflowID
 }
 
 func (processor *WorkflowProcessor) StartWorkflow(workflowId workflows.WorkflowID) error {
-	fmt.Println("Available containers")
 
 	for _, container := range processor.Containers {
-		fmt.Println("CID", container.Workflow.ID)
 		if container.Workflow.ID == workflowId {
 			container.Start()
 			return nil
@@ -165,7 +163,6 @@ func (processor *WorkflowProcessor) workflowReady(event workflows.WorkflowEvent)
 
 	for _, container := range processor.Containers {
 		if container.InstanceID == body.InstanceID {
-			fmt.Println("Starting container", body.InstanceID)
 			container.Start()
 		}
 	}
@@ -198,6 +195,5 @@ func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) 
 	}
 
 	container.PublishOutput(body.Job.NodeID, resultMessages)
-	fmt.Println("Messages updated")
 	container.TriggerConnectedNodes(body.Job.NodeID)
 }

@@ -88,7 +88,6 @@ func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[stri
 		}
 
 		for _, connPort := range connPorts {
-			fmt.Println("SET MESSAGE", connPort, message)
 			container.MessageCache.SetMessage(connPort, message)
 		}
 
@@ -115,7 +114,6 @@ func (container *WorkflowContainer) TriggerConnectedNodes(nodeId NodeID) {
 
 	triggerNodes := container.MessageRouter.connectedPorts[triggerAddr.UniquePortID()]
 	for _, node := range triggerNodes {
-		fmt.Println("Trigger ", node.NodeID)
 		container.EventStream.AddCommand(NewCreateJobCommand(CreateJobCommandBody{WorkflowInstanceID: container.InstanceID, NodeID: node.NodeID}))
 	}
 }

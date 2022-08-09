@@ -38,5 +38,4 @@ func (eventStream *EventStream) AddCommand(command WorkflowCommand) {
 func (eventStream *EventStream) AddEvent(event WorkflowEvent) {
 	fmt.Println("Add event", event.Type)
 	eventStream.EventChannel <- rxgo.Of(event)
-	fmt.Println("Event added", event.Type)
 }

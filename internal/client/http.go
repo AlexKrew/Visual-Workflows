@@ -1,13 +1,11 @@
 package client
 
 import (
-	"fmt"
 	"net/http"
 	"net/http/httputil"
 )
 
 func ProcessHttp(input *NodeInput, output *NodeOutput, ctx *NodeContext) {
-	fmt.Println("Run HTTP", input)
 
 	url := input.Values["url"]
 	method := input.Values["method"]

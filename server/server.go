@@ -95,12 +95,11 @@ func setupWebsocket(router *gin.Engine, events chan any) {
 		defer ws.Close()
 
 		for ev := range events {
-			fmt.Println("PUSH WS EVENT")
+
 			err = ws.WriteJSON(ev)
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("WAITING FOR EVENT")
 		}
 
 	})
@@ -112,8 +111,14 @@ func registerEventsHandler(observable *rxgo.Observable, debugEvents *chan any) {
 
 		switch event.Type {
 		case workflows.DebugEvent:
-			(*debugEvents) <- event
+			body := event.Body.(workflows.DebugEventBody)
 
+			message := make(map[string]any)
+			message["id"] = event.ID
+			message["timestamp"] = event.CreatedAt
+			message["message"] = body.Value
+
+			(*debugEvents) <- message
 		}
 
 	}, func(err error) {

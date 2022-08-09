@@ -36,12 +36,12 @@ export default {
     const connection = new WebSocket("ws://localhost:8000/websocket");
     connection.onmessage = (event) => {
       let json: any = JSON.parse(event.data);
-      // logs.value.push({
-      //       id: "",
-      //       time: new Date(),
-      //       message: "Deployed",
-      //     });
-      console.log(json["timestamp"]);
+      logs.value.push({
+            id: json["id"],
+            time: new Date(json["timestamp"]),
+            message: json["message"],
+          });
+      console.log(json);
     };
 
     onBeforeUnmount(() => {
@@ -52,11 +52,11 @@ export default {
       await workflowInstancesService
         .updateWorkflow(GridData.workflow.id, JSON.parse(JSON.stringify(GridData.workflow)))
         .then(() => {
-          logs.value.push({
-            id: "",
-            time: new Date(),
-            message: "Deployed",
-          });
+          // logs.value.push({
+          //   id: "",
+          //   time: new Date(),
+          //   message: "Deployed",
+          // });
         });
     }
 

@@ -22,7 +22,6 @@ func registerWorkflowServices(rg *gin.RouterGroup) {
 
 func getWorkflow(c *gin.Context) {
 	var workflowId string = c.Param("id")
-	fmt.Println("GET WORKFLOW", workflowId)
 
 	workflow, exists := WFHelper.WorkflowById(workflowId)
 	if !exists {

@@ -1,7 +1,5 @@
 package workflows
 
-import "fmt"
-
 type MessageCache struct {
 	Workflow *Workflow
 
@@ -58,6 +56,4 @@ func (cache *MessageCache) SetMessage(portAddr PortAddress, message Message) {
 
 	nodePorts := cache.NodeMessageStores[portAddr.NodeID]
 	nodePorts[port.Identifier] = message
-
-	fmt.Println("Updated message for ", portAddr)
 }

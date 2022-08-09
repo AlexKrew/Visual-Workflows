@@ -93,7 +93,6 @@ func (processor *JobQueueProcessor) jobCreated(event workflows.WorkflowEvent) {
 		panic(err)
 	}
 
-	fmt.Println("Completed job", results)
 	completedEvent := workflows.JobCompletedEventBody{WorkflowInstanceID: body.WorkflowInstanceID, Job: body.Job, Result: results}
 	processor.eventStream.AddEvent(workflows.NewJobCompletedEvent(completedEvent))
 }

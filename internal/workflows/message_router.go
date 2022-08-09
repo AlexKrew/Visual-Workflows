@@ -48,7 +48,6 @@ func ConstructMessageRouter(workflow *Workflow) (MessageRouter, error) {
 		connectedPorts: connectedPorts,
 	}
 
-	fmt.Println("CONNECTED PORTS")
 	for _, connPorts := range connectedPorts {
 		fmt.Println(connPorts)
 	}
