@@ -15,7 +15,7 @@ func registerWorkflowServices(rg *gin.RouterGroup) {
 	workflows := rg.Group("/workflows")
 	{
 		workflows.GET("/:id", getWorkflow)
-		workflows.GET("/:id/start", startWorkflow)
+		workflows.PATCH("/:id/start", startWorkflow)
 		workflows.PATCH("/:id", updateWorkflow)
 	}
 }
