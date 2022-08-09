@@ -7,6 +7,7 @@ const (
 	StringMessageType
 	BooleanMessageType
 	NumberMessageType
+	AnyMessageType
 )
 
 type Message struct {
@@ -24,6 +25,9 @@ func MessageTypeFromString(messagetype string) MessageType {
 	if messagetype == "BOOL" {
 		return BooleanMessageType
 	}
+	if messagetype == "ANY" {
+		return AnyMessageType
+	}
 
 	return EmptyMessageType
 }
@@ -37,6 +41,9 @@ func MessageTypeToString(messagetype MessageType) string {
 	}
 	if messagetype == BooleanMessageType {
 		return "BOOL"
+	}
+	if messagetype == AnyMessageType {
+		return "ANY"
 	}
 
 	return ""
@@ -67,6 +74,13 @@ func BooleanMessage(body bool) Message {
 func NumberMessage(body int) Message {
 	return Message{
 		DataType: NumberMessageType,
+		Value:    body,
+	}
+}
+
+func AnyMessage(body any) Message {
+	return Message{
+		DataType: AnyMessageType,
 		Value:    body,
 	}
 }
