@@ -138,10 +138,8 @@ func (processor *WorkflowProcessor) completeJob(command workflows.WorkflowComman
 func (processor *WorkflowProcessor) handleEvent(event workflows.WorkflowEvent) error {
 	switch event.Type {
 	case workflows.WorkflowReady:
-		fmt.Println("Workflow is ready", event.Body)
 		processor.workflowReady(event)
 	case workflows.JobCompleted:
-		fmt.Println("Job Completed in workflow")
 		processor.jobCompleted(event)
 	}
 
@@ -163,16 +161,20 @@ func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) 
 	body := event.Body.(workflows.JobCompletedEventBody)
 	results := body.Result.(client.JobResults)
 
-	fmt.Println("LOG EVENTS", results.Logs)
 	for _, log := range results.Logs {
-		processor.EventStream.AddEvent(workflows.NewDebugEvent(workflows.DebugEventBody{
+		debugEvent := workflows.NewDebugEvent(workflows.DebugEventBody{
 			WorkflowInstanceID: body.WorkflowInstanceID,
 			WorkflowID:         "LOGEVENT",
 			Value:              log,
-		}))
+		})
+		processor.EventStream.AddEvent(debugEvent)
 	}
 
-	container := processor.Containers[body.WorkflowInstanceID]
+	container, exists := processor.Containers[body.WorkflowInstanceID]
+	if !exists {
+		panic("workflow does not exist")
+	}
+
 	resultMessages := make(map[string]workflows.Message)
 	for key, msg := range results.Output {
 		resultMessages[key] = workflows.Message{

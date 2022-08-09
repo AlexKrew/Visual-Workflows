@@ -3,7 +3,7 @@
   "name": "My Testflow",
   "nodes": [
     {
-      "id": "Node-c1bba315-16a0-40c0-8f2a-476d31b51e8f",
+      "id": "inject1",
       "name": "Inject",
       "type": "Inject",
       "ports": [
@@ -36,6 +36,7 @@
           "label": "Output",
           "datatype": "",
           "is_input": false,
+          "is_trigger": false,
           "added": false,
           "default_value": {
             "datatype": "STRING",
@@ -51,7 +52,7 @@
       }
     },
     {
-      "id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
+      "id": "http1",
       "name": "HTTP Request",
       "type": "HTTP",
       "ports": [
@@ -84,6 +85,7 @@
           "label": "Method",
           "datatype": "",
           "is_input": true,
+          "is_trigger": false,
           "added": false,
           "default_value": {
             "datatype": "STRING",
@@ -95,6 +97,7 @@
           "label": "URL",
           "datatype": "",
           "is_input": true,
+          "is_trigger": false,
           "added": false,
           "default_value": {
             "datatype": "STRING",
@@ -106,6 +109,7 @@
           "label": "Payload",
           "datatype": "",
           "is_input": true,
+          "is_trigger": false,
           "added": false,
           "default_value": {
             "datatype": "STRING",
@@ -117,6 +121,7 @@
           "label": "Response",
           "datatype": "",
           "is_input": false,
+          "is_trigger": false,
           "added": false,
           "default_value": {
             "datatype": "STRING",
@@ -128,6 +133,7 @@
           "label": "Response Code",
           "datatype": "",
           "is_input": false,
+          "is_trigger": false,
           "added": false,
           "default_value": {
             "datatype": "STRING",
@@ -143,7 +149,7 @@
       }
     },
     {
-      "id": "Node-b2858d88-a91e-49e5-bbd1-87093123f891",
+      "id": "debug1",
       "name": "Debug",
       "type": "Debug",
       "ports": [
@@ -176,6 +182,7 @@
           "label": "Input",
           "datatype": "",
           "is_input": true,
+          "is_trigger": false,
           "added": false,
           "default_value": {
             "datatype": "STRING",
@@ -187,6 +194,7 @@
           "label": "Output",
           "datatype": "",
           "is_input": false,
+          "is_trigger": false,
           "added": false,
           "default_value": {
             "datatype": "STRING",
@@ -200,131 +208,50 @@
           180
         ]
       }
-    },
-    {
-      "id": "Node-88ca67d5-0f3c-4e47-9f6a-4624e388cecf",
-      "name": "Debug",
-      "type": "Debug",
-      "ports": [
-        {
-          "id": "trigger-in",
-          "label": "Trigger",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": true,
-          "added": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "trigger-out",
-          "label": "Trigger",
-          "datatype": "",
-          "is_input": false,
-          "is_trigger": true,
-          "added": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "input",
-          "label": "Input",
-          "datatype": "",
-          "is_input": true,
-          "added": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "output",
-          "label": "Output",
-          "datatype": "",
-          "is_input": false,
-          "added": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        }
-      ],
-      "ui": {
-        "position": [
-          1005,
-          350
-        ]
-      }
     }
   ],
   "edges": [
     {
       "id": "inject-http",
       "origin": {
-        "node_id": "Node-c1bba315-16a0-40c0-8f2a-476d31b51e8f",
+        "node_id": "inject1",
         "port_id": "trigger-out"
       },
       "target": {
-        "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
+        "node_id": "http1",
         "port_id": "trigger-in"
       }
     },
     {
       "id": "http-debug1",
       "origin": {
-        "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
+        "node_id": "http1",
         "port_id": "trigger-out"
       },
       "target": {
-        "node_id": "Node-b2858d88-a91e-49e5-bbd1-87093123f891",
-        "port_id": "trigger-in"
-      }
-    },
-    {
-      "id": "http-debug2",
-      "origin": {
-        "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
-        "port_id": "trigger-out"
-      },
-      "target": {
-        "node_id": "Node-88ca67d5-0f3c-4e47-9f6a-4624e388cecf",
+        "node_id": "debug1",
         "port_id": "trigger-in"
       }
     },
     {
       "id": "ea3c6afd-f79c-444b-8688-e0933fdb179b",
       "origin": {
-        "node_id": "Node-c1bba315-16a0-40c0-8f2a-476d31b51e8f",
+        "node_id": "inject1",
         "port_id": "output"
       },
       "target": {
-        "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
+        "node_id": "http1",
         "port_id": "url"
-      }
-    },
-    {
-      "id": "e4073854-c79f-4174-9447-9daa2cc729bc",
-      "origin": {
-        "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
-        "port_id": "response"
-      },
-      "target": {
-        "node_id": "Node-88ca67d5-0f3c-4e47-9f6a-4624e388cecf",
-        "port_id": "input"
       }
     },
     {
       "id": "3aff3db0-89f1-447a-8f94-df5e1d296794",
       "origin": {
-        "node_id": "Node-70432385-3f2b-4bde-bec5-7c45ccd22d83",
+        "node_id": "http1",
         "port_id": "response-code"
       },
       "target": {
-        "node_id": "Node-b2858d88-a91e-49e5-bbd1-87093123f891",
+        "node_id": "debug1",
         "port_id": "input"
       }
     }

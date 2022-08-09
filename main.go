@@ -36,7 +36,7 @@ func main() {
 	// go testSysoutExporter(eventStream)
 	go testCreateWorkflowInstance(eventStream, "3d48d394-08e4-4858-a936-4fc7201be0a2")
 
-	go server.StartServer(wfProcessor)
+	go server.StartServer(eventStream, wfProcessor)
 
 	wg.Wait()
 }

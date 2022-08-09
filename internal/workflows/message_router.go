@@ -1,6 +1,9 @@
 package workflows
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 type MessageRouter struct {
 	workflow       *Workflow
@@ -43,6 +46,11 @@ func ConstructMessageRouter(workflow *Workflow) (MessageRouter, error) {
 	router := MessageRouter{
 		workflow:       workflow,
 		connectedPorts: connectedPorts,
+	}
+
+	fmt.Println("CONNECTED PORTS")
+	for _, connPorts := range connectedPorts {
+		fmt.Println(connPorts)
 	}
 
 	return router, nil

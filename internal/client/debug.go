@@ -5,9 +5,6 @@ import "fmt"
 func ProcessDebug(input *NodeInput, output *NodeOutput, ctx *NodeContext) {
 	fmt.Println("Run Debug", input)
 
-	for _, msg := range input.Values {
-		ctx.Log(msg)
-	}
-	ctx.Log("Hello")
+	ctx.Log(input.Values["input"])
 	output.Values = input.Values
 }

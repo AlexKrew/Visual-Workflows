@@ -70,7 +70,11 @@ func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[stri
 			PortID: portId,
 		}
 		uAddr := addr.UniquePortID()
-		connPorts := container.MessageRouter.connectedPorts[uAddr]
+		connPorts, exists := container.MessageRouter.connectedPorts[uAddr]
+		if !exists {
+			// no ports connected
+			return
+		}
 
 		for _, connPort := range connPorts {
 			container.MessageCache.SetMessage(connPort, message)
@@ -81,7 +85,12 @@ func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[stri
 
 func (container *WorkflowContainer) TriggerConnectedNodes(nodeId NodeID) {
 
-	node, _ := container.Workflow.NodeByID(nodeId)
+	node, exists := container.Workflow.NodeByID(nodeId)
+	if !exists {
+		fmt.Println("Node does not exists", node)
+		panic("panic")
+	}
+
 	triggerPortID, err := node.TriggerOutputPortID()
 	if err != nil {
 		panic(err)
