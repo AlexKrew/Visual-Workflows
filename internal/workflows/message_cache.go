@@ -1,5 +1,7 @@
 package workflows
 
+import "fmt"
+
 type MessageCache struct {
 	Workflow *Workflow
 
@@ -40,4 +42,12 @@ func ConstructMessageCache(workflow *Workflow) (MessageCache, error) {
 func (cache *MessageCache) MessagesForNodeId(nodeId NodeID) (StoredMessages, bool) {
 	messages, exists := cache.NodeMessageStores[nodeId]
 	return messages, exists
+}
+
+func (cache *MessageCache) SetMessage(portAddr PortAddress, message Message) {
+
+	nodePorts := cache.NodeMessageStores[portAddr.NodeID]
+	nodePorts[portAddr.PortID] = message
+
+	fmt.Println("Updated message for ", portAddr)
 }

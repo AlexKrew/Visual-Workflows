@@ -98,5 +98,10 @@ func NewJobCompletedEvent(body JobCompletedEventBody) WorkflowEvent {
 // ---- Debug ----
 type DebugEventBody struct {
 	WorkflowInstanceID WorkflowContainerID
+	WorkflowID         WorkflowID
 	Value              any
+}
+
+func NewDebugEvent(body DebugEventBody) WorkflowEvent {
+	return createWorkflowEvent(DebugEvent, body)
 }

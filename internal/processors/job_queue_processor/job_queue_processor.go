@@ -2,7 +2,7 @@ package job_queue_processor
 
 import (
 	"fmt"
-	"time"
+	"workflows/internal/client"
 	"workflows/internal/workflows"
 
 	"github.com/reactivex/rxgo/v2"
@@ -13,9 +13,9 @@ type JobQueueProcessor struct {
 	eventStream *workflows.EventStream
 }
 
-func ConstructJobQueueProcessor(lockDuration time.Duration) (*JobQueueProcessor, error) {
+func ConstructJobQueueProcessor() (*JobQueueProcessor, error) {
 
-	jobQueue, err := ConstructJobQueue(lockDuration)
+	jobQueue, err := ConstructJobQueue()
 	if err != nil {
 		return nil, err
 	}
@@ -25,6 +25,10 @@ func ConstructJobQueueProcessor(lockDuration time.Duration) (*JobQueueProcessor,
 	}
 
 	return &jobQueueProcessor, nil
+}
+
+func (jobQueueProcessor *JobQueueProcessor) AddClient(client *client.Client) {
+	jobQueueProcessor.jobQueue.client = client
 }
 
 func (processor *JobQueueProcessor) Register(eventStream *workflows.EventStream) {
@@ -83,4 +87,13 @@ func (processor *JobQueueProcessor) registerEventsHandler(observable *rxgo.Obser
 func (processor *JobQueueProcessor) jobCreated(event workflows.WorkflowEvent) {
 	body := event.Body.(workflows.JobCreatedEventBody)
 	processor.jobQueue.AddJob(body.Job)
+
+	results, err := processor.jobQueue.ExecuteJob(body.Job.ID)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Completed job", results)
+	completedEvent := workflows.JobCompletedEventBody{WorkflowInstanceID: body.WorkflowInstanceID, Job: body.Job, Result: results}
+	processor.eventStream.AddEvent(workflows.NewJobCompletedEvent(completedEvent))
 }

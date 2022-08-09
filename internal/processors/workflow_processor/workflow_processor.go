@@ -3,6 +3,7 @@ package workflow_processor
 import (
 	"errors"
 	"fmt"
+	"workflows/internal/client"
 	"workflows/internal/workflows"
 
 	"github.com/reactivex/rxgo/v2"
@@ -113,7 +114,7 @@ func (processor *WorkflowProcessor) createJob(command workflows.WorkflowCommand)
 		return errors.New("no input for node with this id")
 	}
 
-	job := workflows.NewJob(node.Type, input)
+	job := workflows.NewJob(node.Type, input, body.NodeID)
 
 	jobCreatedEvent := workflows.JobCreatedEventBody{
 		WorkflowInstanceID: body.WorkflowInstanceID,
@@ -138,21 +139,49 @@ func (processor *WorkflowProcessor) handleEvent(event workflows.WorkflowEvent) e
 	switch event.Type {
 	case workflows.WorkflowReady:
 		fmt.Println("Workflow is ready", event.Body)
-		// case workflows.
+		processor.workflowReady(event)
+	case workflows.JobCompleted:
+		fmt.Println("Job Completed in workflow")
+		processor.jobCompleted(event)
 	}
 
 	return nil
 }
 
-// func (processor *WorkflowProcessor) jobCreated(event workflows.WorkflowEvent) error {
-// 	body := event.Body.(workflows.JobCreatedEventBody)
+func (processor *WorkflowProcessor) workflowReady(event workflows.WorkflowEvent) {
+	body := event.Body.(workflows.WorkflowReadyEventBody)
 
-// 	workflow, exists := processor.containers[body.WorkflowInstanceID]
-// 	if !exists {
-// 		return errors.New("no workflow with instance id")
-// 	}
+	for _, container := range processor.Containers {
+		if container.InstanceID == body.InstanceID {
+			fmt.Println("Starting container", body.InstanceID)
+			container.Start()
+		}
+	}
+}
 
-// 	// JobQueue
+func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) {
+	body := event.Body.(workflows.JobCompletedEventBody)
+	results := body.Result.(client.JobResults)
 
-// 	return nil
-// }
+	fmt.Println("LOG EVENTS", results.Logs)
+	for _, log := range results.Logs {
+		processor.EventStream.AddEvent(workflows.NewDebugEvent(workflows.DebugEventBody{
+			WorkflowInstanceID: body.WorkflowInstanceID,
+			WorkflowID:         "LOGEVENT",
+			Value:              log,
+		}))
+	}
+
+	container := processor.Containers[body.WorkflowInstanceID]
+	resultMessages := make(map[string]workflows.Message)
+	for key, msg := range results.Output {
+		resultMessages[key] = workflows.Message{
+			DataType: workflows.MessageTypeFromString(msg.Datatype),
+			Value:    msg.Value,
+		}
+	}
+
+	container.PublishOutput(body.Job.NodeID, resultMessages)
+	fmt.Println("Messages updated")
+	container.TriggerConnectedNodes(body.Job.NodeID)
+}

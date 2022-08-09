@@ -3,24 +3,22 @@ package job_queue_processor
 import (
 	"errors"
 	"sync"
-	"time"
+	"workflows/internal/client"
 	"workflows/internal/workflows"
 )
 
 type JobQueue struct {
 	lockMutex sync.Mutex
 
-	lockTimeout time.Duration
-
 	// list of jobs that have to be processed.
 	// the jobs are stored inside a inverted index with the job-type as a key
-	jobs map[string][]workflows.Job
+	jobs   map[string][]workflows.Job
+	client *client.Client
 }
 
-func ConstructJobQueue(lockTimeout time.Duration) (*JobQueue, error) {
+func ConstructJobQueue() (*JobQueue, error) {
 	queue := &JobQueue{
-		lockTimeout: lockTimeout,
-		jobs:        make(map[string][]workflows.Job),
+		jobs: make(map[string][]workflows.Job),
 	}
 
 	return queue, nil
@@ -35,6 +33,29 @@ func (queue *JobQueue) AddJob(job workflows.Job) {
 	}
 
 	queue.jobs[job.NodeType] = append(queue.jobs[job.NodeType], job)
+}
+
+func (queue *JobQueue) ExecuteJob(jobId workflows.JobID) (client.JobResults, error) {
+
+	job, exists := queue.RemoveJob(jobId)
+	if !exists {
+		return client.JobResults{}, errors.New("job with this id does not exist")
+	}
+
+	messages := make(map[string]client.Message)
+	for key, msg := range job.Input {
+		messages[key] = client.Message{
+			Datatype: workflows.MessageTypeToString(msg.DataType),
+			Value:    msg.Value,
+		}
+	}
+
+	clientJob := client.Job{
+		ID:    job.ID,
+		Type:  job.NodeType,
+		Input: messages,
+	}
+	return queue.client.DoJob(clientJob)
 }
 
 func (queue *JobQueue) LockJob(jobId workflows.JobID) (bool, error) {

@@ -3,6 +3,8 @@ package main
 import (
 	"sync"
 	"time"
+	"workflows/internal/client"
+	"workflows/internal/processors/job_queue_processor"
 	"workflows/internal/processors/sysout_exporter"
 	"workflows/internal/processors/workflow_processor"
 	"workflows/internal/utils"
@@ -16,6 +18,8 @@ func main() {
 
 	wg.Add(5)
 
+	workerClient, _ := client.NewClient()
+
 	eventStream := workflows.ConstructEventStream()
 
 	// Register Processors
@@ -23,6 +27,8 @@ func main() {
 
 	// Mandatory: Workflow logic
 	wfProcessor := registerWorkflowProcessor(eventStream)
+	jobQueueProcessor := registerJobQueueProcessor(eventStream)
+	jobQueueProcessor.AddClient(&workerClient)
 
 	time.Sleep(1 * time.Second)
 
@@ -52,6 +58,16 @@ func registerWorkflowProcessor(eventStream *workflows.EventStream) *workflow_pro
 
 	workflowProcessor.Register(eventStream)
 	return workflowProcessor
+}
+
+func registerJobQueueProcessor(eventStream *workflows.EventStream) *job_queue_processor.JobQueueProcessor {
+	jobQueueProcessor, err := job_queue_processor.ConstructJobQueueProcessor()
+	if err != nil {
+		panic(err)
+	}
+
+	jobQueueProcessor.Register(eventStream)
+	return jobQueueProcessor
 }
 
 func testSysoutExporter(eventStream *workflows.EventStream) {

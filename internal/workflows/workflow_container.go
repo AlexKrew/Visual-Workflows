@@ -1,6 +1,9 @@
 package workflows
 
-import "workflows/internal/utils"
+import (
+	"fmt"
+	"workflows/internal/utils"
+)
 
 type WorkflowContainerID = utils.UUID
 type ContainerState = int
@@ -49,6 +52,51 @@ func (container *WorkflowContainer) Run(workflow Workflow) error {
 	container.EventStream.AddEvent(NewWorkflowReadyEvent(WorkflowReadyEventBody{InstanceID: container.InstanceID}))
 
 	return nil
+}
+
+func (container *WorkflowContainer) Start() {
+	for _, node := range container.Workflow.Nodes {
+		if node.Type == "Inject" {
+			container.EventStream.AddCommand(NewCreateJobCommand(CreateJobCommandBody{WorkflowInstanceID: container.InstanceID, NodeID: node.ID}))
+		}
+	}
+}
+
+func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[string]Message) {
+	for portId, message := range output {
+
+		addr := PortAddress{
+			NodeID: nodeId,
+			PortID: portId,
+		}
+		uAddr := addr.UniquePortID()
+		connPorts := container.MessageRouter.connectedPorts[uAddr]
+
+		for _, connPort := range connPorts {
+			container.MessageCache.SetMessage(connPort, message)
+		}
+
+	}
+}
+
+func (container *WorkflowContainer) TriggerConnectedNodes(nodeId NodeID) {
+
+	node, _ := container.Workflow.NodeByID(nodeId)
+	triggerPortID, err := node.TriggerOutputPortID()
+	if err != nil {
+		panic(err)
+	}
+
+	triggerAddr := PortAddress{
+		NodeID: nodeId,
+		PortID: triggerPortID,
+	}
+
+	triggerNodes := container.MessageRouter.connectedPorts[triggerAddr.UniquePortID()]
+	for _, node := range triggerNodes {
+		fmt.Println("Trigger ", node.NodeID)
+		container.EventStream.AddCommand(NewCreateJobCommand(CreateJobCommandBody{WorkflowInstanceID: container.InstanceID, NodeID: node.NodeID}))
+	}
 }
 
 // func ConstructWorkflowInstance(eventStream *EventStream) (WorkflowContainer, error) {

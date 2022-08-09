@@ -1,6 +1,9 @@
 package workflows
 
-import "workflows/internal/utils"
+import (
+	"errors"
+	"workflows/internal/utils"
+)
 
 type NodeID = utils.UUID
 
@@ -20,4 +23,15 @@ func (node *Node) PortByID(portId PortID) (Port, bool) {
 	}
 
 	return Port{}, false
+}
+
+func (node *Node) TriggerOutputPortID() (PortID, error) {
+
+	for _, port := range node.Ports {
+		if port.IsTrigger && !port.IsInputPort {
+			return port.ID, nil
+		}
+	}
+
+	return "", errors.New("missing trigger port")
 }

@@ -16,6 +16,7 @@ type Port struct {
 	Label          string  `json:"label"`
 	Datatype       string  `json:"datatype"`
 	IsInputPort    bool    `json:"is_input"`
+	IsTrigger      bool    `json:"is_trigger"`
 	DefaultMessage Message `json:"default_value"`
 }
 
