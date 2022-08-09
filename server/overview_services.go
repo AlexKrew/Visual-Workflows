@@ -2,17 +2,12 @@ package server
 
 import (
 	"net/http"
-
-	container "visualWorkflows/internal/container"
-	"visualWorkflows/internal/storage"
+	"workflows/internal/workflows"
 
 	"github.com/gin-gonic/gin"
 )
 
-var wfContainer *container.WorkflowContainer
-
-func registerOverviewServices(rg *gin.RouterGroup, container *container.WorkflowContainer) {
-	wfContainer = container
+func registerOverviewServices(rg *gin.RouterGroup) {
 
 	overviewServices := rg.Group("/workflows")
 
@@ -21,7 +16,7 @@ func registerOverviewServices(rg *gin.RouterGroup, container *container.Workflow
 }
 
 func getWorkflows(c *gin.Context) {
-	wfInfos, err := wfContainer.GetAvailableWorkflows()
+	wfInfos, err := workflows.AvailableWorkflows()
 	if err != nil {
 		panic(err)
 	}
@@ -36,15 +31,8 @@ func createWorkflow(c *gin.Context) {
 		return
 	}
 
-	props := storage.CreateWorkflowProps{
-		Name: request.Name,
-	}
+	// TODO:
+	// WorkflowHelper.CreateNewWorkflow(request.Name)
 
-	id, err := wfContainer.CreateWorkflow(props)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusCreated, gin.H{"id": id})
+	c.JSON(http.StatusCreated, gin.H{"status": "okay"})
 }
