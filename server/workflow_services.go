@@ -15,6 +15,7 @@ func registerWorkflowServices(rg *gin.RouterGroup) {
 	workflows := rg.Group("/workflows")
 	{
 		workflows.GET("/:id", getWorkflow)
+		workflows.GET("/:id/start", startWorkflow)
 		workflows.PATCH("/:id", updateWorkflow)
 	}
 }
@@ -53,4 +54,16 @@ func updateWorkflow(c *gin.Context) {
 	}
 
 	c.String(http.StatusOK, "Correct")
+}
+
+func startWorkflow(c *gin.Context) {
+	workflowID := c.Param("id")
+
+	err := WFHelper.workflowProcessor.StartWorkflow(workflowID)
+	if err != nil {
+		c.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.String(http.StatusOK, workflowID)
 }

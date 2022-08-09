@@ -34,6 +34,20 @@ func (processor *WorkflowProcessor) WorkflowByID(workflowId workflows.WorkflowID
 	return workflows.Workflow{}, false
 }
 
+func (processor *WorkflowProcessor) StartWorkflow(workflowId workflows.WorkflowID) error {
+	fmt.Println("Available containers")
+
+	for _, container := range processor.Containers {
+		fmt.Println("CID", container.Workflow.ID)
+		if container.Workflow.ID == workflowId {
+			container.Start()
+			return nil
+		}
+	}
+
+	return errors.New("workflow does not exist")
+}
+
 func (processor *WorkflowProcessor) Register(eventStream *workflows.EventStream) {
 	processor.EventStream = eventStream
 	go processor.registerCommandsHandler(eventStream.CommandsObservable)
