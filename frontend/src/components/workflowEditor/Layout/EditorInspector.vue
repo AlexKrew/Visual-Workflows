@@ -33,10 +33,10 @@ export default {
     let logs = ref<LogType[]>(GridData.logs);
     const logElements = ref<HTMLDivElement[]>([]);
 
-    // const connection = new WebSocket("");
-    // connection.onmessage = (event) => {
-    //   //
-    // };
+    const connection = new WebSocket("ws://localhost:8000/websocket");
+    connection.onmessage = (event) => {
+      console.log(event);
+    };
 
     async function onDeploy() {
       await workflowInstancesService
