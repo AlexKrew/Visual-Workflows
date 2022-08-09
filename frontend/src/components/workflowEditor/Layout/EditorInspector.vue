@@ -24,7 +24,7 @@ import Card from "@/components/CardComponent.vue";
 import DateTime from "@/components/util/DateTime";
 import GridData from "@/models/Data/GridData";
 import { LogType } from "@/models/Data/Types";
-import { onMounted, ref } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 export default {
   components: {
     Card,
@@ -43,6 +43,10 @@ export default {
       //     });
       console.log(json["timestamp"]);
     };
+
+    onBeforeUnmount(() => {
+      connection.close();
+    });
 
     async function onDeploy() {
       await workflowInstancesService
