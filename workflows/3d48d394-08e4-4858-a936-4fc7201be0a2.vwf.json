@@ -1,5 +1,5 @@
 {
-  "id": "3d48d394-08e4-4858-a936-4fc7201be0a2.vwf",
+  "id": "3d48d394-08e4-4858-a936-4fc7201be0a2",
   "name": "My Testflow",
   "nodes": [
     {
@@ -8,7 +8,7 @@
       "type": "Inject",
       "ports": [
         {
-          "id": "trigger-in",
+          "id": "inject1-trigger-in",
           "label": "Trigger",
           "datatype": "",
           "is_input": true,
@@ -20,7 +20,7 @@
           }
         },
         {
-          "id": "trigger-out",
+          "id": "inject1-trigger-out",
           "label": "Trigger",
           "datatype": "",
           "is_input": false,
@@ -32,7 +32,8 @@
           }
         },
         {
-          "id": "output",
+          "id": "inject1-output",
+          "identifier": "output",
           "label": "Output",
           "datatype": "",
           "is_input": false,
@@ -57,7 +58,8 @@
       "type": "HTTP",
       "ports": [
         {
-          "id": "trigger-in",
+          "id": "http1-trigger-in",
+          "identifier": "trigger-in",
           "label": "Trigger",
           "datatype": "",
           "is_input": true,
@@ -69,7 +71,8 @@
           }
         },
         {
-          "id": "trigger-out",
+          "id": "http1-trigger-out",
+          "identifier": "trigger-out",
           "label": "Trigger",
           "datatype": "",
           "is_input": false,
@@ -81,7 +84,8 @@
           }
         },
         {
-          "id": "method",
+          "id": "http1-method",
+          "identifier": "method",
           "label": "Method",
           "datatype": "",
           "is_input": true,
@@ -93,7 +97,8 @@
           }
         },
         {
-          "id": "url",
+          "id": "http1-url",
+          "identifier": "url",
           "label": "URL",
           "datatype": "",
           "is_input": true,
@@ -105,7 +110,8 @@
           }
         },
         {
-          "id": "payload",
+          "id": "http1-payload",
+          "identifier": "payload",
           "label": "Payload",
           "datatype": "",
           "is_input": true,
@@ -117,7 +123,8 @@
           }
         },
         {
-          "id": "response",
+          "id": "http1-response",
+          "identifier": "response",
           "label": "Response",
           "datatype": "",
           "is_input": false,
@@ -129,7 +136,8 @@
           }
         },
         {
-          "id": "response-code",
+          "id": "http1-response-code",
+          "identifier": "response-code",
           "label": "Response Code",
           "datatype": "",
           "is_input": false,
@@ -154,7 +162,8 @@
       "type": "Debug",
       "ports": [
         {
-          "id": "trigger-in",
+          "id": "debug1-trigger-in",
+          "identifier": "trigger-in",
           "label": "Trigger",
           "datatype": "",
           "is_input": true,
@@ -166,7 +175,8 @@
           }
         },
         {
-          "id": "trigger-out",
+          "id": "debug1-trigger-out",
+          "identifier": "trigger-out",
           "label": "Trigger",
           "datatype": "",
           "is_input": false,
@@ -178,7 +188,8 @@
           }
         },
         {
-          "id": "input",
+          "id": "debug1-input",
+          "identifier": "input",
           "label": "Input",
           "datatype": "",
           "is_input": true,
@@ -190,7 +201,8 @@
           }
         },
         {
-          "id": "output",
+          "id": "debug1-output",
+          "identifier": "output",
           "label": "Output",
           "datatype": "",
           "is_input": false,
@@ -215,44 +227,44 @@
       "id": "inject-http",
       "origin": {
         "node_id": "inject1",
-        "port_id": "trigger-out"
+        "port_id": "inject1-trigger-out"
       },
       "target": {
         "node_id": "http1",
-        "port_id": "trigger-in"
+        "port_id": "http1-trigger-in"
       }
     },
     {
       "id": "http-debug1",
       "origin": {
         "node_id": "http1",
-        "port_id": "trigger-out"
+        "port_id": "http1-trigger-out"
       },
       "target": {
         "node_id": "debug1",
-        "port_id": "trigger-in"
+        "port_id": "debug1-trigger-in"
       }
     },
     {
       "id": "ea3c6afd-f79c-444b-8688-e0933fdb179b",
       "origin": {
         "node_id": "inject1",
-        "port_id": "output"
+        "port_id": "inject1-output"
       },
       "target": {
         "node_id": "http1",
-        "port_id": "url"
+        "port_id": "http1-url"
       }
     },
     {
       "id": "3aff3db0-89f1-447a-8f94-df5e1d296794",
       "origin": {
         "node_id": "http1",
-        "port_id": "response-code"
+        "port_id": "http1-response-code"
       },
       "target": {
         "node_id": "debug1",
-        "port_id": "input"
+        "port_id": "debug1-input"
       }
     }
   ]
