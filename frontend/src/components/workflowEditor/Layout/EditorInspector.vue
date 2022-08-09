@@ -35,7 +35,13 @@ export default {
 
     const connection = new WebSocket("ws://localhost:8000/websocket");
     connection.onmessage = (event) => {
-      console.log(event);
+      let json: any = JSON.parse(event.data);
+      // logs.value.push({
+      //       id: "",
+      //       time: new Date(),
+      //       message: "Deployed",
+      //     });
+      console.log(json["timestamp"]);
     };
 
     async function onDeploy() {
