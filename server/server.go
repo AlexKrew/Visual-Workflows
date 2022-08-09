@@ -20,7 +20,11 @@ import (
 
 var WFHelper WorkflowHelper
 
-var upgrader = websocket.Upgrader{}
+var upgrader = websocket.Upgrader{
+	CheckOrigin: func(r *http.Request) bool {
+		return true
+	},
+}
 
 // @title Visual Workflow API
 // @version 0.1
