@@ -1,0 +1,27 @@
+syntax = 'proto3';
+package gateway;
+
+// option go_package = "./;pb";
+
+message CompleteJobRequest {
+  // the id of the job
+  string jobId = 1;
+  // the type of the job, i.e. the type of the node to complete
+  string type = 2;
+  // the jobs workflow id
+  string workflowId = 3;
+  // the input to the job as a JSON string
+  string input = 4; 
+}
+
+message CompleteJobResponse {
+  // the id of the job
+  string jobId = 1;
+  // the output of the job as a JSON string
+  string output = 2;
+}
+
+service Gateway {
+  rpc CompleteJob (CompleteJobRequest) returns (CompleteJobResponse) {
+  }
+}

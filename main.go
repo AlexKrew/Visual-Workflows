@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"net"
 	"sync"
 	"time"
 	"workflows/internal/client"
@@ -10,6 +12,8 @@ import (
 	"workflows/internal/utils"
 	"workflows/internal/workflows"
 	"workflows/server"
+
+	"google.golang.org/grpc"
 )
 
 var wg sync.WaitGroup
@@ -17,6 +21,8 @@ var wg sync.WaitGroup
 func main() {
 
 	wg.Add(5)
+
+	go StartGatewayServer(50051)
 
 	workerClient, _ := client.NewClient()
 
@@ -39,6 +45,23 @@ func main() {
 	go server.StartServer(eventStream, wfProcessor)
 
 	wg.Wait()
+}
+
+type gateways struct {
+	pb.UnimplementedGatewayServer
+}
+
+func StartGatewayServer(port int) {
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
+	if err != nil {
+		panic("failed to listen")
+	}
+
+	s := grpc.NewServer()
+	pb.RegitserGatewayServer(s, &gateways{})
+	if err := s.Serve(lis); err != nil {
+		panic("failed to serve gateway server")
+	}
 }
 
 func registerSysoutExporter(eventStream *workflows.EventStream, logfile string) *sysout_exporter.SysoutExporter {
