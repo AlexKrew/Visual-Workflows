@@ -1,9 +1,12 @@
 <template>
   <div class="absolute w-2/12 z-10 top-20 right-3 h-full">
     <Card class="p-3 mb-3">
-      <div class="w-full">
-        <button @click="onDeploy" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-          <p class="text-center">Deploy</p>
+      <div class="w-full flex">
+        <button @click="onDeploy" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-1 mr-3">
+          <p class="text-center">Save</p>
+        </button>
+        <button @click="onStart" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex-1">
+          <p class="text-center">Start</p>
         </button>
       </div>
     </Card>
@@ -37,10 +40,10 @@ export default {
     connection.onmessage = (event) => {
       let json: any = JSON.parse(event.data);
       logs.value.push({
-            id: json["id"],
-            time: new Date(json["timestamp"]),
-            message: json["message"],
-          });
+        id: json["id"],
+        time: new Date(json["timestamp"]),
+        message: json["message"],
+      });
       console.log(json);
     };
 
@@ -50,18 +53,18 @@ export default {
 
     async function onDeploy() {
       await workflowInstancesService
-        .updateWorkflow(GridData.workflow.id, JSON.parse(JSON.stringify(GridData.workflow)))
-        .then(() => {
-          // logs.value.push({
-          //   id: "",
-          //   time: new Date(),
-          //   message: "Deployed",
-          // });
-        });
+        .updateWorkflow(GridData.workflow.id, JSON.parse(JSON.stringify(GridData.workflow)));
+    }
+
+    async function onStart() {
+      await onDeploy();
+      await workflowInstancesService
+        .startWorkflow(GridData.workflow.id);
     }
 
     return {
       onDeploy,
+      onStart,
       logs,
       DateTime,
       logElements,

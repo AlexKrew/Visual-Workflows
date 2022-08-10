@@ -56,15 +56,20 @@ export class WorkflowInstancesServiceImpl implements WorkflowInstancesService {
   // Update existing Workflow
   public async updateWorkflow(id: string, json: JSON): Promise<any> {
     try {
-      const response = await HTTP.patch("/workflows/" + id + "/start", json);
-      console.log("Response", response);
+      const response = await HTTP.patch("/workflows/" + id, json);
+      console.log("Update Workflow");
     } catch (e) {
       console.log("Failed to GET /workflows/" + id + "\n", e);
     }
   }
 
   public async startWorkflow(id: string): Promise<any> {
-    return null;
+    try {
+      const response = await HTTP.patch("/workflows/" + id + "/start");
+      console.log("Start Workflow");
+    } catch (e) {
+      console.log("Failed to GET /workflows/" + id + "\n", e);
+    }
   }
 
   public async stopWorkflow(id: string): Promise<any> {
