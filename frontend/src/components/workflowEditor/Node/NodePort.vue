@@ -62,6 +62,7 @@ import interact from "interactjs";
 import { defineComponent, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import { emitter } from "@/components/util/Emittery";
 import GridData from "@/models/Data/GridData";
+import { EdgeType } from "@/models/Data/Types";
 
 export default defineComponent({
   components: {},
@@ -137,7 +138,7 @@ export default defineComponent({
         if (connection) {
           connection.setPortIn(undefined);
           grid.setTmp(connection.data.id);
-          props.portModel.setDefaultFieldHidden(false)
+          props.portModel.setDefaultFieldHidden(false);
         }
       } else {
         (grid as GridModel).addEdge(EdgeModel.NewEdgeFromPort(props.portModel), true);
@@ -166,8 +167,21 @@ export default defineComponent({
         const port = grid.getPortByID(event.target.id);
         if (port) {
           connection.setPortIn(port);
-          port.setDefaultFieldHidden(true)
-          grid.resetTmp();
+
+          // Check if this connection is a duplicate
+          let edge: EdgeType[] = GridData.grid.data.edges.filter(
+            (edge) =>
+              edge.origin.port_id == connection.data.origin.port_id &&
+              edge.target.port_id == connection.data.target.port_id
+          );
+          if (edge.length > 1) {
+            grid.resetTmp(true);
+          } else {
+
+            // Save Connection
+            port.setDefaultFieldHidden(true);
+            grid.resetTmp();
+          }
         }
       } else {
         grid.resetTmp(true);
