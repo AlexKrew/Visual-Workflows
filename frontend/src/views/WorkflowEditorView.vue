@@ -42,7 +42,7 @@ export default defineComponent({
 
     onBeforeMount(async () => {
       // Load all default Nodes from Nodes.json
-      GridData.loadDefaultNodes();
+      GridData.loadDefaultData();
 
       // Load Empty Initial Workflow
       const workflowJSON = await workflowInstancesService.loadWorkflow(props.workflowId)
