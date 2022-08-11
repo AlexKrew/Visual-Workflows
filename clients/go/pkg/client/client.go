@@ -1,9 +1,9 @@
 package client
 
 import (
-	"context"
 	"log"
-	"time"
+	"workflows/clients/go/pkg/nodes"
+	"workflows/clients/go/pkg/workers"
 	pb "workflows/gateway"
 
 	"google.golang.org/grpc"
@@ -17,6 +17,8 @@ type ClientConfig struct {
 type Client struct {
 	Client *pb.GatewayClient
 	conn   *grpc.ClientConn
+
+	manager *workers.JobManager
 }
 
 func StartClient(config ClientConfig) (*Client, error) {
@@ -28,24 +30,26 @@ func StartClient(config ClientConfig) (*Client, error) {
 
 	gwClient := pb.NewGatewayClient(conn)
 
+	manager := workers.NewJobManager()
+
 	return &Client{
-		Client: &gwClient,
-		conn:   conn,
+		Client:  &gwClient,
+		conn:    conn,
+		manager: &manager,
 	}, nil
 }
 
-func (client *Client) CheckHealth() error {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
-	defer cancel()
-
-	response, err := (*client.Client).CheckHealth(ctx, &pb.Ping{Ping: 3})
-	if err != nil {
-		return err
+func (client *Client) AddJobWorker(jobType string, handler nodes.HandlerFunc) {
+	worker := workers.JobWorker{
+		JobType: jobType,
+		Handler: handler,
 	}
 
-	log.Printf("Pong: %d", response.GetPong())
+	client.manager.AddWorker(worker)
+}
 
-	return nil
+func (client *Client) StartJobPolling() {
+	log.Println("Start polling ...")
 }
 
 func (client *Client) Close() {

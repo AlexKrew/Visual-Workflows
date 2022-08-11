@@ -20,7 +20,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	defer gatewayClient.Close()
 
-	gatewayClient.CheckHealth()
+	gatewayClient.StartJobPolling()
 }
