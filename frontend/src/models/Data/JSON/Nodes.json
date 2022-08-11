@@ -351,6 +351,19 @@
       },
       {
         "id": "N5-P1",
+        "label": "Input",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "default_value": {
+          "datatype": "",
+          "value": ""
+        },
+        "hasDefaultField": true,
+        "defaultPlaceholder": "Output Text..."
+      },
+      {
+        "id": "N5-P2",
         "label": "Output",
         "group_id": "",
         "added": false,
@@ -359,8 +372,8 @@
           "datatype": "",
           "value": ""
         },
-        "hasDefaultField": true,
-        "defaultPlaceholder": "Output Text..."
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
       }
     ],
     "addablePorts": []
