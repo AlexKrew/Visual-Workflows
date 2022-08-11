@@ -1,27 +1,56 @@
 syntax = 'proto3';
 package gateway;
 
-// option go_package = "./;pb";
+option go_package = "./;pb";
 
-message CompleteJobRequest {
-  // the id of the job
-  string jobId = 1;
-  // the type of the job, i.e. the type of the node to complete
-  string type = 2;
-  // the jobs workflow id
-  string workflowId = 3;
-  // the input to the job as a JSON string
-  string input = 4; 
+// Health Check
+message Ping {
+  int32 ping = 1;
+}
+message Pong {
+  int32 pong = 1;
 }
 
-message CompleteJobResponse {
+message ActivateJobRequest {
+  // the types of jobs the client can handle.
+  // must match the type-field of the job, e.g. 'Inject' or 'Debug'
+  repeated string types = 1;
+  // the job returned after this request should not be visible to other clients
+  // until timeout passed (in ms)
+  int64 timeout = 2;
+}
+message ActivatedJob {
   // the id of the job
   string jobId = 1;
-  // the output of the job as a JSON string
+  // the type of the job
+  string type = 2;
+  // the id of the workflow
+  string workflowId = 3;
+  // values associated with the job, i.e. the input port values
+  // as a JSON formatted string
+  string input = 4;
+}
+message ActivateJobResponse {
+  ActivatedJob job = 1;
+}
+
+message CompleteJobRequest {
+  // the id of the job which the client completed
+  string jobId = 1;
+  // the output that resulted from the completion
+  // as a JSON formatted string
   string output = 2;
+}
+message CompleteJobResponse {
 }
 
 service Gateway {
-  rpc CompleteJob (CompleteJobRequest) returns (CompleteJobResponse) {
+  rpc CheckHealth (Ping) returns (Pong) {
+  }
+
+  rpc ActivateJob(ActivateJobRequest) returns (ActivateJobResponse) {
+  }
+
+  rpc CompleteJob(CompleteJobRequest) returns (CompleteJobResponse) {
   }
 }

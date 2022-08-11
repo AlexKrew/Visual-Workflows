@@ -1,19 +1,14 @@
 package main
 
 import (
-	"fmt"
-	"net"
 	"sync"
 	"time"
-	"workflows/internal/client"
+	gatewayserver "workflows/internal/gateway_server"
 	"workflows/internal/processors/job_queue_processor"
 	"workflows/internal/processors/sysout_exporter"
 	"workflows/internal/processors/workflow_processor"
 	"workflows/internal/utils"
 	"workflows/internal/workflows"
-	"workflows/server"
-
-	"google.golang.org/grpc"
 )
 
 var wg sync.WaitGroup
@@ -22,46 +17,29 @@ func main() {
 
 	wg.Add(5)
 
-	go StartGatewayServer(50051)
+	go gatewayserver.StartGatewayServer(50051)
 
-	workerClient, _ := client.NewClient()
+	// workerClient, _ := client.NewClient()
 
-	eventStream := workflows.ConstructEventStream()
+	// eventStream := workflows.ConstructEventStream()
 
-	// Register Processors
-	registerSysoutExporter(eventStream, "./logs/log.jsonl")
+	// // Register Processors
+	// registerSysoutExporter(eventStream, "./logs/log.jsonl")
 
-	// Mandatory: Workflow logic
-	wfProcessor := registerWorkflowProcessor(eventStream)
-	jobQueueProcessor := registerJobQueueProcessor(eventStream)
-	jobQueueProcessor.AddClient(&workerClient)
+	// // Mandatory: Workflow logic
+	// wfProcessor := registerWorkflowProcessor(eventStream)
+	// jobQueueProcessor := registerJobQueueProcessor(eventStream)
+	// jobQueueProcessor.AddClient(&workerClient)
 
-	time.Sleep(1 * time.Second)
+	// time.Sleep(1 * time.Second)
 
-	// Test sysout-exporter
-	// go testSysoutExporter(eventStream)
-	go testCreateWorkflowInstance(eventStream, "3d48d394-08e4-4858-a936-4fc7201be0a2")
+	// // Test sysout-exporter
+	// // go testSysoutExporter(eventStream)
+	// go testCreateWorkflowInstance(eventStream, "3d48d394-08e4-4858-a936-4fc7201be0a2")
 
-	go server.StartServer(eventStream, wfProcessor)
+	// go server.StartServer(eventStream, wfProcessor)
 
 	wg.Wait()
-}
-
-type gateways struct {
-	pb.UnimplementedGatewayServer
-}
-
-func StartGatewayServer(port int) {
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
-	if err != nil {
-		panic("failed to listen")
-	}
-
-	s := grpc.NewServer()
-	pb.RegitserGatewayServer(s, &gateways{})
-	if err := s.Serve(lis); err != nil {
-		panic("failed to serve gateway server")
-	}
 }
 
 func registerSysoutExporter(eventStream *workflows.EventStream, logfile string) *sysout_exporter.SysoutExporter {

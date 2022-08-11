@@ -22,6 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GatewayClient interface {
+	CheckHealth(ctx context.Context, in *Ping, opts ...grpc.CallOption) (*Pong, error)
+	ActivateJob(ctx context.Context, in *ActivateJobRequest, opts ...grpc.CallOption) (*ActivateJobResponse, error)
 	CompleteJob(ctx context.Context, in *CompleteJobRequest, opts ...grpc.CallOption) (*CompleteJobResponse, error)
 }
 
@@ -31,6 +33,24 @@ type gatewayClient struct {
 
 func NewGatewayClient(cc grpc.ClientConnInterface) GatewayClient {
 	return &gatewayClient{cc}
+}
+
+func (c *gatewayClient) CheckHealth(ctx context.Context, in *Ping, opts ...grpc.CallOption) (*Pong, error) {
+	out := new(Pong)
+	err := c.cc.Invoke(ctx, "/gateway.Gateway/CheckHealth", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gatewayClient) ActivateJob(ctx context.Context, in *ActivateJobRequest, opts ...grpc.CallOption) (*ActivateJobResponse, error) {
+	out := new(ActivateJobResponse)
+	err := c.cc.Invoke(ctx, "/gateway.Gateway/ActivateJob", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *gatewayClient) CompleteJob(ctx context.Context, in *CompleteJobRequest, opts ...grpc.CallOption) (*CompleteJobResponse, error) {
@@ -46,6 +66,8 @@ func (c *gatewayClient) CompleteJob(ctx context.Context, in *CompleteJobRequest,
 // All implementations must embed UnimplementedGatewayServer
 // for forward compatibility
 type GatewayServer interface {
+	CheckHealth(context.Context, *Ping) (*Pong, error)
+	ActivateJob(context.Context, *ActivateJobRequest) (*ActivateJobResponse, error)
 	CompleteJob(context.Context, *CompleteJobRequest) (*CompleteJobResponse, error)
 	mustEmbedUnimplementedGatewayServer()
 }
@@ -54,6 +76,12 @@ type GatewayServer interface {
 type UnimplementedGatewayServer struct {
 }
 
+func (UnimplementedGatewayServer) CheckHealth(context.Context, *Ping) (*Pong, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckHealth not implemented")
+}
+func (UnimplementedGatewayServer) ActivateJob(context.Context, *ActivateJobRequest) (*ActivateJobResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ActivateJob not implemented")
+}
 func (UnimplementedGatewayServer) CompleteJob(context.Context, *CompleteJobRequest) (*CompleteJobResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CompleteJob not implemented")
 }
@@ -68,6 +96,42 @@ type UnsafeGatewayServer interface {
 
 func RegisterGatewayServer(s grpc.ServiceRegistrar, srv GatewayServer) {
 	s.RegisterService(&Gateway_ServiceDesc, srv)
+}
+
+func _Gateway_CheckHealth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Ping)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).CheckHealth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gateway.Gateway/CheckHealth",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).CheckHealth(ctx, req.(*Ping))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gateway_ActivateJob_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ActivateJobRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).ActivateJob(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gateway.Gateway/ActivateJob",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).ActivateJob(ctx, req.(*ActivateJobRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Gateway_CompleteJob_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -95,6 +159,14 @@ var Gateway_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "gateway.Gateway",
 	HandlerType: (*GatewayServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CheckHealth",
+			Handler:    _Gateway_CheckHealth_Handler,
+		},
+		{
+			MethodName: "ActivateJob",
+			Handler:    _Gateway_ActivateJob_Handler,
+		},
 		{
 			MethodName: "CompleteJob",
 			Handler:    _Gateway_CompleteJob_Handler,
