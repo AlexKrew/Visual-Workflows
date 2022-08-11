@@ -39,7 +39,7 @@
     </div>
 
     <!-- Default Text Field -->
-    <div v-if="portModel.data.hasDefaultField" class="px-2 pb-3">
+    <div v-if="portModel.data.hasDefaultField && !portModel.data.defaultFieldHidden" class="px-2 pb-3">
       <textarea
         ref="textAreaRef"
         class="bg-gray-200 w-full px-1"
@@ -137,6 +137,7 @@ export default defineComponent({
         if (connection) {
           connection.setPortIn(undefined);
           grid.setTmp(connection.data.id);
+          props.portModel.setDefaultFieldHidden(false)
         }
       } else {
         (grid as GridModel).addEdge(EdgeModel.NewEdgeFromPort(props.portModel), true);
@@ -155,15 +156,19 @@ export default defineComponent({
       grid.resetTmp(true);
     }
 
+    // event.target         = the Element on which it gets dropped
+    // event.relatedTarget  = the Element which dropped
     function onDrop(event: InteractEvent) {
       if (!grid) return;
 
-      // event.target         = the Element on which it gets dropped
-      // event.relatedTarget  = the Element which dropped
       if (grid.getPortByID(event.target.id)?.data.is_input) {
         const connection = grid.getTmpEdge();
-        connection.setPortIn(grid.getPortByID(event.target.id));
-        grid.resetTmp();
+        const port = grid.getPortByID(event.target.id);
+        if (port) {
+          connection.setPortIn(port);
+          port.setDefaultFieldHidden(true)
+          grid.resetTmp();
+        }
       } else {
         grid.resetTmp(true);
       }

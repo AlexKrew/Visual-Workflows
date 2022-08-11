@@ -1,6 +1,8 @@
 import EditorComponent from "../EditorComponent";
 import { uuid } from "vue-uuid";
 import { PortType } from "../Data/Types";
+import { emitter } from "@/components/util/Emittery";
+import NodeModel from "./NodeModel";
 
 class PortModel extends EditorComponent {
   data: PortType;
@@ -36,6 +38,11 @@ class PortModel extends EditorComponent {
   setGroupID(id: string) {
     this.data.added = true;
     this.data.group_id = id;
+  }
+
+  setDefaultFieldHidden(hidden: boolean) {
+    this.data.defaultFieldHidden = hidden;
+    emitter.emit("PortsUpdatePos", this.parent as NodeModel);
   }
 
   updatePosOverload(): void {

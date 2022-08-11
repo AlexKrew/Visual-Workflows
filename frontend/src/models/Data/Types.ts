@@ -30,6 +30,7 @@ type PortType = {
   };
   hasDefaultField: boolean;
   defaultPlaceholder: string;
+  defaultFieldHidden: boolean;
 };
 
 type EdgeType = {
