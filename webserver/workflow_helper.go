@@ -1,4 +1,4 @@
-package server
+package webserver
 
 import (
 	"workflows/internal/processors/workflow_processor"
