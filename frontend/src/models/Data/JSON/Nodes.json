@@ -403,9 +403,9 @@
   },
   {
     "id": "UI-N2",
-    "name": "Column",
+    "name": "List",
     "category": "UI",
-    "type": "Column",
+    "type": "List",
     "ui": {
       "position": [0, 0]
     },
@@ -423,40 +423,17 @@
       },
       {
         "id": "UI-N2-P2",
-        "label": "Children",
-        "group_id": "",
-        "added": false,
-        "is_input": false,
-        "is_trigger": false,
-        "default_value": {},
-        "hasDefaultField": false,
-        "defaultPlaceholder": ""
-      }
-    ],
-    "addablePorts": []
-  },
-  {
-    "id": "UI-N3",
-    "name": "Row",
-    "category": "UI",
-    "type": "Row",
-    "ui": {
-      "position": [0, 0]
-    },
-    "ports": [
-      {
-        "id": "UI-N3-P1",
-        "label": "Parent",
+        "label": "is Vertical",
         "group_id": "",
         "added": false,
         "is_input": true,
         "is_trigger": false,
         "default_value": {},
-        "hasDefaultField": false,
-        "defaultPlaceholder": ""
+        "hasDefaultField": true,
+        "defaultPlaceholder": "true/false"
       },
       {
-        "id": "UI-N3-P2",
+        "id": "UI-N2-P3",
         "label": "Children",
         "group_id": "",
         "added": false,
