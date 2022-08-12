@@ -48,7 +48,7 @@ service Gateway {
   rpc CheckHealth (Ping) returns (Pong) {
   }
 
-  rpc ActivateJob(ActivateJobRequest) returns (ActivateJobResponse) {
+  rpc ActivateJob(ActivateJobRequest) returns (stream ActivateJobResponse) {
   }
 
   rpc CompleteJob(CompleteJobRequest) returns (CompleteJobResponse) {

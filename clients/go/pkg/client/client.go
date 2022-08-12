@@ -1,6 +1,8 @@
 package client
 
 import (
+	"context"
+	"io"
 	"log"
 	"workflows/clients/go/pkg/nodes"
 	"workflows/clients/go/pkg/workers"
@@ -32,6 +34,8 @@ func StartClient(config ClientConfig) (*Client, error) {
 
 	manager := workers.NewJobManager()
 
+	manager.AddWorker(workers.NewInjectWorker())
+
 	return &Client{
 		Client:  &gwClient,
 		conn:    conn,
@@ -50,6 +54,32 @@ func (client *Client) AddJobWorker(jobType string, handler nodes.HandlerFunc) {
 
 func (client *Client) StartJobPolling() {
 	log.Println("Start polling ...")
+
+	request := &pb.ActivateJobRequest{
+		Types:   client.manager.Types(),
+		Timeout: 0,
+	}
+	stream, err := (*client.Client).ActivateJob(context.Background(), request)
+	if err != nil {
+		log.Printf("failed to listen for activate jobs: %s", err)
+		return
+	}
+
+	for {
+		response, err := stream.Recv()
+
+		if err == io.EOF {
+			log.Println("EOF")
+			break
+		}
+
+		if err != nil {
+			log.Printf("failed to receive jobs: %s", err.Error())
+			break
+		}
+
+		log.Printf("Received job to execute: %s", response)
+	}
 }
 
 func (client *Client) Close() {

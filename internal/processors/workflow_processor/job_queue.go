@@ -1,10 +1,14 @@
-package job_queue_processor
+package workflow_processor
 
 import (
 	"errors"
 	"sync"
-	"workflows/internal/client"
+	"time"
 	"workflows/internal/workflows"
+)
+
+var (
+	NEW_JOBS_BUFFER = 5
 )
 
 type JobQueue struct {
@@ -12,13 +16,14 @@ type JobQueue struct {
 
 	// list of jobs that have to be processed.
 	// the jobs are stored inside a inverted index with the job-type as a key
-	jobs   map[string][]workflows.Job
-	client *client.Client
+	jobs    map[string][]workflows.Job
+	NewJobs chan workflows.Job
 }
 
 func ConstructJobQueue() (*JobQueue, error) {
 	queue := &JobQueue{
-		jobs: make(map[string][]workflows.Job),
+		jobs:    make(map[string][]workflows.Job),
+		NewJobs: make(chan workflows.Job, NEW_JOBS_BUFFER),
 	}
 
 	return queue, nil
@@ -33,29 +38,8 @@ func (queue *JobQueue) AddJob(job workflows.Job) {
 	}
 
 	queue.jobs[job.NodeType] = append(queue.jobs[job.NodeType], job)
-}
 
-func (queue *JobQueue) ExecuteJob(jobId workflows.JobID) (client.JobResults, error) {
-
-	job, exists := queue.RemoveJob(jobId)
-	if !exists {
-		return client.JobResults{}, errors.New("job with this id does not exist")
-	}
-
-	messages := make(map[string]client.Message)
-	for key, msg := range job.Input {
-		messages[key] = client.Message{
-			Datatype: workflows.MessageTypeToString(msg.DataType),
-			Value:    msg.Value,
-		}
-	}
-
-	clientJob := client.Job{
-		ID:    job.ID,
-		Type:  job.NodeType,
-		Input: messages,
-	}
-	return queue.client.DoJob(clientJob)
+	queue.NewJobs <- job
 }
 
 func (queue *JobQueue) LockJob(jobId workflows.JobID) (bool, error) {
@@ -72,10 +56,31 @@ func (queue *JobQueue) LockJob(jobId workflows.JobID) (bool, error) {
 	}
 
 	job.Locked = true
-	// TODO: Start unlock interval
+	go queue.UnlockJob(jobId, 5*time.Second)
 
 	// TODO: Emit Job Locked Event?
 
+	return true, nil
+}
+
+func (queue *JobQueue) UnlockJob(jobId workflows.JobID, timeout time.Duration) (bool, error) {
+
+	// await the timeout duration
+	time.Sleep(timeout * time.Second)
+
+	queue.lockMutex.Lock()
+	defer queue.lockMutex.Unlock()
+
+	job, exists := queue.JobById(jobId)
+	if !exists {
+		return false, errors.New("job with id does not exist")
+	}
+
+	if !job.Locked {
+		return false, nil
+	}
+
+	job.Locked = false
 	return true, nil
 }
 

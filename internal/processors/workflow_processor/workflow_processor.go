@@ -10,7 +10,8 @@ import (
 )
 
 type WorkflowProcessor struct {
-	Containers map[workflows.WorkflowContainerID]workflows.WorkflowContainer
+	Containers map[workflows.WorkflowID]workflows.WorkflowContainer
+	JobQueue   JobQueue
 
 	EventStream *workflows.EventStream
 }
@@ -24,26 +25,26 @@ func ConstructWorkflowProcessor() (*WorkflowProcessor, error) {
 	}, nil
 }
 
-func (processor *WorkflowProcessor) WorkflowByID(workflowId workflows.WorkflowID) (workflows.Workflow, bool) {
-	for _, container := range processor.Containers {
-		if container.Workflow.ID == workflowId {
+func (processor *WorkflowProcessor) WorkflowByID(workflowId workflows.WorkflowID) (*workflows.Workflow, bool) {
+	for id, container := range processor.Containers {
+		if id == workflowId {
 			return container.Workflow, true
 		}
 	}
 
-	return workflows.Workflow{}, false
+	return nil, false
 }
 
 func (processor *WorkflowProcessor) StartWorkflow(workflowId workflows.WorkflowID) error {
 
-	for _, container := range processor.Containers {
-		if container.Workflow.ID == workflowId {
-			container.Start()
-			return nil
-		}
+	container, exists := processor.Containers[workflowId]
+	if !exists {
+		return errors.New("failed to start workflow. workflow does not exist")
 	}
 
-	return errors.New("workflow does not exist")
+	container.Start()
+
+	return nil
 }
 
 func (processor *WorkflowProcessor) Register(eventStream *workflows.EventStream) {
@@ -97,13 +98,13 @@ func (processor *WorkflowProcessor) createWorkflowInstance(command workflows.Wor
 		return err
 	}
 
-	instance := workflows.ConstructWorkflowContainer(processor.EventStream)
-	err = instance.Run(workflow)
+	instance := workflows.NewWorkflowContainer(processor.EventStream, &workflow)
+	err = instance.Run(&workflow)
 	if err != nil {
 		return err
 	}
 
-	processor.Containers[instance.InstanceID] = instance
+	processor.Containers[instance.ID()] = *instance
 
 	return nil
 }
@@ -111,7 +112,7 @@ func (processor *WorkflowProcessor) createWorkflowInstance(command workflows.Wor
 func (processor *WorkflowProcessor) createJob(command workflows.WorkflowCommand) error {
 	body := command.Body.(workflows.CreateJobCommandBody)
 
-	container, ok := processor.Containers[body.WorkflowInstanceID]
+	container, ok := processor.Containers[body.WorkflowID]
 	if !ok {
 		return errors.New("no workflow with this instance id")
 	}
@@ -129,8 +130,8 @@ func (processor *WorkflowProcessor) createJob(command workflows.WorkflowCommand)
 	job := workflows.NewJob(node.Type, input, body.NodeID)
 
 	jobCreatedEvent := workflows.JobCreatedEventBody{
-		WorkflowInstanceID: body.WorkflowInstanceID,
-		Job:                job,
+		WorkflowID: body.WorkflowID,
+		Job:        job,
 	}
 	processor.EventStream.AddEvent(workflows.NewJobCreatedEvent(jobCreatedEvent))
 
@@ -162,7 +163,7 @@ func (processor *WorkflowProcessor) workflowReady(event workflows.WorkflowEvent)
 	body := event.Body.(workflows.WorkflowReadyEventBody)
 
 	for _, container := range processor.Containers {
-		if container.InstanceID == body.InstanceID {
+		if container.ID() == body.WorkflowID {
 			container.Start()
 		}
 	}
@@ -174,14 +175,13 @@ func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) 
 
 	for _, log := range results.Logs {
 		debugEvent := workflows.NewDebugEvent(workflows.DebugEventBody{
-			WorkflowInstanceID: body.WorkflowInstanceID,
-			WorkflowID:         "LOGEVENT",
-			Value:              log,
+			WorkflowID: body.WorkflowID,
+			Value:      log,
 		})
 		processor.EventStream.AddEvent(debugEvent)
 	}
 
-	container, exists := processor.Containers[body.WorkflowInstanceID]
+	container, exists := processor.Containers[body.WorkflowID]
 	if !exists {
 		panic("workflow does not exist")
 	}

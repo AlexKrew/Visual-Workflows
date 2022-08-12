@@ -17,6 +17,15 @@ func NewJobManager() JobManager {
 	}
 }
 
+func (manager *JobManager) Types() []string {
+	types := []string{}
+	for jobType, _ := range manager.workers {
+		types = append(types, jobType)
+	}
+
+	return types
+}
+
 func (manager *JobManager) AddWorker(worker JobWorker) error {
 
 	if _, exists := manager.workers[worker.JobType]; exists {

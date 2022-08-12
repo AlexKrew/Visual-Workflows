@@ -7,11 +7,12 @@ import (
 type JobID = utils.UUID
 
 type Job struct {
-	ID       JobID
-	NodeType string
-	NodeID   NodeID
-	Input    map[PortID]Message
-	Locked   bool
+	ID         JobID
+	NodeType   string
+	NodeID     NodeID
+	Input      map[PortID]Message
+	Locked     bool
+	WorkflowID WorkflowID
 }
 
 func NewJob(nodeType string, input map[PortID]Message, nodeId NodeID) Job {

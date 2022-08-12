@@ -19,10 +19,10 @@ func (helper *WorkflowHelper) GetAvailableWorkflows() {
 	// TODO:
 }
 
-func (helper *WorkflowHelper) WorkflowById(id workflows.WorkflowID) (workflows.Workflow, bool) {
+func (helper *WorkflowHelper) WorkflowById(id workflows.WorkflowID) (*workflows.Workflow, bool) {
 	workflow, exists := helper.workflowProcessor.WorkflowByID(id)
 	if !exists {
-		return workflows.Workflow{}, false
+		return nil, false
 	}
 	return workflow, true
 }
@@ -51,7 +51,7 @@ func (helper *WorkflowHelper) PublishChanges(workflow workflows.Workflow) error 
 		return err
 	}
 
-	container.Run(storedWorkflow)
+	container.Run(&storedWorkflow)
 
 	return nil
 }

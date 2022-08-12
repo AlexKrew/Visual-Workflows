@@ -63,8 +63,8 @@ func NewStopWorkflowCommand(body StopWorkflowCommandBody) WorkflowCommand {
 
 // ---- Create Job ----
 type CreateJobCommandBody struct {
-	WorkflowInstanceID WorkflowContainerID
-	NodeID             NodeID
+	WorkflowID WorkflowID
+	NodeID     NodeID
 }
 
 func NewCreateJobCommand(body CreateJobCommandBody) WorkflowCommand {
@@ -83,8 +83,8 @@ func NewCreateJobCommand(body CreateJobCommandBody) WorkflowCommand {
 
 // ---- Complete Job ----
 type CompleteJobCommandBody struct {
-	WorflowInstanceID WorkflowContainerID
-	JobID             JobID
+	WorflowID WorkflowID
+	JobID     JobID
 
 	// TODO: Check if needed here
 	Output any
