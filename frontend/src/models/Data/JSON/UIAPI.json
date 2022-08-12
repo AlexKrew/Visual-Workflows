@@ -1,0 +1,28 @@
+{
+  "canvas": {
+    "id": "Canvas-ID",
+    "child": {}
+  },
+
+  "column/row": {
+    "id": "Column/Row-ID",
+    "children": []
+  },
+
+  "text_field": {
+    "id": "text-field-ID",
+    "is_label": true,
+    "font-size": 12,
+    "value": "text"
+  }
+}
+
+{
+  "data": [
+    {
+      "id": "component-ID",
+      "value": "new Value"
+    }
+    ...
+  ]
+}
