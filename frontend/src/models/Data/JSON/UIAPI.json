@@ -1,28 +1,29 @@
 {
   "canvas": {
     "id": "Canvas-ID",
-    "child": {}
+    "type": "canvas",
+    "websocket": "URL",
+    "children": [
+      {
+        "id": "Column/Row-ID",
+        "type": "list",
+        "is_vertical": true,
+        "children": [
+          {
+            "id": "text-field-ID",
+            "type": "text",
+            "font-size": 12,
+            "label": "Label",
+            "value": "text"
+          }
+        ]
+      }
+    ]
   },
-
-  "column/row": {
-    "id": "Column/Row-ID",
-    "children": []
-  },
-
-  "text_field": {
-    "id": "text-field-ID",
-    "is_label": true,
-    "font-size": 12,
-    "value": "text"
-  }
-}
-
-{
   "data": [
     {
       "id": "component-ID",
       "value": "new Value"
     }
-    ...
   ]
 }

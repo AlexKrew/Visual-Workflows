@@ -1,0 +1,30 @@
+{
+  "canvas": {
+    "id": "C1",
+    "type": "canvas_element",
+    "websocket": "URL",
+    "children": [
+      {
+        "id": "C1-L1",
+        "type": "list_element",
+        "is_vertical": false,
+        "children": [
+          {
+            "id": "C1-L1-T1",
+            "type": "text_element",
+            "font_size": 12,
+            "label": "Label",
+            "value": "Column1"
+          },
+          {
+            "id": "C1-L1-T2",
+            "type": "text_element",
+            "font_size": 24,
+            "label": "Label2",
+            "value": "Column2"
+          }
+        ]
+      }
+    ]
+  }
+}
