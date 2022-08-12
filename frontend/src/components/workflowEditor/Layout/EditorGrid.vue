@@ -1,6 +1,7 @@
 <template>
   <div
-    class="drag absolute bg-gray-500 top w-[10000px] h-[10000px]"
+    id="EditorGrid"
+    class="drag bg-gray-500"
     :style="{ left: grid.posRel.x + 'px', top: grid.posRel.y + 'px' }"
     @scroll.prevent
   >
@@ -56,5 +57,7 @@ export default defineComponent({
 <style>
 .drag {
   position: absolute;
+  width: 10000px;
+  height: 10000px;
 }
 </style>
