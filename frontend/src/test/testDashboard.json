@@ -10,18 +10,60 @@
         "is_vertical": false,
         "children": [
           {
-            "id": "C1-L1-T1",
-            "type": "text_element",
-            "font_size": 12,
-            "label": "Label",
-            "value": "Column1"
+            "id": "C1-L1-L1",
+            "type": "list_element",
+            "is_vertical": true,
+            "children": [
+              {
+                "id": "C1-L1-L1-T1",
+                "type": "text_element",
+                "font_size": 24,
+                "label": "Google Server",
+                "value": ""
+              },
+              {
+                "id": "C1-L1-L1-T2",
+                "type": "text_element",
+                "font_size": 12,
+                "label": "Status",
+                "value": "200"
+              },
+              {
+                "id": "C1-L1-L1-T3",
+                "type": "text_element",
+                "font_size": 12,
+                "label": "Response",
+                "value": "server Running"
+              }
+            ]
           },
           {
-            "id": "C1-L1-T2",
-            "type": "text_element",
-            "font_size": 24,
-            "label": "Label2",
-            "value": "Column2"
+            "id": "C1-L1-L2",
+            "type": "list_element",
+            "is_vertical": true,
+            "children": [
+              {
+                "id": "C1-L1-L2-T1",
+                "type": "text_element",
+                "font_size": 24,
+                "label": "My Server",
+                "value": ""
+              },
+              {
+                "id": "C1-L1-L2-T2",
+                "type": "text_element",
+                "font_size": 12,
+                "label": "Status",
+                "value": "404"
+              },
+              {
+                "id": "C1-L1-L2-T3",
+                "type": "text_element",
+                "font_size": 12,
+                "label": "Response",
+                "value": "Not Found"
+              }
+            ]
           }
         ]
       }

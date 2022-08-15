@@ -1,5 +1,5 @@
 <template>
-  <div v-if="canvas && canvas.children.length > 0" class="relative w-full h-full p-5 bg-gray-500">
+  <div v-if="canvas && canvas.children.length > 0" class="relative w-full h-full p-5 bg-gray-300">
       <component :is="canvas.children[0].data.type" :obj="canvas.children[0]"></component>
   </div>
 </template>

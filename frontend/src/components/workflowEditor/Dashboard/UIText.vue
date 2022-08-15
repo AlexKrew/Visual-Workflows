@@ -1,9 +1,9 @@
 <template>
   <div class="">
-    <span class="p-2">
+    <span v-if="data.label" class="p-2" :class="'text-[' + data.font_size + 'px]'">
       {{ data.label }}
     </span>
-    <span class="p-2 border border-black rounded-lg">
+    <span v-if="data.value" class="p-2 border border-black rounded-lg">
       {{ data.value }}
     </span>
   </div>
