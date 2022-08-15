@@ -1,12 +1,16 @@
 package workflows
 
+import (
+	"workflows/shared/shared_entities"
+)
+
 type MessageCache struct {
 	Workflow *Workflow
 
 	NodeMessageStores map[NodeID]StoredMessages
 }
 
-type StoredMessages = map[string]Message
+type StoredMessages = map[string]shared_entities.WorkflowMessage
 
 func ConstructMessageCache(workflow *Workflow) (MessageCache, error) {
 
@@ -14,7 +18,7 @@ func ConstructMessageCache(workflow *Workflow) (MessageCache, error) {
 
 	for _, node := range workflow.Nodes {
 
-		store := make(map[string]Message)
+		store := make(map[string]shared_entities.WorkflowMessage)
 
 		ports := node.Ports
 		for _, port := range ports {
@@ -23,7 +27,6 @@ func ConstructMessageCache(workflow *Workflow) (MessageCache, error) {
 				portMessage := port.DefaultMessage
 				store[port.Identifier] = portMessage
 			}
-
 		}
 
 		stores[node.ID] = store
@@ -42,7 +45,7 @@ func (cache *MessageCache) MessagesForNodeId(nodeId NodeID) (StoredMessages, boo
 	return messages, exists
 }
 
-func (cache *MessageCache) SetMessage(portAddr PortAddress, message Message) {
+func (cache *MessageCache) SetMessage(portAddr PortAddress, message shared_entities.WorkflowMessage) {
 
 	node, exists := cache.Workflow.NodeByID(portAddr.NodeID)
 	if !exists {

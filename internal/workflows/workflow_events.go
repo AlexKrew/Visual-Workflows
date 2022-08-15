@@ -3,6 +3,7 @@ package workflows
 import (
 	"time"
 	"workflows/internal/utils"
+	"workflows/shared/shared_entities"
 )
 
 type WorkflowEventType = int
@@ -39,8 +40,7 @@ func createWorkflowEvent(event WorkflowEventType, body any) WorkflowEvent {
 
 // ---- Workflow Instance Created ----
 type WorkflowInstanceCreatedEventBody struct {
-	Workflow   Workflow
-	InstanceID utils.UUID
+	Workflow Workflow
 }
 
 func NewWorkflowInstanceCreatedEvent(body WorkflowInstanceCreatedEventBody) WorkflowEvent {
@@ -49,7 +49,7 @@ func NewWorkflowInstanceCreatedEvent(body WorkflowInstanceCreatedEventBody) Work
 
 // ---- Workflow Ready ----
 type WorkflowReadyEventBody struct {
-	InstanceID utils.UUID
+	WorkflowID WorkflowID
 }
 
 func NewWorkflowReadyEvent(body WorkflowReadyEventBody) WorkflowEvent {
@@ -76,8 +76,8 @@ func NewWorkflowStoppedEvent(body WorkflowStartedEventBody) WorkflowEvent {
 
 // ---- Job Created ----
 type JobCreatedEventBody struct {
-	WorkflowInstanceID WorkflowContainerID
-	Job                Job
+	WorkflowID WorkflowID
+	Job        shared_entities.Job
 }
 
 func NewJobCreatedEvent(body JobCreatedEventBody) WorkflowEvent {
@@ -86,9 +86,9 @@ func NewJobCreatedEvent(body JobCreatedEventBody) WorkflowEvent {
 
 // ---- Job Completed ----
 type JobCompletedEventBody struct {
-	WorkflowInstanceID WorkflowContainerID
-	Job                Job
-	Result             any
+	WorkflowID WorkflowID
+	Job        shared_entities.Job
+	Result     shared_entities.JobResult
 }
 
 func NewJobCompletedEvent(body JobCompletedEventBody) WorkflowEvent {
@@ -97,9 +97,8 @@ func NewJobCompletedEvent(body JobCompletedEventBody) WorkflowEvent {
 
 // ---- Debug ----
 type DebugEventBody struct {
-	WorkflowInstanceID WorkflowContainerID
-	WorkflowID         WorkflowID
-	Value              any
+	WorkflowID WorkflowID
+	Value      any
 }
 
 func NewDebugEvent(body DebugEventBody) WorkflowEvent {

@@ -3,13 +3,13 @@ package main
 import (
 	"sync"
 	"time"
-	"workflows/internal/client"
-	"workflows/internal/processors/job_queue_processor"
+	"workflows/internal/job_queue"
+	"workflows/internal/processors/local_job_processor"
 	"workflows/internal/processors/sysout_exporter"
 	"workflows/internal/processors/workflow_processor"
 	"workflows/internal/utils"
 	"workflows/internal/workflows"
-	"workflows/server"
+	"workflows/webserver"
 )
 
 var wg sync.WaitGroup
@@ -18,25 +18,29 @@ func main() {
 
 	wg.Add(5)
 
-	workerClient, _ := client.NewClient()
+	// workerClient, _ := client.NewClient()
 
 	eventStream := workflows.ConstructEventStream()
 
-	// Register Processors
-	registerSysoutExporter(eventStream, "./logs/log.jsonl")
+	// // Register Processors
+	// registerSysoutExporter(eventStream, "./logs/log.jsonl")
 
-	// Mandatory: Workflow logic
-	wfProcessor := registerWorkflowProcessor(eventStream)
-	jobQueueProcessor := registerJobQueueProcessor(eventStream)
-	jobQueueProcessor.AddClient(&workerClient)
+	// // Mandatory: Workflow logic
+	jobQueue, _ := job_queue.NewJobQueue()
 
-	time.Sleep(1 * time.Second)
+	// go gatewayserver.StartGatewayServer(50051)
 
-	// Test sysout-exporter
-	// go testSysoutExporter(eventStream)
+	registerLocalJobProcessor(eventStream, jobQueue)
+
+	wfProcessor := registerWorkflowProcessor(eventStream, jobQueue)
+
+	// // Test sysout-exporter
+	// // go testSysoutExporter(eventStream)
+
+	time.Sleep(2 * time.Second)
 	go testCreateWorkflowInstance(eventStream, "3d48d394-08e4-4858-a936-4fc7201be0a2")
 
-	go server.StartServer(eventStream, wfProcessor)
+	go webserver.StartServer(eventStream, wfProcessor)
 
 	wg.Wait()
 }
@@ -50,8 +54,8 @@ func registerSysoutExporter(eventStream *workflows.EventStream, logfile string) 
 	return sysoutExporter
 }
 
-func registerWorkflowProcessor(eventStream *workflows.EventStream) *workflow_processor.WorkflowProcessor {
-	workflowProcessor, err := workflow_processor.ConstructWorkflowProcessor()
+func registerWorkflowProcessor(eventStream *workflows.EventStream, jobQueue *job_queue.JobQueue) *workflow_processor.WorkflowProcessor {
+	workflowProcessor, err := workflow_processor.NewWorkflowProcessor(jobQueue)
 	if err != nil {
 		panic(err)
 	}
@@ -60,14 +64,14 @@ func registerWorkflowProcessor(eventStream *workflows.EventStream) *workflow_pro
 	return workflowProcessor
 }
 
-func registerJobQueueProcessor(eventStream *workflows.EventStream) *job_queue_processor.JobQueueProcessor {
-	jobQueueProcessor, err := job_queue_processor.ConstructJobQueueProcessor()
+func registerLocalJobProcessor(eventStream *workflows.EventStream, jobQueue *job_queue.JobQueue) *local_job_processor.LocalJobProcessor {
+	jobProcessor, err := local_job_processor.NewLocalJobProcessor(jobQueue)
 	if err != nil {
 		panic(err)
 	}
 
-	jobQueueProcessor.Register(eventStream)
-	return jobQueueProcessor
+	jobProcessor.Register(eventStream)
+	return jobProcessor
 }
 
 func testSysoutExporter(eventStream *workflows.EventStream) {
