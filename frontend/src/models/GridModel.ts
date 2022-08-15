@@ -72,11 +72,11 @@ class GridModel extends EditorComponent {
 
   // Can be integrated in EditorComponent recursive
   getPortByID(id: string): PortModel | undefined {
-    let result = undefined;
+    let result: PortModel | undefined = undefined;
 
     this.children.forEach((node) => {
       const port = (node as NodeModel).getChildById(id);
-      if (port) result = port;
+      if (port) result = port as PortModel;
     });
 
     return result;

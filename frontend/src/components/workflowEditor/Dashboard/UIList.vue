@@ -10,12 +10,14 @@
 import DashboardElement from "@/models/Data/Dashboard/DashboardElement";
 import { defineComponent, onMounted, ref } from "vue";
 import text_element from "@/components/workflowEditor/Dashboard/UIText.vue";
+import gauge_element from "@/components/workflowEditor/Dashboard/UIGauge.vue";
 import { UIList } from "@/models/Data/Dashboard/UITypes";
 
 export default defineComponent({
   name: "list_element",
   components: {
     text_element,
+    gauge_element
   },
   props: {
     obj: {

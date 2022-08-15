@@ -20,10 +20,11 @@ type UIText = UIElement & {
   value: string;
 };
 
-enum uiTypes {
-  "canvas" = "canvas",
-  "list" = "list",
-  "text" = "text",
-}
+type UIGauge = UIElement & {
+  label: string;
+  min_value: number;
+  max_value: number;
+  value: number;
+};
 
-export { UICanvas, UIList, UIText, uiTypes, UIElement };
+export { UICanvas, UIList, UIText, UIElement, UIGauge };

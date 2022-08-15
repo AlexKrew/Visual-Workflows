@@ -469,7 +469,7 @@
       },
       {
         "id": "UI-N4-P2",
-        "label": "is Label",
+        "label": "Label",
         "group_id": "",
         "added": false,
         "is_input": true,
@@ -499,6 +499,73 @@
         "default_value": {},
         "hasDefaultField": true,
         "defaultPlaceholder": "Text to show"
+      }
+    ],
+    "addablePorts": []
+  },
+  {
+    "id": "UI-N5",
+    "name": "Gauge",
+    "category": "UI",
+    "type": "Gauge",
+    "ui": {
+      "position": [0, 0]
+    },
+    "ports": [
+      {
+        "id": "UI-N5-P1",
+        "label": "Parent",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": false,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "UI-N5-P2",
+        "label": "Label",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": false,
+        "default_value": {},
+        "hasDefaultField": true,
+        "defaultPlaceholder": "Title"
+      },
+      {
+        "id": "UI-N5-P3",
+        "label": "Min Value",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": false,
+        "default_value": {},
+        "hasDefaultField": true,
+        "defaultPlaceholder": "0"
+      },
+      {
+        "id": "UI-N5-P4",
+        "label": "Max Value",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": false,
+        "default_value": {},
+        "hasDefaultField": true,
+        "defaultPlaceholder": "42"
+      },
+      {
+        "id": "UI-N5-P4",
+        "label": "Value",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": false,
+        "default_value": {},
+        "hasDefaultField": true,
+        "defaultPlaceholder": "13"
       }
     ],
     "addablePorts": []
