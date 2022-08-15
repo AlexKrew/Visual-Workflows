@@ -9,6 +9,7 @@ import (
 	"workflows/internal/processors/workflow_processor"
 	"workflows/internal/utils"
 	"workflows/internal/workflows"
+	"workflows/webserver"
 )
 
 var wg sync.WaitGroup
@@ -30,7 +31,8 @@ func main() {
 	// go gatewayserver.StartGatewayServer(50051)
 
 	registerLocalJobProcessor(eventStream, jobQueue)
-	registerWorkflowProcessor(eventStream, jobQueue)
+
+	wfProcessor := registerWorkflowProcessor(eventStream, jobQueue)
 
 	// // Test sysout-exporter
 	// // go testSysoutExporter(eventStream)
@@ -38,7 +40,7 @@ func main() {
 	time.Sleep(2 * time.Second)
 	go testCreateWorkflowInstance(eventStream, "3d48d394-08e4-4858-a936-4fc7201be0a2")
 
-	// go server.StartServer(eventStream, wfProcessor)
+	go webserver.StartServer(eventStream, wfProcessor)
 
 	wg.Wait()
 }

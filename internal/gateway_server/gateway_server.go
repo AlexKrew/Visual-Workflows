@@ -2,11 +2,13 @@ package gatewayserver
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
 	"net"
 	pb "workflows/gateway"
+	"workflows/shared/shared_entities"
 
 	"google.golang.org/grpc"
 )
@@ -24,11 +26,7 @@ type GatewayServer struct {
 
 var gatewayServer GatewayServer
 
-func StartGatewayServer(port int) error {
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
-	if err != nil {
-		return err
-	}
+func StartGatewayServer(port int) (*GatewayServer, error) {
 
 	server := grpc.NewServer()
 	pb.RegisterGatewayServer(server, &Server{})
@@ -39,14 +37,9 @@ func StartGatewayServer(port int) error {
 	}
 
 	go startJobListener()
+	go startServer(server, port)
 
-	log.Printf("gateway server listening at %v", lis.Addr())
-	if err := server.Serve(lis); err != nil {
-		log.Fatalf("failed to serve gateway server: %v", err)
-		return err
-	}
-
-	return nil
+	return &gatewayServer, nil
 }
 
 func startJobListener() error {
@@ -89,10 +82,89 @@ func startJobListener() error {
 	return nil
 }
 
+func startServer(server *grpc.Server, port int) {
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+		return
+	}
+
+	log.Printf("gateway server listening at %v", lis.Addr())
+
+	if err := server.Serve(lis); err != nil {
+		log.Fatalf("failed to serve gateway server: %v", err)
+	}
+}
+
 func (gwServer *GatewayServer) keepAliveStream() {
 	// does not complete until an item is inserted into the channel
 	<-gwServer.keepAliveChan
 }
+
+func (gwServer *GatewayServer) CanExecute(jobType string) bool {
+	_, hasClient := gwServer.activateJobStreams[jobType]
+	return hasClient
+}
+
+func (gwServer *GatewayServer) Execute(job shared_entities.Job) error {
+	streams, exists := gwServer.activateJobStreams[job.Type]
+	if !exists {
+		log.Printf("[GatewayServer]: stream index out-of-bound")
+		return errors.New("no streams for jobtype")
+	}
+
+	nextStreamIndex := gwServer.roundRobinIndex[job.Type]
+	if nextStreamIndex >= len(streams) {
+		log.Printf("[GatewayServer]: stream index out-of-bound")
+		return errors.New("stream index out of bound")
+	}
+	stream := streams[nextStreamIndex]
+
+	jobInput, err := json.Marshal(job.Input)
+	if err != nil {
+		log.Printf("[GatewayServer]: failed to convert job to activatejob: %s", err.Error())
+		return err
+	}
+	response := &pb.ActivateJobResponse{
+		Job: &pb.ActivatedJob{
+			JobId:      job.ID,
+			Type:       job.Type,
+			WorkflowId: job.WorkflowID,
+			Input:      string(jobInput),
+		},
+	}
+	err = (*stream).Send(response)
+	if err != nil {
+		log.Printf("failed to send ActivateJobResponse: %s", err.Error())
+		gatewayServer.removeStream(job.Type, nextStreamIndex)
+	} else {
+		gatewayServer.increaseRoundRobin(job.Type)
+	}
+
+	return nil
+}
+
+func (gwServer *GatewayServer) removeStream(jobType string, index int) {
+	// TODO:
+}
+
+func (gwServer *GatewayServer) decreaseRoundRobind(jobType string) {
+	gwServer.roundRobinIndex[jobType]--
+
+	if gwServer.roundRobinIndex[jobType] < 0 {
+		gwServer.roundRobinIndex[jobType] = 0
+	}
+}
+
+func (gwServer *GatewayServer) increaseRoundRobin(jobType string) {
+	gwServer.roundRobinIndex[jobType]++
+
+	if gwServer.roundRobinIndex[jobType] >= len(gwServer.activateJobStreams[jobType]) {
+		gwServer.roundRobinIndex[jobType] = 0
+	}
+}
+
+// grpc service implementations
 
 func (server *Server) CheckHealth(ctx context.Context, in *pb.Ping) (*pb.Pong, error) {
 	log.Printf("Received: %v", in.GetPing())
