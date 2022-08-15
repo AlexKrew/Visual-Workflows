@@ -32,6 +32,19 @@
           }
         },
         {
+          "id": "inject1-input",
+          "identifier": "input",
+          "label": "input",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "added": false,
+          "default_value": {
+            "datatype": "STRING",
+            "value": "http://www.google.com"
+          }
+        },
+        {
           "id": "inject1-output",
           "identifier": "output",
           "label": "Output",
@@ -41,7 +54,7 @@
           "added": false,
           "default_value": {
             "datatype": "STRING",
-            "value": "http://google.com"
+            "value": ""
           }
         }
       ],

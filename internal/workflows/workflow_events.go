@@ -3,6 +3,7 @@ package workflows
 import (
 	"time"
 	"workflows/internal/utils"
+	"workflows/shared/shared_entities"
 )
 
 type WorkflowEventType = int
@@ -76,7 +77,7 @@ func NewWorkflowStoppedEvent(body WorkflowStartedEventBody) WorkflowEvent {
 // ---- Job Created ----
 type JobCreatedEventBody struct {
 	WorkflowID WorkflowID
-	Job        Job
+	Job        shared_entities.Job
 }
 
 func NewJobCreatedEvent(body JobCreatedEventBody) WorkflowEvent {
@@ -86,8 +87,8 @@ func NewJobCreatedEvent(body JobCreatedEventBody) WorkflowEvent {
 // ---- Job Completed ----
 type JobCompletedEventBody struct {
 	WorkflowID WorkflowID
-	Job        Job
-	Result     any
+	Job        shared_entities.Job
+	Result     shared_entities.JobResult
 }
 
 func NewJobCompletedEvent(body JobCompletedEventBody) WorkflowEvent {

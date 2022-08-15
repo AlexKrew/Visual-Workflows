@@ -1,4 +1,4 @@
-package workflows
+package shared_entities
 
 type MessageType uint8
 
@@ -10,7 +10,7 @@ const (
 	AnyMessageType
 )
 
-type Message struct {
+type WorkflowMessage struct {
 	DataType MessageType `json:"datatype"`
 	Value    any         `json:"value"`
 }
@@ -51,41 +51,41 @@ func MessageTypeToString(messagetype MessageType) string {
 
 /* Builder functions */
 
-func EmptyMessage() Message {
-	return Message{
+func EmptyMessage() WorkflowMessage {
+	return WorkflowMessage{
 		DataType: EmptyMessageType,
 	}
 }
 
-func StringMessage(body string) Message {
-	return Message{
+func StringMessage(body string) WorkflowMessage {
+	return WorkflowMessage{
 		DataType: StringMessageType,
 		Value:    body,
 	}
 }
 
-func BooleanMessage(body bool) Message {
-	return Message{
+func BooleanMessage(body bool) WorkflowMessage {
+	return WorkflowMessage{
 		DataType: BooleanMessageType,
 		Value:    body,
 	}
 }
 
-func NumberMessage(body int) Message {
-	return Message{
+func NumberMessage(body int) WorkflowMessage {
+	return WorkflowMessage{
 		DataType: NumberMessageType,
 		Value:    body,
 	}
 }
 
-func AnyMessage(body any) Message {
-	return Message{
+func AnyMessage(body any) WorkflowMessage {
+	return WorkflowMessage{
 		DataType: AnyMessageType,
 		Value:    body,
 	}
 }
 
 /* Helper functions */
-func (msg *Message) IsEmpty() bool {
+func (msg *WorkflowMessage) IsEmpty() bool {
 	return msg.DataType == EmptyMessageType
 }

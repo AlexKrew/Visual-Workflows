@@ -1,14 +1,11 @@
-package workflow_processor
+package job_queue
 
 import (
 	"errors"
+	"log"
 	"sync"
 	"time"
-	"workflows/internal/workflows"
-)
-
-var (
-	NEW_JOBS_BUFFER = 5
+	"workflows/shared/shared_entities"
 )
 
 type JobQueue struct {
@@ -16,33 +13,32 @@ type JobQueue struct {
 
 	// list of jobs that have to be processed.
 	// the jobs are stored inside a inverted index with the job-type as a key
-	jobs    map[string][]workflows.Job
-	NewJobs chan workflows.Job
+	jobs map[string][]shared_entities.Job
 }
 
-func ConstructJobQueue() (*JobQueue, error) {
+func NewJobQueue() (*JobQueue, error) {
 	queue := &JobQueue{
-		jobs:    make(map[string][]workflows.Job),
-		NewJobs: make(chan workflows.Job, NEW_JOBS_BUFFER),
+		jobs: make(map[string][]shared_entities.Job),
 	}
 
 	return queue, nil
 }
 
-func (queue *JobQueue) AddJob(job workflows.Job) {
+func (queue *JobQueue) AddJob(job shared_entities.Job) bool {
 	queue.lockMutex.Lock()
 	defer queue.lockMutex.Unlock()
 
-	if _, ok := queue.jobs[job.NodeType]; !ok {
-		queue.jobs[job.NodeType] = []workflows.Job{}
+	if _, ok := queue.jobs[job.Type]; !ok {
+		queue.jobs[job.Type] = []shared_entities.Job{}
 	}
 
-	queue.jobs[job.NodeType] = append(queue.jobs[job.NodeType], job)
+	queue.jobs[job.Type] = append(queue.jobs[job.Type], job)
+	log.Println("Added job", job)
 
-	queue.NewJobs <- job
+	return true
 }
 
-func (queue *JobQueue) LockJob(jobId workflows.JobID) (bool, error) {
+func (queue *JobQueue) LockJob(jobId shared_entities.JobID) (bool, error) {
 	queue.lockMutex.Lock()
 	defer queue.lockMutex.Unlock()
 
@@ -56,14 +52,14 @@ func (queue *JobQueue) LockJob(jobId workflows.JobID) (bool, error) {
 	}
 
 	job.Locked = true
-	go queue.UnlockJob(jobId, 5*time.Second)
+	go queue.UnlockJob(jobId, 10*time.Second)
 
 	// TODO: Emit Job Locked Event?
 
 	return true, nil
 }
 
-func (queue *JobQueue) UnlockJob(jobId workflows.JobID, timeout time.Duration) (bool, error) {
+func (queue *JobQueue) UnlockJob(jobId shared_entities.JobID, timeout time.Duration) (bool, error) {
 
 	// await the timeout duration
 	time.Sleep(timeout * time.Second)
@@ -84,36 +80,38 @@ func (queue *JobQueue) UnlockJob(jobId workflows.JobID, timeout time.Duration) (
 	return true, nil
 }
 
-func (queue *JobQueue) RemoveJob(jobId workflows.JobID) (workflows.Job, bool) {
+func (queue *JobQueue) RemoveJob(jobId shared_entities.JobID) (shared_entities.Job, bool) {
 	queue.lockMutex.Lock()
 	defer queue.lockMutex.Unlock()
 
+	var removedJob shared_entities.Job
+
 	job, exists := queue.JobById(jobId)
 	if !exists {
-		return workflows.Job{}, false
+		return removedJob, false
 	}
 
 	// find index of job
-	for index := range queue.jobs[job.NodeType] {
+	for index := range queue.jobs[job.Type] {
 
-		if queue.jobs[job.NodeType][index].ID == jobId {
+		if queue.jobs[job.Type][index].ID == jobId {
 
-			job := queue.jobs[job.NodeType][index]
+			job := queue.jobs[job.Type][index]
 
 			// job found -> remove job
-			jobs := []workflows.Job{}
-			jobs = append(jobs, queue.jobs[job.NodeType][:index]...)
-			jobs = append(jobs, queue.jobs[job.NodeType][index+1:]...)
-			queue.jobs[job.NodeType] = jobs
+			jobs := []shared_entities.Job{}
+			jobs = append(jobs, queue.jobs[job.Type][:index]...)
+			jobs = append(jobs, queue.jobs[job.Type][index+1:]...)
+			queue.jobs[job.Type] = jobs
 
 			return job, true
 		}
 	}
 
-	return workflows.Job{}, false
+	return removedJob, false
 }
 
-func (queue *JobQueue) JobById(id workflows.JobID) (*workflows.Job, bool) {
+func (queue *JobQueue) JobById(id shared_entities.JobID) (*shared_entities.Job, bool) {
 	for jobType := range queue.jobs {
 		for _, job := range queue.jobs[jobType] {
 			if job.ID == id {

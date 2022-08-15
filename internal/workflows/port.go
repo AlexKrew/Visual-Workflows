@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"workflows/internal/utils"
+	"workflows/shared/shared_entities"
 )
 
 type PortID = utils.UUID
@@ -12,13 +13,13 @@ type UniquePortID = string
 type Ports = []Port
 
 type Port struct {
-	ID             PortID  `json:"id"`
-	Identifier     string  `json:"identifier"`
-	Label          string  `json:"label"`
-	Datatype       string  `json:"datatype"`
-	IsInputPort    bool    `json:"is_input"`
-	IsTrigger      bool    `json:"is_trigger"`
-	DefaultMessage Message `json:"default_value"`
+	ID             PortID                          `json:"id"`
+	Identifier     string                          `json:"identifier"`
+	Label          string                          `json:"label"`
+	Datatype       string                          `json:"datatype"`
+	IsInputPort    bool                            `json:"is_input"`
+	IsTrigger      bool                            `json:"is_trigger"`
+	DefaultMessage shared_entities.WorkflowMessage `json:"default_value"`
 }
 
 func PortByID(id PortID, ports []Port) (Port, bool) {

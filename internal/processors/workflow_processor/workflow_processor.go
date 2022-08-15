@@ -3,25 +3,27 @@ package workflow_processor
 import (
 	"errors"
 	"fmt"
-	"workflows/internal/client"
+	"workflows/internal/job_queue"
 	"workflows/internal/workflows"
+	"workflows/shared/shared_entities"
 
 	"github.com/reactivex/rxgo/v2"
 )
 
 type WorkflowProcessor struct {
 	Containers map[workflows.WorkflowID]workflows.WorkflowContainer
-	JobQueue   JobQueue
 
 	EventStream *workflows.EventStream
+	jobQueue    *job_queue.JobQueue
 }
 
-func ConstructWorkflowProcessor() (*WorkflowProcessor, error) {
+func NewWorkflowProcessor(jobQueue *job_queue.JobQueue) (*WorkflowProcessor, error) {
 
 	containers := make(map[workflows.WorkflowContainerID]workflows.WorkflowContainer)
 
 	return &WorkflowProcessor{
 		Containers: containers,
+		jobQueue:   jobQueue,
 	}, nil
 }
 
@@ -127,13 +129,16 @@ func (processor *WorkflowProcessor) createJob(command workflows.WorkflowCommand)
 		return errors.New("no input for node with this id")
 	}
 
-	job := workflows.NewJob(node.Type, input, body.NodeID)
+	job := shared_entities.NewJob(node.Type, input, body.NodeID, container.ID())
+	added := processor.jobQueue.AddJob(job)
 
-	jobCreatedEvent := workflows.JobCreatedEventBody{
-		WorkflowID: body.WorkflowID,
-		Job:        job,
+	if added {
+		jobCreatedEvent := workflows.JobCreatedEventBody{
+			WorkflowID: job.WorkflowID,
+			Job:        job,
+		}
+		processor.EventStream.AddEvent(workflows.NewJobCreatedEvent(jobCreatedEvent))
 	}
-	processor.EventStream.AddEvent(workflows.NewJobCreatedEvent(jobCreatedEvent))
 
 	return nil
 }
@@ -171,7 +176,7 @@ func (processor *WorkflowProcessor) workflowReady(event workflows.WorkflowEvent)
 
 func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) {
 	body := event.Body.(workflows.JobCompletedEventBody)
-	results := body.Result.(client.JobResults)
+	results := body.Result
 
 	for _, log := range results.Logs {
 		debugEvent := workflows.NewDebugEvent(workflows.DebugEventBody{
@@ -186,10 +191,10 @@ func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) 
 		panic("workflow does not exist")
 	}
 
-	resultMessages := make(map[string]workflows.Message)
+	resultMessages := make(map[string]shared_entities.WorkflowMessage)
 	for key, msg := range results.Output {
-		resultMessages[key] = workflows.Message{
-			DataType: workflows.MessageTypeFromString(msg.Datatype),
+		resultMessages[key] = shared_entities.WorkflowMessage{
+			DataType: msg.DataType,
 			Value:    msg.Value,
 		}
 	}

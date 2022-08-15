@@ -3,7 +3,8 @@ package main
 import (
 	"sync"
 	"time"
-	gatewayserver "workflows/internal/gateway_server"
+	"workflows/internal/job_queue"
+	"workflows/internal/processors/local_job_processor"
 	"workflows/internal/processors/sysout_exporter"
 	"workflows/internal/processors/workflow_processor"
 	"workflows/internal/utils"
@@ -24,10 +25,12 @@ func main() {
 	// registerSysoutExporter(eventStream, "./logs/log.jsonl")
 
 	// // Mandatory: Workflow logic
-	wfProcessor := registerWorkflowProcessor(eventStream)
-	go gatewayserver.StartGatewayServer(50051, &wfProcessor.JobQueue)
+	jobQueue, _ := job_queue.NewJobQueue()
 
-	// time.Sleep(1 * time.Second)
+	// go gatewayserver.StartGatewayServer(50051)
+
+	registerLocalJobProcessor(eventStream, jobQueue)
+	registerWorkflowProcessor(eventStream, jobQueue)
 
 	// // Test sysout-exporter
 	// // go testSysoutExporter(eventStream)
@@ -49,14 +52,24 @@ func registerSysoutExporter(eventStream *workflows.EventStream, logfile string) 
 	return sysoutExporter
 }
 
-func registerWorkflowProcessor(eventStream *workflows.EventStream) *workflow_processor.WorkflowProcessor {
-	workflowProcessor, err := workflow_processor.ConstructWorkflowProcessor()
+func registerWorkflowProcessor(eventStream *workflows.EventStream, jobQueue *job_queue.JobQueue) *workflow_processor.WorkflowProcessor {
+	workflowProcessor, err := workflow_processor.NewWorkflowProcessor(jobQueue)
 	if err != nil {
 		panic(err)
 	}
 
 	workflowProcessor.Register(eventStream)
 	return workflowProcessor
+}
+
+func registerLocalJobProcessor(eventStream *workflows.EventStream, jobQueue *job_queue.JobQueue) *local_job_processor.LocalJobProcessor {
+	jobProcessor, err := local_job_processor.NewLocalJobProcessor(jobQueue)
+	if err != nil {
+		panic(err)
+	}
+
+	jobProcessor.Register(eventStream)
+	return jobProcessor
 }
 
 func testSysoutExporter(eventStream *workflows.EventStream) {

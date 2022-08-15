@@ -7,9 +7,7 @@ import (
 	"log"
 	"net"
 	pb "workflows/gateway"
-	"workflows/internal/processors/workflow_processor"
 
-	"github.com/goccy/go-json"
 	"google.golang.org/grpc"
 )
 
@@ -20,12 +18,13 @@ type Server struct {
 type GatewayServer struct {
 	activateJobStreams map[string][]*pb.Gateway_ActivateJobServer
 	roundRobinIndex    map[string]int
-	jobQueue           *workflow_processor.JobQueue
+
+	keepAliveChan chan any
 }
 
 var gatewayServer GatewayServer
 
-func StartGatewayServer(port int, jobQueue *workflow_processor.JobQueue) error {
+func StartGatewayServer(port int) error {
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
 		return err
@@ -37,7 +36,6 @@ func StartGatewayServer(port int, jobQueue *workflow_processor.JobQueue) error {
 	gatewayServer = GatewayServer{
 		activateJobStreams: make(map[string][]*pb.Gateway_ActivateJobServer),
 		roundRobinIndex:    make(map[string]int),
-		jobQueue:           jobQueue,
 	}
 
 	go startJobListener()
@@ -52,47 +50,48 @@ func StartGatewayServer(port int, jobQueue *workflow_processor.JobQueue) error {
 }
 
 func startJobListener() error {
-	for {
-		// blocks until a new job is emitted by the channel
-		newJob := <-gatewayServer.jobQueue.NewJobs
+	// for {
+	// 	// blocks until a new job is emitted by the channel
+	// 	newJob := <-gatewayServer.jobQueue.NewJobs
 
-		streams, exists := gatewayServer.activateJobStreams[newJob.NodeType]
-		if !exists {
-			log.Printf("no worker client for jobtype '%s' registered", newJob.NodeType)
-			// TODO: Handle?
-			continue
-		}
-		index := gatewayServer.roundRobinIndex[newJob.NodeType]
-		stream := streams[index]
+	// 	streams, exists := gatewayServer.activateJobStreams[newJob.NodeType]
+	// 	if !exists {
+	// 		log.Printf("no worker client for jobtype '%s' registered", newJob.NodeType)
+	// 		// TODO: Handle?
+	// 		continue
+	// 	}
+	// 	index := gatewayServer.roundRobinIndex[newJob.NodeType]
+	// 	stream := streams[index]
 
-		// if round-robin index is out-of-bound: reset to 0
-		if index+1 >= len(streams) {
-			gatewayServer.roundRobinIndex[newJob.NodeType] = 0
-		} else {
-			gatewayServer.roundRobinIndex[newJob.NodeType]++
-		}
+	// 	// if round-robin index is out-of-bound: reset to 0
+	// 	if index+1 >= len(streams) {
+	// 		gatewayServer.roundRobinIndex[newJob.NodeType] = 0
+	// 	} else {
+	// 		gatewayServer.roundRobinIndex[newJob.NodeType]++
+	// 	}
 
-		jobInput, err := json.Marshal(newJob.Input)
-		if err != nil {
-			log.Fatalf("failed to transform jobinput into json: %s", err.Error())
-			continue
-		}
+	// 	jobInput, err := json.Marshal(newJob.Input)
+	// 	if err != nil {
+	// 		log.Fatalf("failed to transform jobinput into json: %s", err.Error())
+	// 		continue
+	// 	}
 
-		job := &pb.ActivatedJob{
-			JobId:      newJob.ID,
-			Type:       newJob.NodeType,
-			WorkflowId: newJob.WorkflowID,
-			Input:      string(jobInput),
-		}
-		(*stream).Send(&pb.ActivateJobResponse{
-			Job: job,
-		})
-	}
+	// 	job := &pb.ActivatedJob{
+	// 		JobId:      newJob.ID,
+	// 		Type:       newJob.NodeType,
+	// 		WorkflowId: newJob.WorkflowID,
+	// 		Input:      string(jobInput),
+	// 	}
+	// 	(*stream).Send(&pb.ActivateJobResponse{
+	// 		Job: job,
+	// 	})
+	// }
+	return nil
 }
 
 func (gwServer *GatewayServer) keepAliveStream() {
-	wait := make(chan any)
-	<-wait
+	// does not complete until an item is inserted into the channel
+	<-gwServer.keepAliveChan
 }
 
 func (server *Server) CheckHealth(ctx context.Context, in *pb.Ping) (*pb.Pong, error) {

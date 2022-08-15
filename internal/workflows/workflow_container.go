@@ -3,6 +3,7 @@ package workflows
 import (
 	"fmt"
 	"workflows/internal/utils"
+	"workflows/shared/shared_entities"
 )
 
 type WorkflowContainerID = utils.UUID
@@ -81,7 +82,7 @@ func (container *WorkflowContainer) Start() {
 	}
 }
 
-func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[string]Message) {
+func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[string]shared_entities.WorkflowMessage) {
 	for portIdentifier, message := range output {
 
 		node, exists := container.Workflow.NodeByID(nodeId)
@@ -166,6 +167,8 @@ func (container *WorkflowContainer) TriggerConnectedNodes(nodeId NodeID) {
 
 func (container *WorkflowContainer) initialize() error {
 
+	fmt.Println("INIT", container.Workflow.Nodes)
+
 	messageCache, err := ConstructMessageCache(container.Workflow)
 	if err != nil {
 		return err
@@ -182,7 +185,7 @@ func (container *WorkflowContainer) initialize() error {
 	return nil
 }
 
-func (container *WorkflowContainer) InputForNodeId(nodeId NodeID) (map[NodeID]Message, bool) {
+func (container *WorkflowContainer) InputForNodeId(nodeId NodeID) (map[NodeID]shared_entities.WorkflowMessage, bool) {
 	if _, exists := container.Workflow.NodeByID(nodeId); !exists {
 		return nil, false
 	}
