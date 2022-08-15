@@ -431,10 +431,12 @@
         "default_value": {},
         "hasDefaultField": true,
         "defaultPlaceholder": "true/false"
-      },
+      }
+    ],
+    "addablePorts": [
       {
-        "id": "UI-N2-P3",
-        "label": "Children",
+        "id": "UI-N2-A1",
+        "label": "Child",
         "group_id": "",
         "added": false,
         "is_input": false,
@@ -443,8 +445,7 @@
         "hasDefaultField": false,
         "defaultPlaceholder": ""
       }
-    ],
-    "addablePorts": []
+    ]
   },
   {
     "id": "UI-N4",
@@ -475,7 +476,7 @@
         "is_trigger": false,
         "default_value": {},
         "hasDefaultField": true,
-        "defaultPlaceholder": "true/false"
+        "defaultPlaceholder": "Title"
       },
       {
         "id": "UI-N4-P3",
