@@ -1,8 +1,6 @@
 package dashboard
 
-import (
-	"workflows/internal/workflows"
-)
+import "workflows/internal/workflows"
 
 func ConfigFromWorkflow(workflow workflows.Workflow) (UIElement, bool) {
 

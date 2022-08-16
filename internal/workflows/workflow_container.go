@@ -109,6 +109,21 @@ func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[stri
 
 		for _, connPort := range connPorts {
 			container.MessageCache.SetMessage(connPort, message)
+
+			// if port belongs to dashboard node
+			// an event is created
+			connNode, _ := container.Workflow.NodeByID(connPort.NodeID)
+			connPort, _ := connNode.PortByID(connPort.PortID)
+
+			if node.IsDashboardNode {
+				valueChangedEvent := NewDashboardValueChangedEvent(DashboardValueChangedEventBody{
+					WorkflowID: container.ID(),
+					ElementID:  connNode.ID,
+					Field:      connPort.Identifier,
+					Value:      message.Value,
+				})
+				container.EventStream.AddEvent(valueChangedEvent)
+			}
 		}
 
 	}

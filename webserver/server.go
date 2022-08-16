@@ -43,10 +43,12 @@ func StartServer(eventStream *workflows.EventStream, workflowProcessor *workflow
 
 	port := 8000
 
-	events := make(chan any)
-	go registerEventsHandler(eventStream.EventsObservable, &events)
+	builderEvents := make(chan any)
+	dashboardEvents := make(chan any)
+	go registerEventsHandler(eventStream.EventsObservable, &builderEvents, &dashboardEvents)
 
-	go setupWebsocket(router, events)
+	go setupBuilderWebsocket(router, builderEvents)
+	go setupDashboardWebsocket(router, dashboardEvents)
 
 	// Register services / routes
 
@@ -87,7 +89,7 @@ func setupCORS(router *gin.Engine) {
 	))
 }
 
-func setupWebsocket(router *gin.Engine, events chan any) {
+func setupBuilderWebsocket(router *gin.Engine, events chan any) {
 	router.GET("/websocket", func(c *gin.Context) {
 		ws, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 		if err != nil {
@@ -106,7 +108,26 @@ func setupWebsocket(router *gin.Engine, events chan any) {
 	})
 }
 
-func registerEventsHandler(observable *rxgo.Observable, debugEvents *chan any) {
+func setupDashboardWebsocket(router *gin.Engine, events chan any) {
+	router.GET("/dashboard/websocket", func(c *gin.Context) {
+		ws, err := upgrader.Upgrade(c.Writer, c.Request, nil)
+		if err != nil {
+			panic(err)
+		}
+		defer ws.Close()
+
+		for ev := range events {
+
+			err = ws.WriteJSON(ev)
+			if err != nil {
+				panic(err)
+			}
+		}
+
+	})
+}
+
+func registerEventsHandler(observable *rxgo.Observable, builderEvents *chan any, dashboardEvents *chan any) {
 	(*observable).ForEach(func(i interface{}) {
 		event := i.(workflows.WorkflowEvent)
 
@@ -119,7 +140,18 @@ func registerEventsHandler(observable *rxgo.Observable, debugEvents *chan any) {
 			message["timestamp"] = event.CreatedAt
 			message["message"] = body.Value
 
-			(*debugEvents) <- message
+			(*builderEvents) <- message
+
+		case workflows.DashboardValueChanged:
+			body := event.Body.(workflows.DashboardValueChangedEventBody)
+
+			message := make(map[string]any)
+			message["workflow_id"] = body.WorkflowID
+			message["type"] = "field_updated"
+			data := make(map[string]any)
+			data["id"] = body.ElementID
+			data["field"] = body.Field
+			data["value"] = body.Value
 		}
 
 	}, func(err error) {

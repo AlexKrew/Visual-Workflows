@@ -6,6 +6,7 @@
       "id": "inject1",
       "name": "Inject",
       "type": "Inject",
+      "is_dashboard": false,
       "ports": [
         {
           "id": "inject1-trigger-in",
@@ -67,6 +68,7 @@
       "id": "http1",
       "name": "HTTP Request",
       "type": "HTTP",
+      "is_dashboard": false,
       "ports": [
         {
           "id": "http1-trigger-in",
@@ -164,6 +166,7 @@
       "id": "debug1",
       "name": "Debug",
       "type": "Debug",
+      "is_dashboard": false,
       "ports": [
         {
           "id": "debug1-trigger-in",
@@ -225,6 +228,7 @@
       "id": "Node-7d29fca7-202d-43ea-9fdb-4e10e679de82",
       "name": "Canvas",
       "type": "Canvas",
+      "is_dashboard": true,
       "ports": [
         {
           "id": "Port-c66d6eb2-e841-4416-9069-f3f918053d43",
@@ -250,6 +254,7 @@
       "id": "Node-4e29acec-6dfd-4497-886e-b338ba6c1489",
       "name": "List",
       "type": "List",
+      "is_dashboard": true,
       "ports": [
         {
           "id": "Port-df83d4fa-a1a4-442f-8812-87e40f79e48e",
@@ -299,6 +304,7 @@
       "id": "Node-d7610344-ec37-43fc-8098-cc7c2c28571b",
       "name": "Text",
       "type": "Text",
+      "is_dashboard": true,
       "ports": [
         {
           "id": "Port-956a25eb-f003-4ca3-a00f-7b8d94cbc081",
@@ -360,6 +366,7 @@
       "id": "Node-68fba2f3-8dd3-4ca5-afea-dcd693c82cb5",
       "name": "Text",
       "type": "Text",
+      "is_dashboard": true,
       "ports": [
         {
           "id": "Port-5ac5714d-ece6-440d-b98e-834a08810fc9",

@@ -27,6 +27,9 @@ const (
 
 	// Debug
 	DebugEvent
+
+	// Dashboard
+	DashboardValueChanged
 )
 
 func createWorkflowEvent(event WorkflowEventType, body any) WorkflowEvent {
@@ -103,4 +106,17 @@ type DebugEventBody struct {
 
 func NewDebugEvent(body DebugEventBody) WorkflowEvent {
 	return createWorkflowEvent(DebugEvent, body)
+}
+
+// ---- Dashboard ----
+
+type DashboardValueChangedEventBody struct {
+	WorkflowID WorkflowID
+	ElementID  string
+	Field      string
+	Value      any
+}
+
+func NewDashboardValueChangedEvent(body DashboardValueChangedEventBody) WorkflowEvent {
+	return createWorkflowEvent(DashboardValueChanged, body)
 }
