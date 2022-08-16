@@ -24,4 +24,11 @@ type UIGauge = {
   value: number;
 };
 
-export { UIList, UIText, UIElement, UIGauge };
+// API
+type UpdateField = {
+  id: string;
+  field: string;
+  value: string | number | boolean;
+} 
+
+export { UIList, UIText, UIElement, UIGauge, UpdateField };
