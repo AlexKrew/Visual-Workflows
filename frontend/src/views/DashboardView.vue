@@ -40,7 +40,7 @@ export default defineComponent({
       updateKey.value++;
     });
 
-    const connection = new WebSocket("ws://localhost:8000/websocket");
+    const connection = new WebSocket("ws://localhost:8000/dashboard/websocket");
     connection.onmessage = (event) => {
       let json: any = JSON.parse(event.data);
 
