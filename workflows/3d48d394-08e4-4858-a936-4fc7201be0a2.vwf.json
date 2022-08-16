@@ -9,11 +9,11 @@
       "ports": [
         {
           "id": "inject1-trigger-in",
+          "identifier": "",
           "label": "Trigger",
           "datatype": "",
           "is_input": true,
           "is_trigger": true,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -21,11 +21,11 @@
         },
         {
           "id": "inject1-trigger-out",
+          "identifier": "",
           "label": "Trigger",
           "datatype": "",
           "is_input": false,
           "is_trigger": true,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -38,7 +38,6 @@
           "datatype": "",
           "is_input": true,
           "is_trigger": false,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": "http://www.google.com"
@@ -51,7 +50,6 @@
           "datatype": "",
           "is_input": false,
           "is_trigger": false,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -60,8 +58,8 @@
       ],
       "ui": {
         "position": [
-          394,
-          176
+          381,
+          43
         ]
       }
     },
@@ -77,7 +75,6 @@
           "datatype": "",
           "is_input": true,
           "is_trigger": true,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -90,7 +87,6 @@
           "datatype": "",
           "is_input": false,
           "is_trigger": true,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -103,7 +99,6 @@
           "datatype": "",
           "is_input": true,
           "is_trigger": false,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": "GET"
@@ -116,7 +111,6 @@
           "datatype": "",
           "is_input": true,
           "is_trigger": false,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -129,7 +123,6 @@
           "datatype": "",
           "is_input": true,
           "is_trigger": false,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -142,7 +135,6 @@
           "datatype": "",
           "is_input": false,
           "is_trigger": false,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -155,7 +147,6 @@
           "datatype": "",
           "is_input": false,
           "is_trigger": false,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -164,8 +155,8 @@
       ],
       "ui": {
         "position": [
-          721,
-          205
+          729,
+          29
         ]
       }
     },
@@ -181,7 +172,6 @@
           "datatype": "",
           "is_input": true,
           "is_trigger": true,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -194,7 +184,6 @@
           "datatype": "",
           "is_input": false,
           "is_trigger": true,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -207,7 +196,6 @@
           "datatype": "",
           "is_input": true,
           "is_trigger": false,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -220,7 +208,6 @@
           "datatype": "",
           "is_input": false,
           "is_trigger": false,
-          "added": false,
           "default_value": {
             "datatype": "STRING",
             "value": ""
@@ -229,8 +216,204 @@
       ],
       "ui": {
         "position": [
-          1005,
-          180
+          1024,
+          20
+        ]
+      }
+    },
+    {
+      "id": "Node-7d29fca7-202d-43ea-9fdb-4e10e679de82",
+      "name": "Canvas",
+      "type": "Canvas",
+      "ports": [
+        {
+          "id": "Port-c66d6eb2-e841-4416-9069-f3f918053d43",
+          "identifier": "children",
+          "label": "Child",
+          "datatype": "",
+          "is_input": false,
+          "is_trigger": false,
+          "default_value": {
+            "datatype": "",
+            "value": null
+          }
+        }
+      ],
+      "ui": {
+        "position": [
+          380,
+          379
+        ]
+      }
+    },
+    {
+      "id": "Node-4e29acec-6dfd-4497-886e-b338ba6c1489",
+      "name": "List",
+      "type": "List",
+      "ports": [
+        {
+          "id": "Port-df83d4fa-a1a4-442f-8812-87e40f79e48e",
+          "identifier": "parent",
+          "label": "Parent",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "default_value": {
+            "datatype": "",
+            "value": null
+          }
+        },
+        {
+          "id": "Port-ce23647c-d813-46c4-ada2-e7ca043a9ad7",
+          "identifier": "is_vertical",
+          "label": "is Vertical",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "default_value": {
+            "datatype": "",
+            "value": null
+          }
+        },
+        {
+          "id": "Port-5b38da0f-87bf-4eb7-8794-45c2430c8bb5",
+          "identifier": "children",
+          "label": "Children",
+          "datatype": "",
+          "is_input": false,
+          "is_trigger": false,
+          "default_value": {
+            "datatype": "",
+            "value": null
+          }
+        }
+      ],
+      "ui": {
+        "position": [
+          729,
+          368
+        ]
+      }
+    },
+    {
+      "id": "Node-d7610344-ec37-43fc-8098-cc7c2c28571b",
+      "name": "Text",
+      "type": "Text",
+      "ports": [
+        {
+          "id": "Port-956a25eb-f003-4ca3-a00f-7b8d94cbc081",
+          "identifier": "parent",
+          "label": "Parent",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "default_value": {
+            "datatype": "",
+            "value": null
+          }
+        },
+        {
+          "id": "Port-8d10594e-110a-4df8-8c07-652dcb81683f",
+          "identifier": "is_label",
+          "label": "is Label",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "default_value": {
+            "datatype": "",
+            "value": null
+          }
+        },
+        {
+          "id": "Port-44563944-41b4-4817-9331-dbad70b22d75",
+          "identifier": "font_size",
+          "label": "Font Size",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "default_value": {
+            "datatype": "",
+            "value": null
+          }
+        },
+        {
+          "id": "Port-6c11199d-7e98-44cf-9e5d-dbe5d1fdd264",
+          "identifier": "value",
+          "label": "Value",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "default_value": {
+            "datatype": "",
+            "value": null
+          }
+        }
+      ],
+      "ui": {
+        "position": [
+          1290,
+          198
+        ]
+      }
+    },
+    {
+      "id": "Node-68fba2f3-8dd3-4ca5-afea-dcd693c82cb5",
+      "name": "Text",
+      "type": "Text",
+      "ports": [
+        {
+          "id": "Port-5ac5714d-ece6-440d-b98e-834a08810fc9",
+          "identifier": "parent",
+          "label": "Parent",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "default_value": {
+            "datatype": "",
+            "value": null
+          }
+        },
+        {
+          "id": "Port-3b10ff44-9b83-4a7e-813a-625dff04af5d",
+          "identifier": "is_lable",
+          "label": "is Label",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "default_value": {
+            "datatype": "",
+            "value": null
+          }
+        },
+        {
+          "id": "Port-c4ff380d-b7c0-4d15-9b3b-bf102d64134e",
+          "identifier": "font_size",
+          "label": "Font Size",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "default_value": {
+            "datatype": "",
+            "value": null
+          }
+        },
+        {
+          "id": "Port-f42f9f3e-40a0-4c37-acf7-e8de4d789786",
+          "identifier": "value",
+          "label": "Value",
+          "datatype": "",
+          "is_input": true,
+          "is_trigger": false,
+          "default_value": {
+            "datatype": "",
+            "value": "dont know..."
+          }
+        }
+      ],
+      "ui": {
+        "position": [
+          1286,
+          456
         ]
       }
     }
@@ -278,6 +461,50 @@
       "target": {
         "node_id": "debug1",
         "port_id": "debug1-input"
+      }
+    },
+    {
+      "id": "9f6f1188-a5d4-4e97-9263-75bacc568397",
+      "origin": {
+        "node_id": "Node-7d29fca7-202d-43ea-9fdb-4e10e679de82",
+        "port_id": "Port-c66d6eb2-e841-4416-9069-f3f918053d43"
+      },
+      "target": {
+        "node_id": "Node-4e29acec-6dfd-4497-886e-b338ba6c1489",
+        "port_id": "Port-df83d4fa-a1a4-442f-8812-87e40f79e48e"
+      }
+    },
+    {
+      "id": "91ff4d87-231c-4afe-a0f1-2cdb46104c06",
+      "origin": {
+        "node_id": "Node-4e29acec-6dfd-4497-886e-b338ba6c1489",
+        "port_id": "Port-5b38da0f-87bf-4eb7-8794-45c2430c8bb5"
+      },
+      "target": {
+        "node_id": "Node-d7610344-ec37-43fc-8098-cc7c2c28571b",
+        "port_id": "Port-956a25eb-f003-4ca3-a00f-7b8d94cbc081"
+      }
+    },
+    {
+      "id": "e451cc2d-ffdc-41b6-b13e-27c2747bb551",
+      "origin": {
+        "node_id": "http1",
+        "port_id": "http1-response-code"
+      },
+      "target": {
+        "node_id": "Node-d7610344-ec37-43fc-8098-cc7c2c28571b",
+        "port_id": "Port-6c11199d-7e98-44cf-9e5d-dbe5d1fdd264"
+      }
+    },
+    {
+      "id": "46b7bda9-7aec-476c-af91-f0be204802b8",
+      "origin": {
+        "node_id": "Node-4e29acec-6dfd-4497-886e-b338ba6c1489",
+        "port_id": "Port-5b38da0f-87bf-4eb7-8794-45c2430c8bb5"
+      },
+      "target": {
+        "node_id": "Node-68fba2f3-8dd3-4ca5-afea-dcd693c82cb5",
+        "port_id": "Port-5ac5714d-ece6-440d-b98e-834a08810fc9"
       }
     }
   ]

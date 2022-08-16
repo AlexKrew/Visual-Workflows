@@ -167,8 +167,6 @@ func (container *WorkflowContainer) TriggerConnectedNodes(nodeId NodeID) {
 
 func (container *WorkflowContainer) initialize() error {
 
-	fmt.Println("INIT", container.Workflow.Nodes)
-
 	messageCache, err := ConstructMessageCache(container.Workflow)
 	if err != nil {
 		return err

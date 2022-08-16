@@ -1,13 +1,23 @@
 package shared_entities
 
-type MessageType uint8
+type MessageType = string
 
-const (
-	EmptyMessageType MessageType = iota
-	StringMessageType
-	BooleanMessageType
-	NumberMessageType
-	AnyMessageType
+// type MessageType uint8
+
+// const (
+// 	EmptyMessageType MessageType = iota
+// 	StringMessageType
+// 	BooleanMessageType
+// 	NumberMessageType
+// 	AnyMessageType
+// )
+
+var (
+	StringMessageType  = "STRING"
+	NumberMessageType  = "NUMBER"
+	BooleanMessageType = "BOOL"
+	AnyMessageType     = "EMPTY"
+	EmptyMessageType   = "EMPTY"
 )
 
 type WorkflowMessage struct {
@@ -15,39 +25,39 @@ type WorkflowMessage struct {
 	Value    any         `json:"value"`
 }
 
-func MessageTypeFromString(messagetype string) MessageType {
-	if messagetype == "STRING" {
-		return StringMessageType
-	}
-	if messagetype == "NUMBER" {
-		return NumberMessageType
-	}
-	if messagetype == "BOOL" {
-		return BooleanMessageType
-	}
-	if messagetype == "ANY" {
-		return AnyMessageType
-	}
+// func MessageTypeFromString(messagetype string) MessageType {
+// 	if messagetype == "STRING" {
+// 		return StringMessageType
+// 	}
+// 	if messagetype == "NUMBER" {
+// 		return NumberMessageType
+// 	}
+// 	if messagetype == "BOOL" {
+// 		return BooleanMessageType
+// 	}
+// 	if messagetype == "ANY" {
+// 		return AnyMessageType
+// 	}
 
-	return EmptyMessageType
-}
+// 	return EmptyMessageType
+// }
 
-func MessageTypeToString(messagetype MessageType) string {
-	if messagetype == StringMessageType {
-		return "STRING"
-	}
-	if messagetype == NumberMessageType {
-		return "NUMBER"
-	}
-	if messagetype == BooleanMessageType {
-		return "BOOL"
-	}
-	if messagetype == AnyMessageType {
-		return "ANY"
-	}
+// func MessageTypeToString(messagetype MessageType) string {
+// 	if messagetype == StringMessageType {
+// 		return "STRING"
+// 	}
+// 	if messagetype == NumberMessageType {
+// 		return "NUMBER"
+// 	}
+// 	if messagetype == BooleanMessageType {
+// 		return "BOOL"
+// 	}
+// 	if messagetype == AnyMessageType {
+// 		return "ANY"
+// 	}
 
-	return ""
-}
+// 	return ""
+// }
 
 /* Builder functions */
 

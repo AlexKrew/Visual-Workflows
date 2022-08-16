@@ -54,6 +54,7 @@ func StartServer(eventStream *workflows.EventStream, workflowProcessor *workflow
 	registerWorkflowServices(v1)
 	registerHealthServices(v1)
 	registerEditorServices(v1)
+	registerDashboardServices(v1)
 
 	v1.GET("/test", func(c *gin.Context) {
 		c.String(200, "SUC")

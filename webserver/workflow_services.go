@@ -43,13 +43,15 @@ func updateWorkflow(c *gin.Context) {
 	err = json.Unmarshal(jsonData, &workflow)
 	if err != nil {
 		fmt.Println("ERROR", err.Error())
-		c.String(http.StatusBadRequest, "Error")
+		c.String(http.StatusBadRequest, fmt.Sprintf("Error: %s", err.Error()))
+		return
 	}
 
 	err = WFHelper.PublishChanges(workflow)
 	if err != nil {
 		fmt.Println("ERROR", err.Error())
-		c.String(http.StatusBadRequest, "Error")
+		c.String(http.StatusBadRequest, fmt.Sprintf("Error: %s", err.Error()))
+		return
 	}
 
 	c.String(http.StatusOK, "Correct")

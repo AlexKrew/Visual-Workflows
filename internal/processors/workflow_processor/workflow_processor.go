@@ -11,7 +11,7 @@ import (
 )
 
 type WorkflowProcessor struct {
-	Containers map[workflows.WorkflowID]workflows.WorkflowContainer
+	Containers map[workflows.WorkflowID]*workflows.WorkflowContainer
 
 	EventStream *workflows.EventStream
 	jobQueue    *job_queue.JobQueue
@@ -19,7 +19,7 @@ type WorkflowProcessor struct {
 
 func NewWorkflowProcessor(jobQueue *job_queue.JobQueue) (*WorkflowProcessor, error) {
 
-	containers := make(map[workflows.WorkflowContainerID]workflows.WorkflowContainer)
+	containers := make(map[workflows.WorkflowContainerID]*workflows.WorkflowContainer)
 
 	return &WorkflowProcessor{
 		Containers: containers,
@@ -106,7 +106,7 @@ func (processor *WorkflowProcessor) createWorkflowInstance(command workflows.Wor
 		return err
 	}
 
-	processor.Containers[instance.ID()] = *instance
+	processor.Containers[instance.ID()] = instance
 
 	return nil
 }
