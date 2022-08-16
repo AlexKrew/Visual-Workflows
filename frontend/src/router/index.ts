@@ -12,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
       { path: "/", redirect: { name: "home" } },
       { path: "overview", name: "home", component: IndexView },
       { path: "workflow-editor/:workflowId", name: "workflow-editor", component: WorkflowEditorView, props: true },
-      { path: "workflow-editor/:workflowId/dashboard", name: "dashboard", component: DashboardView, props: true },
+      { path: "dashboard/:workflowId/", name: "dashboard", component: DashboardView, props: true },
     ],
   },
   // {
