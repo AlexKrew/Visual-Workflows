@@ -8,11 +8,12 @@ import (
 type NodeID = utils.UUID
 
 type Node struct {
-	ID    NodeID `json:"id"`
-	Name  string `json:"name"`
-	Type  string `json:"type"`
-	Ports Ports  `json:"ports"`
-	UI    NodeUI `json:"ui"`
+	ID              NodeID `json:"id"`
+	Name            string `json:"name"`
+	Type            string `json:"type"`
+	IsDashboardNode bool   `json:"is_dashboard"`
+	Ports           Ports  `json:"ports"`
+	UI              NodeUI `json:"ui"`
 }
 
 func (node *Node) PortByID(portId PortID) (Port, bool) {

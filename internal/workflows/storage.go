@@ -39,7 +39,7 @@ func WorkflowFromFilesystem(id utils.UUID) (Workflow, error) {
 }
 
 func WorkflowToFilesystem(workflow Workflow) error {
-	filePath := fmt.Sprintf("%s/%s.test.vwf.json", pathToWorkflows, workflow.ID)
+	filePath := fmt.Sprintf("%s/%s.vwf.json", pathToWorkflows, workflow.ID)
 
 	file, _ := json.MarshalIndent(workflow, "", " ")
 

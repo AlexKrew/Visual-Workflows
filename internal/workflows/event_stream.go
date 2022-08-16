@@ -1,7 +1,7 @@
 package workflows
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/reactivex/rxgo/v2"
 )
@@ -30,12 +30,12 @@ func ConstructEventStream() *EventStream {
 }
 
 func (eventStream *EventStream) AddCommand(command WorkflowCommand) {
-	fmt.Println("Add command")
+	log.Println("Add command", command.Type)
 	eventStream.CommandChannel <- rxgo.Of(command)
 	// fmt.Println("Command added")
 }
 
 func (eventStream *EventStream) AddEvent(event WorkflowEvent) {
-	fmt.Println("Add event", event.Type)
+	log.Println("Add event", event.Type)
 	eventStream.EventChannel <- rxgo.Of(event)
 }

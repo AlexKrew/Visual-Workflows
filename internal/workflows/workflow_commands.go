@@ -3,6 +3,7 @@ package workflows
 import (
 	"time"
 	"workflows/internal/utils"
+	"workflows/shared/shared_entities"
 )
 
 type WorkflowCommandType = int
@@ -63,8 +64,8 @@ func NewStopWorkflowCommand(body StopWorkflowCommandBody) WorkflowCommand {
 
 // ---- Create Job ----
 type CreateJobCommandBody struct {
-	WorkflowInstanceID WorkflowContainerID
-	NodeID             NodeID
+	WorkflowID WorkflowID
+	NodeID     NodeID
 }
 
 func NewCreateJobCommand(body CreateJobCommandBody) WorkflowCommand {
@@ -83,8 +84,8 @@ func NewCreateJobCommand(body CreateJobCommandBody) WorkflowCommand {
 
 // ---- Complete Job ----
 type CompleteJobCommandBody struct {
-	WorflowInstanceID WorkflowContainerID
-	JobID             JobID
+	WorflowID WorkflowID
+	JobID     shared_entities.JobID
 
 	// TODO: Check if needed here
 	Output any

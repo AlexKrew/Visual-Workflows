@@ -3,6 +3,7 @@ package workflows
 import (
 	"fmt"
 	"workflows/internal/utils"
+	"workflows/shared/shared_entities"
 )
 
 type WorkflowContainerID = utils.UUID
@@ -17,30 +18,41 @@ const (
 )
 
 type WorkflowContainer struct {
-	InstanceID    WorkflowContainerID
 	EventStream   *EventStream
-	Workflow      Workflow
+	Workflow      *Workflow
 	State         ContainerState
 	MessageCache  *MessageCache
 	MessageRouter *MessageRouter
 }
 
-func ConstructWorkflowContainer(eventStream *EventStream) WorkflowContainer {
+func NewWorkflowContainer(eventStream *EventStream, workflow *Workflow) *WorkflowContainer {
 	container := WorkflowContainer{
-		InstanceID:  utils.GetNewUUID(),
 		EventStream: eventStream,
 		State:       LoadingContainer,
+		Workflow:    workflow,
 	}
 
-	return container
+	return &container
 }
 
-func (container *WorkflowContainer) Run(workflow Workflow) error {
+func WorkflowFromStorage(eventStream *EventStream, workflowId WorkflowID) (*WorkflowContainer, error) {
+	workflow, err := WorkflowFromFilesystem(workflowId)
+	if err != nil {
+		return nil, err
+	}
+
+	return NewWorkflowContainer(eventStream, &workflow), nil
+}
+
+func (container *WorkflowContainer) ID() WorkflowID {
+	return container.Workflow.ID
+}
+
+func (container *WorkflowContainer) Run(workflow *Workflow) error {
 	container.Workflow = workflow
 
 	container.EventStream.AddEvent(NewWorkflowInstanceCreatedEvent(WorkflowInstanceCreatedEventBody{
-		Workflow:   workflow,
-		InstanceID: container.InstanceID,
+		Workflow: *workflow,
 	}))
 
 	err := container.initialize()
@@ -49,7 +61,7 @@ func (container *WorkflowContainer) Run(workflow Workflow) error {
 	}
 
 	container.State = WorkflowStopped
-	container.EventStream.AddEvent(NewWorkflowReadyEvent(WorkflowReadyEventBody{InstanceID: container.InstanceID}))
+	container.EventStream.AddEvent(NewWorkflowReadyEvent(WorkflowReadyEventBody{WorkflowID: container.ID()}))
 
 	return nil
 }
@@ -57,12 +69,20 @@ func (container *WorkflowContainer) Run(workflow Workflow) error {
 func (container *WorkflowContainer) Start() {
 	for _, node := range container.Workflow.Nodes {
 		if node.Type == "Inject" {
-			container.EventStream.AddCommand(NewCreateJobCommand(CreateJobCommandBody{WorkflowInstanceID: container.InstanceID, NodeID: node.ID}))
+
+			createJobCommand := NewCreateJobCommand(
+				CreateJobCommandBody{
+					WorkflowID: container.ID(),
+					NodeID:     node.ID,
+				},
+			)
+
+			container.EventStream.AddCommand(createJobCommand)
 		}
 	}
 }
 
-func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[string]Message) {
+func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[string]shared_entities.WorkflowMessage) {
 	for portIdentifier, message := range output {
 
 		node, exists := container.Workflow.NodeByID(nodeId)
@@ -89,6 +109,21 @@ func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[stri
 
 		for _, connPort := range connPorts {
 			container.MessageCache.SetMessage(connPort, message)
+
+			// if port belongs to dashboard node
+			// an event is created
+			connNode, _ := container.Workflow.NodeByID(connPort.NodeID)
+			connPort, _ := connNode.PortByID(connPort.PortID)
+
+			if node.IsDashboardNode {
+				valueChangedEvent := NewDashboardValueChangedEvent(DashboardValueChangedEventBody{
+					WorkflowID: container.ID(),
+					ElementID:  connNode.ID,
+					Field:      connPort.Identifier,
+					Value:      message.Value,
+				})
+				container.EventStream.AddEvent(valueChangedEvent)
+			}
 		}
 
 	}
@@ -114,7 +149,7 @@ func (container *WorkflowContainer) TriggerConnectedNodes(nodeId NodeID) {
 
 	triggerNodes := container.MessageRouter.connectedPorts[triggerAddr.UniquePortID()]
 	for _, node := range triggerNodes {
-		container.EventStream.AddCommand(NewCreateJobCommand(CreateJobCommandBody{WorkflowInstanceID: container.InstanceID, NodeID: node.NodeID}))
+		container.EventStream.AddCommand(NewCreateJobCommand(CreateJobCommandBody{NodeID: node.NodeID, WorkflowID: container.ID()}))
 	}
 }
 
@@ -147,12 +182,12 @@ func (container *WorkflowContainer) TriggerConnectedNodes(nodeId NodeID) {
 
 func (container *WorkflowContainer) initialize() error {
 
-	messageCache, err := ConstructMessageCache(&container.Workflow)
+	messageCache, err := ConstructMessageCache(container.Workflow)
 	if err != nil {
 		return err
 	}
 
-	messageRouter, err := ConstructMessageRouter(&container.Workflow)
+	messageRouter, err := ConstructMessageRouter(container.Workflow)
 	if err != nil {
 		return err
 	}
@@ -163,7 +198,7 @@ func (container *WorkflowContainer) initialize() error {
 	return nil
 }
 
-func (container *WorkflowContainer) InputForNodeId(nodeId NodeID) (map[NodeID]Message, bool) {
+func (container *WorkflowContainer) InputForNodeId(nodeId NodeID) (map[NodeID]shared_entities.WorkflowMessage, bool) {
 	if _, exists := container.Workflow.NodeByID(nodeId); !exists {
 		return nil, false
 	}
