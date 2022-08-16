@@ -1,5 +1,5 @@
 <template>
-  <div :class="data.is_vertical ? 'flex flex-col space-y-5' : 'flex flex-row'">
+  <div :class="fields.is_vertical ? 'flex flex-col space-y-5' : 'flex flex-row'">
     <div v-for="child in obj.children" :key="child.data.id" class="flex-auto">
       <component :is="child.data.type" :obj="child"></component>
     </div>
@@ -26,14 +26,10 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const data = ref<UIList>(props.obj.data as UIList);
-    
-    onMounted(() => {
-      console.log(props.obj.data.id)
-    });
+    const fields = ref<UIList>(props.obj.data.fields as UIList);
 
     return {
-      data,
+      fields,
     };
   },
 });

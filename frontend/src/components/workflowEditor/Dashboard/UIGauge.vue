@@ -1,13 +1,13 @@
 <template>
   <div>
     <h2 class="font-bold">
-    {{data.label}}:
+    {{fields.label}}:
     </h2>
     <VueGauge
       :options="{
-        centralLabel: data.value.toString(),
-        needleValue: getValueInPercent(data.min_value, data.max_value, data.value),
-        rangeLabel: [data.min_value.toString(), data.max_value.toString()],
+        centralLabel: fields.value.toString(),
+        needleValue: getValueInPercent(fields.min_value, fields.max_value, fields.value),
+        rangeLabel: [fields.min_value.toString(), fields.max_value.toString()],
         arcDelimiters: [99.9]
       }"
       class="min-w"
@@ -34,18 +34,14 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
-    const data = ref<UIGauge>(props.obj.data as UIGauge);
-
-    onMounted(() => {
-      console.log("Gauge");
-    });
+    const fields = ref<UIGauge>(props.obj.data.fields as UIGauge);
 
     function getValueInPercent(min: number, max: number, value: number):number {
       return (value -min)/(max-min)*100
     }
 
     return {
-      data,
+      fields,
       getValueInPercent
     };
   },

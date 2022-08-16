@@ -7,7 +7,6 @@
 <script lang="ts">
 import { defineComponent, onBeforeMount, onMounted, ref } from "vue";
 import testDashboard from "../test/testDashboard.json";
-import DElement from "@/models/Data/Dashboard/DashboardElement";
 import DashboardElement from "@/models/Data/Dashboard/DashboardElement";
 import text_element from "@/components/workflowEditor/Dashboard/UIText.vue";
 import list_element from "@/components/workflowEditor/Dashboard/UIList.vue";
@@ -19,7 +18,7 @@ export default defineComponent({
     const canvas = ref<DashboardElement>();
 
     onBeforeMount(() => {
-      canvas.value = new DElement(JSON.parse(JSON.stringify(testDashboard.canvas)));
+      canvas.value = new DashboardElement(JSON.parse(JSON.stringify(testDashboard.canvas)));
     });
 
     return {

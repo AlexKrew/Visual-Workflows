@@ -1,10 +1,10 @@
 <template>
   <div class="">
-    <span v-if="data.label" class="p-2" :class="'text-[' + data.font_size + 'px]'">
-      {{ data.label }}
+    <span v-if="fields.label" class="p-2" :class="'text-[' + fields.font_size + 'px]'">
+      {{ fields.label }}
     </span>
-    <span v-if="data.value" class="p-2 border border-black rounded-lg">
-      {{ data.value }}
+    <span v-if="fields.value" class="p-2 border border-black rounded-lg">
+      {{ fields.value }}
     </span>
   </div>
 </template>
@@ -22,10 +22,10 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
-    const data = ref<UIText>(props.obj.data as UIText);
+    const fields = ref<UIText>(props.obj.data.fields as UIText);
 
     return {
-      data,
+      fields,
     };
   },
 });
