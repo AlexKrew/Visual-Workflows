@@ -1,3 +1,5 @@
+import { Datatype } from "./DataTypes";
+
 type WorkflowType = {
   id: string;
   name: string;
@@ -19,6 +21,8 @@ type NodeType = {
 
 type PortType = {
   id: string;
+  identifier: string;
+  datatype: Datatype;
   group_id: string;
   label: string;
   added: boolean;
