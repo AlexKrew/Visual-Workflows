@@ -90,7 +90,7 @@ func setupCORS(router *gin.Engine) {
 }
 
 func setupBuilderWebsocket(router *gin.Engine, events chan any) {
-	router.GET("/websocket", func(c *gin.Context) {
+	router.GET("/workflow/websocket", func(c *gin.Context) {
 		ws, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 		if err != nil {
 			panic(err)
@@ -140,6 +140,7 @@ func registerEventsHandler(observable *rxgo.Observable, builderEvents *chan any,
 			message["timestamp"] = event.CreatedAt
 			message["message"] = body.Value
 
+			fmt.Println("PUBLISH DASHBOARD EVENT")
 			(*builderEvents) <- message
 
 		case workflows.DashboardValueChanged:

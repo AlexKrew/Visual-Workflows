@@ -34,6 +34,10 @@ func (helper *WorkflowHelper) CreateNewWorkflow(name string) {
 	helper.workflowProcessor.EventStream.AddCommand(workflows.NewCreateWorkflowInstanceCommand(command))
 }
 
+func (helper *WorkflowHelper) StartWorkflow(workflowId workflows.WorkflowID) error {
+	return helper.workflowProcessor.StartWorkflow(workflowId)
+}
+
 func (helper *WorkflowHelper) PublishChanges(workflow workflows.Workflow) error {
 
 	err := workflows.WorkflowToFilesystem(workflow)

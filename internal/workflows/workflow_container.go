@@ -67,6 +67,8 @@ func (container *WorkflowContainer) Run(workflow *Workflow) error {
 }
 
 func (container *WorkflowContainer) Start() {
+	fmt.Println("TRIGGER START EVENT")
+
 	for _, node := range container.Workflow.Nodes {
 		if node.Type == "Inject" {
 
@@ -76,7 +78,6 @@ func (container *WorkflowContainer) Start() {
 					NodeID:     node.ID,
 				},
 			)
-
 			container.EventStream.AddCommand(createJobCommand)
 		}
 	}
