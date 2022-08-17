@@ -10,6 +10,7 @@
     "ports": [
       {
         "id": "N1-T1",
+        "identifier": "trigger_in",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -22,6 +23,7 @@
       {
         "id": "N1-T2",
         "label": "Trigger Out",
+        "identifier": "trigger_out",
         "group_id": "",
         "added": false,
         "is_input": false,
@@ -32,6 +34,7 @@
       },
       {
         "id": "N1-P1",
+        "identifier": "method",
         "label": "Method",
         "group_id": "",
         "added": false,
@@ -45,6 +48,7 @@
       },
       {
         "id": "N1-P2",
+        "identifier": "url",
         "label": "URL",
         "group_id": "",
         "added": false,
@@ -58,6 +62,7 @@
       },
       {
         "id": "N1-P3",
+        "identifier": "payload",
         "label": "Payload",
         "group_id": "",
         "added": false,
@@ -71,6 +76,7 @@
       },
       {
         "id": "N1-P4",
+        "identifier": "response",
         "label": "Response",
         "group_id": "",
         "added": false,
@@ -84,6 +90,7 @@
       },
       {
         "id": "N1-P5",
+        "identifier": "response_code",
         "label": "Response Code",
         "group_id": "",
         "added": false,
@@ -109,6 +116,7 @@
     "ports": [
       {
         "id": "N2-T1",
+        "identifier": "trigger_in",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -120,6 +128,7 @@
       },
       {
         "id": "N2-T2",
+        "identifier": "trigger_out",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -131,6 +140,7 @@
       },
       {
         "id": "N2-P1",
+        "identifier": "check",
         "label": "Check",
         "group_id": "",
         "added": false,
@@ -146,6 +156,7 @@
     "addablePorts": [
       {
         "id": "N2-AP1",
+        "identifier": "operator",
         "label": "Operator",
         "group_id": "",
         "added": false,
@@ -159,6 +170,7 @@
       },
       {
         "id": "N2-AP2",
+        "identifier": "value",
         "label": "Value",
         "group_id": "",
         "added": false,
@@ -172,6 +184,7 @@
       },
       {
         "id": "N2-AP3",
+        "identifier": "in",
         "label": "In",
         "group_id": "",
         "added": false,
@@ -185,6 +198,7 @@
       },
       {
         "id": "N2-AP4",
+        "identifier": "out",
         "label": "Out",
         "group_id": "",
         "added": false,
@@ -209,6 +223,7 @@
     "ports": [
       {
         "id": "N3-T1",
+        "identifier": "trigger_in",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -220,6 +235,7 @@
       },
       {
         "id": "N3-T2",
+        "identifier": "trigger_out",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -231,6 +247,7 @@
       },
       {
         "id": "N3-P1",
+        "identifier": "input",
         "label": "Input",
         "group_id": "",
         "added": false,
@@ -244,6 +261,7 @@
       },
       {
         "id": "N3-P2",
+        "identifier": "output",
         "label": "Output",
         "group_id": "",
         "added": false,
@@ -269,6 +287,7 @@
     "ports": [
       {
         "id": "N4-T1",
+        "identifier": "trigger_in",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -280,6 +299,7 @@
       },
       {
         "id": "N4-T2",
+        "identifier": "trigger_out",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -291,6 +311,7 @@
       },
       {
         "id": "N4-P1",
+        "identifier": "email",
         "label": "E-Mail",
         "group_id": "",
         "added": false,
@@ -304,6 +325,7 @@
       },
       {
         "id": "N4-P2",
+        "identifier": "message",
         "label": "Message",
         "group_id": "",
         "added": false,
@@ -329,6 +351,7 @@
     "ports": [
       {
         "id": "N5-T1",
+        "identifier": "trigger_in",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -340,6 +363,7 @@
       },
       {
         "id": "N5-T2",
+        "identifier": "trigger_out",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -351,6 +375,7 @@
       },
       {
         "id": "N5-P1",
+        "identifier": "input",
         "label": "Input",
         "group_id": "",
         "added": false,
@@ -364,6 +389,7 @@
       },
       {
         "id": "N5-P2",
+        "identifier": "output",
         "label": "Output",
         "group_id": "",
         "added": false,
@@ -389,6 +415,7 @@
     "ports": [
       {
         "id": "UI-N1-P1",
+        "identifier": "children",
         "label": "Child",
         "group_id": "",
         "added": false,
@@ -412,6 +439,7 @@
     "ports": [
       {
         "id": "UI-N2-P1",
+        "identifier": "parent",
         "label": "Parent",
         "group_id": "",
         "added": false,
@@ -423,6 +451,7 @@
       },
       {
         "id": "UI-N2-P2",
+        "identifier": "is_vertical",
         "label": "is Vertical",
         "group_id": "",
         "added": false,
@@ -436,6 +465,7 @@
     "addablePorts": [
       {
         "id": "UI-N2-A1",
+        "identifier": "children",
         "label": "Child",
         "group_id": "",
         "added": false,
@@ -458,6 +488,7 @@
     "ports": [
       {
         "id": "UI-N4-P1",
+        "identifier": "parent",
         "label": "Parent",
         "group_id": "",
         "added": false,
@@ -469,6 +500,7 @@
       },
       {
         "id": "UI-N4-P2",
+        "identifier": "label",
         "label": "Label",
         "group_id": "",
         "added": false,
@@ -480,6 +512,7 @@
       },
       {
         "id": "UI-N4-P3",
+        "identifier": "font_size",
         "label": "Font Size",
         "group_id": "",
         "added": false,
@@ -491,6 +524,7 @@
       },
       {
         "id": "UI-N4-P4",
+        "identifier": "value",
         "label": "Value",
         "group_id": "",
         "added": false,
@@ -514,6 +548,7 @@
     "ports": [
       {
         "id": "UI-N5-P1",
+        "identifier": "parent",
         "label": "Parent",
         "group_id": "",
         "added": false,
@@ -525,6 +560,7 @@
       },
       {
         "id": "UI-N5-P2",
+        "identifier": "label",
         "label": "Label",
         "group_id": "",
         "added": false,
@@ -536,6 +572,7 @@
       },
       {
         "id": "UI-N5-P3",
+        "identifier": "min_value",
         "label": "Min Value",
         "group_id": "",
         "added": false,
@@ -547,6 +584,7 @@
       },
       {
         "id": "UI-N5-P4",
+        "identifier": "max_value",
         "label": "Max Value",
         "group_id": "",
         "added": false,
@@ -558,6 +596,7 @@
       },
       {
         "id": "UI-N5-P4",
+        "identifier": "value",
         "label": "Value",
         "group_id": "",
         "added": false,
