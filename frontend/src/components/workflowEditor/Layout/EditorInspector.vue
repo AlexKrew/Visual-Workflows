@@ -2,7 +2,10 @@
   <div class="absolute w-2/12 z-10 top-20 right-3 h-full">
     <Card class="p-3 mb-3">
       <div class="w-full flex">
-        <button @click="onDeploy" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-1 mr-3">
+        <button
+          @click="onDeploy"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-1 mr-3"
+        >
           <p class="text-center">Save</p>
         </button>
         <button @click="onStart" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex-1">
@@ -52,14 +55,15 @@ export default {
     });
 
     async function onDeploy() {
-      await workflowInstancesService
-        .updateWorkflow(GridData.workflow.id, JSON.parse(JSON.stringify(GridData.workflow)));
+      await workflowInstancesService.updateWorkflow(
+        GridData.workflow.id,
+        JSON.parse(JSON.stringify(GridData.workflow))
+      );
     }
 
     async function onStart() {
-      await onDeploy();
-      await workflowInstancesService
-        .startWorkflow(GridData.workflow.id);
+      // await onDeploy();
+      await workflowInstancesService.startWorkflow(GridData.workflow.id);
     }
 
     return {
