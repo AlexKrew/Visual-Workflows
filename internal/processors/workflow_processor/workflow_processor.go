@@ -43,7 +43,6 @@ func (processor *WorkflowProcessor) StartWorkflow(workflowId workflows.WorkflowI
 	if !exists {
 		return errors.New("failed to start workflow. workflow does not exist")
 	}
-
 	container.Start()
 
 	return nil
@@ -175,6 +174,8 @@ func (processor *WorkflowProcessor) workflowReady(event workflows.WorkflowEvent)
 }
 
 func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) {
+
+	fmt.Println("JOB COMPLETED")
 	body := event.Body.(workflows.JobCompletedEventBody)
 	results := body.Result
 

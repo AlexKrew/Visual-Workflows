@@ -34,7 +34,7 @@ export default defineComponent({
       updateKey.value++;
     });
 
-    const connection = new WebSocket("ws://localhost:8000/websocket");
+    const connection = new WebSocket("ws://localhost:8000/workflow/websocket");
     connection.onmessage = (event) => {
       let json: any = JSON.parse(event.data);
 
