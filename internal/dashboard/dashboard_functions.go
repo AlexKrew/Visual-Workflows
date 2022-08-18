@@ -16,7 +16,7 @@ func ConfigFromWorkflow(workflow workflows.Workflow) (UIElement, bool) {
 
 func findCanvasNode(nodes []workflows.Node) (workflows.Node, bool) {
 	for _, node := range nodes {
-		if node.Type == "Canvas" {
+		if node.Type == "UICanvas" {
 			return node, true
 		}
 	}
