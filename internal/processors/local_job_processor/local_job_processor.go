@@ -76,6 +76,8 @@ func (processor *LocalJobProcessor) registerEventsHandler(observable *rxgo.Obser
 
 func (processor *LocalJobProcessor) jobCreated(event workflows.WorkflowEvent) {
 
+	// log.Println("JobCreated")
+
 	body := event.Body.(workflows.JobCreatedEventBody)
 	job := body.Job
 
@@ -96,12 +98,16 @@ func (processor *LocalJobProcessor) jobCreated(event workflows.WorkflowEvent) {
 		return
 	}
 
+	// log.Println("JobLocked")
+
 	// this processor successfully locked the job,
 	// so it is allowed to execute it
 	result, err := processor.jobManager.Execute(job)
 	if err != nil {
 		log.Printf("failed to execute job: %s", err.Error())
 	}
+
+	// log.Println("JobExecuted")
 
 	jobCompletedEvent := workflows.NewJobCompletedEvent(workflows.JobCompletedEventBody{
 		WorkflowID: job.WorkflowID,

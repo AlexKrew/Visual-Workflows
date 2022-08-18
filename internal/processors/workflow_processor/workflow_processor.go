@@ -175,7 +175,6 @@ func (processor *WorkflowProcessor) workflowReady(event workflows.WorkflowEvent)
 
 func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) {
 
-	fmt.Println("JOB COMPLETED")
 	body := event.Body.(workflows.JobCompletedEventBody)
 	results := body.Result
 

@@ -25,6 +25,9 @@ const (
 	JobCreated
 	JobCompleted
 
+	// CronJobs
+	CronTrigger
+
 	// Debug
 	DebugEvent
 
@@ -106,6 +109,16 @@ type DebugEventBody struct {
 
 func NewDebugEvent(body DebugEventBody) WorkflowEvent {
 	return createWorkflowEvent(DebugEvent, body)
+}
+
+// ---- CronJob ----
+type CronTriggerBody struct {
+	WorkflowID WorkflowID
+	NodeID     NodeID
+}
+
+func NewCronTriggerEvent(body CronTriggerBody) WorkflowEvent {
+	return createWorkflowEvent(CronTrigger, body)
 }
 
 // ---- Dashboard ----
