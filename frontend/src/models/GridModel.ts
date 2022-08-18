@@ -27,6 +27,7 @@ class GridModel extends EditorComponent {
     this.edges = [];
     this.data.edges.forEach((edge) => {
       this.edges.push(new EdgeModel(edge));
+      GridData.grid.getPortByID(edge.target.port_id)?.setDefaultFieldHidden(true);
     });
   }
 
