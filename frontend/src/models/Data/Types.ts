@@ -35,6 +35,7 @@ type PortType = {
   hasDefaultField: boolean;
   defaultPlaceholder: string;
   defaultFieldHidden: boolean;
+  options: string[];
 };
 
 type EdgeType = {

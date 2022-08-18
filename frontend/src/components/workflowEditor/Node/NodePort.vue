@@ -49,6 +49,14 @@
         :style="[{ resize: 'none', height: textAreaHeight + 'px', minHeight: '24px' }]"
       ></textarea>
     </div>
+
+    <!-- Select -->
+    <div v-if="portModel.data.options" class="px-2 pb-3">
+      <select class="bg-gray-200 w-full px-1" v-model="selectValue">
+        <option disabled value>Select Method</option>
+        <option v-for="option in portModel.data.options" :key="option">{{ option }}</option>
+      </select>
+    </div>
   </div>
 </template>
 
@@ -82,12 +90,14 @@ export default defineComponent({
     const textAreaHeight = ref(24);
     const portColor = ref<string>(DatatypeColors[props.portModel.data.datatype]);
 
+    const selectValue = ref<string>("");
+
     const node = props.portModel.parent as NodeModel;
     const grid = props.portModel.parent?.parent as GridModel;
 
     onMounted(() => {
       if (!props.portModel.parent?.parent) return;
-      if (!portColor.value) portColor.value = DatatypeColors[Datatype.any]  // set Default color for old workflows TODO delete
+      if (!portColor.value) portColor.value = DatatypeColors[Datatype.any]; // set Default color for old workflows TODO delete
       setPortPos();
       interact(`#${props.portModel.id}`)
         .draggable({})
@@ -121,6 +131,10 @@ export default defineComponent({
           if (oldHeight != newHeight) emitter.emit("PortsUpdatePos", props.portModel.parent as NodeModel);
         }
       });
+    });
+
+    watch(selectValue, () => {
+      props.portModel.setDefaultValue(selectValue.value);
     });
 
     // Init Port Pos
@@ -169,11 +183,7 @@ export default defineComponent({
       const portIn = props.portModel;
       const portOut = grid.getPortByID(event.relatedTarget.id);
 
-      if (
-        portOut &&
-        portIn.data.is_input &&
-        Datatypes.allowedConnection(portOut.data.datatype, portIn.data.datatype)
-      ) {
+      if (portOut && portIn.data.is_input && Datatypes.allowedConnection(portOut.data.datatype, portIn.data.datatype)) {
         // Connected to an Input
         const connection = grid.getTmpEdge();
         // Connected Port Found
@@ -204,6 +214,7 @@ export default defineComponent({
       textAreaRef,
       textAreaValue,
       textAreaHeight,
+      selectValue,
       portColor,
     };
   },

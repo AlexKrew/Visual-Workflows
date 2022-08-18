@@ -47,7 +47,8 @@
           "value": ""
         },
         "hasDefaultField": false,
-        "defaultPlaceholder": ""
+        "defaultPlaceholder": "",
+        "options": ["GET", "POST", "PATCH"]
       },
       {
         "id": "N1-P2",
