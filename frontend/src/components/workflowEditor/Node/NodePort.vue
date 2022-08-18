@@ -22,10 +22,11 @@
         v-else
         ref="portRef"
         :id="portModel.id"
-        class="circle bg-blue-700 absolute transform translate-y-1"
+        class="circle absolute transform translate-y-1"
         :class="{ right: '0px' }"
         :style="[
           { width: portModel.portSize + 'px', height: portModel.portSize + 'px' },
+          { backgroundColor: portColor },
           portModel.data.is_input
             ? 'left: -' + portModel.portSize / 2 + 'px;'
             : 'right: -' + portModel.portSize / 2 + 'px;',
@@ -63,6 +64,7 @@ import { defineComponent, nextTick, onMounted, onUnmounted, ref, watch } from "v
 import { emitter } from "@/components/util/Emittery";
 import GridData from "@/models/Data/GridData";
 import { EdgeType } from "@/models/Data/Types";
+import { Datatype, DatatypeColors, Datatypes } from "@/models/Data/DataTypes";
 
 export default defineComponent({
   components: {},
@@ -78,12 +80,14 @@ export default defineComponent({
 
     const textAreaValue = ref(props.portModel.data.default_value.value);
     const textAreaHeight = ref(24);
+    const portColor = ref<string>(DatatypeColors[props.portModel.data.datatype]);
 
     const node = props.portModel.parent as NodeModel;
     const grid = props.portModel.parent?.parent as GridModel;
 
     onMounted(() => {
       if (!props.portModel.parent?.parent) return;
+      if (!portColor.value) portColor.value = DatatypeColors[Datatype.any]  // set Default color for old workflows TODO delete
       setPortPos();
       interact(`#${props.portModel.id}`)
         .draggable({})
@@ -160,28 +164,34 @@ export default defineComponent({
     // event.target         = the Element on which it gets dropped
     // event.relatedTarget  = the Element which dropped
     function onDrop(event: InteractEvent) {
-      if (!grid) return;
+      if (!grid || !event.relatedTarget) return;
 
-      if (grid.getPortByID(event.target.id)?.data.is_input) {
+      const portIn = props.portModel;
+      const portOut = grid.getPortByID(event.relatedTarget.id);
+
+      if (
+        portOut &&
+        portIn.data.is_input &&
+        Datatypes.allowedConnection(portOut.data.datatype, portIn.data.datatype)
+      ) {
+        // Connected to an Input
         const connection = grid.getTmpEdge();
-        const port = grid.getPortByID(event.target.id);
-        if (port) {
-          connection.setPortIn(port);
+        // Connected Port Found
+        connection.setPortIn(portIn);
 
-          // Check if this connection is a duplicate
-          let edge: EdgeType[] = GridData.grid.data.edges.filter(
-            (edge) =>
-              edge.origin.port_id == connection.data.origin.port_id &&
-              edge.target.port_id == connection.data.target.port_id
-          );
-          if (edge.length > 1) {
-            grid.resetTmp(true);
-          } else {
-
-            // Save Connection
-            port.setDefaultFieldHidden(true);
-            grid.resetTmp();
-          }
+        // Check if this connection is a duplicate
+        let edge: EdgeType[] = GridData.grid.data.edges.filter(
+          (edge) =>
+            edge.origin.port_id == connection.data.origin.port_id &&
+            edge.target.port_id == connection.data.target.port_id
+        );
+        if (edge.length > 1) {
+          // Edge is Duplicate -> Delete
+          grid.resetTmp(true);
+        } else {
+          // Save Edge
+          portIn.setDefaultFieldHidden(true);
+          grid.resetTmp();
         }
       } else {
         grid.resetTmp(true);
@@ -194,6 +204,7 @@ export default defineComponent({
       textAreaRef,
       textAreaValue,
       textAreaHeight,
+      portColor,
     };
   },
 });

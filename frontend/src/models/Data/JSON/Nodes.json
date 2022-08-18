@@ -11,6 +11,7 @@
       {
         "id": "N1-T1",
         "identifier": "trigger_in",
+        "datatype": "trigger",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -23,6 +24,7 @@
       {
         "id": "N1-T2",
         "label": "Trigger Out",
+        "datatype": "trigger",
         "identifier": "trigger_out",
         "group_id": "",
         "added": false,
@@ -35,6 +37,7 @@
       {
         "id": "N1-P1",
         "identifier": "method",
+        "datatype": "string",
         "label": "Method",
         "group_id": "",
         "added": false,
@@ -49,6 +52,7 @@
       {
         "id": "N1-P2",
         "identifier": "url",
+        "datatype": "string",
         "label": "URL",
         "group_id": "",
         "added": false,
@@ -63,6 +67,7 @@
       {
         "id": "N1-P3",
         "identifier": "payload",
+        "datatype": "string",
         "label": "Payload",
         "group_id": "",
         "added": false,
@@ -77,6 +82,7 @@
       {
         "id": "N1-P4",
         "identifier": "response",
+        "datatype": "string",
         "label": "Response",
         "group_id": "",
         "added": false,
@@ -91,6 +97,7 @@
       {
         "id": "N1-P5",
         "identifier": "response_code",
+        "datatype": "number",
         "label": "Response Code",
         "group_id": "",
         "added": false,
@@ -117,6 +124,7 @@
       {
         "id": "N2-T1",
         "identifier": "trigger_in",
+        "datatype": "trigger",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -129,6 +137,7 @@
       {
         "id": "N2-T2",
         "identifier": "trigger_out",
+        "datatype": "trigger",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -141,6 +150,7 @@
       {
         "id": "N2-P1",
         "identifier": "check",
+        "datatype": "any",
         "label": "Check",
         "group_id": "",
         "added": false,
@@ -157,6 +167,7 @@
       {
         "id": "N2-AP1",
         "identifier": "operator",
+        "datatype": "string",
         "label": "Operator",
         "group_id": "",
         "added": false,
@@ -171,6 +182,7 @@
       {
         "id": "N2-AP2",
         "identifier": "value",
+        "datatype": "any",
         "label": "Value",
         "group_id": "",
         "added": false,
@@ -185,6 +197,7 @@
       {
         "id": "N2-AP3",
         "identifier": "in",
+        "datatype": "any",
         "label": "In",
         "group_id": "",
         "added": false,
@@ -199,6 +212,7 @@
       {
         "id": "N2-AP4",
         "identifier": "out",
+        "datatype": "any",
         "label": "Out",
         "group_id": "",
         "added": false,
@@ -224,6 +238,7 @@
       {
         "id": "N3-T1",
         "identifier": "trigger_in",
+        "datatype": "trigger",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -236,6 +251,7 @@
       {
         "id": "N3-T2",
         "identifier": "trigger_out",
+        "datatype": "trigger",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -248,6 +264,7 @@
       {
         "id": "N3-P1",
         "identifier": "input",
+        "datatype": "any",
         "label": "Input",
         "group_id": "",
         "added": false,
@@ -262,6 +279,7 @@
       {
         "id": "N3-P2",
         "identifier": "output",
+        "datatype": "any",
         "label": "Output",
         "group_id": "",
         "added": false,
@@ -288,6 +306,7 @@
       {
         "id": "N4-T1",
         "identifier": "trigger_in",
+        "datatype": "trigger",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -300,6 +319,7 @@
       {
         "id": "N4-T2",
         "identifier": "trigger_out",
+        "datatype": "trigger",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -312,6 +332,7 @@
       {
         "id": "N4-P1",
         "identifier": "email",
+        "datatype": "string",
         "label": "E-Mail",
         "group_id": "",
         "added": false,
@@ -326,6 +347,7 @@
       {
         "id": "N4-P2",
         "identifier": "message",
+        "datatype": "string",
         "label": "Message",
         "group_id": "",
         "added": false,
@@ -352,6 +374,7 @@
       {
         "id": "N5-T1",
         "identifier": "trigger_in",
+        "datatype": "trigger",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -364,6 +387,7 @@
       {
         "id": "N5-T2",
         "identifier": "trigger_out",
+        "datatype": "trigger",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -376,6 +400,7 @@
       {
         "id": "N5-P1",
         "identifier": "input",
+        "datatype": "any",
         "label": "Input",
         "group_id": "",
         "added": false,
@@ -390,6 +415,7 @@
       {
         "id": "N5-P2",
         "identifier": "output",
+        "datatype": "any",
         "label": "Output",
         "group_id": "",
         "added": false,
@@ -416,6 +442,7 @@
       {
         "id": "UI-N1-P1",
         "identifier": "children",
+        "datatype": "ui",
         "label": "Child",
         "group_id": "",
         "added": false,
@@ -440,6 +467,7 @@
       {
         "id": "UI-N2-P1",
         "identifier": "parent",
+        "datatype": "ui",
         "label": "Parent",
         "group_id": "",
         "added": false,
@@ -452,6 +480,7 @@
       {
         "id": "UI-N2-P2",
         "identifier": "is_vertical",
+        "datatype": "bool",
         "label": "is Vertical",
         "group_id": "",
         "added": false,
@@ -466,6 +495,7 @@
       {
         "id": "UI-N2-A1",
         "identifier": "children",
+        "datatype": "ui",
         "label": "Child",
         "group_id": "",
         "added": false,
@@ -489,6 +519,7 @@
       {
         "id": "UI-N4-P1",
         "identifier": "parent",
+        "datatype": "ui",
         "label": "Parent",
         "group_id": "",
         "added": false,
@@ -501,6 +532,7 @@
       {
         "id": "UI-N4-P2",
         "identifier": "label",
+        "datatype": "string",
         "label": "Label",
         "group_id": "",
         "added": false,
@@ -513,6 +545,7 @@
       {
         "id": "UI-N4-P3",
         "identifier": "font_size",
+        "datatype": "number",
         "label": "Font Size",
         "group_id": "",
         "added": false,
@@ -525,6 +558,7 @@
       {
         "id": "UI-N4-P4",
         "identifier": "value",
+        "datatype": "string",
         "label": "Value",
         "group_id": "",
         "added": false,
@@ -549,6 +583,7 @@
       {
         "id": "UI-N5-P1",
         "identifier": "parent",
+        "datatype": "ui",
         "label": "Parent",
         "group_id": "",
         "added": false,
@@ -561,6 +596,7 @@
       {
         "id": "UI-N5-P2",
         "identifier": "label",
+        "datatype": "string",
         "label": "Label",
         "group_id": "",
         "added": false,
@@ -573,6 +609,7 @@
       {
         "id": "UI-N5-P3",
         "identifier": "min_value",
+        "datatype": "number",
         "label": "Min Value",
         "group_id": "",
         "added": false,
@@ -585,6 +622,7 @@
       {
         "id": "UI-N5-P4",
         "identifier": "max_value",
+        "datatype": "number",
         "label": "Max Value",
         "group_id": "",
         "added": false,
@@ -597,6 +635,7 @@
       {
         "id": "UI-N5-P4",
         "identifier": "value",
+        "datatype": "number",
         "label": "Value",
         "group_id": "",
         "added": false,
