@@ -432,6 +432,130 @@
     "addablePorts": []
   },
   {
+    "id": "N6",
+    "name": "Parser",
+    "category": "Control",
+    "type": "Parser",
+    "ui": {
+      "position": [0, 0]
+    },
+    "ports": [
+      {
+        "id": "N6-T1",
+        "identifier": "trigger_in",
+        "datatype": "trigger",
+        "label": "Trigger In",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N2-T2",
+        "label": "Trigger Out",
+        "datatype": "trigger",
+        "identifier": "trigger_out",
+        "group_id": "",
+        "added": false,
+        "is_input": false,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N2-P1",
+        "identifier": "input",
+        "datatype": "any",
+        "label": "Input",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "default_value": {
+          "datatype": "",
+          "value": ""
+        },
+        "hasDefaultField": true,
+        "defaultPlaceholder": "Input Text to parse"
+      },
+      {
+        "id": "N2-P2",
+        "identifier": "parse",
+        "datatype": "any",
+        "label": "Parse to",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "default_value": {
+          "datatype": "",
+          "value": ""
+        },
+        "hasDefaultField": false,
+        "defaultPlaceholder": "",
+        "options": ["string", "number", "boolean"]
+      },
+      {
+        "id": "N2-P3",
+        "identifier": "payload",
+        "datatype": "string",
+        "label": "Payload",
+        "group_id": "",
+        "added": false,
+        "is_input": false,
+        "default_value": {
+          "datatype": "",
+          "value": ""
+        },
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      }
+    ],
+    "addablePorts": []
+  },
+  {
+    "id": "N7",
+    "name": "Cron Job",
+    "category": "Control",
+    "type": "CronJob",
+    "ui": {
+      "position": [0, 0]
+    },
+    "ports": [
+      {
+        "id": "N7-T1",
+        "identifier": "trigger_out",
+        "datatype": "trigger",
+        "label": "Trigger Out",
+        "group_id": "",
+        "added": false,
+        "is_input": false,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N7-P1",
+        "identifier": "interval",
+        "datatype": "number",
+        "label": "Interval",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "default_value": {
+          "datatype": "",
+          "value": ""
+        },
+        "hasDefaultField": true,
+        "defaultPlaceholder": "Repeat every x seconds"
+      }
+    ],
+    "addablePorts": []
+  },
+  {
     "id": "UI-N1",
     "name": "Canvas",
     "category": "UI",
