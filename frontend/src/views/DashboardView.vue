@@ -30,10 +30,11 @@ export default defineComponent({
     const updateKey = ref(0);
 
     onBeforeMount(() => {
-      DashboardModel.canvas = new DashboardElement(JSON.parse(JSON.stringify(testDashboard.canvas)));
-      canvas.value = DashboardModel.canvas;
+      // DashboardModel.canvas = new DashboardElement(JSON.parse(JSON.stringify(testDashboard.canvas)));
+      // canvas.value = DashboardModel.canvas;
 
-      // console.log(dashboardInstanceService.getDashboard(props.workflowId))
+      DashboardModel.canvas = new DashboardElement(JSON.parse(JSON.stringify(dashboardInstanceService.getDashboard(props.workflowId))));
+      canvas.value = DashboardModel.canvas;
     });
 
     emitter.on("UpdateDashboard", () => {
