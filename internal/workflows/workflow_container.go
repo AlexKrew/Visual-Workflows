@@ -2,6 +2,7 @@ package workflows
 
 import (
 	"fmt"
+	"log"
 	"workflows/internal/utils"
 	"workflows/shared/shared_entities"
 )
@@ -23,6 +24,7 @@ type WorkflowContainer struct {
 	State         ContainerState
 	MessageCache  *MessageCache
 	MessageRouter *MessageRouter
+	CronJobs      *CronJobManager
 }
 
 func NewWorkflowContainer(eventStream *EventStream, workflow *Workflow) *WorkflowContainer {
@@ -67,7 +69,6 @@ func (container *WorkflowContainer) Run(workflow *Workflow) error {
 }
 
 func (container *WorkflowContainer) Start() {
-	fmt.Println("TRIGGER START EVENT")
 
 	for _, node := range container.Workflow.Nodes {
 		if node.Type == "Inject" {
@@ -80,7 +81,18 @@ func (container *WorkflowContainer) Start() {
 			)
 			container.EventStream.AddCommand(createJobCommand)
 		}
+
+		if node.Type == "CronJob" {
+			cronJob, err := NewCronJob(node)
+			if err != nil {
+				log.Fatalf("Failed to create cronjob: %s", err.Error())
+			}
+
+			container.CronJobs.addCronJob(cronJob)
+		}
 	}
+
+	container.CronJobs.startCronJobs()
 }
 
 func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[string]shared_entities.WorkflowMessage) {
@@ -193,8 +205,11 @@ func (container *WorkflowContainer) initialize() error {
 		return err
 	}
 
+	cronJobs := NewCronJobManager(container.EventStream, container.Workflow)
+
 	container.MessageCache = &messageCache
 	container.MessageRouter = &messageRouter
+	container.CronJobs = cronJobs
 
 	return nil
 }
