@@ -434,7 +434,7 @@
     "id": "UI-N1",
     "name": "Canvas",
     "category": "UI",
-    "type": "Canvas",
+    "type": "UICanvas",
     "ui": {
       "position": [0, 0]
     },
@@ -459,7 +459,7 @@
     "id": "UI-N2",
     "name": "List",
     "category": "UI",
-    "type": "List",
+    "type": "UIList",
     "ui": {
       "position": [0, 0]
     },
@@ -511,7 +511,7 @@
     "id": "UI-N4",
     "name": "Text",
     "category": "UI",
-    "type": "Text",
+    "type": "UIText",
     "ui": {
       "position": [0, 0]
     },
@@ -575,7 +575,7 @@
     "id": "UI-N5",
     "name": "Gauge",
     "category": "UI",
-    "type": "Gauge",
+    "type": "UIGauge",
     "ui": {
       "position": [0, 0]
     },

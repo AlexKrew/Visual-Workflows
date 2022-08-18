@@ -227,7 +227,7 @@
     {
       "id": "Node-7d29fca7-202d-43ea-9fdb-4e10e679de82",
       "name": "Canvas",
-      "type": "Canvas",
+      "type": "UICanvas",
       "is_dashboard": true,
       "ports": [
         {
@@ -244,10 +244,7 @@
         }
       ],
       "ui": {
-        "position": [
-          380,
-          379
-        ]
+        "position": [380, 379]
       }
     },
     {
