@@ -1,5 +1,5 @@
 import DashboardElement from "./DashboardElement";
-import { UpdateField } from "./UITypes";
+import { UpdateFieldType } from "./UITypes";
 
 class DashboardModel {
   static canvas: DashboardElement;
@@ -16,7 +16,7 @@ class DashboardModel {
     return result;
   }
 
-  static updateFields(...newFields: UpdateField[]) {
+  static updateFields(...newFields: UpdateFieldType[]) {
     newFields.forEach((newField) => {
       const element = DashboardModel.getElementByID(newField.id);
       if (element) element.data.fields[newField.field] = newField.value;

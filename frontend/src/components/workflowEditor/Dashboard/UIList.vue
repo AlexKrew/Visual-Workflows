@@ -9,15 +9,15 @@
 <script lang="ts">
 import DashboardElement from "@/models/Data/Dashboard/DashboardElement";
 import { defineComponent, onMounted, ref } from "vue";
-import text_element from "@/components/workflowEditor/Dashboard/UIText.vue";
-import gauge_element from "@/components/workflowEditor/Dashboard/UIGauge.vue";
-import { UIList } from "@/models/Data/Dashboard/UITypes";
+import UIText from "@/components/workflowEditor/Dashboard/UIText.vue";
+import UIGauge from "@/components/workflowEditor/Dashboard/UIGauge.vue";
+import { UIListType } from "@/models/Data/Dashboard/UITypes";
 
 export default defineComponent({
-  name: "list_element",
+  name: "UIGauge",
   components: {
-    Text: text_element,
-    Gauge: gauge_element
+    UIText,
+    UIGauge,
   },
   props: {
     obj: {
@@ -26,7 +26,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const fields = ref<UIList>(props.obj.data.fields as UIList);
+    const fields = ref<UIListType>(props.obj.data.fields as UIListType);
 
     return {
       fields,

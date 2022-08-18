@@ -1,23 +1,23 @@
 // UI Structure Elements
-type UIElement = {
+type UIElementType = {
   id: string;
   type: string;
-  fields: UIList | UIText | UIGauge;
-  children: UIElement[];
+  fields: UIListType | UITextType | UIGaugeType;
+  children: UIElementType[];
 };
 
 // UI Elements
-type UIList = {
+type UIListType = {
   is_vertical: boolean;
 };
 
-type UIText = {
+type UITextType = {
   font_size: number;
   label: string;
   value: string;
 };
 
-type UIGauge = {
+type UIGaugeType = {
   label: string;
   min_value: number;
   max_value: number;
@@ -25,10 +25,10 @@ type UIGauge = {
 };
 
 // API
-type UpdateField = {
+type UpdateFieldType = {
   id: string;
   field: string;
   value: string | number | boolean;
-} 
+};
 
-export { UIList, UIText, UIElement, UIGauge, UpdateField };
+export { UIListType, UITextType, UIElementType, UIGaugeType, UpdateFieldType };

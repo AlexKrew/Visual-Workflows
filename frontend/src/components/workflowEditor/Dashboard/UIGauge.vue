@@ -17,13 +17,12 @@
 
 <script lang="ts">
 import DashboardElement from "@/models/Data/Dashboard/DashboardElement";
-import { UIGauge } from "@/models/Data/Dashboard/UITypes";
-import { numberLiteralTypeAnnotation } from "@babel/types";
+import { UIGaugeType } from "@/models/Data/Dashboard/UITypes"
 import { defineComponent, onMounted, ref } from "vue";
 import VueGauge from "vue-gauge";
 
 export default defineComponent({
-  name: "gauge-element",
+  name: "UIGauge",
   components: {
     VueGauge,
   },
@@ -34,7 +33,7 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
-    const fields = ref<UIGauge>(props.obj.data.fields as UIGauge);
+    const fields = ref<UIGaugeType>(props.obj.data.fields as UIGaugeType);
 
     function getValueInPercent(min: number, max: number, value: number):number {
       return (value -min)/(max-min)*100

@@ -1,10 +1,10 @@
-import { UIElement } from "./UITypes";
+import { UIElementType } from "./UITypes";
 
 class DashboardElement {
-  data: UIElement;
+  data: UIElementType;
   children: DashboardElement[] = [];
 
-  constructor(data: UIElement) {
+  constructor(data: UIElementType) {
     this.data = data;
     if (this.data.children) {
       this.data.children.forEach((child) => this.children.push(new DashboardElement(child)));
