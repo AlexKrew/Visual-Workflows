@@ -18,7 +18,7 @@ import { UIText, UpdateField } from "@/models/Data/Dashboard/UITypes";
 import { dashboardInstanceService } from "@/api";
 
 export default defineComponent({
-  components: { text_element, list_element },
+  components: { Text: text_element, List: list_element },
   props: {
     workflowId: {
       required: true,

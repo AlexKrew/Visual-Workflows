@@ -16,8 +16,8 @@ import { UIList } from "@/models/Data/Dashboard/UITypes";
 export default defineComponent({
   name: "list_element",
   components: {
-    text_element,
-    gauge_element
+    Text: text_element,
+    Gauge: gauge_element
   },
   props: {
     obj: {
