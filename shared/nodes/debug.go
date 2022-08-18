@@ -7,6 +7,8 @@ import (
 
 func ProcessDebug(input *NodeInput, output *NodeOutput) error {
 
+	fmt.Println("PROCESS DEBUG", input)
+
 	logMessage, err := input.ValueFor("input")
 	if err != nil {
 		log.Printf("debug failed: %s", err)
