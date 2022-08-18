@@ -41,7 +41,7 @@ func fieldsFromNode(node workflows.Node) map[string]any {
 			continue
 		}
 
-		fields[port.Label] = port.DefaultMessage.Value
+		fields[port.Identifier] = port.DefaultMessage.Value
 	}
 
 	return fields
