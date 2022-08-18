@@ -10,7 +10,7 @@ export class DashboardInstanceServiceImpl implements DashboardInstanceService {
     try {
       const response = await HTTP.get("/dashboard/" + id);
       console.log(response.data);
-      return response;
+      return response.data;
     } catch (e) {
       console.log("Failed to GET Workflow", e);
       return [];

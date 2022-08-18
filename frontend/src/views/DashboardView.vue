@@ -35,7 +35,7 @@ export default defineComponent({
       // canvas.value = DashboardModel.canvas;
 
       const c = await dashboardInstanceService.getDashboard(props.workflowId);
-      DashboardModel.canvas = new DashboardElement(JSON.parse(JSON.stringify(c)));
+      DashboardModel.canvas = new DashboardElement(c["canvas"]);
       canvas.value = DashboardModel.canvas;
     });
 
