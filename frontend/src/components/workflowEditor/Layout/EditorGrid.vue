@@ -1,16 +1,18 @@
 <template>
-  <div
-    id="EditorGrid"
-    class="drag bg-gray-500"
-    :style="{ left: grid.posRel.x + 'px', top: grid.posRel.y + 'px' }"
-    @scroll.prevent
-  >
-    <!-- Connections -->
-    <svg id="svgID" width="10000" height="10000" xmlns="http://www.w3.org/2000/svg" class="absolute top-0 left-0">
-      <NodeEdge v-for="edge in grid.edges" :key="edge.data.id" :edge="edge" />
-    </svg>
-    <!-- Nodes -->
-    <NodeComponent v-for="node in nodes" :key="node.id" :node-model="node" />
+  <div id="Editor" class="w-full h-full absolute">
+    <div
+      id="EditorGrid"
+      class="drag bg-gray-500"
+      :style="{ left: grid.posRel.x + 'px', top: grid.posRel.y + 'px' }"
+      @scroll.prevent
+    >
+      <!-- Connections -->
+      <svg id="svgID" width="10000" height="10000" xmlns="http://www.w3.org/2000/svg">
+        <NodeEdge v-for="edge in grid.edges" :key="edge.data.id" :edge="edge" />
+      </svg>
+      <!-- Nodes -->
+      <NodeComponent v-for="node in nodes" :key="node.id" :node-model="node" />
+    </div>
   </div>
 </template>
 
@@ -20,7 +22,7 @@ import interact from "interactjs";
 import Vector2 from "@/components/util/Vector";
 import NodeComponent from "../Node/NodeComponent.vue";
 import GridModel from "@/models/GridModel";
-import TestModels from "@/models/Data/GridData";
+import GridData from "@/models/Data/GridData";
 import { InteractEvent } from "@interactjs/types";
 import NodeEdge from "../Node/NodeEdge.vue";
 import NodeModel from "@/models/Node/NodeModel";
@@ -31,11 +33,20 @@ export default defineComponent({
     NodeEdge: NodeEdge,
   },
   setup() {
-    const grid = ref<GridModel>(TestModels.grid);
+    const grid = ref<GridModel>(GridData.grid);
     const nodes = ref<NodeModel[]>(grid.value.children as NodeModel[]);
 
     onMounted(() => {
-      interact("#EditorGrid").draggable({}).on("dragmove", onDragMove);
+      interact("#EditorGrid")
+        .draggable({
+          modifiers: [
+            interact.modifiers.restrict({
+              restriction: "#Editor",
+              elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
+            }),
+          ],
+        })
+        .on("dragmove", onDragMove);
     });
 
     onUnmounted(() => {
