@@ -3,7 +3,7 @@
     <Card class="p-3 mb-3">
       <div class="w-full flex">
         <button
-          @click="onDeploy"
+          @click="onSave"
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-1 mr-3"
         >
           <p class="text-center">Save</p>
@@ -54,7 +54,7 @@ export default {
       connection.close();
     });
 
-    async function onDeploy() {
+    async function onSave() {
       await workflowInstancesService.updateWorkflow(
         GridData.workflow.id,
         JSON.parse(JSON.stringify(GridData.workflow))
@@ -67,7 +67,7 @@ export default {
     }
 
     return {
-      onDeploy,
+      onSave,
       onStart,
       logs,
       DateTime,
