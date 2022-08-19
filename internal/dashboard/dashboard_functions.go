@@ -26,14 +26,14 @@ func findCanvasNode(nodes []workflows.Node) (workflows.Node, bool) {
 
 func toUI(node workflows.Node, workflow workflows.Workflow) any {
 
-	childrenPortID, hasChildren := childrenPortID(node)
+	childrenPortIDs, hasChildren := childrenPortIDs(node)
 
 	if hasChildren {
 
 		connectedUIElements := []interface{}{}
 
 		for _, edge := range workflow.Edges {
-			if edge.Origin.NodeID == node.ID && edge.Origin.PortID == childrenPortID {
+			if edge.Origin.NodeID == node.ID && contains(childrenPortIDs, edge.Origin.PortID) {
 
 				// recursivly generate ui config
 				targetNode, _ := workflow.NodeByID(edge.Target.NodeID)
@@ -50,12 +50,25 @@ func toUI(node workflows.Node, workflow workflows.Workflow) any {
 	}
 }
 
-func childrenPortID(node workflows.Node) (string, bool) {
+func childrenPortIDs(node workflows.Node) ([]string, bool) {
+	childrenPortIds := []string{}
+	hasChildren := false
+
 	for _, port := range node.Ports {
 		if port.Identifier == "children" {
-			return port.ID, true
+			childrenPortIds = append(childrenPortIds, port.ID)
+			hasChildren = true
 		}
 	}
 
-	return "", false
+	return childrenPortIds, hasChildren
+}
+
+func contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
 }
