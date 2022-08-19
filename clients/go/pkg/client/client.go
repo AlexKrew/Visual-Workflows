@@ -27,6 +27,7 @@ func StartClient(config ClientConfig) (*Client, error) {
 
 	conn, err := grpc.Dial(config.ServerAddress, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
+		log.Panicf("initialization failed: %s", err.Error())
 		return nil, err
 	}
 

@@ -3,6 +3,7 @@ package workflow_processor
 import (
 	"errors"
 	"fmt"
+	"log"
 	"workflows/internal/job_queue"
 	"workflows/internal/workflows"
 	"workflows/shared/shared_entities"
@@ -77,6 +78,8 @@ func (processor *WorkflowProcessor) registerEventsHandler(observable *rxgo.Obser
 // ---- Commands ----
 
 func (processor *WorkflowProcessor) handleCommand(command workflows.WorkflowCommand) error {
+	log.Printf("WFProcessor: Received command: %d", command.Type)
+
 	switch command.Type {
 	case workflows.CreateWorkflowInstance:
 		return processor.createWorkflowInstance(command)
@@ -96,12 +99,14 @@ func (processor *WorkflowProcessor) createWorkflowInstance(command workflows.Wor
 
 	workflow, err := workflows.WorkflowFromFilesystem(body.WorkflowID)
 	if err != nil {
+		log.Panicf("ERR: %s", err.Error())
 		return err
 	}
 
 	instance := workflows.NewWorkflowContainer(processor.EventStream, &workflow)
 	err = instance.Run(&workflow)
 	if err != nil {
+		log.Panicf("ERR: %s", err.Error())
 		return err
 	}
 
@@ -115,16 +120,19 @@ func (processor *WorkflowProcessor) createJob(command workflows.WorkflowCommand)
 
 	container, ok := processor.Containers[body.WorkflowID]
 	if !ok {
+		log.Panicln("ERR: no workflow with this instance id")
 		return errors.New("no workflow with this instance id")
 	}
 
 	node, exists := container.Workflow.NodeByID(body.NodeID)
 	if !exists {
+		log.Panicln("ERR: no node with this id")
 		return errors.New("no node with this id")
 	}
 
 	input, exists := container.InputForNodeId(body.NodeID)
 	if !exists {
+		log.Panicln("ERR: no input for node with this id")
 		return errors.New("no input for node with this id")
 	}
 
@@ -153,6 +161,8 @@ func (processor *WorkflowProcessor) completeJob(command workflows.WorkflowComman
 // ---- Events ----
 
 func (processor *WorkflowProcessor) handleEvent(event workflows.WorkflowEvent) error {
+	log.Printf("WFProcessor: Received event: %d", event.Type)
+
 	switch event.Type {
 	case workflows.WorkflowReady:
 		processor.workflowReady(event)
@@ -177,6 +187,7 @@ func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) 
 
 	body := event.Body.(workflows.JobCompletedEventBody)
 	results := body.Result
+	log.Println("------ Completed")
 
 	for _, log := range results.Logs {
 		debugEvent := workflows.NewDebugEvent(workflows.DebugEventBody{

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"workflows/internal/dashboard"
 	"workflows/internal/processors/workflow_processor"
 	"workflows/internal/workflows"
 
@@ -43,9 +44,9 @@ func StartServer(eventStream *workflows.EventStream, workflowProcessor *workflow
 
 	port := 8000
 
-	builderEvents := make(chan any)
-	dashboardEvents := make(chan any)
-	go registerEventsHandler(eventStream.EventsObservable, &builderEvents, &dashboardEvents)
+	builderEvents := make(chan any, 100)
+	dashboardEvents := make(chan any, 100)
+	go registerEventsHandler(eventStream.EventsObservable, builderEvents, dashboardEvents)
 
 	go setupBuilderWebsocket(router, builderEvents)
 	go setupDashboardWebsocket(router, dashboardEvents)
@@ -59,7 +60,7 @@ func StartServer(eventStream *workflows.EventStream, workflowProcessor *workflow
 	registerDashboardServices(v1)
 
 	v1.GET("/test", func(c *gin.Context) {
-		c.String(200, "SUC")
+		c.String(200, "Online")
 	})
 
 	// setupSwagger(router, port)
@@ -97,8 +98,8 @@ func setupBuilderWebsocket(router *gin.Engine, events chan any) {
 		}
 		defer ws.Close()
 
-		for ev := range events {
-
+		for {
+			ev := <-events
 			err = ws.WriteJSON(ev)
 			if err != nil {
 				panic(err)
@@ -116,7 +117,8 @@ func setupDashboardWebsocket(router *gin.Engine, events chan any) {
 		}
 		defer ws.Close()
 
-		for ev := range events {
+		for {
+			ev := <-events
 
 			err = ws.WriteJSON(ev)
 			if err != nil {
@@ -127,7 +129,7 @@ func setupDashboardWebsocket(router *gin.Engine, events chan any) {
 	})
 }
 
-func registerEventsHandler(observable *rxgo.Observable, builderEvents *chan any, dashboardEvents *chan any) {
+func registerEventsHandler(observable *rxgo.Observable, builderEvents chan any, dashboardEvents chan any) {
 	(*observable).ForEach(func(i interface{}) {
 		event := i.(workflows.WorkflowEvent)
 
@@ -140,19 +142,42 @@ func registerEventsHandler(observable *rxgo.Observable, builderEvents *chan any,
 			message["timestamp"] = event.CreatedAt
 			message["message"] = body.Value
 
-			fmt.Println("PUBLISH DASHBOARD EVENT")
-			(*builderEvents) <- message
+			builderEvents <- message
 
 		case workflows.DashboardValueChanged:
 			body := event.Body.(workflows.DashboardValueChangedEventBody)
 
-			message := make(map[string]any)
-			message["workflow_id"] = body.WorkflowID
-			message["type"] = "field_updated"
 			data := make(map[string]any)
 			data["id"] = body.ElementID
 			data["field"] = body.Field
 			data["value"] = body.Value
+
+			message := make(map[string]any)
+			message["workflow_id"] = body.WorkflowID
+			message["type"] = "field_updated"
+			message["data"] = data
+
+			dashboardEvents <- message
+
+		case workflows.WorkflowReady:
+
+			body := event.Body.(workflows.WorkflowReadyEventBody)
+
+			workflow, exists := WFHelper.WorkflowById(body.WorkflowID)
+			if !exists {
+				return
+			}
+			config, exists := dashboard.ConfigFromWorkflow(*workflow)
+			if !exists {
+				return
+			}
+
+			message := make(map[string]any)
+			message["workflow_id"] = body.WorkflowID
+			message["type"] = "rebuild_ui"
+			message["data"] = config
+
+			dashboardEvents <- message
 		}
 
 	}, func(err error) {

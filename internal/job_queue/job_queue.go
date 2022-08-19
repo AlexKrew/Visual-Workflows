@@ -69,6 +69,7 @@ func (queue *JobQueue) UnlockJob(jobId shared_entities.JobID, timeout time.Durat
 
 	job, exists := queue.JobById(jobId)
 	if !exists {
+		log.Fatalf("Job with id %s does not exist", jobId)
 		return false, errors.New("job with id does not exist")
 	}
 
