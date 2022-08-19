@@ -4,6 +4,7 @@
     "name": "HTTP Request",
     "category": "Web Services",
     "type": "HTTP",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -118,6 +119,7 @@
     "name": "Switch",
     "category": "Control",
     "type": "Switch",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -232,6 +234,7 @@
     "name": "Debug",
     "category": "Debug",
     "type": "Debug",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -300,6 +303,7 @@
     "name": "Mail",
     "category": "Web Services",
     "type": "Mail",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -368,6 +372,7 @@
     "name": "Inject",
     "category": "Control",
     "type": "Inject",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -423,6 +428,7 @@
     "name": "Parser",
     "category": "Control",
     "type": "Parser",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -507,6 +513,7 @@
     "name": "Cron Job",
     "category": "Control",
     "type": "CronJob",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -547,6 +554,7 @@
     "name": "Canvas",
     "category": "UI",
     "type": "UICanvas",
+    "is_ui_node": true,
     "ui": {
       "position": [0, 0]
     },
@@ -572,6 +580,7 @@
     "name": "List",
     "category": "UI",
     "type": "UIList",
+    "is_ui_node": true,
     "ui": {
       "position": [0, 0]
     },
@@ -624,6 +633,7 @@
     "name": "Text",
     "category": "UI",
     "type": "UIText",
+    "is_ui_node": true,
     "ui": {
       "position": [0, 0]
     },
@@ -688,6 +698,7 @@
     "name": "Gauge",
     "category": "UI",
     "type": "UIGauge",
+    "is_ui_node": true,
     "ui": {
       "position": [0, 0]
     },
