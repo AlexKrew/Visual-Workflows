@@ -6,6 +6,7 @@ import { NodeType, PortType } from "../Data/Types";
 import Vector2 from "@/components/util/Vector";
 import GridData from "../Data/GridData";
 import GridModel from "../GridModel";
+import { deepCopy } from "@/components/util/DeepCopy";
 
 class NodeModel extends EditorComponent {
   data: NodeType;
@@ -38,7 +39,7 @@ class NodeModel extends EditorComponent {
 
   clone(): EditorComponent {
     // Shallow Clone the Node Data
-    const newData: NodeType = { ...this.data };
+    const newData: NodeType = deepCopy(this.data);
     newData.id = "Node-" + uuid.v4();
 
     // Shallow Clone ports

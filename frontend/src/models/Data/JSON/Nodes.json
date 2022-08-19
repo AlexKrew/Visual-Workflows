@@ -4,6 +4,7 @@
     "name": "HTTP Request",
     "category": "Web Services",
     "type": "HTTP",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -11,7 +12,7 @@
       {
         "id": "N1-T1",
         "identifier": "trigger_in",
-        "datatype": "trigger",
+        "datatype": "TRIGGER",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -24,7 +25,7 @@
       {
         "id": "N1-T2",
         "label": "Trigger Out",
-        "datatype": "trigger",
+        "datatype": "TRIGGER",
         "identifier": "trigger_out",
         "group_id": "",
         "added": false,
@@ -37,7 +38,7 @@
       {
         "id": "N1-P1",
         "identifier": "method",
-        "datatype": "string",
+        "datatype": "STRING",
         "label": "Method",
         "group_id": "",
         "added": false,
@@ -53,7 +54,7 @@
       {
         "id": "N1-P2",
         "identifier": "url",
-        "datatype": "string",
+        "datatype": "STRING",
         "label": "URL",
         "group_id": "",
         "added": false,
@@ -68,7 +69,7 @@
       {
         "id": "N1-P3",
         "identifier": "payload",
-        "datatype": "string",
+        "datatype": "STRING",
         "label": "Payload",
         "group_id": "",
         "added": false,
@@ -83,7 +84,7 @@
       {
         "id": "N1-P4",
         "identifier": "response",
-        "datatype": "string",
+        "datatype": "STRING",
         "label": "Response",
         "group_id": "",
         "added": false,
@@ -98,7 +99,7 @@
       {
         "id": "N1-P5",
         "identifier": "response_code",
-        "datatype": "number",
+        "datatype": "NUMBER",
         "label": "Response Code",
         "group_id": "",
         "added": false,
@@ -118,6 +119,7 @@
     "name": "Switch",
     "category": "Control",
     "type": "Switch",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -125,7 +127,7 @@
       {
         "id": "N2-T1",
         "identifier": "trigger_in",
-        "datatype": "trigger",
+        "datatype": "TRIGGER",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -138,7 +140,7 @@
       {
         "id": "N2-T2",
         "identifier": "trigger_out",
-        "datatype": "trigger",
+        "datatype": "TRIGGER",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -151,7 +153,7 @@
       {
         "id": "N2-P1",
         "identifier": "check",
-        "datatype": "any",
+        "datatype": "ANY",
         "label": "Check",
         "group_id": "",
         "added": false,
@@ -168,7 +170,7 @@
       {
         "id": "N2-AP1",
         "identifier": "operator",
-        "datatype": "string",
+        "datatype": "STRING",
         "label": "Operator",
         "group_id": "",
         "added": false,
@@ -183,7 +185,7 @@
       {
         "id": "N2-AP2",
         "identifier": "value",
-        "datatype": "any",
+        "datatype": "STRING",
         "label": "Value",
         "group_id": "",
         "added": false,
@@ -198,7 +200,7 @@
       {
         "id": "N2-AP3",
         "identifier": "in",
-        "datatype": "any",
+        "datatype": "ANY",
         "label": "In",
         "group_id": "",
         "added": false,
@@ -213,7 +215,7 @@
       {
         "id": "N2-AP4",
         "identifier": "out",
-        "datatype": "any",
+        "datatype": "ANY",
         "label": "Out",
         "group_id": "",
         "added": false,
@@ -232,6 +234,7 @@
     "name": "Debug",
     "category": "Debug",
     "type": "Debug",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -239,7 +242,7 @@
       {
         "id": "N3-T1",
         "identifier": "trigger_in",
-        "datatype": "trigger",
+        "datatype": "TRIGGER",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -252,7 +255,7 @@
       {
         "id": "N3-T2",
         "identifier": "trigger_out",
-        "datatype": "trigger",
+        "datatype": "TRIGGER",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -265,7 +268,7 @@
       {
         "id": "N3-P1",
         "identifier": "input",
-        "datatype": "any",
+        "datatype": "STRING",
         "label": "Input",
         "group_id": "",
         "added": false,
@@ -280,7 +283,7 @@
       {
         "id": "N3-P2",
         "identifier": "output",
-        "datatype": "any",
+        "datatype": "STRING",
         "label": "Output",
         "group_id": "",
         "added": false,
@@ -300,6 +303,7 @@
     "name": "Mail",
     "category": "Web Services",
     "type": "Mail",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -307,7 +311,7 @@
       {
         "id": "N4-T1",
         "identifier": "trigger_in",
-        "datatype": "trigger",
+        "datatype": "TRIGGER",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -320,7 +324,7 @@
       {
         "id": "N4-T2",
         "identifier": "trigger_out",
-        "datatype": "trigger",
+        "datatype": "TRIGGER",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -333,7 +337,7 @@
       {
         "id": "N4-P1",
         "identifier": "email",
-        "datatype": "string",
+        "datatype": "STRING",
         "label": "E-Mail",
         "group_id": "",
         "added": false,
@@ -348,7 +352,7 @@
       {
         "id": "N4-P2",
         "identifier": "message",
-        "datatype": "string",
+        "datatype": "STRING",
         "label": "Message",
         "group_id": "",
         "added": false,
@@ -368,27 +372,15 @@
     "name": "Inject",
     "category": "Control",
     "type": "Inject",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
     "ports": [
       {
         "id": "N5-T1",
-        "identifier": "trigger_in",
-        "datatype": "trigger",
-        "label": "Trigger In",
-        "group_id": "",
-        "added": false,
-        "is_input": true,
-        "is_trigger": true,
-        "default_value": {},
-        "hasDefaultField": false,
-        "defaultPlaceholder": ""
-      },
-      {
-        "id": "N5-T2",
         "identifier": "trigger_out",
-        "datatype": "trigger",
+        "datatype": "TRIGGER",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -401,7 +393,7 @@
       {
         "id": "N5-P1",
         "identifier": "input",
-        "datatype": "any",
+        "datatype": "ANY",
         "label": "Input",
         "group_id": "",
         "added": false,
@@ -416,7 +408,7 @@
       {
         "id": "N5-P2",
         "identifier": "output",
-        "datatype": "any",
+        "datatype": "ANY",
         "label": "Output",
         "group_id": "",
         "added": false,
@@ -436,6 +428,7 @@
     "name": "Parser",
     "category": "Control",
     "type": "Parser",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -443,7 +436,7 @@
       {
         "id": "N6-T1",
         "identifier": "trigger_in",
-        "datatype": "trigger",
+        "datatype": "TRIGGER",
         "label": "Trigger In",
         "group_id": "",
         "added": false,
@@ -456,7 +449,7 @@
       {
         "id": "N2-T2",
         "label": "Trigger Out",
-        "datatype": "trigger",
+        "datatype": "TRIGGER",
         "identifier": "trigger_out",
         "group_id": "",
         "added": false,
@@ -469,7 +462,7 @@
       {
         "id": "N2-P1",
         "identifier": "input",
-        "datatype": "any",
+        "datatype": "ANY",
         "label": "Input",
         "group_id": "",
         "added": false,
@@ -484,7 +477,7 @@
       {
         "id": "N2-P2",
         "identifier": "parse",
-        "datatype": "any",
+        "datatype": "ANY",
         "label": "Parse to",
         "group_id": "",
         "added": false,
@@ -500,7 +493,7 @@
       {
         "id": "N2-P3",
         "identifier": "payload",
-        "datatype": "string",
+        "datatype": "ANY",
         "label": "Payload",
         "group_id": "",
         "added": false,
@@ -520,6 +513,7 @@
     "name": "Cron Job",
     "category": "Control",
     "type": "CronJob",
+    "is_ui_node": false,
     "ui": {
       "position": [0, 0]
     },
@@ -527,7 +521,7 @@
       {
         "id": "N7-T1",
         "identifier": "trigger_out",
-        "datatype": "trigger",
+        "datatype": "TRIGGER",
         "label": "Trigger Out",
         "group_id": "",
         "added": false,
@@ -540,7 +534,7 @@
       {
         "id": "N7-P1",
         "identifier": "interval",
-        "datatype": "number",
+        "datatype": "NUMBER",
         "label": "Interval",
         "group_id": "",
         "added": false,
@@ -560,6 +554,7 @@
     "name": "Canvas",
     "category": "UI",
     "type": "UICanvas",
+    "is_ui_node": true,
     "ui": {
       "position": [0, 0]
     },
@@ -567,7 +562,7 @@
       {
         "id": "UI-N1-P1",
         "identifier": "children",
-        "datatype": "ui",
+        "datatype": "UI",
         "label": "Child",
         "group_id": "",
         "added": false,
@@ -585,6 +580,7 @@
     "name": "List",
     "category": "UI",
     "type": "UIList",
+    "is_ui_node": true,
     "ui": {
       "position": [0, 0]
     },
@@ -592,7 +588,7 @@
       {
         "id": "UI-N2-P1",
         "identifier": "parent",
-        "datatype": "ui",
+        "datatype": "UI",
         "label": "Parent",
         "group_id": "",
         "added": false,
@@ -605,7 +601,7 @@
       {
         "id": "UI-N2-P2",
         "identifier": "is_vertical",
-        "datatype": "bool",
+        "datatype": "BOOLEAN",
         "label": "is Vertical",
         "group_id": "",
         "added": false,
@@ -620,7 +616,7 @@
       {
         "id": "UI-N2-A1",
         "identifier": "children",
-        "datatype": "ui",
+        "datatype": "UI",
         "label": "Child",
         "group_id": "",
         "added": false,
@@ -637,6 +633,7 @@
     "name": "Text",
     "category": "UI",
     "type": "UIText",
+    "is_ui_node": true,
     "ui": {
       "position": [0, 0]
     },
@@ -644,7 +641,7 @@
       {
         "id": "UI-N4-P1",
         "identifier": "parent",
-        "datatype": "ui",
+        "datatype": "UI",
         "label": "Parent",
         "group_id": "",
         "added": false,
@@ -657,7 +654,7 @@
       {
         "id": "UI-N4-P2",
         "identifier": "label",
-        "datatype": "string",
+        "datatype": "STRING",
         "label": "Label",
         "group_id": "",
         "added": false,
@@ -670,7 +667,7 @@
       {
         "id": "UI-N4-P3",
         "identifier": "font_size",
-        "datatype": "number",
+        "datatype": "NUMBER",
         "label": "Font Size",
         "group_id": "",
         "added": false,
@@ -683,7 +680,7 @@
       {
         "id": "UI-N4-P4",
         "identifier": "value",
-        "datatype": "string",
+        "datatype": "STRING",
         "label": "Value",
         "group_id": "",
         "added": false,
@@ -701,6 +698,7 @@
     "name": "Gauge",
     "category": "UI",
     "type": "UIGauge",
+    "is_ui_node": true,
     "ui": {
       "position": [0, 0]
     },
@@ -708,7 +706,7 @@
       {
         "id": "UI-N5-P1",
         "identifier": "parent",
-        "datatype": "ui",
+        "datatype": "UI",
         "label": "Parent",
         "group_id": "",
         "added": false,
@@ -721,7 +719,7 @@
       {
         "id": "UI-N5-P2",
         "identifier": "label",
-        "datatype": "string",
+        "datatype": "STRING",
         "label": "Label",
         "group_id": "",
         "added": false,
@@ -734,7 +732,7 @@
       {
         "id": "UI-N5-P3",
         "identifier": "min_value",
-        "datatype": "number",
+        "datatype": "NUMBER",
         "label": "Min Value",
         "group_id": "",
         "added": false,
@@ -747,7 +745,7 @@
       {
         "id": "UI-N5-P4",
         "identifier": "max_value",
-        "datatype": "number",
+        "datatype": "NUMBER",
         "label": "Max Value",
         "group_id": "",
         "added": false,
@@ -760,7 +758,7 @@
       {
         "id": "UI-N5-P4",
         "identifier": "value",
-        "datatype": "number",
+        "datatype": "NUMBER",
         "label": "Value",
         "group_id": "",
         "added": false,

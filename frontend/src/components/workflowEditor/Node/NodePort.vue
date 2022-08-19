@@ -97,7 +97,7 @@ export default defineComponent({
 
     onMounted(() => {
       if (!props.portModel.parent?.parent) return;
-      if (!portColor.value) portColor.value = DatatypeColors[Datatype.any]; // set Default color for old workflows TODO delete
+      if (!portColor.value) portColor.value = DatatypeColors[Datatype.ANY]; // set Default color for old workflows TODO delete
       setPortPos();
       interact(`#${props.portModel.id}`)
         .draggable({})
@@ -166,7 +166,7 @@ export default defineComponent({
     function onDragMove(event: InteractEvent) {
       if (!grid) return;
       if (grid.tmpEdgeIndex >= 0) {
-        grid.edges[grid.tmpEdgeIndex].setMousePos(new Vector2(event.clientX, event.clientY));
+        grid.edges[grid.tmpEdgeIndex].setMousePos(new Vector2(event.clientX, event.clientY -64)); // quick and dirty
       }
     }
 

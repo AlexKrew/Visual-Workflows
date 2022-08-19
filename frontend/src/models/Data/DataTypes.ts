@@ -1,27 +1,27 @@
 enum Datatype {
-  "string" = "string",
-  "number" = "number",
-  "bool" = "bool",
-  "trigger" = "trigger",
-  "any" = "any",
-  "ui" = "ui",
+  "STRING" = "STRING",
+  "NUMBER" = "NUMBER",
+  "BOOLEAN" = "BOOLEAN",
+  "TRIGGER" = "TRIGGER",
+  "ANY" = "ANY",
+  "UI" = "UI",
 }
 
 enum DatatypeColors {
-  "string" = "#DB3A2E",
-  "number" = "#328CDB",
-  "bool" = "#40DB4F",
-  "trigger" = "#787878",
-  "any" = "#000000",
-  "ui" = "#FF8ADC",
+  "STRING" = "#DB3A2E",
+  "NUMBER" = "#328CDB",
+  "BOOLEAN" = "#40DB4F",
+  "TRIGGER" = "#787878",
+  "ANY" = "#000000",
+  "UI" = "#FF8ADC",
 }
 
 class Datatypes {
   static allowedConnection(type1: Datatype, type2: Datatype): boolean {
     console.log(type1, type2);
-    console.log(type1 == Datatype.string, type2 == Datatype.any);
+    console.log(type1 == Datatype.STRING, type2 == Datatype.ANY);
     if (type1 == type2) return true;
-    if (type2 == Datatype.any && type1 != Datatype.trigger && type1 != Datatype.ui) return true;
+    if (type2 == Datatype.ANY && type1 != Datatype.TRIGGER && type1 != Datatype.UI) return true;
 
     return false;
   }
