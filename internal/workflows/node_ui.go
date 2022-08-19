@@ -1,5 +1,5 @@
 package workflows
 
 type NodeUI struct {
-	Position []int `json:"position"`
+	Position []float64 `json:"position"`
 }
