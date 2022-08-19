@@ -166,7 +166,7 @@ export default defineComponent({
     function onDragMove(event: InteractEvent) {
       if (!grid) return;
       if (grid.tmpEdgeIndex >= 0) {
-        grid.edges[grid.tmpEdgeIndex].setMousePos(new Vector2(event.clientX, event.clientY));
+        grid.edges[grid.tmpEdgeIndex].setMousePos(new Vector2(event.clientX, event.clientY -64)); // quick and dirty
       }
     }
 
