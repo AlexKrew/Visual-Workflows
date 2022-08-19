@@ -14,7 +14,7 @@ import UIGauge from "@/components/workflowEditor/Dashboard/UIGauge.vue";
 import { UIListType } from "@/models/Data/Dashboard/UITypes";
 
 export default defineComponent({
-  name: "UIGauge",
+  name: "UIList",
   components: {
     UIText,
     UIGauge,
