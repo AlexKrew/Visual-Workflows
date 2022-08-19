@@ -8,13 +8,16 @@ import (
 )
 
 type PortID = utils.UUID
+type GroupID = utils.UUID
 type UniquePortID = string
 
 type Ports = []Port
 
 type Port struct {
 	ID             PortID                          `json:"id"`
+	GroupID        GroupID                         `json:"group_id"`
 	Identifier     string                          `json:"identifier"`
+	Added          bool                            `json:"added"`
 	Label          string                          `json:"label"`
 	Datatype       string                          `json:"datatype"`
 	IsInputPort    bool                            `json:"is_input"`
