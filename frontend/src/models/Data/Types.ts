@@ -29,8 +29,8 @@ type PortType = {
   is_input: boolean;
   is_trigger: boolean;
   default_value: {
-    datatype: "STRING";
-    value: string;
+    datatype: string;
+    value: string | number | boolean;
   };
   hasDefaultField: boolean;
   defaultPlaceholder: string;

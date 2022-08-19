@@ -1,4 +1,4 @@
-import { UIElementType } from "./UITypes";
+import { UIElementType, UIListType } from "./UITypes";
 
 class DashboardElement {
   data: UIElementType;

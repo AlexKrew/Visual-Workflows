@@ -19,7 +19,7 @@ import { UITextType, UpdateFieldType } from "@/models/Data/Dashboard/UITypes";
 import { dashboardInstanceService } from "@/api";
 
 export default defineComponent({
-  components: { UIText, UIList },
+  components: { UIText, UIList, UIGauge },
   props: {
     workflowId: {
       required: true,

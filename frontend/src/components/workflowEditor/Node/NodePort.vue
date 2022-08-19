@@ -40,7 +40,7 @@
     </div>
 
     <!-- Default Text Field -->
-    <div v-if="portModel.data.hasDefaultField && !portModel.data.defaultFieldHidden" class="px-2 pb-3">
+    <div v-if="portModel.data.hasDefaultField && !portModel.data.defaultFieldHidden && portModel.data.datatype != 'BOOLEAN'" class="px-2 pb-3">
       <textarea
         ref="textAreaRef"
         class="bg-gray-200 w-full px-1"
@@ -50,13 +50,19 @@
       ></textarea>
     </div>
 
-    <!-- Select -->
+    <!-- Default Checkbox -->
+    <div v-if="portModel.data.hasDefaultField && !portModel.data.defaultFieldHidden && portModel.data.datatype == 'BOOLEAN'" class="px-2 pb-3">
+      <input type="checkbox" v-model="checkboxValue"/>
+    </div>
+
+    <!-- Default Select -->
     <div v-if="portModel.data.options" class="px-2 pb-3">
       <select class="bg-gray-200 w-full px-1" v-model="selectValue">
         <option disabled value>Select Method</option>
         <option v-for="option in portModel.data.options" :key="option">{{ option }}</option>
       </select>
     </div>
+
   </div>
 </template>
 
@@ -89,8 +95,8 @@ export default defineComponent({
     const textAreaValue = ref(props.portModel.data.default_value.value);
     const textAreaHeight = ref(24);
     const portColor = ref<string>(DatatypeColors[props.portModel.data.datatype]);
-
     const selectValue = ref<string>("");
+    const checkboxValue = ref<boolean>(props.portModel.data.default_value.value as boolean);
 
     const node = props.portModel.parent as NodeModel;
     const grid = props.portModel.parent?.parent as GridModel;
@@ -118,7 +124,7 @@ export default defineComponent({
 
     // Resize Text Area
     watch(textAreaValue, () => {
-      props.portModel.setDefaultValue(textAreaValue.value);
+      props.portModel.setDefaultValue(textAreaValue.value, Datatype.STRING);
 
       let oldHeight = textAreaHeight.value;
       textAreaHeight.value = 0; // Change to 0 to get accurate ScrollHeight to shrink textArea, pretty stupid System,
@@ -134,7 +140,11 @@ export default defineComponent({
     });
 
     watch(selectValue, () => {
-      props.portModel.setDefaultValue(selectValue.value);
+      props.portModel.setDefaultValue(selectValue.value, Datatype.STRING);
+    });
+
+    watch(checkboxValue, () => {
+      props.portModel.setDefaultValue(checkboxValue.value, Datatype.BOOLEAN);
     });
 
     // Init Port Pos
@@ -216,6 +226,7 @@ export default defineComponent({
       textAreaHeight,
       selectValue,
       portColor,
+      checkboxValue
     };
   },
 });

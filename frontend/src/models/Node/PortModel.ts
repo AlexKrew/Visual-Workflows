@@ -3,6 +3,7 @@ import { uuid } from "vue-uuid";
 import { PortType } from "../Data/Types";
 import { emitter } from "@/components/util/Emittery";
 import NodeModel from "./NodeModel";
+import { Datatype } from "../Data/DataTypes";
 
 class PortModel extends EditorComponent {
   data: PortType;
@@ -31,8 +32,9 @@ class PortModel extends EditorComponent {
     throw new Error("Method not implemented.");
   }
 
-  setDefaultValue(text: string) {
-    this.data.default_value.value = text;
+  setDefaultValue(value: string | boolean | number, datatype: string) {
+    this.data.default_value.datatype = datatype;
+    this.data.default_value.value = value;
   }
 
   setGroupID(id: string) {
