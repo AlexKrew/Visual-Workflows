@@ -64,7 +64,7 @@ export default {
       const div = cards.value.find((div) => div.id == node.id);
       if (div) {
         const rect = div.getBoundingClientRect();
-        curDragNode.value.setPos(new Vector2(rect.x, rect.y));
+        curDragNode.value.setPos(new Vector2(rect.x, rect.y -64));  //64 because of navbar TODO
 
         cards.value.splice(0, cards.value.length);
       }
