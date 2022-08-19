@@ -105,9 +105,8 @@ func (processor *LocalJobProcessor) jobCreated(event workflows.WorkflowEvent) {
 	result, err := processor.jobManager.Execute(job)
 	if err != nil {
 		log.Printf("failed to execute job: %s", err.Error())
+		return
 	}
-
-	// log.Println("JobExecuted")
 
 	jobCompletedEvent := workflows.NewJobCompletedEvent(workflows.JobCompletedEventBody{
 		WorkflowID: job.WorkflowID,

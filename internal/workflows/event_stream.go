@@ -15,10 +15,10 @@ type EventStream struct {
 }
 
 func ConstructEventStream() *EventStream {
-	commandChannel := make(chan rxgo.Item)
+	commandChannel := make(chan rxgo.Item, 10)
 	commandsObservable := rxgo.FromEventSource(commandChannel)
 
-	eventChannel := make(chan rxgo.Item)
+	eventChannel := make(chan rxgo.Item, 10)
 	eventsObservable := rxgo.FromEventSource(eventChannel)
 
 	return &EventStream{
@@ -32,10 +32,11 @@ func ConstructEventStream() *EventStream {
 func (eventStream *EventStream) AddCommand(command WorkflowCommand) {
 	log.Println("Add command", command.Type)
 	eventStream.CommandChannel <- rxgo.Of(command)
-	// fmt.Println("Command added")
+	log.Println("Added command", command.Type)
 }
 
 func (eventStream *EventStream) AddEvent(event WorkflowEvent) {
 	log.Println("Add event", event.Type)
 	eventStream.EventChannel <- rxgo.Of(event)
+	log.Println("Added event", event.Type)
 }

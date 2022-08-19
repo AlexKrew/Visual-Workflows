@@ -23,7 +23,7 @@ func main() {
 	eventStream := workflows.ConstructEventStream()
 
 	// // Register Processors
-	// registerSysoutExporter(eventStream, "./logs/log.jsonl")
+	registerSysoutExporter(eventStream, "./logs/log.jsonl")
 
 	// // Mandatory: Workflow logic
 	jobQueue, _ := job_queue.NewJobQueue()

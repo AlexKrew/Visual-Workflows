@@ -1,442 +1,315 @@
 {
-  "id": "3d48d394-08e4-4858-a936-4fc7201be0a2",
-  "name": "My Testflow",
-  "nodes": [
+ "id": "3d48d394-08e4-4858-a936-4fc7201be0a2",
+ "name": "My Testflow",
+ "nodes": [
+  {
+   "id": "inject1",
+   "name": "Inject",
+   "type": "Inject",
+   "is_ui_node": false,
+   "ports": [
     {
-      "id": "inject1",
-      "name": "Inject",
-      "type": "Inject",
-      "is_dashboard": false,
-      "ports": [
-        {
-          "id": "inject1-trigger-in",
-          "identifier": "",
-          "label": "Trigger",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": true,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "inject1-trigger-out",
-          "identifier": "",
-          "label": "Trigger",
-          "datatype": "",
-          "is_input": false,
-          "is_trigger": true,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "inject1-input",
-          "identifier": "input",
-          "label": "input",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": "http://www.google.com"
-          }
-        },
-        {
-          "id": "inject1-output",
-          "identifier": "output",
-          "label": "Output",
-          "datatype": "",
-          "is_input": false,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        }
-      ],
-      "ui": {
-        "position": [
-          381,
-          43
-        ]
-      }
+     "id": "inject1-trigger-in",
+     "identifier": "",
+     "label": "Trigger",
+     "datatype": "",
+     "is_input": true,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "STRING",
+      "value": ""
+     }
     },
     {
-      "id": "http1",
-      "name": "HTTP Request",
-      "type": "HTTP",
-      "is_dashboard": false,
-      "ports": [
-        {
-          "id": "http1-trigger-in",
-          "identifier": "trigger-in",
-          "label": "Trigger",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": true,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "http1-trigger-out",
-          "identifier": "trigger-out",
-          "label": "Trigger",
-          "datatype": "",
-          "is_input": false,
-          "is_trigger": true,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "http1-method",
-          "identifier": "method",
-          "label": "Method",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": "GET"
-          }
-        },
-        {
-          "id": "http1-url",
-          "identifier": "url",
-          "label": "URL",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "http1-payload",
-          "identifier": "payload",
-          "label": "Payload",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "http1-response",
-          "identifier": "response",
-          "label": "Response",
-          "datatype": "",
-          "is_input": false,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "http1-response-code",
-          "identifier": "response-code",
-          "label": "Response Code",
-          "datatype": "",
-          "is_input": false,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        }
-      ],
-      "ui": {
-        "position": [
-          729,
-          29
-        ]
-      }
+     "id": "inject1-trigger-out",
+     "identifier": "",
+     "label": "Trigger",
+     "datatype": "",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "STRING",
+      "value": ""
+     }
     },
     {
-      "id": "debug1",
-      "name": "Debug",
-      "type": "Debug",
-      "is_dashboard": false,
-      "ports": [
-        {
-          "id": "debug1-trigger-in",
-          "identifier": "trigger-in",
-          "label": "Trigger",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": true,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "debug1-trigger-out",
-          "identifier": "trigger-out",
-          "label": "Trigger",
-          "datatype": "",
-          "is_input": false,
-          "is_trigger": true,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "debug1-input",
-          "identifier": "input",
-          "label": "Input",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        },
-        {
-          "id": "debug1-output",
-          "identifier": "output",
-          "label": "Output",
-          "datatype": "",
-          "is_input": false,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "STRING",
-            "value": ""
-          }
-        }
-      ],
-      "ui": {
-        "position": [
-          1024,
-          20
-        ]
-      }
+     "id": "inject1-input",
+     "identifier": "input",
+     "label": "input",
+     "datatype": "",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "STRING",
+      "value": "http://www.google.com"
+     }
     },
     {
-      "id": "Node-7d29fca7-202d-43ea-9fdb-4e10e679de82",
-      "name": "Canvas",
-      "type": "UICanvas",
-      "is_dashboard": true,
-      "ports": [
-        {
-          "id": "Port-c66d6eb2-e841-4416-9069-f3f918053d43",
-          "identifier": "children",
-          "label": "Child",
-          "datatype": "",
-          "is_input": false,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "",
-            "value": null
-          }
-        }
-      ],
-      "ui": {
-        "position": [380, 379]
-      }
-    },
-    {
-      "id": "Node-4e29acec-6dfd-4497-886e-b338ba6c1489",
-      "name": "List",
-      "type": "UIList",
-      "is_dashboard": true,
-      "ports": [
-        {
-          "id": "Port-df83d4fa-a1a4-442f-8812-87e40f79e48e",
-          "identifier": "parent",
-          "label": "Parent",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "",
-            "value": null
-          }
-        },
-        {
-          "id": "Port-ce23647c-d813-46c4-ada2-e7ca043a9ad7",
-          "identifier": "is_vertical",
-          "label": "is Vertical",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "",
-            "value": null
-          }
-        },
-        {
-          "id": "Port-5b38da0f-87bf-4eb7-8794-45c2430c8bb5",
-          "identifier": "children",
-          "label": "Children",
-          "datatype": "",
-          "is_input": false,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "",
-            "value": null
-          }
-        }
-      ],
-      "ui": {
-        "position": [
-          729,
-          368
-        ]
-      }
-    },
-    {
-      "id": "Node-d7610344-ec37-43fc-8098-cc7c2c28571b",
-      "name": "Text",
-      "type": "UIText",
-      "is_dashboard": true,
-      "ports": [
-        {
-          "id": "Port-956a25eb-f003-4ca3-a00f-7b8d94cbc081",
-          "identifier": "parent",
-          "label": "Parent",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "",
-            "value": null
-          }
-        },
-        {
-          "id": "Port-8d10594e-110a-4df8-8c07-652dcb81683f",
-          "identifier": "is_label",
-          "label": "is Label",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "",
-            "value": null
-          }
-        },
-        {
-          "id": "Port-44563944-41b4-4817-9331-dbad70b22d75",
-          "identifier": "font_size",
-          "label": "Font Size",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "",
-            "value": "13"
-          }
-        },
-        {
-          "id": "Port-6c11199d-7e98-44cf-9e5d-dbe5d1fdd264",
-          "identifier": "value",
-          "label": "Value",
-          "datatype": "",
-          "is_input": true,
-          "is_trigger": false,
-          "default_value": {
-            "datatype": "",
-            "value": "The value"
-          }
-        }
-      ],
-      "ui": {
-        "position": [
-          1283,
-          35
-        ]
-      }
+     "id": "inject1-output",
+     "identifier": "output",
+     "label": "Output",
+     "datatype": "",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "STRING",
+      "value": ""
+     }
     }
-  ],
-  "edges": [
+   ],
+   "ui": {
+    "position": [
+     381,
+     43
+    ]
+   }
+  },
+  {
+   "id": "Node-cef61dcd-cb92-4401-9f30-d32ae6cafd95",
+   "name": "Canvas",
+   "type": "UICanvas",
+   "is_ui_node": false,
+   "ports": [
     {
-      "id": "inject-http",
-      "origin": {
-        "node_id": "inject1",
-        "port_id": "inject1-trigger-out"
-      },
-      "target": {
-        "node_id": "http1",
-        "port_id": "http1-trigger-in"
-      }
-    },
-    {
-      "id": "http-debug1",
-      "origin": {
-        "node_id": "http1",
-        "port_id": "http1-trigger-out"
-      },
-      "target": {
-        "node_id": "debug1",
-        "port_id": "debug1-trigger-in"
-      }
-    },
-    {
-      "id": "ea3c6afd-f79c-444b-8688-e0933fdb179b",
-      "origin": {
-        "node_id": "inject1",
-        "port_id": "inject1-output"
-      },
-      "target": {
-        "node_id": "http1",
-        "port_id": "http1-url"
-      }
-    },
-    {
-      "id": "3aff3db0-89f1-447a-8f94-df5e1d296794",
-      "origin": {
-        "node_id": "http1",
-        "port_id": "http1-response-code"
-      },
-      "target": {
-        "node_id": "debug1",
-        "port_id": "debug1-input"
-      }
-    },
-    {
-      "id": "9f6f1188-a5d4-4e97-9263-75bacc568397",
-      "origin": {
-        "node_id": "Node-7d29fca7-202d-43ea-9fdb-4e10e679de82",
-        "port_id": "Port-c66d6eb2-e841-4416-9069-f3f918053d43"
-      },
-      "target": {
-        "node_id": "Node-4e29acec-6dfd-4497-886e-b338ba6c1489",
-        "port_id": "Port-df83d4fa-a1a4-442f-8812-87e40f79e48e"
-      }
-    },
-    {
-      "id": "91ff4d87-231c-4afe-a0f1-2cdb46104c06",
-      "origin": {
-        "node_id": "Node-4e29acec-6dfd-4497-886e-b338ba6c1489",
-        "port_id": "Port-5b38da0f-87bf-4eb7-8794-45c2430c8bb5"
-      },
-      "target": {
-        "node_id": "Node-d7610344-ec37-43fc-8098-cc7c2c28571b",
-        "port_id": "Port-956a25eb-f003-4ca3-a00f-7b8d94cbc081"
-      }
-    },
-    {
-      "id": "e451cc2d-ffdc-41b6-b13e-27c2747bb551",
-      "origin": {
-        "node_id": "http1",
-        "port_id": "http1-response-code"
-      },
-      "target": {
-        "node_id": "Node-d7610344-ec37-43fc-8098-cc7c2c28571b",
-        "port_id": "Port-6c11199d-7e98-44cf-9e5d-dbe5d1fdd264"
-      }
+     "id": "Port-d326b7cf-d5f5-4106-a7d0-115241763a9d",
+     "identifier": "children",
+     "label": "Child",
+     "datatype": "ui",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
     }
-  ]
+   ],
+   "ui": {
+    "position": [
+     388,
+     416
+    ]
+   }
+  },
+  {
+   "id": "Node-2e2accf5-8507-4829-bb75-31b74dfb0373",
+   "name": "List",
+   "type": "UIList",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-02b7daad-7687-48bc-8b02-90f1077ebada",
+     "identifier": "parent",
+     "label": "Parent",
+     "datatype": "ui",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-dcfb00c8-fe25-449e-a897-1c47ece15883",
+     "identifier": "is_vertical",
+     "label": "is Vertical",
+     "datatype": "bool",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-c8dca29a-a3ea-4eb2-a4bd-3d70ba298b48",
+     "identifier": "children",
+     "label": "Child",
+     "datatype": "ui",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-bb72680a-2c15-493e-80ed-732e8dedc4dc",
+     "identifier": "children",
+     "label": "Child",
+     "datatype": "ui",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     725,
+     403
+    ]
+   }
+  },
+  {
+   "id": "Node-235561bf-fcee-475c-9403-761ac5db62a7",
+   "name": "Text",
+   "type": "UIText",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-f46c0af2-8b33-44e0-b612-21f0fa376883",
+     "identifier": "parent",
+     "label": "Parent",
+     "datatype": "ui",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-cf07c03f-dd1d-472c-8da8-9772878549cc",
+     "identifier": "label",
+     "label": "Label",
+     "datatype": "string",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-045f8b36-885a-402f-8629-5a634be475c2",
+     "identifier": "font_size",
+     "label": "Font Size",
+     "datatype": "number",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-e08fd3af-a0a6-4fc8-b1f8-fbb746140d33",
+     "identifier": "value",
+     "label": "Value",
+     "datatype": "string",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": "child2"
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     1008,
+     339
+    ]
+   }
+  },
+  {
+   "id": "Node-2aa02dc7-bd38-41bc-a95e-a313ace7183a",
+   "name": "Text",
+   "type": "UIText",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-69e6d377-7231-4e2b-8754-e561c8ce4873",
+     "identifier": "parent",
+     "label": "Parent",
+     "datatype": "ui",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-903f1d2c-f25c-40b6-a372-134817ab04aa",
+     "identifier": "label",
+     "label": "Label",
+     "datatype": "string",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-f5a53bcf-0cf9-4684-a24a-8ad295dd35b7",
+     "identifier": "font_size",
+     "label": "Font Size",
+     "datatype": "number",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-0a7a6b86-9a17-46fa-84a8-a47501c79f57",
+     "identifier": "value",
+     "label": "Value",
+     "datatype": "string",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": "child2"
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     1008,
+     339
+    ]
+   }
+  }
+ ],
+ "edges": [
+  {
+   "id": "7cfc2045-c035-4084-b2fd-954203cad7f6",
+   "origin": {
+    "node_id": "Node-cef61dcd-cb92-4401-9f30-d32ae6cafd95",
+    "port_id": "Port-d326b7cf-d5f5-4106-a7d0-115241763a9d"
+   },
+   "target": {
+    "node_id": "Node-2e2accf5-8507-4829-bb75-31b74dfb0373",
+    "port_id": "Port-02b7daad-7687-48bc-8b02-90f1077ebada"
+   }
+  },
+  {
+   "id": "a07ac64b-8ba4-4869-885d-756df58c3a4b",
+   "origin": {
+    "node_id": "Node-2e2accf5-8507-4829-bb75-31b74dfb0373",
+    "port_id": "Port-c8dca29a-a3ea-4eb2-a4bd-3d70ba298b48"
+   },
+   "target": {
+    "node_id": "Node-235561bf-fcee-475c-9403-761ac5db62a7",
+    "port_id": "Port-f46c0af2-8b33-44e0-b612-21f0fa376883"
+   }
+  },
+  {
+   "id": "5dda4039-bfcb-4ddb-8afb-24dfd2691ff6",
+   "origin": {
+    "node_id": "Node-2e2accf5-8507-4829-bb75-31b74dfb0373",
+    "port_id": "Port-bb72680a-2c15-493e-80ed-732e8dedc4dc"
+   },
+   "target": {
+    "node_id": "Node-2aa02dc7-bd38-41bc-a95e-a313ace7183a",
+    "port_id": "Port-69e6d377-7231-4e2b-8754-e561c8ce4873"
+   }
+  }
+ ]
 }

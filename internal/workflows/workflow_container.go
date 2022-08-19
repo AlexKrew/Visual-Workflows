@@ -59,6 +59,7 @@ func (container *WorkflowContainer) Run(workflow *Workflow) error {
 
 	err := container.initialize()
 	if err != nil {
+		log.Panicf("initialization failed: %s", err.Error())
 		return err
 	}
 
@@ -128,7 +129,7 @@ func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[stri
 			connNode, _ := container.Workflow.NodeByID(connPort.NodeID)
 			connPort, _ := connNode.PortByID(connPort.PortID)
 
-			if node.IsDashboardNode {
+			if node.IsUINode {
 				valueChangedEvent := NewDashboardValueChangedEvent(DashboardValueChangedEventBody{
 					WorkflowID: container.ID(),
 					ElementID:  connNode.ID,
@@ -147,7 +148,7 @@ func (container *WorkflowContainer) TriggerConnectedNodes(nodeId NodeID) {
 	node, exists := container.Workflow.NodeByID(nodeId)
 	if !exists {
 		fmt.Println("Node does not exists", node)
-		panic("panic")
+		panic("Node does not exist")
 	}
 
 	triggerPortID, err := node.TriggerOutputPortID()
@@ -165,33 +166,6 @@ func (container *WorkflowContainer) TriggerConnectedNodes(nodeId NodeID) {
 		container.EventStream.AddCommand(NewCreateJobCommand(CreateJobCommandBody{NodeID: node.NodeID, WorkflowID: container.ID()}))
 	}
 }
-
-// func ConstructWorkflowInstance(eventStream *EventStream) (WorkflowContainer, error) {
-
-// 	container := WorkflowContainer{
-// 		InstanceID:  utils.GetNewUUID(),
-// 		EventStream: eventStream,
-// 		Workflow:    workflow,
-// 		State:       LoadingContainer,
-// 	}
-
-// 	eventStream.AddEvent(NewWorkflowInstanceCreatedEvent(WorkflowInstanceCreatedEventBody{
-// 		Workflow:   workflow,
-// 		InstanceID: container.InstanceID,
-// 	}))
-
-// 	// TODO: Run init logic of all services
-
-// 	err := container.initialize()
-// 	if err != nil {
-// 		return WorkflowContainer{}, err
-// 	}
-
-// 	container.State = WorkflowStopped
-// 	eventStream.AddEvent(NewWorkflowReadyEvent(WorkflowReadyEventBody{InstanceID: container.InstanceID}))
-
-// 	return container, nil
-// }
 
 func (container *WorkflowContainer) initialize() error {
 
