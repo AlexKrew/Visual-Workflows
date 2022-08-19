@@ -550,6 +550,58 @@
     "addablePorts": []
   },
   {
+    "id": "N8",
+    "name": "Wait",
+    "category": "Control",
+    "type": "Wait",
+    "is_ui_node": false,
+    "ui": {
+      "position": [0, 0]
+    },
+    "ports": [
+      {
+        "id": "N8-T1",
+        "identifier": "trigger_in1",
+        "datatype": "TRIGGER",
+        "label": "Trigger In",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N8-T2",
+        "identifier": "trigger_in2",
+        "datatype": "TRIGGER",
+        "label": "Trigger In",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N8-T3",
+        "identifier": "trigger_out",
+        "datatype": "TRIGGER",
+        "label": "Trigger Out",
+        "group_id": "",
+        "added": false,
+        "is_input": false,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      }
+    ],
+    "addablePorts": []
+  },
+  {
     "id": "UI-N1",
     "name": "Canvas",
     "category": "UI",
