@@ -104,6 +104,8 @@ export default defineComponent({
     onMounted(() => {
       if (!props.portModel.parent?.parent) return;
       if (!portColor.value) portColor.value = DatatypeColors[Datatype.ANY]; // set Default color for old workflows TODO delete
+      if (props.portModel.data.datatype == Datatype.BOOLEAN && !checkboxValue.value) checkboxValue.value = false;
+
       setPortPos();
       interact(`#${props.portModel.id}`)
         .draggable({})
