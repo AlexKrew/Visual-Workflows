@@ -12,13 +12,7 @@
           </div>
 
           <div class="flex flex-row items-center justify-center space-x-5">
-            <WorkflowControls
-              :status="workflow.status"
-              @clickLoad="loadWorkflow"
-              @clickStart="startWorkflow"
-              @clickStop="stopWorkflow"
-              @clickShutdown="shutdownWorkflow"
-            />
+
           </div>
 
           <div class="flex flex-row items-center justify-end">
@@ -41,7 +35,7 @@ import WorkflowControls from "./WorkflowControls.vue";
 export default {
     emits: ["clickEditor"],
     
-    components: { WorkflowControls },
+    components: {  },
     
     props: {
         workflow: {
