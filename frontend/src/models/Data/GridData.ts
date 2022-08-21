@@ -14,6 +14,8 @@ class GridData {
   static nodes: NodeModel[] = [];
 
   static loadDefaultData() {
+    GridData.nodes = [];
+    
     // Load default Nodes
     const nodeTypes: NodeType[] = JSON.parse(JSON.stringify(NodesJSON));
     for (let i = 0; i < nodeTypes.length; i++) {
