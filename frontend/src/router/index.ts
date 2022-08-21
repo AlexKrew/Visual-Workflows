@@ -15,18 +15,6 @@ const routes: Array<RouteRecordRaw> = [
       { path: "dashboard/:workflowId/", name: "dashboard", component: DashboardView, props: true },
     ],
   },
-  // {
-  //   path: "/workflow-editor/:workflowId",
-  //   name: "workflow-editor",
-  //   component: WorkflowEditorView,
-  //   props: true,
-  // },
-  // {
-  //   path: "/workflow-editor",
-  //   name: "workflow-editor DEBUG",
-  //   component: WorkflowEditorView,
-  //   props: true,
-  // },
 ];
 
 const router = createRouter({

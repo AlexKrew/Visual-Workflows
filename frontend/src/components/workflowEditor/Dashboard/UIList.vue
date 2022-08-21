@@ -22,8 +22,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    console.log("UIList", props.obj);
-
     const fields = ref<UIListType>(props.obj.data.fields as UIListType);
 
     return { fields };

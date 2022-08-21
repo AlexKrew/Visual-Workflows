@@ -4,7 +4,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
           <div class="flex">
-            <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+            <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8" :key="updateNavBar">
               <a
                 v-for="item in navigation"
                 :key="item.name"
@@ -18,6 +18,9 @@
                 :aria-current="item.current ? 'page' : undefined"
                 >{{ item.name }}</a
               >
+              <div v-if="grid && curNavElement != 0" class="inline-flex items-center px-1 pt-1 text-sm font-medium">
+                {{ grid.data.name }}
+              </div>
             </div>
           </div>
         </div>
@@ -25,7 +28,7 @@
 
       <div class="sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-          <div
+          <a
             v-for="item in navigation"
             :key="item.name"
             :href="item.href"
@@ -38,7 +41,7 @@
             :aria-current="item.current ? 'page' : undefined"
           >
             {{ item.name }}
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -50,18 +53,44 @@
 </template>
 
 <script lang="ts">
+import { emitter } from "@/components/util/Emittery";
+import GridData from "@/models/Data/GridData";
+import GridModel from "@/models/GridModel";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   setup(props, ctx) {
     const navigation = [
       { name: "Overview", href: "/", current: true },
-      { name: "Workflow Editor", href: "/workflow-editor/flow1", current: false },
+      { name: "Workflow Editor", href: "", current: false },
     ];
+
+    const grid = ref(GridData.grid);
+    const updateNavBar = ref(0);
+    const curNavElement = ref(0);
+
+    emitter.on("UpdateNavBar", (index) => {
+      console.log("Update");
+      grid.value = GridData.grid;
+
+      // Set Active Navigation
+      curNavElement.value = index;
+      let curNav = navigation.find((nav) => nav.current);
+      console.log("Nav", curNav);
+      if (curNav) {
+        curNav.current = false;
+      }
+      navigation[index].current = true;
+
+      updateNavBar.value++;
+    });
 
     return {
       navigation,
+      grid,
+      updateNavBar,
+      curNavElement,
     };
   },
 });

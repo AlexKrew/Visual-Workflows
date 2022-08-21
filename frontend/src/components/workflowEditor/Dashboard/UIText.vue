@@ -23,8 +23,6 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
-    console.log("UIText", props.obj);
-
     const fields = ref<UITextType>(props.obj.data.fields as UITextType);
 
     return {
