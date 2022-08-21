@@ -1,6 +1,7 @@
 package webserver
 
 import (
+	"log"
 	"workflows/internal/processors/workflow_processor"
 	"workflows/internal/workflows"
 )
@@ -58,4 +59,14 @@ func (helper *WorkflowHelper) PublishChanges(workflow workflows.Workflow) error 
 	container.Run(&storedWorkflow)
 
 	return nil
+}
+
+func (helper *WorkflowHelper) LoadWorkflowById(workflowId workflows.WorkflowID) (*workflows.Workflow, bool) {
+	workflow, err := workflows.WorkflowFromFilesystem(workflowId)
+	if err != nil {
+		log.Panicf("failed to load workflow: %s", err.Error())
+		return nil, false
+	}
+
+	return &workflow, true
 }

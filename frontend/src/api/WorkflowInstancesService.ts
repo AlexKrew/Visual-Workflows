@@ -35,7 +35,7 @@ export class WorkflowInstancesServiceImpl implements WorkflowInstancesService {
   // Create new empty Workflow
   public async createWorkflow(name: string): Promise<any> {
     try {
-      const response = await HTTP.post("/workflows/new", { name });
+      const response = await HTTP.post("/workflows", { name });
       console.log("Response", response);
     } catch (err) {
       return err;

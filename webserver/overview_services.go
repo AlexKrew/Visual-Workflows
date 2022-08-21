@@ -1,6 +1,7 @@
 package webserver
 
 import (
+	"log"
 	"net/http"
 	"workflows/internal/workflows"
 
@@ -12,7 +13,7 @@ func registerOverviewServices(rg *gin.RouterGroup) {
 	overviewServices := rg.Group("/workflows")
 
 	overviewServices.GET("", getWorkflows)
-	overviewServices.POST("new", createWorkflow)
+	overviewServices.POST("", createWorkflow)
 }
 
 func getWorkflows(c *gin.Context) {
@@ -31,8 +32,15 @@ func createWorkflow(c *gin.Context) {
 		return
 	}
 
-	// TODO:
-	// WorkflowHelper.CreateNewWorkflow(request.Name)
+	workflowName := request.Name
+	workflow := workflows.NewWorkflow(workflowName)
+
+	err := workflows.WorkflowToFilesystem(workflow)
+	if err != nil {
+		log.Panicf("Failed to write new workflow to file: %s", err.Error())
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unexpected error"})
+		return
+	}
 
 	c.JSON(http.StatusCreated, gin.H{"status": "okay"})
 }

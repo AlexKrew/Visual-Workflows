@@ -23,8 +23,21 @@ func registerWorkflowServices(rg *gin.RouterGroup) {
 func getWorkflow(c *gin.Context) {
 	var workflowId string = c.Param("id")
 
-	workflow, exists := WFHelper.WorkflowById(workflowId)
-	if !exists {
+	var workflow *workflows.Workflow
+
+	existingWorkflow, loaded := WFHelper.WorkflowById(workflowId)
+	if loaded {
+		workflow = existingWorkflow
+
+	} else {
+		loadedWorkflow, exists := WFHelper.LoadWorkflowById(workflowId)
+
+		if exists {
+			workflow = loadedWorkflow
+		}
+	}
+
+	if workflow == nil {
 		c.String(http.StatusBadRequest, errors.New("workflow does not exist").Error())
 		return
 	}
