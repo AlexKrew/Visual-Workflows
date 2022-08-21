@@ -72,7 +72,6 @@ export default defineComponent({
     ]);
 
     emitter.on("UpdateNavBar", ([index, id]) => {
-      console.log("Update", GridData.grid);
       grid.value = GridData.grid;
 
       // Set Active Navigation

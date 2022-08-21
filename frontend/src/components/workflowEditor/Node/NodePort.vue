@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :key="updateKey">
     <!-- Port and Title -->
     <div class="fill-width flex relative">
       <!-- Trigger Port -->
@@ -40,7 +40,12 @@
     </div>
 
     <!-- Default Text Field -->
-    <div v-if="portModel.data.hasDefaultField && !portModel.data.defaultFieldHidden && portModel.data.datatype != 'BOOLEAN'" class="px-2 pb-3">
+    <div
+      v-if="
+        portModel.data.hasDefaultField && !portModel.data.defaultFieldHidden && portModel.data.datatype != 'BOOLEAN'
+      "
+      class="px-2 pb-3"
+    >
       <textarea
         ref="textAreaRef"
         class="bg-gray-200 w-full px-1"
@@ -51,8 +56,13 @@
     </div>
 
     <!-- Default Checkbox -->
-    <div v-if="portModel.data.hasDefaultField && !portModel.data.defaultFieldHidden && portModel.data.datatype == 'BOOLEAN'" class="px-2 pb-3">
-      <input type="checkbox" v-model="checkboxValue"/>
+    <div
+      v-if="
+        portModel.data.hasDefaultField && !portModel.data.defaultFieldHidden && portModel.data.datatype == 'BOOLEAN'
+      "
+      class="px-2 pb-3"
+    >
+      <input type="checkbox" v-model="checkboxValue" />
     </div>
 
     <!-- Default Select -->
@@ -62,7 +72,6 @@
         <option v-for="option in portModel.data.options" :key="option">{{ option }}</option>
       </select>
     </div>
-
   </div>
 </template>
 
@@ -101,6 +110,8 @@ export default defineComponent({
     const node = props.portModel.parent as NodeModel;
     const grid = props.portModel.parent?.parent as GridModel;
 
+    const updateKey = ref(0);
+
     onMounted(() => {
       if (!props.portModel.parent?.parent) return;
       if (!portColor.value) portColor.value = DatatypeColors[Datatype.ANY]; // set Default color for old workflows TODO delete
@@ -124,6 +135,13 @@ export default defineComponent({
       if (parent == props.portModel.parent) setPortPos();
     });
 
+    emitter.on("UpdatePort", (id) => {
+      if (props.portModel.data.id == id) {
+        portColor.value = DatatypeColors[props.portModel.data.datatype];
+        updateKey.value++;
+      }
+    });
+
     // Resize Text Area
     watch(textAreaValue, () => {
       props.portModel.setDefaultValue(textAreaValue.value, Datatype.STRING);
@@ -143,6 +161,14 @@ export default defineComponent({
 
     watch(selectValue, () => {
       props.portModel.setDefaultValue(selectValue.value, Datatype.STRING);
+
+      if (props.portModel.data.identifier == "parse") {
+        let node = props.portModel.parent as NodeModel;
+        let port = node.children.find((child) => (child as PortModel).data.identifier == "output") as PortModel;
+        port.data.datatype = selectValue.value as Datatype;
+
+        emitter.emit("UpdatePort", port.data.id);
+      }
     });
 
     watch(checkboxValue, () => {
@@ -155,7 +181,7 @@ export default defineComponent({
       const rect: DOMRect = portRef.value.getBoundingClientRect();
 
       const posAbs = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
-      const pos = Vector2.subtract(posAbs, node.posGridCell, grid.posRel, new Vector2(0, 64));  //64 is the Size of the Navbar, quick and dirty
+      const pos = Vector2.subtract(posAbs, node.posGridCell, grid.posRel, new Vector2(0, 64)); //64 is the Size of the Navbar, quick and dirty
 
       props.portModel.setPos(pos);
     }
@@ -178,7 +204,7 @@ export default defineComponent({
     function onDragMove(event: InteractEvent) {
       if (!grid) return;
       if (grid.tmpEdgeIndex >= 0) {
-        grid.edges[grid.tmpEdgeIndex].setMousePos(new Vector2(event.clientX, event.clientY -64)); // quick and dirty
+        grid.edges[grid.tmpEdgeIndex].setMousePos(new Vector2(event.clientX, event.clientY - 64)); // quick and dirty
       }
     }
 
@@ -228,7 +254,8 @@ export default defineComponent({
       textAreaHeight,
       selectValue,
       portColor,
-      checkboxValue
+      checkboxValue,
+      updateKey,
     };
   },
 });

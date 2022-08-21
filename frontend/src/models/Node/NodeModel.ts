@@ -27,6 +27,7 @@ class NodeModel extends EditorComponent {
         if (defaultPort) {
           port.hasDefaultField = defaultPort.hasDefaultField;
           port.defaultPlaceholder = defaultPort.defaultPlaceholder;
+          port.options = defaultPort.options;
         }
 
         this.addChild(new PortModel(port), false);

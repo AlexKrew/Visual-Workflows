@@ -488,13 +488,13 @@
         },
         "hasDefaultField": false,
         "defaultPlaceholder": "",
-        "options": ["string", "number", "boolean"]
+        "options": ["STRING", "NUMBER", "BOOLEAN"]
       },
       {
         "id": "N2-P3",
-        "identifier": "payload",
+        "identifier": "output",
         "datatype": "ANY",
-        "label": "Payload",
+        "label": "Output",
         "group_id": "",
         "added": false,
         "is_input": false,
