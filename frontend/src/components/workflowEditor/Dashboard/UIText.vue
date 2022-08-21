@@ -15,6 +15,7 @@ import { UITextType } from "@/models/Data/Dashboard/UITypes";
 import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
+  name: "UIText",
   props: {
     obj: {
       required: true,
@@ -22,6 +23,8 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
+    console.log("UIText", props.obj);
+
     const fields = ref<UITextType>(props.obj.data.fields as UITextType);
 
     return {

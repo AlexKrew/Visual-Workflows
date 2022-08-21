@@ -1,0 +1,27 @@
+<template>
+  <component :is="obj.data.type" :obj="obj" :key="obj.data.id"></component>
+</template>
+
+<script lang="ts">
+import { defineComponent, onMounted } from "vue";
+import DashboardElement from "@/models/Data/Dashboard/DashboardElement";
+import UIList from "./UIList.vue";
+import UIText from "./UIText.vue";
+
+export default defineComponent({
+  name: "UIElement",
+  components: { UIList, UIText },
+  props: {
+    obj: {
+      required: true,
+      type: DashboardElement,
+    },
+  },
+  setup(props, ctx) {
+    console.log("UIElement", props.obj);
+    //
+  },
+});
+</script>
+
+<style></style>

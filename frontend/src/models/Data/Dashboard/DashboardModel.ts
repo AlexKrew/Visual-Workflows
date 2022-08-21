@@ -7,7 +7,6 @@ class DashboardModel {
 
   static setCanvas(canvas: DashboardElement) {
     DashboardModel.canvas = canvas;
-    console.log(canvas);
     emitter.emit("UpdateDashboard");
   }
 
