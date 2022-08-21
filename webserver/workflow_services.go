@@ -14,15 +14,10 @@ import (
 func registerWorkflowServices(rg *gin.RouterGroup) {
 	workflows := rg.Group("/workflows")
 	{
-		workflows.POST("/", addNewWorkflow)
 		workflows.GET("/:id", getWorkflow)
 		workflows.PATCH("/:id", updateWorkflow)
 		workflows.PATCH("/:id/start", startWorkflow)
 	}
-}
-
-func addNewWorkflow(c *gin.Context) {
-	// TODO:
 }
 
 func getWorkflow(c *gin.Context) {
