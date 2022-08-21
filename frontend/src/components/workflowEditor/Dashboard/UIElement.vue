@@ -7,10 +7,11 @@ import { defineComponent, onMounted } from "vue";
 import DashboardElement from "@/models/Data/Dashboard/DashboardElement";
 import UIList from "./UIList.vue";
 import UIText from "./UIText.vue";
+import UIGauge from "./UIGauge.vue";
 
 export default defineComponent({
   name: "UIElement",
-  components: { UIList, UIText },
+  components: { UIList, UIText, UIGauge },
   props: {
     obj: {
       required: true,
