@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
     component: MainLayout,
     children: [
       { path: "/", redirect: { name: "home" } },
-      { path: "overview", name: "home", component: IndexView },
+      { path: "overview", name: "home", component: IndexView, props: true },
       { path: "workflow-editor/:workflowId", name: "workflow-editor", component: WorkflowEditorView, props: true },
       { path: "dashboard/:workflowId/", name: "dashboard", component: DashboardView, props: true },
     ],

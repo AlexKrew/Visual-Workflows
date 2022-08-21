@@ -4,7 +4,7 @@ const emitter = new Emittery<{
   PortsUpdatePos: NodeModel;
   UpdateWorkflowEditor: undefined;
   UpdateDashboard: undefined;
-  UpdateNavBar: number;
+  UpdateNavBar: [number, string];
 }>();
 
 export { emitter, Emittery };

@@ -57,31 +57,36 @@ import { emitter } from "@/components/util/Emittery";
 import GridData from "@/models/Data/GridData";
 import GridModel from "@/models/GridModel";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   setup(props, ctx) {
-    const navigation = [
-      { name: "Overview", href: "/", current: true },
-      { name: "Workflow Editor", href: "", current: false },
-    ];
-
     const grid = ref(GridData.grid);
     const updateNavBar = ref(0);
     const curNavElement = ref(0);
 
-    emitter.on("UpdateNavBar", (index) => {
-      console.log("Update");
+    const navigation = ref([
+      { name: "Overview", href: "/", current: true },
+      { name: "Workflow Editor", href: "", current: false },
+      { name: "Dashboard", href: "", current: false },
+    ]);
+
+    emitter.on("UpdateNavBar", ([index, id]) => {
+      console.log("Update", GridData.grid);
       grid.value = GridData.grid;
 
       // Set Active Navigation
       curNavElement.value = index;
-      let curNav = navigation.find((nav) => nav.current);
-      console.log("Nav", curNav);
+      let curNav = navigation.value.find((nav) => nav.current);
       if (curNav) {
         curNav.current = false;
       }
-      navigation[index].current = true;
+      navigation.value[index].current = true;
+
+      if (id) {
+        navigation.value[1].href = "/workflow-editor/" + id;
+        navigation.value[2].href = "/dashboard/" + id;
+      }
 
       updateNavBar.value++;
     });

@@ -48,7 +48,7 @@ export default defineComponent({
       // GridData.loadWorkflow(JSON.parse(JSON.stringify(testJSON)));
       GridData.loadWorkflow(JSON.parse(JSON.stringify(workflowJSON)));
       isLoading.value = false;
-      emitter.emit("UpdateNavBar", 1);
+      emitter.emit("UpdateNavBar", [1, props.workflowId]);
     });
 
     onMounted(() => {

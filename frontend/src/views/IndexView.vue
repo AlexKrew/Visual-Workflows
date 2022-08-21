@@ -97,7 +97,7 @@ export default defineComponent({
     workflowInstancesService.getWorkflows();
 
     onMounted(() => {
-      emitter.emit("UpdateNavBar", 0);
+      emitter.emit("UpdateNavBar", [0, ""]);
     });
 
     const fetchWorkflows = async () => {
