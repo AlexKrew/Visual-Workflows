@@ -1,8 +1,15 @@
+import { emitter } from "@/components/util/Emittery";
 import DashboardElement from "./DashboardElement";
 import { UpdateFieldType } from "./UITypes";
 
 class DashboardModel {
   static canvas: DashboardElement;
+
+  static setCanvas(canvas: DashboardElement) {
+    DashboardModel.canvas = canvas;
+    console.log(canvas);
+    emitter.emit("UpdateDashboard");
+  }
 
   static getElementByID(id: string, element: DashboardElement = DashboardModel.canvas): DashboardElement | undefined {
     if (element.data.id == id) return element;

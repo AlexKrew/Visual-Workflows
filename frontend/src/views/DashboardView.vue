@@ -1,13 +1,13 @@
 <template>
-  <div :key="updateKey">
-    <div v-if="canvas && canvas.children.length > 0" class="relative w-full h-full p-5 bg-gray-300">
+  <div>
+    <div v-if="canvas && canvas.children.length > 0" class="relative w-full h-full p-5 bg-gray-300" :key="updateKey">
       <component :is="canvas.children[0].data.type" :obj="canvas.children[0]"></component>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, onMounted, ref } from "vue";
+import { defineComponent, getCurrentInstance, onBeforeMount, onMounted, ref, watch } from "vue";
 import testDashboard from "../test/testDashboard.json";
 import DashboardElement from "@/models/Data/Dashboard/DashboardElement";
 import UIText from "@/components/workflowEditor/Dashboard/UIText.vue";
@@ -24,22 +24,19 @@ export default defineComponent({
     workflowId: {
       required: true,
       type: String,
-    }
+    },
   },
   setup(props, ctx) {
     const canvas = ref<DashboardElement>(DashboardModel.canvas);
-    const updateKey = ref(0);
+    let updateKey = ref<number>(0);
 
     onBeforeMount(async () => {
-      // DashboardModel.canvas = new DashboardElement(JSON.parse(JSON.stringify(testDashboard.canvas)));
-      // canvas.value = DashboardModel.canvas;
-
       const c = await dashboardInstanceService.getDashboard(props.workflowId);
-      DashboardModel.canvas = new DashboardElement(c["canvas"]);
-      canvas.value = DashboardModel.canvas;
+      DashboardModel.setCanvas(new DashboardElement(c["canvas"]));
     });
 
     emitter.on("UpdateDashboard", () => {
+      canvas.value = DashboardModel.canvas;
       updateKey.value++;
     });
 
@@ -47,9 +44,10 @@ export default defineComponent({
     connection.onmessage = (event) => {
       let json: any = JSON.parse(event.data);
 
-      if(json["type"] == "field_updated") DashboardModel.updateFields(...(json["data"] as UpdateFieldType[]))
-      if(json["type"] == "rebuild_ui") DashboardModel.canvas = new DashboardElement(JSON.parse(JSON.stringify(json["data"]["canvas"])));
-    }
+      if (json["type"] == "field_updated") DashboardModel.updateFields(...(json["data"] as UpdateFieldType[]));
+      if (json["type"] == "rebuild_ui")
+        DashboardModel.canvas = new DashboardElement(JSON.parse(JSON.stringify(json["data"]["canvas"])));
+    };
 
     return {
       canvas,
