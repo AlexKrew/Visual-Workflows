@@ -38,7 +38,25 @@ func (processor *WorkflowProcessor) WorkflowByID(workflowId workflows.WorkflowID
 	return nil, false
 }
 
+func (processor *WorkflowProcessor) CreateContainer(workflowId workflows.WorkflowID) error {
+	container, err := workflows.WorkflowContainerFromStorage(processor.EventStream, workflowId)
+	if err != nil {
+		return err
+	}
+
+	processor.Containers[container.ID()] = container
+
+	return nil
+}
+
 func (processor *WorkflowProcessor) StartWorkflow(workflowId workflows.WorkflowID) error {
+
+	log.Println("START WORKFLOW", workflowId)
+	availableWorkflows := []string{}
+	for workflowId, _ := range processor.Containers {
+		availableWorkflows = append(availableWorkflows, workflowId)
+	}
+	log.Println("AVAILABLE WORKFLOWS", availableWorkflows)
 
 	container, exists := processor.Containers[workflowId]
 	if !exists {
@@ -47,6 +65,16 @@ func (processor *WorkflowProcessor) StartWorkflow(workflowId workflows.WorkflowI
 	container.Start()
 
 	return nil
+}
+
+func (processor *WorkflowProcessor) ReloadContainer(workflowId workflows.WorkflowID) error {
+	container, exists := processor.Containers[workflowId]
+	if exists {
+		container.Stop()
+	}
+	processor.Containers[workflowId] = nil
+
+	return processor.CreateContainer(workflowId)
 }
 
 func (processor *WorkflowProcessor) Register(eventStream *workflows.EventStream) {
@@ -97,14 +125,7 @@ func (processor *WorkflowProcessor) handleCommand(command workflows.WorkflowComm
 func (processor *WorkflowProcessor) createWorkflowInstance(command workflows.WorkflowCommand) error {
 	body := command.Body.(workflows.CreateWorkflowInstanceCommandBody)
 
-	workflow, err := workflows.WorkflowFromFilesystem(body.WorkflowID)
-	if err != nil {
-		log.Panicf("ERR: %s", err.Error())
-		return err
-	}
-
-	instance := workflows.NewWorkflowContainer(processor.EventStream, &workflow)
-	err = instance.Run(&workflow)
+	instance, err := workflows.WorkflowContainerFromStorage(processor.EventStream, body.WorkflowID)
 	if err != nil {
 		log.Panicf("ERR: %s", err.Error())
 		return err
@@ -165,7 +186,7 @@ func (processor *WorkflowProcessor) handleEvent(event workflows.WorkflowEvent) e
 
 	switch event.Type {
 	case workflows.WorkflowReady:
-		processor.workflowReady(event)
+		// processor.workflowReady(event)
 	case workflows.JobCompleted:
 		processor.jobCompleted(event)
 	}
@@ -173,15 +194,15 @@ func (processor *WorkflowProcessor) handleEvent(event workflows.WorkflowEvent) e
 	return nil
 }
 
-func (processor *WorkflowProcessor) workflowReady(event workflows.WorkflowEvent) {
-	body := event.Body.(workflows.WorkflowReadyEventBody)
+// func (processor *WorkflowProcessor) workflowReady(event workflows.WorkflowEvent) {
+// 	body := event.Body.(workflows.WorkflowReadyEventBody)
 
-	for _, container := range processor.Containers {
-		if container.ID() == body.WorkflowID {
-			container.Start()
-		}
-	}
-}
+// 	for _, container := range processor.Containers {
+// 		if container.ID() == body.WorkflowID {
+// 			container.Start()
+// 		}
+// 	}
+// }
 
 func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) {
 

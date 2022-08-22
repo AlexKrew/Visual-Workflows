@@ -27,7 +27,7 @@ type WorkflowContainer struct {
 	CronJobs      *CronJobManager
 }
 
-func NewWorkflowContainer(eventStream *EventStream, workflow *Workflow) *WorkflowContainer {
+func newWorkflowContainer(eventStream *EventStream, workflow *Workflow) *WorkflowContainer {
 	container := WorkflowContainer{
 		EventStream: eventStream,
 		State:       LoadingContainer,
@@ -37,24 +37,25 @@ func NewWorkflowContainer(eventStream *EventStream, workflow *Workflow) *Workflo
 	return &container
 }
 
-func WorkflowFromStorage(eventStream *EventStream, workflowId WorkflowID) (*WorkflowContainer, error) {
+func WorkflowContainerFromStorage(eventStream *EventStream, workflowId WorkflowID) (*WorkflowContainer, error) {
 	workflow, err := WorkflowFromFilesystem(workflowId)
 	if err != nil {
 		return nil, err
 	}
 
-	return NewWorkflowContainer(eventStream, &workflow), nil
+	container := newWorkflowContainer(eventStream, &workflow)
+	err = container.Init()
+	return container, err
 }
 
 func (container *WorkflowContainer) ID() WorkflowID {
 	return container.Workflow.ID
 }
 
-func (container *WorkflowContainer) Run(workflow *Workflow) error {
-	container.Workflow = workflow
+func (container *WorkflowContainer) Init() error {
 
 	container.EventStream.AddEvent(NewWorkflowInstanceCreatedEvent(WorkflowInstanceCreatedEventBody{
-		Workflow: *workflow,
+		Workflow: *container.Workflow,
 	}))
 
 	err := container.initialize()
@@ -94,6 +95,10 @@ func (container *WorkflowContainer) Start() {
 	}
 
 	container.CronJobs.startCronJobs()
+}
+
+func (container *WorkflowContainer) Stop() {
+	container.CronJobs.stopCronJobs()
 }
 
 func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[string]shared_entities.WorkflowMessage) {

@@ -26,6 +26,14 @@ func NewCronJobManager(eventStream *EventStream, workflow *Workflow) *CronJobMan
 }
 
 func (manager *CronJobManager) addCronJob(cronJob CronJob) {
+
+	// check if cronjob for node already registered
+	for _, job := range manager.cronJobs {
+		if job.NodeID == cronJob.NodeID {
+			return
+		}
+	}
+
 	manager.cronJobs = append(manager.cronJobs, cronJob)
 }
 
