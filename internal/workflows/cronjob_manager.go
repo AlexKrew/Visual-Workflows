@@ -59,8 +59,9 @@ func (manager *CronJobManager) executeCronJob(job CronJob) {
 		return
 	}
 
-	triggerEvent := NewCronTriggerEvent(CronTriggerBody{
+	triggerEvent := NewCronTriggeredEvent(CronTriggeredBody{
 		WorkflowID: manager.workflow.ID,
+		NodeID:     job.NodeID,
 	})
 	manager.eventStream.AddEvent(triggerEvent)
 
