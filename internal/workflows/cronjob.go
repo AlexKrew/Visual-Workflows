@@ -26,7 +26,7 @@ func NewCronJob(node Node) (CronJob, error) {
 		return CronJob{}, errors.New("cronjob node is missing interval port")
 	}
 
-	intervalInSeconds := intervalPort.DefaultMessage.Value.(int)
+	intervalInSeconds := int(intervalPort.DefaultMessage.Value.(float64))
 	if intervalInSeconds <= 0 {
 		return CronJob{}, errors.New("cronjob interval should be > 0")
 	}
