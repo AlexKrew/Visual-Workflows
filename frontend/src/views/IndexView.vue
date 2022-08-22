@@ -25,11 +25,19 @@
   </header>
   <main>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      
       <!-- Search workflow -->
       <div class="pt-2">
-        <label for="first-name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Search for workflow </label>
-        <input v-model="searchWorkflow" type="text" name="search-wf" id="search-wf" placeholder="..." class="py-1 px-2 mt-2 max-w-lg block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
+        <label for="first-name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+          Search for workflow
+        </label>
+        <input
+          v-model="searchWorkflow"
+          type="text"
+          name="search-wf"
+          id="search-wf"
+          placeholder="..."
+          class="py-1 px-2 mt-2 max-w-lg block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+        />
       </div>
 
       <!-- Workflow list -->
@@ -53,71 +61,73 @@
     </div>
 
     <ModalContainer v-model="showCreateWorkflowModal">
-      <CreateWorkflowModal
-        @action="createNewWorkflow"
-        @cancel="showCreateWorkflowModal = false"
-      />
+      <CreateWorkflowModal @action="createNewWorkflow" @cancel="showCreateWorkflowModal = false" />
     </ModalContainer>
   </main>
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import WorkflowListItem from "@/components/Overview/WorkflowListItem.vue"
-import { workflowInstancesService } from '@/api';
-import { WorkflowInfo } from '@/api/dtos/WorkflowInfo';
-import ModalContainer from '../components/common/ModalContainer.vue';
-import CreateWorkflowModal from '../components/Overview/CreateWorkflowModal.vue';
+import WorkflowListItem from "@/components/Overview/WorkflowListItem.vue";
+import { workflowInstancesService } from "@/api";
+import { WorkflowInfo } from "@/api/dtos/WorkflowInfo";
+import ModalContainer from "../components/common/ModalContainer.vue";
+import CreateWorkflowModal from "../components/Overview/CreateWorkflowModal.vue";
 import { CreateNewWorkflowProps } from "../components/Overview/types";
+import { emitter } from "@/components/util/Emittery";
 
 // const _workflows: WorkflowInfo[] = [
 //   { id: 'wf1', name: 'The first workflow', status: WorkflowStatus.Loaded },
 //   { id: 'wf2', name: 'Some other workflow', status: WorkflowStatus.Running }
 // ]
 
-export default {
+export default defineComponent({
   components: {
     WorkflowListItem,
     ModalContainer,
     CreateWorkflowModal,
-},
+  },
   setup() {
-    const router = useRouter()
+    const router = useRouter();
 
-    const workflows = ref<WorkflowInfo[]>()
-    const searchWorkflow = ref<string>('');
+    const workflows = ref<WorkflowInfo[]>();
+    const searchWorkflow = ref<string>("");
 
-    workflowInstancesService.getWorkflows()
+    workflowInstancesService.getWorkflows();
+
+    onMounted(() => {
+      emitter.emit("UpdateNavBar", [0, ""]);
+    });
 
     const fetchWorkflows = async () => {
-      const wfInfos = await workflowInstancesService.getWorkflows()
+      const wfInfos = await workflowInstancesService.getWorkflows();
       workflows.value = wfInfos;
-    }
+    };
 
     const filterWorkflows = (workflow: WorkflowInfo) => {
-      return searchWorkflow.value === '' || workflow.name.toLowerCase().includes(searchWorkflow.value.toLowerCase())
-    }
+      return searchWorkflow.value === "" || workflow.name.toLowerCase().includes(searchWorkflow.value.toLowerCase());
+    };
 
     const openEditor = (workflowId: string) => {
       router.push({
-        name: 'workflow-editor',
-        params: { workflowId }
+        name: "workflow-editor",
+        params: { workflowId },
       });
-    }
+    };
 
-    fetchWorkflows()
+    fetchWorkflows();
 
     // -- Create Workflow Modal --
     const showCreateWorkflowModal = ref(false);
 
     const createNewWorkflow = async (props: CreateNewWorkflowProps) => {
       console.log("Create new worklow", props);
-      const error = await workflowInstancesService.createWorkflow(props.name)
-      console.log("ERR", error)
+      const error = await workflowInstancesService.createWorkflow(props.name);
+      console.log("ERR", error);
 
       showCreateWorkflowModal.value = false;
-    }
+    };
 
     return {
       workflows,
@@ -129,7 +139,7 @@ export default {
 
       showCreateWorkflowModal,
       createNewWorkflow,
-    }
-  }
-}
+    };
+  },
+});
 </script>

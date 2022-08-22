@@ -19,7 +19,6 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
-    console.log("UIElement", props.obj);
     //
   },
 });

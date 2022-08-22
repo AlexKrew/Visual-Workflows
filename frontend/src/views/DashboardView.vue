@@ -31,6 +31,7 @@ export default defineComponent({
     onBeforeMount(async () => {
       const c = await dashboardInstanceService.getDashboard(props.workflowId);
       DashboardModel.setCanvas(new DashboardElement(c["canvas"]));
+      emitter.emit("UpdateNavBar", [2, props.workflowId]);
     });
 
     emitter.on("UpdateDashboard", () => {

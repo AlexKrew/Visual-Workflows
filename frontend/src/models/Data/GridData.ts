@@ -15,7 +15,7 @@ class GridData {
 
   static loadDefaultData() {
     GridData.nodes = [];
-    
+
     // Load default Nodes
     const nodeTypes: NodeType[] = JSON.parse(JSON.stringify(NodesJSON));
     for (let i = 0; i < nodeTypes.length; i++) {
@@ -37,6 +37,13 @@ class GridData {
     this.workflow = JSON.parse(JSON.stringify(json));
     GridData.grid = new GridModel(this.workflow);
     GridData.grid.loadEdges();
+  }
+
+  static getWorkflowName(): string {
+    if (GridData.grid && GridData.grid.data) {
+      return GridData.grid.data.name;
+    }
+    return "";
   }
 }
 

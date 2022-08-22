@@ -1,5 +1,4 @@
 <template>
-
   <div class="flex flex-row fill-height" :key="updateKey">
     <div v-if="isLoading">
       <p>Loading</p>
@@ -19,8 +18,8 @@ import EditorGrid from "@/components/workflowEditor/Layout/EditorGrid.vue";
 import EditorInspector from "@/components/workflowEditor/Layout/EditorInspector.vue";
 import { emitter } from "@/components/util/Emittery";
 import { defineComponent, onBeforeMount, onMounted, ref } from "vue";
-import EmptyWorkflowJSON from "../models/Data/JSON/EmptyWorkflow.json"
-import testJSON from "../test/test1.json"
+import EmptyWorkflowJSON from "../models/Data/JSON/EmptyWorkflow.json";
+import testJSON from "../test/test1.json";
 import GridData from "@/models/Data/GridData";
 import { workflowInstancesService } from "@/api";
 
@@ -45,10 +44,11 @@ export default defineComponent({
       GridData.loadDefaultData();
 
       // Load Empty Initial Workflow
-      const workflowJSON = await workflowInstancesService.loadWorkflow(props.workflowId)
+      const workflowJSON = await workflowInstancesService.loadWorkflow(props.workflowId);
       // GridData.loadWorkflow(JSON.parse(JSON.stringify(testJSON)));
       GridData.loadWorkflow(JSON.parse(JSON.stringify(workflowJSON)));
-      isLoading.value = false
+      isLoading.value = false;
+      emitter.emit("UpdateNavBar", [1, props.workflowId]);
     });
 
     onMounted(() => {
@@ -56,14 +56,15 @@ export default defineComponent({
       // let json: JSON = JSON.parse(JSON.stringify(workflowJSON));
       // TestModels.grid = GridModel.fromJSON(json);
       // emitter.emit("UpdateWorkflowEditor");
-    }),
-      emitter.on("UpdateWorkflowEditor", () => {
-        updateKey.value++;
-      });
+    });
+
+    emitter.on("UpdateWorkflowEditor", () => {
+      updateKey.value++;
+    });
 
     return {
       updateKey,
-      isLoading
+      isLoading,
     };
   },
 });
