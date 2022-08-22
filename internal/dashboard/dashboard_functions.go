@@ -32,12 +32,14 @@ func toUI(node workflows.Node, workflow workflows.Workflow) any {
 
 		connectedUIElements := []interface{}{}
 
-		for _, edge := range workflow.Edges {
-			if edge.Origin.NodeID == node.ID && contains(childrenPortIDs, edge.Origin.PortID) {
+		for _, childPortId := range childrenPortIDs {
+			for _, edge := range workflow.Edges {
+				if edge.Origin.NodeID == node.ID && childPortId == edge.Origin.PortID {
 
-				// recursivly generate ui config
-				targetNode, _ := workflow.NodeByID(edge.Target.NodeID)
-				connectedUIElements = append(connectedUIElements, toUI(targetNode, workflow))
+					// recursivly generate ui config
+					targetNode, _ := workflow.NodeByID(edge.Target.NodeID)
+					connectedUIElements = append(connectedUIElements, toUI(targetNode, workflow))
+				}
 			}
 		}
 
