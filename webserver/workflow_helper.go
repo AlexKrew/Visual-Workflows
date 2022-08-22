@@ -46,27 +46,34 @@ func (helper *WorkflowHelper) PublishChanges(workflow workflows.Workflow) error 
 		return err
 	}
 
-	container, exists := helper.workflowProcessor.Containers[workflow.ID]
-	if !exists {
-		panic("workflow does not exist")
-	}
+	helper.workflowProcessor.ReloadContainer(workflow.ID)
+	// container, exists := helper.workflowProcessor.Containers[workflow.ID]
+	// if !exists {
+	// 	panic("workflow does not exist")
+	// }
 
-	storedWorkflow, err := workflows.WorkflowFromFilesystem(workflow.ID)
-	if err != nil {
-		return err
-	}
+	// storedWorkflow, err := workflows.WorkflowFromFilesystem(workflow.ID)
+	// if err != nil {
+	// 	return err
+	// }
 
-	container.Run(&storedWorkflow)
+	// container.Run(&storedWorkflow)
 
 	return nil
 }
 
 func (helper *WorkflowHelper) LoadWorkflowById(workflowId workflows.WorkflowID) (*workflows.Workflow, bool) {
-	workflow, err := workflows.WorkflowFromFilesystem(workflowId)
+	err := helper.workflowProcessor.CreateContainer(workflowId)
 	if err != nil {
 		log.Panicf("failed to load workflow: %s", err.Error())
 		return nil, false
 	}
 
-	return &workflow, true
+	workflow, exists := helper.WorkflowById(workflowId)
+	if !exists {
+		log.Panicln("missing workflow. this should never happen")
+		return nil, false
+	}
+
+	return workflow, true
 }
