@@ -189,6 +189,8 @@ func (processor *WorkflowProcessor) handleEvent(event workflows.WorkflowEvent) e
 		// processor.workflowReady(event)
 	case workflows.JobCompleted:
 		processor.jobCompleted(event)
+	case workflows.CronTriggered:
+		processor.cronTriggered(event)
 	}
 
 	return nil
@@ -233,4 +235,17 @@ func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) 
 
 	container.PublishOutput(body.Job.NodeID, resultMessages)
 	container.TriggerConnectedNodes(body.Job.NodeID)
+}
+
+func (processor *WorkflowProcessor) cronTriggered(event workflows.WorkflowEvent) {
+	body := event.Body.(workflows.CronTriggeredBody)
+
+	container, exists := processor.Containers[body.WorkflowID]
+	if !exists {
+		log.Fatalln("trigger for unknown workflow id:", body.WorkflowID)
+		return
+	}
+
+	log.Println("Trigger node", body.NodeID)
+	container.TriggerConnectedNodes(body.NodeID)
 }

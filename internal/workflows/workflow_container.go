@@ -1,7 +1,6 @@
 package workflows
 
 import (
-	"fmt"
 	"log"
 	"workflows/internal/utils"
 	"workflows/shared/shared_entities"
@@ -106,12 +105,14 @@ func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[stri
 
 		node, exists := container.Workflow.NodeByID(nodeId)
 		if !exists {
-			panic("node does not exist")
+			log.Panicln("node does not exist", nodeId)
+			return
 		}
 
 		portId, exists := node.PortByIdentifier(portIdentifier)
 		if !exists {
-			panic("port by ident does not exist")
+			log.Panicln("port by ident does not exist")
+			return
 		}
 
 		addr := PortAddress{
@@ -152,13 +153,14 @@ func (container *WorkflowContainer) TriggerConnectedNodes(nodeId NodeID) {
 
 	node, exists := container.Workflow.NodeByID(nodeId)
 	if !exists {
-		fmt.Println("Node does not exists", node)
-		panic("Node does not exist")
+		log.Panicln("Node does not exist", nodeId)
+		return
 	}
 
 	triggerPortID, err := node.TriggerOutputPortID()
 	if err != nil {
-		panic(err)
+		log.Panicln(err)
+		return
 	}
 
 	triggerAddr := PortAddress{
