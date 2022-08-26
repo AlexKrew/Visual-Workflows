@@ -26,7 +26,7 @@ func getDashboardConfig(c *gin.Context) {
 
 	config, exists := dashboard.ConfigFromWorkflow(*workflow)
 	if !exists {
-		c.String(http.StatusOK, "workflow has no canvas node")
+		c.JSON(http.StatusOK, gin.H{"canvas": []any{}})
 		return
 	}
 
