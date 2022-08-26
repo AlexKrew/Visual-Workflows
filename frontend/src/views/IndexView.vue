@@ -122,9 +122,8 @@ export default defineComponent({
     const showCreateWorkflowModal = ref(false);
 
     const createNewWorkflow = async (props: CreateNewWorkflowProps) => {
-      console.log("Create new worklow", props);
       const error = await workflowInstancesService.createWorkflow(props.name);
-      console.log("ERR", error);
+      await fetchWorkflows();
 
       showCreateWorkflowModal.value = false;
     };

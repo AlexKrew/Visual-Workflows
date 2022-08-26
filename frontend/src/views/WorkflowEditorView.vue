@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row fill-height" :key="updateKey">
+  <div class="flex flex-row fill-height HighlightDisabled" :key="updateKey">
     <div v-if="isLoading">
       <p>Loading</p>
     </div>

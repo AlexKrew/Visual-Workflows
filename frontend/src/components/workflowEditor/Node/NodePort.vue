@@ -144,7 +144,7 @@ export default defineComponent({
 
     // Resize Text Area
     watch(textAreaValue, () => {
-      props.portModel.setDefaultValue(textAreaValue.value, Datatype.STRING);
+      props.portModel.setDefaultValue(textAreaValue.value, props.portModel.data.datatype as Datatype);
 
       let oldHeight = textAreaHeight.value;
       textAreaHeight.value = 0; // Change to 0 to get accurate ScrollHeight to shrink textArea, pretty stupid System,

@@ -602,6 +602,60 @@
     "addablePorts": []
   },
   {
+    "id": "N9",
+    "name": "RandomService",
+    "category": "Web Services",
+    "type": "RandomService",
+    "is_ui_node": false,
+    "ui": {
+      "position": [0, 0]
+    },
+    "ports": [
+      {
+        "id": "N9-T1",
+        "identifier": "trigger_in",
+        "datatype": "TRIGGER",
+        "label": "Trigger In",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N9-T2",
+        "identifier": "trigger_out",
+        "datatype": "TRIGGER",
+        "label": "Trigger Out",
+        "group_id": "",
+        "added": false,
+        "is_input": false,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N9-P1",
+        "identifier": "output",
+        "datatype": "NUMBER",
+        "label": "Number Output",
+        "group_id": "",
+        "added": false,
+        "is_input": false,
+        "default_value": {
+          "datatype": "",
+          "value": ""
+        },
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      }
+    ],
+    "addablePorts": []
+  },
+  {
     "id": "UI-N1",
     "name": "Canvas",
     "category": "UI",
