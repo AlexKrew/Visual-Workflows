@@ -51,12 +51,10 @@ func (processor *WorkflowProcessor) CreateContainer(workflowId workflows.Workflo
 
 func (processor *WorkflowProcessor) StartWorkflow(workflowId workflows.WorkflowID) error {
 
-	log.Println("START WORKFLOW", workflowId)
 	availableWorkflows := []string{}
 	for workflowId, _ := range processor.Containers {
 		availableWorkflows = append(availableWorkflows, workflowId)
 	}
-	log.Println("AVAILABLE WORKFLOWS", availableWorkflows)
 
 	container, exists := processor.Containers[workflowId]
 	if !exists {
@@ -225,15 +223,16 @@ func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) 
 		panic("workflow does not exist")
 	}
 
-	resultMessages := make(map[string]shared_entities.WorkflowMessage)
-	for key, msg := range results.Output {
-		resultMessages[key] = shared_entities.WorkflowMessage{
-			DataType: msg.DataType,
-			Value:    msg.Value,
-		}
-	}
+	// resultMessages := make(map[string]shared_entities.WorkflowMessage)
+	// for key, msg := range results.Output {
+	// 	resultMessages[key] = shared_entities.WorkflowMessage{
+	// 		DataType: msg.DataType,
+	// 		Value:    msg.Value,
+	// 	}
+	// }
+	output := results.Output
 
-	container.PublishOutput(body.NodeID, resultMessages)
+	container.PublishOutput(body.NodeID, output)
 	container.TriggerConnectedNodes(body.NodeID)
 }
 

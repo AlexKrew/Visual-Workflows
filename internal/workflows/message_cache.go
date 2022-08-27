@@ -1,6 +1,9 @@
 package workflows
 
-import "workflows/shared/shared_entities"
+import (
+	"log"
+	"workflows/shared/shared_entities"
+)
 
 type MessageCache struct {
 	Workflow *Workflow
@@ -23,7 +26,7 @@ func ConstructMessageCache(workflow *Workflow) (MessageCache, error) {
 
 			if port.IsInputPort {
 				portMessage := port.DefaultMessage
-				store[port.Identifier] = portMessage
+				store[port.ID] = portMessage
 			}
 		}
 
@@ -43,6 +46,56 @@ func (cache *MessageCache) MessagesForNodeId(nodeId NodeID) (StoredMessages, boo
 	return messages, exists
 }
 
+func (cache *MessageCache) JobPayloadForNodeId(nodeId NodeID) (shared_entities.JobPayload, bool) {
+
+	node, nodeExists := cache.Workflow.NodeByID(nodeId)
+	if !nodeExists {
+		return nil, false
+	}
+
+	payload := shared_entities.JobPayload{}
+
+	for _, port := range node.Ports {
+
+		if !port.IsInputPort {
+			continue
+		}
+
+		message, exists := cache.GetMessage(PortAddress{
+			NodeID: node.ID,
+			PortID: port.ID,
+		})
+		if !exists {
+			log.Panicf("missing port value in cache for id `%s`", port.ID)
+			return nil, false
+		}
+
+		payload = append(payload, shared_entities.JobPayloadItem{
+			NodeID:         node.ID,
+			PortIdentifier: port.Identifier,
+			GroupID:        port.GroupID,
+			Value:          message,
+		})
+	}
+
+	return payload, true
+}
+
+func (cache *MessageCache) GetMessage(portAddr PortAddress) (shared_entities.WorkflowMessage, bool) {
+	nodeMessages, exists := cache.NodeMessageStores[portAddr.NodeID]
+	if !exists {
+		return shared_entities.EmptyMessage(), false
+	}
+
+	for portId, message := range nodeMessages {
+		if portAddr.PortID == portId {
+			return message, true
+		}
+	}
+
+	return shared_entities.EmptyMessage(), false
+}
+
 func (cache *MessageCache) SetMessage(portAddr PortAddress, message shared_entities.WorkflowMessage) {
 
 	node, exists := cache.Workflow.NodeByID(portAddr.NodeID)
@@ -56,5 +109,5 @@ func (cache *MessageCache) SetMessage(portAddr PortAddress, message shared_entit
 	}
 
 	nodePorts := cache.NodeMessageStores[portAddr.NodeID]
-	nodePorts[port.Identifier] = message
+	nodePorts[port.ID] = message
 }

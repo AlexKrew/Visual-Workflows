@@ -8,17 +8,17 @@ import (
 type JobID = utils.UUID
 
 type Job struct {
-	ID         JobID                      `json:"id"`
-	NodeID     string                     `json:"node_id"`
-	Type       string                     `json:"type"`
-	Input      map[string]WorkflowMessage `json:"input"`
-	WorkflowID string                     `json:"workflow_id"`
+	ID         JobID      `json:"id"`
+	NodeID     string     `json:"node_id"`
+	Type       string     `json:"type"`
+	Input      JobPayload `json:"input"`
+	WorkflowID string     `json:"workflow_id"`
 	// Wheter the job is open for execution for a worker.
 	// Should only be used inside the JobQueue
 	Locked bool `json:"locked"`
 }
 
-func NewJob(nodeType string, input map[string]WorkflowMessage, nodeId string, workflowId string) Job {
+func NewJob(nodeType string, input JobPayload, nodeId string, workflowId string) Job {
 	return Job{
 		ID:         utils.GetNewUUID(),
 		NodeID:     nodeId,

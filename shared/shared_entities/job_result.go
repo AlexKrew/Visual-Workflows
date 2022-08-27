@@ -5,10 +5,10 @@ import (
 )
 
 type JobResult struct {
-	JobID  JobID                      `json:"job_id"`
-	NodeID string                     `json:"node_id"`
-	Output map[string]WorkflowMessage `json:"output"`
-	Logs   []string                   `json:"logs"`
+	JobID  JobID      `json:"job_id"`
+	NodeID string     `json:"node_id"`
+	Output JobPayload `json:"output"`
+	Logs   []string   `json:"logs"`
 }
 
 func (jobResult *JobResult) ToJSONString() (string, error) {
