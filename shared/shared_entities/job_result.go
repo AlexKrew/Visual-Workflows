@@ -1,9 +1,12 @@
 package shared_entities
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 type JobResult struct {
-	ID     JobID                      `json:"id"`
+	JobID  JobID                      `json:"job_id"`
+	NodeID string                     `json:"node_id"`
 	Output map[string]WorkflowMessage `json:"output"`
 	Logs   []string                   `json:"logs"`
 }

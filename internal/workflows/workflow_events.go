@@ -93,7 +93,8 @@ func NewJobCreatedEvent(body JobCreatedEventBody) WorkflowEvent {
 // ---- Job Completed ----
 type JobCompletedEventBody struct {
 	WorkflowID WorkflowID
-	Job        shared_entities.Job
+	NodeID     NodeID
+	JobId      shared_entities.JobID
 	Result     shared_entities.JobResult
 }
 

@@ -1,15 +1,12 @@
 package main
 
 import (
-	"time"
 	"workflows/clients/go/pkg/client"
 )
 
 var (
 	// the connection address of the gateway grpc server
 	CONN_ADDR = "localhost:50051"
-	// the keep-alive duration for the request streams
-	POLL_DURATION = 30 * time.Second
 )
 
 func main() {

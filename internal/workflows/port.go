@@ -65,12 +65,12 @@ func (port *Port) IsCompatibleWith(other Port) (bool, []error) {
 		errs = append(errs, errors.New("both ports are of the same type (input or output)"))
 	}
 
-	sameDatatype := port.Datatype == other.Datatype
-	if !sameDatatype {
+	compatibleTypes := port.Datatype == other.Datatype || port.Datatype == "ANY" || other.Datatype == "ANY"
+	if !compatibleTypes {
 		errs = append(errs, errors.New("different datatypes"))
 	}
 
-	compatible := isInputOutput && sameDatatype
+	compatible := isInputOutput && compatibleTypes
 
 	return compatible, errs
 }

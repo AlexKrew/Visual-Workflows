@@ -16,6 +16,15 @@ func NewJobManager() JobManager {
 	}
 }
 
+func (manager *JobManager) SupportedServices() []string {
+	services := []string{}
+	for serviceType := range manager.workers {
+		services = append(services, serviceType)
+	}
+
+	return services
+}
+
 func (manager *JobManager) AddWorker(worker job_worker.JobWorker) {
 	jobType := worker.JobType()
 	manager.workers[jobType] = &worker
