@@ -299,75 +299,6 @@
     "addablePorts": []
   },
   {
-    "id": "N4",
-    "name": "Mail",
-    "category": "Web Services",
-    "type": "Mail",
-    "is_ui_node": false,
-    "ui": {
-      "position": [0, 0]
-    },
-    "ports": [
-      {
-        "id": "N4-T1",
-        "identifier": "trigger_in",
-        "datatype": "TRIGGER",
-        "label": "Trigger In",
-        "group_id": "",
-        "added": false,
-        "is_input": true,
-        "is_trigger": true,
-        "default_value": {},
-        "hasDefaultField": false,
-        "defaultPlaceholder": ""
-      },
-      {
-        "id": "N4-T2",
-        "identifier": "trigger_out",
-        "datatype": "TRIGGER",
-        "label": "Trigger Out",
-        "group_id": "",
-        "added": false,
-        "is_input": false,
-        "is_trigger": true,
-        "default_value": {},
-        "hasDefaultField": false,
-        "defaultPlaceholder": ""
-      },
-      {
-        "id": "N4-P1",
-        "identifier": "email",
-        "datatype": "STRING",
-        "label": "E-Mail",
-        "group_id": "",
-        "added": false,
-        "is_input": true,
-        "default_value": {
-          "datatype": "",
-          "value": ""
-        },
-        "hasDefaultField": true,
-        "defaultPlaceholder": "some@email.com"
-      },
-      {
-        "id": "N4-P2",
-        "identifier": "message",
-        "datatype": "STRING",
-        "label": "Message",
-        "group_id": "",
-        "added": false,
-        "is_input": true,
-        "default_value": {
-          "datatype": "",
-          "value": ""
-        },
-        "hasDefaultField": true,
-        "defaultPlaceholder": "Dear Someone, ..."
-      }
-    ],
-    "addablePorts": []
-  },
-  {
     "id": "N5",
     "name": "Inject",
     "category": "Control",
@@ -550,58 +481,6 @@
     "addablePorts": []
   },
   {
-    "id": "N8",
-    "name": "Wait",
-    "category": "Control",
-    "type": "Wait",
-    "is_ui_node": false,
-    "ui": {
-      "position": [0, 0]
-    },
-    "ports": [
-      {
-        "id": "N8-T1",
-        "identifier": "trigger_in1",
-        "datatype": "TRIGGER",
-        "label": "Trigger In",
-        "group_id": "",
-        "added": false,
-        "is_input": true,
-        "is_trigger": true,
-        "default_value": {},
-        "hasDefaultField": false,
-        "defaultPlaceholder": ""
-      },
-      {
-        "id": "N8-T2",
-        "identifier": "trigger_in2",
-        "datatype": "TRIGGER",
-        "label": "Trigger In",
-        "group_id": "",
-        "added": false,
-        "is_input": true,
-        "is_trigger": true,
-        "default_value": {},
-        "hasDefaultField": false,
-        "defaultPlaceholder": ""
-      },
-      {
-        "id": "N8-T3",
-        "identifier": "trigger_out",
-        "datatype": "TRIGGER",
-        "label": "Trigger Out",
-        "group_id": "",
-        "added": false,
-        "is_input": false,
-        "is_trigger": true,
-        "default_value": {},
-        "hasDefaultField": false,
-        "defaultPlaceholder": ""
-      }
-    ],
-    "addablePorts": []
-  },
-  {
     "id": "N9",
     "name": "RandomService",
     "category": "Web Services",
@@ -639,6 +518,36 @@
       },
       {
         "id": "N9-P1",
+        "identifier": "min",
+        "datatype": "NUMBER",
+        "label": "Min Value",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "default_value": {
+          "datatype": "NUMBER",
+          "value": ""
+        },
+        "hasDefaultField": true,
+        "defaultPlaceholder": "0"
+      },
+      {
+        "id": "N9-P2",
+        "identifier": "max",
+        "datatype": "NUMBER",
+        "label": "Max Value",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "default_value": {
+          "datatype": "",
+          "value": ""
+        },
+        "hasDefaultField": true,
+        "defaultPlaceholder": "100"
+      },
+      {
+        "id": "N9-P3",
         "identifier": "output",
         "datatype": "NUMBER",
         "label": "Number Output",
