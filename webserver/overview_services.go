@@ -33,7 +33,9 @@ func createWorkflow(c *gin.Context) {
 	}
 
 	workflowName := request.Name
-	workflow := workflows.NewWorkflow(workflowName)
+	workflowDef := request.Workflow
+
+	workflow := workflows.NewWorkflow(workflowName, workflowDef)
 
 	err := workflows.WorkflowToFilesystem(workflow)
 	if err != nil {

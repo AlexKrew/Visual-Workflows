@@ -11,13 +11,14 @@ type Workflow struct {
 	Edges []Edge     `json:"edges"`
 }
 
-func NewWorkflow(name string) Workflow {
-	return Workflow{
+func NewWorkflow(name string, workflow Workflow) Workflow {
+	newWorkflow := Workflow{
 		ID:    utils.GetNewUUID(),
 		Name:  name,
-		Nodes: []Node{},
-		Edges: []Edge{},
+		Nodes: workflow.Nodes,
+		Edges: workflow.Edges,
 	}
+	return newWorkflow
 }
 
 func (workflow *Workflow) NodeByID(id NodeID) (Node, bool) {
