@@ -15,6 +15,9 @@ func NodeInputFromJob(job shared_entities.Job) NodeInput {
 	}
 }
 
+// ValueFor returns a message for the given identifier if a value exists.
+// Only use this if there is surly only one port with this identifier (i.e. not a group port)
+// In this case use the ValueForGroup function
 func (in *NodeInput) ValueFor(key string) (*shared_entities.WorkflowMessage, error) {
 	for _, item := range in.input {
 		if item.PortIdentifier == key {
@@ -23,6 +26,28 @@ func (in *NodeInput) ValueFor(key string) (*shared_entities.WorkflowMessage, err
 	}
 
 	return nil, fmt.Errorf("input with identifier `%s` does not exist", key)
+}
+
+func (in *NodeInput) Groups() []string {
+	groups := []string{}
+
+	for _, item := range in.input {
+		if item.GroupID != "" {
+			groups = append(groups, item.GroupID)
+		}
+	}
+
+	return groups
+}
+
+func (in *NodeInput) ValueForGroup(group string, key string) (*shared_entities.WorkflowMessage, error) {
+	for _, item := range in.input {
+		if item.GroupID == group && item.PortIdentifier == key {
+			return &item.Value, nil
+		}
+	}
+
+	return nil, fmt.Errorf("input with identifier `%s` for group `%s` does not exist", key, group)
 }
 
 type NodeOutput struct {
