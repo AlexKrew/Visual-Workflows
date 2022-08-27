@@ -91,9 +91,9 @@ func parseBool(b bool, to string) (any, error) {
 	var err error = nil
 
 	switch to {
-	case "string":
+	case "STRING":
 		parsed = boolToString(b)
-	case "int":
+	case "NUMBER":
 		parsed = boolToInt(b)
 	}
 
