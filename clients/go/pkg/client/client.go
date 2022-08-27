@@ -4,9 +4,13 @@ import (
 	"context"
 	"io"
 	"log"
-	"workflows/clients/go/pkg/nodes"
-	"workflows/clients/go/pkg/workers"
+	"time"
+	"workflows/example_services/random_service"
 	pb "workflows/gateway"
+	"workflows/shared/job_manager"
+	"workflows/shared/job_worker"
+	"workflows/shared/nodes"
+	"workflows/shared/shared_entities"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -20,7 +24,7 @@ type Client struct {
 	Client *pb.GatewayClient
 	conn   *grpc.ClientConn
 
-	manager *workers.JobManager
+	manager *job_manager.JobManager
 }
 
 func StartClient(config ClientConfig) (*Client, error) {
@@ -33,9 +37,15 @@ func StartClient(config ClientConfig) (*Client, error) {
 
 	gwClient := pb.NewGatewayClient(conn)
 
-	manager := workers.NewJobManager()
+	manager := job_manager.NewJobManager()
 
-	manager.AddWorker(workers.NewInjectWorker())
+	injectWorker := job_worker.NewNodeJobWorker("Inject", nodes.ProcessInject)
+
+	randomService := random_service.NewRandomService()
+	randomServiceWorker := job_worker.NewServiceJobWorker("RandomService", randomService.DoRandomThingsAdapter)
+
+	manager.AddWorker(injectWorker)
+	manager.AddWorker(randomServiceWorker)
 
 	return &Client{
 		Client:  &gwClient,
@@ -44,20 +54,11 @@ func StartClient(config ClientConfig) (*Client, error) {
 	}, nil
 }
 
-func (client *Client) AddJobWorker(jobType string, handler nodes.HandlerFunc) {
-	worker := workers.JobWorker{
-		JobType: jobType,
-		Handler: handler,
-	}
-
-	client.manager.AddWorker(worker)
-}
-
 func (client *Client) StartJobPolling() {
 	log.Println("Start polling ...")
 
 	request := &pb.ActivateJobRequest{
-		Types:   client.manager.Types(),
+		Types:   client.manager.SupportedServices(),
 		Timeout: 0,
 	}
 	stream, err := (*client.Client).ActivateJob(context.Background(), request)
@@ -80,6 +81,44 @@ func (client *Client) StartJobPolling() {
 		}
 
 		log.Printf("Received job to execute: %s", response)
+		go client.handleJob(response)
+	}
+}
+
+func (client *Client) handleJob(activateJob *pb.ActivateJobResponse) {
+	jobItem := activateJob.GetJob()
+
+	job, err := shared_entities.JobFromJSONString(jobItem.Input)
+	if err != nil {
+		log.Println("Failed to extract job from json:", err)
+		return
+	}
+
+	result, err := client.manager.Execute(job)
+	if err != nil {
+		log.Println("Failed to execute job:", err)
+		return
+	}
+
+	outputJSON, err := result.ToJSONString()
+	if err != nil {
+		log.Println("Failed to convert output to json string", err)
+		return
+	}
+
+	completeJob := &pb.CompleteJobRequest{
+		JobId:      job.ID,
+		WorkflowId: jobItem.GetWorkflowId(),
+		Output:     outputJSON,
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	_, err = (*client.Client).CompleteJob(ctx, completeJob)
+	if err != nil {
+		log.Println("Complete job failed:", err)
+		return
 	}
 }
 

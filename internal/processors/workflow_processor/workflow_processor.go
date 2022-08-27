@@ -233,8 +233,8 @@ func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) 
 		}
 	}
 
-	container.PublishOutput(body.Job.NodeID, resultMessages)
-	container.TriggerConnectedNodes(body.Job.NodeID)
+	container.PublishOutput(body.NodeID, resultMessages)
+	container.TriggerConnectedNodes(body.NodeID)
 }
 
 func (processor *WorkflowProcessor) cronTriggered(event workflows.WorkflowEvent) {

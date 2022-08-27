@@ -37,9 +37,12 @@ message ActivateJobResponse {
 message CompleteJobRequest {
   // the id of the job which the client completed
   string jobId = 1;
+  // the id of the workflow, should be the same as the
+  // workflowId of the ActivatedJob
+  string workflowId = 2;
   // the output that resulted from the completion
   // as a JSON formatted string
-  string output = 2;
+  string output = 3;
 }
 message CompleteJobResponse {
 }

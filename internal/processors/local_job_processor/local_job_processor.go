@@ -30,10 +30,12 @@ func NewLocalJobProcessor(jobQueue *job_queue.JobQueue) (*LocalJobProcessor, err
 	injectWorker := job_worker.NewNodeJobWorker("Inject", nodes.ProcessInject)
 	debugWorker := job_worker.NewNodeJobWorker("Debug", nodes.ProcessDebug)
 	httpReqWorker := job_worker.NewNodeJobWorker("HTTP", nodes.ProcessHttpRequest)
+	ParserWorker := job_worker.NewNodeJobWorker("Parser", nodes.ProcessParser)
 
 	processor.jobManager.AddWorker(injectWorker)
 	processor.jobManager.AddWorker(debugWorker)
 	processor.jobManager.AddWorker(httpReqWorker)
+	processor.jobManager.AddWorker(ParserWorker)
 
 	return processor, nil
 }
@@ -110,7 +112,8 @@ func (processor *LocalJobProcessor) jobCreated(event workflows.WorkflowEvent) {
 
 	jobCompletedEvent := workflows.NewJobCompletedEvent(workflows.JobCompletedEventBody{
 		WorkflowID: job.WorkflowID,
-		Job:        job,
+		NodeID:     job.NodeID,
+		JobId:      job.ID,
 		Result:     result,
 	})
 	processor.eventStream.AddEvent(jobCompletedEvent)

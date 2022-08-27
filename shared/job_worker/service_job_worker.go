@@ -6,26 +6,26 @@ import (
 	"workflows/shared/shared_entities"
 )
 
-type NodeHandlerFunc func(in *nodes.NodeInput, out *nodes.NodeOutput) error
+type ServiceHandlerFunc func(input *nodes.NodeInput, output *nodes.NodeOutput) error
 
-// NodeJobWorker is implementation of JobWorker
-type NodeJobWorker struct {
+// ServiceJobWorker is an implementation of JobWorker
+type ServiceJobWorker struct {
 	Type    string
-	Handler NodeHandlerFunc
+	Handler ServiceHandlerFunc
 }
 
-func NewNodeJobWorker(jobType string, handler NodeHandlerFunc) NodeJobWorker {
-	return NodeJobWorker{
+func NewServiceJobWorker(jobType string, handler ServiceHandlerFunc) ServiceJobWorker {
+	return ServiceJobWorker{
 		Type:    jobType,
 		Handler: handler,
 	}
 }
 
-func (worker NodeJobWorker) JobType() string {
+func (worker ServiceJobWorker) JobType() string {
 	return worker.Type
 }
 
-func (worker NodeJobWorker) ProcessJob(job shared_entities.Job) shared_entities.JobResult {
+func (worker ServiceJobWorker) ProcessJob(job shared_entities.Job) shared_entities.JobResult {
 
 	var result shared_entities.JobResult
 
@@ -40,7 +40,7 @@ func (worker NodeJobWorker) ProcessJob(job shared_entities.Job) shared_entities.
 
 	result = shared_entities.JobResult{
 		JobID:  job.ID,
-		NodeID: result.NodeID,
+		NodeID: job.NodeID,
 		Output: output.GetOutput(),
 		Logs:   output.GetLogs(),
 	}

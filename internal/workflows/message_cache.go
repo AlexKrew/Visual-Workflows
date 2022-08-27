@@ -1,8 +1,6 @@
 package workflows
 
-import (
-	"workflows/shared/shared_entities"
-)
+import "workflows/shared/shared_entities"
 
 type MessageCache struct {
 	Workflow *Workflow

@@ -111,7 +111,7 @@ func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[stri
 
 		portId, exists := node.PortByIdentifier(portIdentifier)
 		if !exists {
-			log.Panicln("port by ident does not exist")
+			log.Panicf("port by ident `%s` does not exist", portIdentifier)
 			return
 		}
 

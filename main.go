@@ -3,11 +3,12 @@ package main
 import (
 	"sync"
 	"time"
+	gatewayserver "workflows/internal/gateway_server"
 	"workflows/internal/job_queue"
 	"workflows/internal/processors/local_job_processor"
+	"workflows/internal/processors/remote_job_processor"
 	"workflows/internal/processors/sysout_exporter"
 	"workflows/internal/processors/workflow_processor"
-	"workflows/internal/utils"
 	"workflows/internal/workflows"
 	"workflows/webserver"
 )
@@ -18,29 +19,21 @@ func main() {
 
 	wg.Add(5)
 
-	// workerClient, _ := client.NewClient()
-
 	eventStream := workflows.ConstructEventStream()
-
-	// // Register Processors
-	registerSysoutExporter(eventStream, "./logs/log.jsonl")
-
-	// // Mandatory: Workflow logic
 	jobQueue, _ := job_queue.NewJobQueue()
 
-	// go gatewayserver.StartGatewayServer(50051)
+	// Register Processors
+	registerSysoutExporter(eventStream, "./logs/log.jsonl")
 
 	registerLocalJobProcessor(eventStream, jobQueue)
 
+	registerRemoteJobProcessor(eventStream, jobQueue)
+
 	wfProcessor := registerWorkflowProcessor(eventStream, jobQueue)
-
-	// // Test sysout-exporter
-	// // go testSysoutExporter(eventStream)
-
-	time.Sleep(2 * time.Second)
-	go testCreateWorkflowInstance(eventStream, "3d48d394-08e4-4858-a936-4fc7201be0a2")
-
 	go webserver.StartServer(eventStream, wfProcessor)
+
+	time.Sleep(3 * time.Second)
+	go testCreateWorkflowInstance(eventStream, "3d48d394-08e4-4858-a936-4fc7201be0a2")
 
 	wg.Wait()
 }
@@ -74,20 +67,20 @@ func registerLocalJobProcessor(eventStream *workflows.EventStream, jobQueue *job
 	return jobProcessor
 }
 
-func testSysoutExporter(eventStream *workflows.EventStream) {
-	eventStream.AddEvent(createTestEvent())
-	time.Sleep(2 * time.Second)
-	eventStream.AddEvent(createTestEvent())
-	time.Sleep(2 * time.Second)
-	eventStream.AddEvent(createTestEvent())
-	time.Sleep(2 * time.Second)
-	eventStream.AddEvent(createTestEvent())
-}
+func registerRemoteJobProcessor(eventStream *workflows.EventStream, jobQueue *job_queue.JobQueue) (*remote_job_processor.RemoteJobProcessor, error) {
+	gwServer, err := gatewayserver.StartGatewayServer(50051, eventStream)
+	if err != nil {
+		panic(err)
+	}
 
-func createTestEvent() workflows.WorkflowEvent {
-	return workflows.NewWorkflowStartedEvent(workflows.WorkflowStartedEventBody{
-		WorkflowID: utils.GetNewUUID(),
-	})
+	jobProcessor, err := remote_job_processor.NewRemoteJobProcessor(jobQueue, gwServer)
+	if err != nil {
+		panic(err)
+	}
+
+	jobProcessor.Register(eventStream)
+
+	return jobProcessor, nil
 }
 
 func testCreateWorkflowInstance(eventStream *workflows.EventStream, id string) {

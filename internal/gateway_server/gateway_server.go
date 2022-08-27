@@ -2,12 +2,12 @@ package gatewayserver
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
 	"net"
 	pb "workflows/gateway"
+	"workflows/internal/workflows"
 	"workflows/shared/shared_entities"
 
 	"google.golang.org/grpc"
@@ -22,11 +22,13 @@ type GatewayServer struct {
 	roundRobinIndex    map[string]int
 
 	keepAliveChan chan any
+
+	eventStream *workflows.EventStream
 }
 
 var gatewayServer GatewayServer
 
-func StartGatewayServer(port int) (*GatewayServer, error) {
+func StartGatewayServer(port int, eventStream *workflows.EventStream) (*GatewayServer, error) {
 
 	server := grpc.NewServer()
 	pb.RegisterGatewayServer(server, &Server{})
@@ -34,52 +36,12 @@ func StartGatewayServer(port int) (*GatewayServer, error) {
 	gatewayServer = GatewayServer{
 		activateJobStreams: make(map[string][]*pb.Gateway_ActivateJobServer),
 		roundRobinIndex:    make(map[string]int),
+		eventStream:        eventStream,
 	}
 
-	go startJobListener()
 	go startServer(server, port)
 
 	return &gatewayServer, nil
-}
-
-func startJobListener() error {
-	// for {
-	// 	// blocks until a new job is emitted by the channel
-	// 	newJob := <-gatewayServer.jobQueue.NewJobs
-
-	// 	streams, exists := gatewayServer.activateJobStreams[newJob.NodeType]
-	// 	if !exists {
-	// 		log.Printf("no worker client for jobtype '%s' registered", newJob.NodeType)
-	// 		// TODO: Handle?
-	// 		continue
-	// 	}
-	// 	index := gatewayServer.roundRobinIndex[newJob.NodeType]
-	// 	stream := streams[index]
-
-	// 	// if round-robin index is out-of-bound: reset to 0
-	// 	if index+1 >= len(streams) {
-	// 		gatewayServer.roundRobinIndex[newJob.NodeType] = 0
-	// 	} else {
-	// 		gatewayServer.roundRobinIndex[newJob.NodeType]++
-	// 	}
-
-	// 	jobInput, err := json.Marshal(newJob.Input)
-	// 	if err != nil {
-	// 		log.Fatalf("failed to transform jobinput into json: %s", err.Error())
-	// 		continue
-	// 	}
-
-	// 	job := &pb.ActivatedJob{
-	// 		JobId:      newJob.ID,
-	// 		Type:       newJob.NodeType,
-	// 		WorkflowId: newJob.WorkflowID,
-	// 		Input:      string(jobInput),
-	// 	}
-	// 	(*stream).Send(&pb.ActivateJobResponse{
-	// 		Job: job,
-	// 	})
-	// }
-	return nil
 }
 
 func startServer(server *grpc.Server, port int) {
@@ -120,7 +82,7 @@ func (gwServer *GatewayServer) Execute(job shared_entities.Job) error {
 	}
 	stream := streams[nextStreamIndex]
 
-	jobInput, err := json.Marshal(job.Input)
+	jobInput, err := job.ToJSONString()
 	if err != nil {
 		log.Printf("[GatewayServer]: failed to convert job to activatejob: %s", err.Error())
 		return err
@@ -137,6 +99,7 @@ func (gwServer *GatewayServer) Execute(job shared_entities.Job) error {
 	if err != nil {
 		log.Printf("failed to send ActivateJobResponse: %s", err.Error())
 		gatewayServer.removeStream(job.Type, nextStreamIndex)
+
 	} else {
 		gatewayServer.increaseRoundRobin(job.Type)
 	}
@@ -196,5 +159,20 @@ func (server *Server) ActivateJob(input *pb.ActivateJobRequest, stream pb.Gatewa
 }
 
 func (server *Server) CompleteJob(ctx context.Context, in *pb.CompleteJobRequest) (*pb.CompleteJobResponse, error) {
-	return nil, errors.New("not implemented")
+
+	log.Println("GatewayServer: Recieved Response for Job", in.Output)
+	jobResult, err := shared_entities.JobResultFromJSONString(in.GetOutput())
+	if err != nil {
+		return nil, err
+	}
+
+	jobCompletedEvent := workflows.NewJobCompletedEvent(workflows.JobCompletedEventBody{
+		WorkflowID: in.GetWorkflowId(),
+		NodeID:     jobResult.NodeID,
+		JobId:      in.JobId,
+		Result:     jobResult,
+	})
+	gatewayServer.eventStream.AddEvent(jobCompletedEvent)
+
+	return &pb.CompleteJobResponse{}, nil
 }

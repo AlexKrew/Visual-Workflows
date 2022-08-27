@@ -3,15 +3,15 @@ package nodes
 import (
 	"errors"
 	"fmt"
+	"log"
 	"strconv"
 	"workflows/shared/shared_entities"
 )
 
-func ProcessParse(input *NodeInput, output *NodeOutput) error {
+func ProcessParser(input *NodeInput, output *NodeOutput) error {
 
-	// TODO: Update identifiers
 	inputValue, _ := input.ValueFor("input")
-	outputType, _ := input.ValueFor("type")
+	outputType, _ := input.ValueFor("parse")
 
 	var parsed any
 	var parsingErr error
@@ -22,6 +22,10 @@ func ProcessParse(input *NodeInput, output *NodeOutput) error {
 		parsed, parsingErr = parseString(inputValue.Value.(string), outputType.Value.(string))
 	case int:
 		parsed, parsingErr = parseInt(inputValue.Value.(int), outputType.Value.(string))
+	case float32:
+		parsed, parsingErr = parseInt(int(inputValue.Value.(float32)), outputType.Value.(string))
+	case float64:
+		parsed, parsingErr = parseInt(int(inputValue.Value.(float64)), outputType.Value.(string))
 	case bool:
 		parsed, parsingErr = parseBool(inputValue.Value.(bool), outputType.Value.(string))
 	}
@@ -32,14 +36,15 @@ func ProcessParse(input *NodeInput, output *NodeOutput) error {
 
 	var outputMessage shared_entities.WorkflowMessage
 	switch outputType.Value.(string) {
-	case "int":
+	case "NUMBER":
 		outputMessage = shared_entities.NumberMessage(parsed.(int))
-	case "string":
+	case "STRING":
 		outputMessage = shared_entities.StringMessage(parsed.(string))
-	case "bool":
+	case "BOOLEAN":
 		outputMessage = shared_entities.BooleanMessage(parsed.(bool))
 	}
-	output.Set("parsed", outputMessage)
+	log.Println("PARSED VALUE:", parsed)
+	output.Set("output", outputMessage)
 
 	return nil
 }
@@ -49,9 +54,9 @@ func parseString(s string, to string) (any, error) {
 	var err error = nil
 
 	switch to {
-	case "int":
+	case "NUMBER":
 		parsed, err = stringToInt(s)
-	case "bool":
+	case "BOOLEAN":
 		parsed, err = stringToBool(s)
 	}
 
@@ -63,13 +68,14 @@ func parseString(s string, to string) (any, error) {
 }
 
 func parseInt(i int, to string) (any, error) {
+	log.Println("PARSE TO", to)
 	var parsed any = nil
 	var err error = nil
 
 	switch to {
-	case "string":
+	case "STRING":
 		parsed = intToString(i)
-	case "bool":
+	case "BOOLEAN":
 		parsed, err = intToBool(i)
 	}
 
@@ -85,9 +91,9 @@ func parseBool(b bool, to string) (any, error) {
 	var err error = nil
 
 	switch to {
-	case "string":
+	case "STRING":
 		parsed = boolToString(b)
-	case "int":
+	case "NUMBER":
 		parsed = boolToInt(b)
 	}
 
