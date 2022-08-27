@@ -19,6 +19,7 @@
     "tailwindcss": "^3.0.24",
     "uuid": "^8.3.2",
     "vue": "^3.2.13",
+    "vue-final-modal": "^3.4.4",
     "vue-gauge": "^1.0.3",
     "vue-router": "^4.0.3",
     "vue-uuid": "^3.0.0"
