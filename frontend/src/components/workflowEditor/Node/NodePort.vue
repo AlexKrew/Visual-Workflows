@@ -68,8 +68,8 @@
     <!-- Default Select -->
     <div v-if="portModel.data.options" class="px-2 pb-3">
       <select class="bg-gray-200 w-full px-1" v-model="selectValue">
-        <option disabled value>Select Method</option>
-        <option v-for="option in portModel.data.options" :key="option">{{ option }}</option>
+        <option disabled value="">Select Method</option>
+        <option v-for="option in portModel.data.options" :key="option" :value="option">{{ option }}</option>
       </select>
     </div>
   </div>
@@ -104,7 +104,7 @@ export default defineComponent({
     const textAreaValue = ref(props.portModel.data.default_value.value);
     const textAreaHeight = ref(24);
     const portColor = ref<string>(DatatypeColors[props.portModel.data.datatype]);
-    const selectValue = ref<string>("");
+    const selectValue = ref<string>(props.portModel.data.default_value.value as string);
     const checkboxValue = ref<boolean>(props.portModel.data.default_value.value as boolean);
 
     const node = props.portModel.parent as NodeModel;
@@ -116,6 +116,8 @@ export default defineComponent({
       if (!props.portModel.parent?.parent) return;
       if (!portColor.value) portColor.value = DatatypeColors[Datatype.ANY]; // set Default color for old workflows TODO delete
       if (props.portModel.data.datatype == Datatype.BOOLEAN && !checkboxValue.value) checkboxValue.value = false;
+
+      if (props.portModel.data.options) console.log(selectValue.value);
 
       setPortPos();
       interact(`#${props.portModel.id}`)
