@@ -1,16 +1,29 @@
 <template>
   <div class="absolute w-2/12 z-10 top-20 right-3 h-full">
     <Card class="p-3 mb-3">
-      <div class="w-full flex">
-        <button
-          @click="onSave"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-1 mr-3"
-        >
-          <p class="text-center">Save</p>
-        </button>
-        <button @click="onStart" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex-1">
-          <p class="text-center">Start</p>
-        </button>
+      <div class="w-full flex-row space-y-2">
+        <div class="w-full flex">
+          <button
+            @click="onSave"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-1 mr-3"
+          >
+            <p class="text-center">Save</p>
+          </button>
+          <button
+            @click="onStart"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex-1"
+          >
+            <p class="text-center">Start</p>
+          </button>
+        </div>
+        <div class="w-full content-center flex justify-center">
+          <button
+            @click="onImportExport()"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            <p class="text-center">Import / Export</p>
+          </button>
+        </div>
       </div>
     </Card>
     <Card :collapsible="true" header="Debug Console" height-class="h-1/2">
@@ -28,6 +41,7 @@
 import { workflowInstancesService } from "@/api";
 import Card from "@/components/CardComponent.vue";
 import DateTime from "@/components/util/DateTime";
+import { emitter } from "@/components/util/Emittery";
 import GridData from "@/models/Data/GridData";
 import { LogType } from "@/models/Data/Types";
 import { onBeforeUnmount, onMounted, ref } from "vue";
@@ -68,9 +82,14 @@ export default {
       await workflowInstancesService.startWorkflow(GridData.workflow.id);
     }
 
+    function onImportExport() {
+      emitter.emit("OpenImportExportModal", true);
+    }
+
     return {
       onSave,
       onStart,
+      onImportExport,
       logs,
       DateTime,
       logElements,

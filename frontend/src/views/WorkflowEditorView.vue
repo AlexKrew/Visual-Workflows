@@ -8,6 +8,7 @@
       <EditorNodeBar />
       <EditorGrid />
       <EditorInspector />
+      <ExportPanel v-if="openModal" />
     </template>
   </div>
 </template>
@@ -22,12 +23,14 @@ import EmptyWorkflowJSON from "../models/Data/JSON/EmptyWorkflow.json";
 import testJSON from "../test/test1.json";
 import GridData from "@/models/Data/GridData";
 import { workflowInstancesService } from "@/api";
+import ExportPanel from "@/components/workflowEditor/ExportPanel.vue";
 
 export default defineComponent({
   components: {
     EditorNodeBar,
     EditorGrid,
     EditorInspector,
+    ExportPanel,
   },
   props: {
     workflowId: {
@@ -38,6 +41,7 @@ export default defineComponent({
   setup(props) {
     let updateKey = ref(0);
     const isLoading = ref(true);
+    const openModal = ref(false);
 
     onBeforeMount(async () => {
       // Load all default Nodes from Nodes.json
@@ -62,9 +66,14 @@ export default defineComponent({
       updateKey.value++;
     });
 
+    emitter.on("OpenImportExportModal", (open) => {
+      openModal.value = open;
+    });
+
     return {
       updateKey,
       isLoading,
+      openModal,
     };
   },
 });

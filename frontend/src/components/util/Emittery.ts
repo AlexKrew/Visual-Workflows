@@ -6,6 +6,7 @@ const emitter = new Emittery<{
   UpdateWorkflowEditor: undefined;
   UpdateDashboard: undefined;
   UpdateNavBar: [number, string];
+  OpenImportExportModal: boolean;
 }>();
 
 export { emitter, Emittery };
