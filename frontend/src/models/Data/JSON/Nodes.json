@@ -230,6 +230,90 @@
     ]
   },
   {
+    "id": "N-IF",
+    "name": "If",
+    "category": "Control",
+    "type": "If",
+    "is_ui_node": false,
+    "ui": {
+      "position": [0, 0]
+    },
+    "ports": [
+      {
+        "id": "N-IF-T1",
+        "identifier": "trigger_in",
+        "datatype": "TRIGGER",
+        "label": "Trigger In",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N-IF-T2",
+        "identifier": "trigger_out",
+        "datatype": "TRIGGER",
+        "label": "Trigger If true",
+        "group_id": "",
+        "added": false,
+        "is_input": false,
+        "is_trigger": true,
+        "default_value": {},
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N-IF-P1",
+        "identifier": "check",
+        "datatype": "ANY",
+        "label": "Check",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "default_value": {
+          "datatype": "",
+          "value": ""
+        },
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      },
+      {
+        "id": "N-If-P1",
+        "identifier": "operator",
+        "datatype": "STRING",
+        "label": "Operator",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "default_value": {
+          "datatype": "",
+          "value": ""
+        },
+        "hasDefaultField": true,
+        "defaultPlaceholder": "==, !=, >=, ..."
+      },
+      {
+        "id": "N-If-AP2",
+        "identifier": "value",
+        "datatype": "ANY",
+        "label": "Value",
+        "group_id": "",
+        "added": false,
+        "is_input": true,
+        "default_value": {
+          "datatype": "",
+          "value": ""
+        },
+        "hasDefaultField": false,
+        "defaultPlaceholder": ""
+      }
+    ],
+    "addablePorts": []
+  },
+  {
     "id": "N3",
     "name": "Debug",
     "category": "Debug",
