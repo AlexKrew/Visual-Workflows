@@ -22,11 +22,9 @@ class DashboardModel {
     return result;
   }
 
-  static updateFields(...newFields: UpdateFieldType[]) {
-    newFields.forEach((newField) => {
-      const element = DashboardModel.getElementByID(newField.id);
-      if (element) element.data.fields[newField.field] = newField.value;
-    });
+  static updateField(newField: UpdateFieldType) {
+    const element = DashboardModel.getElementByID(newField.id);
+    if (element) element.data.fields[newField.field] = newField.value;
   }
 }
 
