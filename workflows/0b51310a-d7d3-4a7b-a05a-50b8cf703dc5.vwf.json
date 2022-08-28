@@ -1,0 +1,628 @@
+{
+ "id": "0b51310a-d7d3-4a7b-a05a-50b8cf703dc5",
+ "name": "My new workflow world",
+ "nodes": [
+  {
+   "id": "Node-c939fe95-c5ae-48a0-a82f-86197c1e9831",
+   "name": "Cron Job",
+   "type": "CronJob",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-4c0a63ac-7199-427f-8051-c65175e042f2",
+     "group_id": "",
+     "identifier": "trigger_out",
+     "added": false,
+     "label": "Trigger Out",
+     "datatype": "TRIGGER",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-715ccb88-8c1d-469b-86df-fb933b396dca",
+     "group_id": "",
+     "identifier": "interval",
+     "added": false,
+     "label": "Interval",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": 3
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     373,
+     74
+    ]
+   }
+  },
+  {
+   "id": "Node-0b3bc078-3ccc-4816-bd49-f19c361a5082",
+   "name": "Debug",
+   "type": "Debug",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-67f9f1c2-454c-45dc-8198-f898a7c7ac60",
+     "group_id": "",
+     "identifier": "trigger_in",
+     "added": false,
+     "label": "Trigger In",
+     "datatype": "TRIGGER",
+     "is_input": true,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-c30091c5-1d33-45aa-af64-5896abef7cbf",
+     "group_id": "",
+     "identifier": "trigger_out",
+     "added": false,
+     "label": "Trigger Out",
+     "datatype": "TRIGGER",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-86d28296-ca9f-49d3-b8a8-1b0df2225b02",
+     "group_id": "",
+     "identifier": "input",
+     "added": false,
+     "label": "Input",
+     "datatype": "STRING",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "STRING",
+      "value": "cron"
+     }
+    },
+    {
+     "id": "Port-16301819-8a3e-4627-b451-a051c94df682",
+     "group_id": "",
+     "identifier": "output",
+     "added": false,
+     "label": "Output",
+     "datatype": "STRING",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     1199,
+     119
+    ]
+   }
+  },
+  {
+   "id": "Node-18989569-85d4-492a-bb71-27d906fbf435",
+   "name": "Parser",
+   "type": "Parser",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-3b071c34-2a10-4f79-9ac1-1be2875c93bb",
+     "group_id": "",
+     "identifier": "trigger_in",
+     "added": false,
+     "label": "Trigger In",
+     "datatype": "TRIGGER",
+     "is_input": true,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-5d33af03-ac58-4ca1-a133-be58b0545dcd",
+     "group_id": "",
+     "identifier": "trigger_out",
+     "added": false,
+     "label": "Trigger Out",
+     "datatype": "TRIGGER",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-19daccc8-d0dd-426e-b5d9-8caeadcbf119",
+     "group_id": "",
+     "identifier": "input",
+     "added": false,
+     "label": "Input",
+     "datatype": "ANY",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "STRING",
+      "value": "cron"
+     }
+    },
+    {
+     "id": "Port-aad26779-cb57-42b5-9e34-efefff0fec78",
+     "group_id": "",
+     "identifier": "parse",
+     "added": false,
+     "label": "Parse to",
+     "datatype": "ANY",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "STRING",
+      "value": "string"
+     }
+    },
+    {
+     "id": "Port-3b69196d-dd77-4626-84f3-84227d2ea345",
+     "group_id": "",
+     "identifier": "payload",
+     "added": false,
+     "label": "Payload",
+     "datatype": "ANY",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     369,
+     -229
+    ]
+   }
+  },
+  {
+   "id": "Node-3015122c-56af-414c-a744-cde5769e51cd",
+   "name": "Parser",
+   "type": "Parser",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-5fcd5561-61a4-48e0-93ee-1060e7c31d4a",
+     "group_id": "",
+     "identifier": "trigger_in",
+     "added": false,
+     "label": "Trigger In",
+     "datatype": "TRIGGER",
+     "is_input": true,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-f1ba161f-1e2e-4400-a5f3-0dcf5c08dbf9",
+     "group_id": "",
+     "identifier": "trigger_out",
+     "added": false,
+     "label": "Trigger Out",
+     "datatype": "TRIGGER",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-44608ae7-3370-4565-8954-d09bac1076c7",
+     "group_id": "",
+     "identifier": "input",
+     "added": false,
+     "label": "Input",
+     "datatype": "ANY",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    },
+    {
+     "id": "Port-89868091-4e4d-41a7-b560-38eaff36cbd6",
+     "group_id": "",
+     "identifier": "parse",
+     "added": false,
+     "label": "Parse to",
+     "datatype": "ANY",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "STRING",
+      "value": "STRING"
+     }
+    },
+    {
+     "id": "Port-a270a0c0-275b-46a2-b404-70e1234698b0",
+     "group_id": "",
+     "identifier": "output",
+     "added": false,
+     "label": "Output",
+     "datatype": "STRING",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     911,
+     122
+    ]
+   }
+  },
+  {
+   "id": "Node-babba079-88ba-4e8d-acb6-cab619754659",
+   "name": "RandomService",
+   "type": "RandomService",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-3bbb3dd8-fe75-49d5-8121-a8a872f74fb4",
+     "group_id": "",
+     "identifier": "trigger_in",
+     "added": false,
+     "label": "Trigger In",
+     "datatype": "TRIGGER",
+     "is_input": true,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-c845d6de-2019-4f6a-b5c5-fe50773968d1",
+     "group_id": "",
+     "identifier": "trigger_out",
+     "added": false,
+     "label": "Trigger Out",
+     "datatype": "TRIGGER",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-6fa0cdc6-a89c-4110-9149-78dc9cc4ea05",
+     "group_id": "",
+     "identifier": "min",
+     "added": false,
+     "label": "Min Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": "0"
+     }
+    },
+    {
+     "id": "Port-8572482d-c3b7-4b66-b529-2f9c38223c07",
+     "group_id": "",
+     "identifier": "max",
+     "added": false,
+     "label": "Max Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": "100"
+     }
+    },
+    {
+     "id": "Port-a30b707f-a5b1-4390-a1f9-79df30b16b95",
+     "group_id": "",
+     "identifier": "output",
+     "added": false,
+     "label": "Number Output",
+     "datatype": "NUMBER",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     615,
+     74
+    ]
+   }
+  },
+  {
+   "id": "Node-fd9b8836-fbc9-45e9-875b-ba9d4cbd6712",
+   "name": "Canvas",
+   "type": "UICanvas",
+   "is_ui_node": true,
+   "ports": [
+    {
+     "id": "Port-b40d6aba-5eb5-4b78-96ba-3953be55eabc",
+     "group_id": "",
+     "identifier": "children",
+     "added": false,
+     "label": "Child",
+     "datatype": "UI",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     346,
+     418
+    ]
+   }
+  },
+  {
+   "id": "Node-e4befcd3-cd3e-47d5-8c32-d48a3fadd48b",
+   "name": "List",
+   "type": "UIList",
+   "is_ui_node": true,
+   "ports": [
+    {
+     "id": "Port-f5fe8c36-9670-4393-bc5b-a99b146be580",
+     "group_id": "",
+     "identifier": "parent",
+     "added": false,
+     "label": "Parent",
+     "datatype": "UI",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-99307280-9fe8-4249-ad49-f9ae71fe7c15",
+     "group_id": "",
+     "identifier": "is_vertical",
+     "added": false,
+     "label": "is Vertical",
+     "datatype": "BOOLEAN",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "BOOLEAN",
+      "value": false
+     }
+    },
+    {
+     "id": "Port-aef7018d-1160-43f4-b8da-0ad01c1e019e",
+     "group_id": "Group-9f695e37-a078-4ee2-9664-5db991832343",
+     "identifier": "children",
+     "added": true,
+     "label": "Child",
+     "datatype": "UI",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     593,
+     416
+    ]
+   }
+  },
+  {
+   "id": "Node-aa2302ef-a322-4fdd-a3fe-07c48dd15894",
+   "name": "Gauge",
+   "type": "UIGauge",
+   "is_ui_node": true,
+   "ports": [
+    {
+     "id": "Port-6ab3b4b6-241c-46c7-803e-9b112a2d428c",
+     "group_id": "",
+     "identifier": "parent",
+     "added": false,
+     "label": "Parent",
+     "datatype": "UI",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-a4ceb62d-7260-476c-9415-e8d04d1878ef",
+     "group_id": "",
+     "identifier": "label",
+     "added": false,
+     "label": "Label",
+     "datatype": "STRING",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-d0ce61ab-5e32-4e02-8829-b82dffed2eae",
+     "group_id": "",
+     "identifier": "min_value",
+     "added": false,
+     "label": "Min Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": "0"
+     }
+    },
+    {
+     "id": "Port-cf625a32-7755-4adf-9f00-9961f3bd8788",
+     "group_id": "",
+     "identifier": "max_value",
+     "added": false,
+     "label": "Max Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": "100"
+     }
+    },
+    {
+     "id": "Port-37f34b5f-f7fe-404f-9aa6-a43e9e9ce68f",
+     "group_id": "",
+     "identifier": "value",
+     "added": false,
+     "label": "Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": "0"
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     990,
+     404
+    ]
+   }
+  }
+ ],
+ "edges": [
+  {
+   "id": "d1216495-6a3f-4787-8d3d-044c9210f630",
+   "origin": {
+    "node_id": "Node-3015122c-56af-414c-a744-cde5769e51cd",
+    "port_id": "Port-a270a0c0-275b-46a2-b404-70e1234698b0"
+   },
+   "target": {
+    "node_id": "Node-0b3bc078-3ccc-4816-bd49-f19c361a5082",
+    "port_id": "Port-86d28296-ca9f-49d3-b8a8-1b0df2225b02"
+   }
+  },
+  {
+   "id": "c2ad712e-b6ba-4c61-be73-2fe7720ebe5a",
+   "origin": {
+    "node_id": "Node-3015122c-56af-414c-a744-cde5769e51cd",
+    "port_id": "Port-f1ba161f-1e2e-4400-a5f3-0dcf5c08dbf9"
+   },
+   "target": {
+    "node_id": "Node-0b3bc078-3ccc-4816-bd49-f19c361a5082",
+    "port_id": "Port-67f9f1c2-454c-45dc-8198-f898a7c7ac60"
+   }
+  },
+  {
+   "id": "ebb3e330-d420-42ac-b3d3-8e51138b3b91",
+   "origin": {
+    "node_id": "Node-c939fe95-c5ae-48a0-a82f-86197c1e9831",
+    "port_id": "Port-4c0a63ac-7199-427f-8051-c65175e042f2"
+   },
+   "target": {
+    "node_id": "Node-babba079-88ba-4e8d-acb6-cab619754659",
+    "port_id": "Port-3bbb3dd8-fe75-49d5-8121-a8a872f74fb4"
+   }
+  },
+  {
+   "id": "7f8f06f7-bf3b-4a77-87db-9dcc08b41d98",
+   "origin": {
+    "node_id": "Node-babba079-88ba-4e8d-acb6-cab619754659",
+    "port_id": "Port-c845d6de-2019-4f6a-b5c5-fe50773968d1"
+   },
+   "target": {
+    "node_id": "Node-3015122c-56af-414c-a744-cde5769e51cd",
+    "port_id": "Port-5fcd5561-61a4-48e0-93ee-1060e7c31d4a"
+   }
+  },
+  {
+   "id": "2996f73f-cf67-4c70-ada9-4fe73fb22006",
+   "origin": {
+    "node_id": "Node-babba079-88ba-4e8d-acb6-cab619754659",
+    "port_id": "Port-a30b707f-a5b1-4390-a1f9-79df30b16b95"
+   },
+   "target": {
+    "node_id": "Node-3015122c-56af-414c-a744-cde5769e51cd",
+    "port_id": "Port-44608ae7-3370-4565-8954-d09bac1076c7"
+   }
+  },
+  {
+   "id": "132222fb-97d6-48e4-874d-319725b9b2ed",
+   "origin": {
+    "node_id": "Node-fd9b8836-fbc9-45e9-875b-ba9d4cbd6712",
+    "port_id": "Port-b40d6aba-5eb5-4b78-96ba-3953be55eabc"
+   },
+   "target": {
+    "node_id": "Node-e4befcd3-cd3e-47d5-8c32-d48a3fadd48b",
+    "port_id": "Port-f5fe8c36-9670-4393-bc5b-a99b146be580"
+   }
+  },
+  {
+   "id": "2e535ffe-1785-4858-abff-3f8aac12b7cc",
+   "origin": {
+    "node_id": "Node-e4befcd3-cd3e-47d5-8c32-d48a3fadd48b",
+    "port_id": "Port-aef7018d-1160-43f4-b8da-0ad01c1e019e"
+   },
+   "target": {
+    "node_id": "Node-aa2302ef-a322-4fdd-a3fe-07c48dd15894",
+    "port_id": "Port-6ab3b4b6-241c-46c7-803e-9b112a2d428c"
+   }
+  },
+  {
+   "id": "aef8b8b6-9a4b-4e94-8505-3dd851c0cec4",
+   "origin": {
+    "node_id": "Node-babba079-88ba-4e8d-acb6-cab619754659",
+    "port_id": "Port-a30b707f-a5b1-4390-a1f9-79df30b16b95"
+   },
+   "target": {
+    "node_id": "Node-aa2302ef-a322-4fdd-a3fe-07c48dd15894",
+    "port_id": "Port-37f34b5f-f7fe-404f-9aa6-a43e9e9ce68f"
+   }
+  }
+ ]
+}
