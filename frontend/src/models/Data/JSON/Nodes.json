@@ -185,7 +185,7 @@
       {
         "id": "N2-AP2",
         "identifier": "value",
-        "datatype": "STRING",
+        "datatype": "ANY",
         "label": "Value",
         "group_id": "",
         "added": false,
