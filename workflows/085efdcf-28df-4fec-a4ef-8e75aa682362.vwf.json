@@ -1,0 +1,561 @@
+{
+ "id": "085efdcf-28df-4fec-a4ef-8e75aa682362",
+ "name": "Random Values",
+ "nodes": [
+  {
+   "id": "Node-6df83fce-45c0-4d54-8345-5921d7ef75ac",
+   "name": "Cron Job",
+   "type": "CronJob",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-b88b8933-b6f4-4f57-b7a9-c126f16a6a85",
+     "group_id": "",
+     "identifier": "trigger_out",
+     "added": false,
+     "label": "Trigger Out",
+     "datatype": "TRIGGER",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-b7e49388-1377-41fb-9d9e-266431e355fd",
+     "group_id": "",
+     "identifier": "interval",
+     "added": false,
+     "label": "Interval",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": 2
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     294.27044677734375,
+     56.19677734375
+    ]
+   }
+  },
+  {
+   "id": "Node-f2a5bb34-95a0-4f21-9eda-472ff4f5e1ce",
+   "name": "RandomService",
+   "type": "RandomService",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-277cebdf-a1bb-48a1-8e1b-8bdc6e30adf8",
+     "group_id": "",
+     "identifier": "trigger_in",
+     "added": false,
+     "label": "Trigger In",
+     "datatype": "TRIGGER",
+     "is_input": true,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-80d049df-7fd8-465f-91ad-0182796fbf27",
+     "group_id": "",
+     "identifier": "trigger_out",
+     "added": false,
+     "label": "Trigger Out",
+     "datatype": "TRIGGER",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-fad423e7-000e-48ed-a747-b0316f3ab17b",
+     "group_id": "",
+     "identifier": "min",
+     "added": false,
+     "label": "Min Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": 0
+     }
+    },
+    {
+     "id": "Port-4e101376-7737-400b-a0d5-ec06fcc1d0c0",
+     "group_id": "",
+     "identifier": "max",
+     "added": false,
+     "label": "Max Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": 100
+     }
+    },
+    {
+     "id": "Port-51a3d56b-5a4b-46d5-9430-df8446b86f3b",
+     "group_id": "",
+     "identifier": "output",
+     "added": false,
+     "label": "Number Output",
+     "datatype": "NUMBER",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     608.7780456542969,
+     42.804718017578125
+    ]
+   }
+  },
+  {
+   "id": "Node-20f658c4-bab8-4f28-85f0-79cbc205b821",
+   "name": "RandomService",
+   "type": "RandomService",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-122c8169-d7cf-4140-8c8d-12b4b54a1d02",
+     "group_id": "",
+     "identifier": "trigger_in",
+     "added": false,
+     "label": "Trigger In",
+     "datatype": "TRIGGER",
+     "is_input": true,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-d1d7b8f4-956a-495f-a1ae-bb912e11b54f",
+     "group_id": "",
+     "identifier": "trigger_out",
+     "added": false,
+     "label": "Trigger Out",
+     "datatype": "TRIGGER",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-f14a5f8e-98ec-448c-92af-189dd95949cf",
+     "group_id": "",
+     "identifier": "min",
+     "added": false,
+     "label": "Min Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": 333
+     }
+    },
+    {
+     "id": "Port-cb91d6e3-9235-48da-a918-b7985e01a417",
+     "group_id": "",
+     "identifier": "max",
+     "added": false,
+     "label": "Max Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": 777
+     }
+    },
+    {
+     "id": "Port-85cfc41d-550e-4b36-b821-0f58317d065c",
+     "group_id": "",
+     "identifier": "output",
+     "added": false,
+     "label": "Number Output",
+     "datatype": "NUMBER",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     615.3654632568359,
+     355.4505310058594
+    ]
+   }
+  },
+  {
+   "id": "Node-38bee998-e855-4ac3-b34d-830150be0c24",
+   "name": "Canvas",
+   "type": "UICanvas",
+   "is_ui_node": true,
+   "ports": [
+    {
+     "id": "Port-7a64a0b9-fd51-4be8-9b87-ec334f5f733d",
+     "group_id": "",
+     "identifier": "children",
+     "added": false,
+     "label": "Child",
+     "datatype": "UI",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     876.448486328125,
+     47.711151123046875
+    ]
+   }
+  },
+  {
+   "id": "Node-4515f164-0b8e-485e-be84-36026580b91b",
+   "name": "List",
+   "type": "UIList",
+   "is_ui_node": true,
+   "ports": [
+    {
+     "id": "Port-80e4c280-2269-4fee-a759-cf9fefaf8ce9",
+     "group_id": "",
+     "identifier": "parent",
+     "added": false,
+     "label": "Parent",
+     "datatype": "UI",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-65e7f508-a263-4757-b03d-b05b42967bcc",
+     "group_id": "",
+     "identifier": "is_vertical",
+     "added": false,
+     "label": "is Vertical",
+     "datatype": "BOOLEAN",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "BOOLEAN",
+      "value": false
+     }
+    },
+    {
+     "id": "Port-9ab4b6f8-15a7-4361-ab91-6abbcb05206b",
+     "group_id": "Group-d9c94408-7d67-4421-9e7c-6ecd11e45d7f",
+     "identifier": "children",
+     "added": true,
+     "label": "Child",
+     "datatype": "UI",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-dd2e093d-67c2-40b9-a88c-92c2b995007c",
+     "group_id": "Group-5e006665-756e-45a3-bf71-776a02c62fda",
+     "identifier": "children",
+     "added": true,
+     "label": "Child",
+     "datatype": "UI",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     1116.8223114013672,
+     42.02032470703125
+    ]
+   }
+  },
+  {
+   "id": "Node-aefd4e88-f42d-41dc-be03-e9ede96eb6ff",
+   "name": "Gauge",
+   "type": "UIGauge",
+   "is_ui_node": true,
+   "ports": [
+    {
+     "id": "Port-b0bb55bb-d9fb-4902-82da-b4b6b48f7551",
+     "group_id": "",
+     "identifier": "parent",
+     "added": false,
+     "label": "Parent",
+     "datatype": "UI",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-885db267-a79d-4c09-8ac4-3bebba01a9e1",
+     "group_id": "",
+     "identifier": "label",
+     "added": false,
+     "label": "Label",
+     "datatype": "STRING",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "STRING",
+      "value": "Random Number 1"
+     }
+    },
+    {
+     "id": "Port-beba4028-9fdc-43ae-b92e-688ad878a22d",
+     "group_id": "",
+     "identifier": "min_value",
+     "added": false,
+     "label": "Min Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": 0
+     }
+    },
+    {
+     "id": "Port-f6fbe9f6-4f0d-4386-a994-508b6ab37d88",
+     "group_id": "",
+     "identifier": "max_value",
+     "added": false,
+     "label": "Max Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": 100
+     }
+    },
+    {
+     "id": "Port-0a47e1db-d950-4582-b0ea-ba56d79e5740",
+     "group_id": "",
+     "identifier": "value",
+     "added": false,
+     "label": "Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     1427.140869140625,
+     203.31695556640625
+    ]
+   }
+  },
+  {
+   "id": "Node-11bbdb17-21f3-4dd9-8ab8-0a99c94255db",
+   "name": "Gauge",
+   "type": "UIGauge",
+   "is_ui_node": true,
+   "ports": [
+    {
+     "id": "Port-b4028eb1-2779-48f5-b42c-dd5b7cd7dee5",
+     "group_id": "",
+     "identifier": "parent",
+     "added": false,
+     "label": "Parent",
+     "datatype": "UI",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-0fc044f4-2e9b-47a4-b137-b8fddf015df0",
+     "group_id": "",
+     "identifier": "label",
+     "added": false,
+     "label": "Label",
+     "datatype": "STRING",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "STRING",
+      "value": "Random Number 2"
+     }
+    },
+    {
+     "id": "Port-58e0d966-eedc-4961-8cdb-2781f15a70c0",
+     "group_id": "",
+     "identifier": "min_value",
+     "added": false,
+     "label": "Min Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": 333
+     }
+    },
+    {
+     "id": "Port-2bd4f5f7-14dc-4be9-9cbb-c6389eac33f4",
+     "group_id": "",
+     "identifier": "max_value",
+     "added": false,
+     "label": "Max Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": 777
+     }
+    },
+    {
+     "id": "Port-7c9b3ecc-c1c5-4032-88ed-0675931affe2",
+     "group_id": "",
+     "identifier": "value",
+     "added": false,
+     "label": "Value",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     1435.7471160888672,
+     526.070556640625
+    ]
+   }
+  }
+ ],
+ "edges": [
+  {
+   "id": "1a98f016-1c33-4297-bb6d-8056fa33d9be",
+   "origin": {
+    "node_id": "Node-6df83fce-45c0-4d54-8345-5921d7ef75ac",
+    "port_id": "Port-b88b8933-b6f4-4f57-b7a9-c126f16a6a85"
+   },
+   "target": {
+    "node_id": "Node-f2a5bb34-95a0-4f21-9eda-472ff4f5e1ce",
+    "port_id": "Port-277cebdf-a1bb-48a1-8e1b-8bdc6e30adf8"
+   }
+  },
+  {
+   "id": "c6f584c2-17d2-47ef-802b-4f485906912e",
+   "origin": {
+    "node_id": "Node-6df83fce-45c0-4d54-8345-5921d7ef75ac",
+    "port_id": "Port-b88b8933-b6f4-4f57-b7a9-c126f16a6a85"
+   },
+   "target": {
+    "node_id": "Node-20f658c4-bab8-4f28-85f0-79cbc205b821",
+    "port_id": "Port-122c8169-d7cf-4140-8c8d-12b4b54a1d02"
+   }
+  },
+  {
+   "id": "6c8b099a-a3c4-4272-993d-4af8c2246b9e",
+   "origin": {
+    "node_id": "Node-38bee998-e855-4ac3-b34d-830150be0c24",
+    "port_id": "Port-7a64a0b9-fd51-4be8-9b87-ec334f5f733d"
+   },
+   "target": {
+    "node_id": "Node-4515f164-0b8e-485e-be84-36026580b91b",
+    "port_id": "Port-80e4c280-2269-4fee-a759-cf9fefaf8ce9"
+   }
+  },
+  {
+   "id": "920b6120-d51b-4df5-a55f-d932f142109c",
+   "origin": {
+    "node_id": "Node-4515f164-0b8e-485e-be84-36026580b91b",
+    "port_id": "Port-9ab4b6f8-15a7-4361-ab91-6abbcb05206b"
+   },
+   "target": {
+    "node_id": "Node-aefd4e88-f42d-41dc-be03-e9ede96eb6ff",
+    "port_id": "Port-b0bb55bb-d9fb-4902-82da-b4b6b48f7551"
+   }
+  },
+  {
+   "id": "2954bff5-c294-429f-9275-541734436cf8",
+   "origin": {
+    "node_id": "Node-f2a5bb34-95a0-4f21-9eda-472ff4f5e1ce",
+    "port_id": "Port-51a3d56b-5a4b-46d5-9430-df8446b86f3b"
+   },
+   "target": {
+    "node_id": "Node-aefd4e88-f42d-41dc-be03-e9ede96eb6ff",
+    "port_id": "Port-0a47e1db-d950-4582-b0ea-ba56d79e5740"
+   }
+  },
+  {
+   "id": "1e751799-97a9-45d6-af89-848cd282147b",
+   "origin": {
+    "node_id": "Node-20f658c4-bab8-4f28-85f0-79cbc205b821",
+    "port_id": "Port-85cfc41d-550e-4b36-b821-0f58317d065c"
+   },
+   "target": {
+    "node_id": "Node-11bbdb17-21f3-4dd9-8ab8-0a99c94255db",
+    "port_id": "Port-7c9b3ecc-c1c5-4032-88ed-0675931affe2"
+   }
+  },
+  {
+   "id": "97c57ecc-fb9e-4c57-80d1-5643a6ac5f2d",
+   "origin": {
+    "node_id": "Node-4515f164-0b8e-485e-be84-36026580b91b",
+    "port_id": "Port-dd2e093d-67c2-40b9-a88c-92c2b995007c"
+   },
+   "target": {
+    "node_id": "Node-11bbdb17-21f3-4dd9-8ab8-0a99c94255db",
+    "port_id": "Port-b4028eb1-2779-48f5-b42c-dd5b7cd7dee5"
+   }
+  }
+ ]
+}

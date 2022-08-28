@@ -62,7 +62,6 @@ export default {
           time: new Date(json["timestamp"]),
           message: json["message"],
         });
-        console.log(json);
       }
     };
 

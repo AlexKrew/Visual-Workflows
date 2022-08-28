@@ -11,9 +11,7 @@
             </p>
           </div>
 
-          <div class="flex flex-row items-center justify-center space-x-5">
-
-          </div>
+          <div class="flex flex-row items-center justify-center space-x-5"></div>
 
           <div class="flex flex-row items-center justify-end">
             <button
@@ -33,42 +31,19 @@
 <script lang="ts">
 import WorkflowControls from "./WorkflowControls.vue";
 export default {
-    emits: ["clickEditor"],
-    
-    components: {  },
-    
-    props: {
-        workflow: {
-            type: Object,
-            required: true,
-        }
+  emits: ["clickEditor"],
+
+  components: {},
+
+  props: {
+    workflow: {
+      type: Object,
+      required: true,
     },
-    
+  },
 
-    setup(props: any) {
-
-      const loadWorkflow = () => {
-        console.log("Load workflow", props.workflow.id)
-      }
-
-      const startWorkflow = () => {
-        console.log("Start workflow", props.workflow.id)
-      }
-
-      const stopWorkflow = () => {
-        console.log("Stop workflow", props.workflow.id)
-      }
-
-      const shutdownWorkflow = () => {
-        console.log("Shutdown workflow", props.workflow.id)
-      }
-
-      return {
-        loadWorkflow,
-        startWorkflow,
-        stopWorkflow,
-        shutdownWorkflow,
-      }
-    }
-}
+  setup(props: any) {
+    return {};
+  },
+};
 </script>

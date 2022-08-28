@@ -18,8 +18,6 @@ enum DatatypeColors {
 
 class Datatypes {
   static allowedConnection(type1: Datatype, type2: Datatype): boolean {
-    console.log(type1, type2);
-    console.log(type1 == Datatype.STRING, type2 == Datatype.ANY);
     if (type1 == type2) return true;
     if (type2 == Datatype.ANY && type1 != Datatype.TRIGGER && type1 != Datatype.UI) return true;
 

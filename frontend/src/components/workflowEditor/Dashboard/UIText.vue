@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <span v-if="fields.label" class="p-2" :class="'text-[' + fields.font_size + 'px]'">
+    <span v-if="fields.label" class="p-2" :style="{ fontSize: fields.font_size + 'px' }">
       {{ fields.label }}
     </span>
     <span v-if="fields.value" class="p-2 border border-black rounded-lg">
@@ -24,6 +24,7 @@ export default defineComponent({
   },
   setup(props, ctx) {
     const fields = ref<UITextType>(props.obj.data.fields as UITextType);
+    if (!fields.value.font_size || fields.value.font_size == 0) fields.value.font_size = 16;
 
     return {
       fields,
