@@ -34,7 +34,15 @@ func ProcessIf(input *NodeInput, output *NodeOutput) error {
 }
 
 func ifString(v1 string, op string, v2 shared_entities.WorkflowMessage) bool {
-	v2Value := fmt.Sprintf("%v", v2.Value)
+	var v2Value string
+	switch v2.Value.(type) {
+	case string:
+		v2Value = v2.Value.(string)
+	case float64:
+		v2Value = fmt.Sprintf("%f", v2.Value)
+	case int:
+		v2Value = fmt.Sprintf("%d", v2.Value.(int))
+	}
 
 	switch op {
 	case ">=":
@@ -59,8 +67,8 @@ func ifString(v1 string, op string, v2 shared_entities.WorkflowMessage) bool {
 func ifNumber(v1 float64, op string, v2 shared_entities.WorkflowMessage) bool {
 	var v2Value float64
 
-	switch v2.DataType {
-	case "STRING":
+	switch v2.Value.(type) {
+	case string:
 		v2Int, err := strconv.Atoi(v2.Value.(string))
 		if err != nil {
 			log.Printf("Failed to convert %s to float", v2.Value)
@@ -68,8 +76,11 @@ func ifNumber(v1 float64, op string, v2 shared_entities.WorkflowMessage) bool {
 		}
 		v2Value = float64(v2Int)
 
-	case "NUMBER":
+	case float64:
 		v2Value = v2.Value.(float64)
+
+	case int:
+		v2Value = float64(v2.Value.(int))
 
 	default:
 		fmt.Printf("compare datatype `%s` is not supported for type number", v2.DataType)
