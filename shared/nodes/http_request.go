@@ -21,7 +21,7 @@ func ProcessHttpRequest(input *NodeInput, output *NodeOutput) error {
 	var err error
 
 	urlValue := url.Value.(string)
-	if !strings.HasPrefix(urlValue, "http") || !strings.HasPrefix(urlValue, "https") {
+	if !strings.HasPrefix(urlValue, "http") && !strings.HasPrefix(urlValue, "https") {
 		urlValue = fmt.Sprintf("http://%s", urlValue)
 	}
 
