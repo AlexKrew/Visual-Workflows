@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httputil"
+	"strings"
 	"workflows/shared/shared_entities"
 )
 
@@ -19,7 +20,12 @@ func ProcessHttpRequest(input *NodeInput, output *NodeOutput) error {
 	var response *http.Response
 	var err error
 
-	response, err = http.Get(url.Value.(string))
+	urlValue := url.Value.(string)
+	if !strings.HasPrefix(urlValue, "http") || !strings.HasPrefix(urlValue, "https") {
+		urlValue = fmt.Sprintf("http://%s", urlValue)
+	}
+
+	response, err = http.Get(urlValue)
 
 	if err != nil {
 		panic(err)
@@ -30,7 +36,7 @@ func ProcessHttpRequest(input *NodeInput, output *NodeOutput) error {
 		panic(err)
 	}
 
-	output.Set("response-code", shared_entities.NumberMessage(response.StatusCode))
+	output.Set("response_code", shared_entities.NumberMessage(response.StatusCode))
 	output.Set("response", shared_entities.AnyMessage(string(dump)))
 
 	return nil
