@@ -38,6 +38,7 @@ export class WorkflowInstancesServiceImpl implements WorkflowInstancesService {
       const response = await HTTP.post("/workflows", { name });
       console.log("Response", response);
     } catch (err) {
+      console.log("Failed to create Workflow", err);
       return err;
     }
   }
@@ -47,7 +48,7 @@ export class WorkflowInstancesServiceImpl implements WorkflowInstancesService {
     try {
       const response = await HTTP.get("/workflows/" + id);
       console.log("Response", response);
-      return response.data["workflow"]
+      return response.data["workflow"];
     } catch (e) {
       console.log("Failed to GET /workflows/" + id + "\n", e);
     }
@@ -55,7 +56,6 @@ export class WorkflowInstancesServiceImpl implements WorkflowInstancesService {
 
   // Update existing Workflow
   public async updateWorkflow(id: string, json: JSON): Promise<any> {
-    console.log("UPDATE WORKFLOW", json)
     try {
       const response = await HTTP.patch("/workflows/" + id, json);
       console.log("Update Workflow");

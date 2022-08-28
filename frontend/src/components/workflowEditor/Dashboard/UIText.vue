@@ -25,7 +25,6 @@ export default defineComponent({
   setup(props, ctx) {
     const fields = ref<UITextType>(props.obj.data.fields as UITextType);
     if (!fields.value.font_size || fields.value.font_size == 0) fields.value.font_size = 16;
-    console.log(typeof fields.value.font_size);
 
     return {
       fields,

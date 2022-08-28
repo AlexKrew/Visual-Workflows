@@ -7,8 +7,6 @@ class DateTime {
   }
 
   static getLeadingZero(time: number): string {
-    console.log(time);
-    console.log(("0" + time.toString()).slice(-2));
     return ("0" + time.toString()).slice(-2);
   }
 }
