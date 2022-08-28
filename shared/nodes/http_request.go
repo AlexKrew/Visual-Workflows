@@ -11,19 +11,15 @@ import (
 func ProcessHttpRequest(input *NodeInput, output *NodeOutput) error {
 
 	url, urlErr := input.ValueFor("url")
-	method, methodErr := input.ValueFor("method")
-	if urlErr != nil || methodErr != nil {
-		fmt.Printf("http-request: input err: %s, %s", urlErr, methodErr)
+	if urlErr != nil {
+		fmt.Printf("http-request: input err: %s", urlErr)
 		return errors.New("input error")
 	}
 
 	var response *http.Response
 	var err error
 
-	switch method.Value {
-	case "GET":
-		response, err = http.Get(url.Value.(string))
-	}
+	response, err = http.Get(url.Value.(string))
 
 	if err != nil {
 		panic(err)
