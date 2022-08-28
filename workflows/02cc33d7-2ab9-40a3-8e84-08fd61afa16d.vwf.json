@@ -368,8 +368,8 @@
      "is_input": true,
      "is_trigger": false,
      "default_value": {
-      "datatype": "",
-      "value": null
+      "datatype": "NUMBER",
+      "value": 22
      }
     },
     {
@@ -459,8 +459,8 @@
    ],
    "ui": {
     "position": [
-     1484.8272705078125,
-     685.2594146728516
+     1484.3018188476562,
+     693.8244781494141
     ]
    }
   },
@@ -508,8 +508,8 @@
      "is_input": true,
      "is_trigger": false,
      "default_value": {
-      "datatype": "",
-      "value": null
+      "datatype": "NUMBER",
+      "value": 22
      }
     },
     {
@@ -648,8 +648,8 @@
      "is_input": true,
      "is_trigger": false,
      "default_value": {
-      "datatype": "",
-      "value": null
+      "datatype": "NUMBER",
+      "value": 22
      }
     },
     {
