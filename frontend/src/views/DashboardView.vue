@@ -41,10 +41,11 @@ export default defineComponent({
 
     const connection = new WebSocket("ws://localhost:8000/dashboard/websocket");
     connection.onmessage = (event) => {
-      // let json: any = JSON.parse(event.data);
-      // if (json["type"] == "field_updated") DashboardModel.updateFields(...(json["data"] as UpdateFieldType[]));
-      // if (json["type"] == "rebuild_ui")
-      //   DashboardModel.canvas = new DashboardElement(JSON.parse(JSON.stringify(json["data"]["canvas"])));
+      console.log("Dashboard Websocket", event);
+      let json: any = JSON.parse(event.data);
+      if (json["type"] == "field_updated") DashboardModel.updateFields(...(json["data"] as UpdateFieldType[]));
+      if (json["type"] == "rebuild_ui")
+        DashboardModel.canvas = new DashboardElement(JSON.parse(JSON.stringify(json["data"]["canvas"])));
     };
 
     return {

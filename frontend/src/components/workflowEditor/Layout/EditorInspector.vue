@@ -56,14 +56,14 @@ export default {
     const connection = new WebSocket("ws://localhost:8000/workflow/websocket");
     connection.onmessage = (event) => {
       let json: any = JSON.parse(event.data);
-      // if (json["workflow_id"] == GridData.grid.data.id) {
-      logs.value.push({
-        id: json["id"],
-        time: new Date(json["timestamp"]),
-        message: json["message"],
-      });
-      console.log(json);
-      // }
+      if (json["workflow_id"] == GridData.grid.data.id) {
+        logs.value.push({
+          id: json["id"],
+          time: new Date(json["timestamp"]),
+          message: json["message"],
+        });
+        console.log(json);
+      }
     };
 
     onBeforeUnmount(() => {
