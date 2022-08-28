@@ -68,7 +68,6 @@ func parseString(s string, to string) (any, error) {
 }
 
 func parseInt(i int, to string) (any, error) {
-	log.Println("PARSE TO", to)
 	var parsed any = nil
 	var err error = nil
 

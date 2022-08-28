@@ -232,7 +232,9 @@ func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) 
 	output := results.Output
 
 	container.PublishOutput(body.NodeID, output)
-	container.TriggerConnectedNodes(body.NodeID)
+	if !results.DontTrigger {
+		container.TriggerConnectedNodes(body.NodeID)
+	}
 }
 
 func (processor *WorkflowProcessor) cronTriggered(event workflows.WorkflowEvent) {

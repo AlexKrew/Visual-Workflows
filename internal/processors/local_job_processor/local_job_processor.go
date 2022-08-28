@@ -31,11 +31,13 @@ func NewLocalJobProcessor(jobQueue *job_queue.JobQueue) (*LocalJobProcessor, err
 	debugWorker := job_worker.NewNodeJobWorker("Debug", nodes.ProcessDebug)
 	httpReqWorker := job_worker.NewNodeJobWorker("HTTP", nodes.ProcessHttpRequest)
 	ParserWorker := job_worker.NewNodeJobWorker("Parser", nodes.ProcessParser)
+	IfWorker := job_worker.NewNodeJobWorker("If", nodes.ProcessIf)
 
 	processor.jobManager.AddWorker(injectWorker)
 	processor.jobManager.AddWorker(debugWorker)
 	processor.jobManager.AddWorker(httpReqWorker)
 	processor.jobManager.AddWorker(ParserWorker)
+	processor.jobManager.AddWorker(IfWorker)
 
 	return processor, nil
 }
