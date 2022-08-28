@@ -9,7 +9,6 @@ import (
 	pb "workflows/gateway"
 	"workflows/shared/job_manager"
 	"workflows/shared/job_worker"
-	"workflows/shared/nodes"
 	"workflows/shared/shared_entities"
 
 	"google.golang.org/grpc"
@@ -39,12 +38,12 @@ func StartClient(config ClientConfig) (*Client, error) {
 
 	manager := job_manager.NewJobManager()
 
-	injectWorker := job_worker.NewNodeJobWorker("Inject", nodes.ProcessInject)
+	// injectWorker := job_worker.NewNodeJobWorker("Inject", nodes.ProcessInject)
 
 	randomService := random_service.NewRandomService()
 	randomServiceWorker := job_worker.NewServiceJobWorker("RandomService", randomService.DoRandomThingsAdapter)
 
-	manager.AddWorker(injectWorker)
+	// manager.AddWorker(injectWorker)
 	manager.AddWorker(randomServiceWorker)
 
 	return &Client{

@@ -2,18 +2,18 @@ package webserver
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"workflows/internal/dashboard"
 	"workflows/internal/processors/workflow_processor"
 	"workflows/internal/workflows"
+	"workflows/shared/shared_entities"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"github.com/reactivex/rxgo/v2"
-	// "github.com/gin-contrib/cors"
-	// "github.com/gin-gonic/gin"
 	// swaggerfiles "github.com/swaggo/files"
 	// ginSwagger "github.com/swaggo/gin-swagger"
 	// "github.com/swaggo/gin-swagger/swaggerFiles"
@@ -119,8 +119,7 @@ func setupDashboardWebsocket(router *gin.Engine, events chan any) {
 
 		for {
 			ev := <-events
-			fmt.Println("PUB DB EVENT")
-
+			log.Println("------- WRITE TO DASHBOARD")
 			err = ws.WriteJSON(ev)
 			if err != nil {
 				panic(err)
@@ -152,12 +151,14 @@ func registerEventsHandler(observable *rxgo.Observable, builderEvents chan any, 
 			data := make(map[string]any)
 			data["id"] = body.ElementID
 			data["field"] = body.Field
-			data["value"] = body.Value
+			data["value"] = body.Value.(shared_entities.WorkflowMessage).Value
 
 			message := make(map[string]any)
 			message["workflow_id"] = body.WorkflowID
 			message["type"] = "field_updated"
 			message["data"] = data
+
+			log.Println("TRIGGER UI UPDATE")
 
 			dashboardEvents <- message
 
