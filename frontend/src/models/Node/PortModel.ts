@@ -38,6 +38,7 @@ class PortModel extends EditorComponent {
     if (datatype == Datatype.STRING) this.data.default_value.value = value.toString();
     else if (datatype == Datatype.NUMBER) this.data.default_value.value = +value;
     else if (datatype == Datatype.BOOLEAN) this.data.default_value.value = value as boolean;
+    else if (datatype == Datatype.ANY) this.data.default_value.value = value;
   }
 
   setGroupID(id: string) {

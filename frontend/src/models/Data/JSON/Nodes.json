@@ -161,8 +161,8 @@
           "datatype": "",
           "value": ""
         },
-        "hasDefaultField": false,
-        "defaultPlaceholder": ""
+        "hasDefaultField": true,
+        "defaultPlaceholder": "check if == / >= value"
       }
     ],
     "addablePorts": []
