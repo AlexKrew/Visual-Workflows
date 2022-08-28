@@ -36,22 +36,6 @@
         "defaultPlaceholder": ""
       },
       {
-        "id": "N1-P1",
-        "identifier": "method",
-        "datatype": "STRING",
-        "label": "Method",
-        "group_id": "",
-        "added": false,
-        "is_input": true,
-        "default_value": {
-          "datatype": "",
-          "value": ""
-        },
-        "hasDefaultField": false,
-        "defaultPlaceholder": "",
-        "options": ["GET", "POST", "PATCH"]
-      },
-      {
         "id": "N1-P2",
         "identifier": "url",
         "datatype": "STRING",
@@ -65,21 +49,6 @@
         },
         "hasDefaultField": true,
         "defaultPlaceholder": "someURL.com"
-      },
-      {
-        "id": "N1-P3",
-        "identifier": "payload",
-        "datatype": "STRING",
-        "label": "Payload",
-        "group_id": "",
-        "added": false,
-        "is_input": true,
-        "default_value": {
-          "datatype": "",
-          "value": ""
-        },
-        "hasDefaultField": true,
-        "defaultPlaceholder": "Header:{...}"
       },
       {
         "id": "N1-P4",
