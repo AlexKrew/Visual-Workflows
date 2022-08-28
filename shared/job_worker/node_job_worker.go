@@ -38,10 +38,32 @@ func (worker NodeJobWorker) ProcessJob(job shared_entities.Job) shared_entities.
 		return result
 	}
 
+	outputValues := shared_entities.JobPayload{}
+
+	for key, value := range output.GetOutput() {
+		outputValues = append(outputValues, shared_entities.JobPayloadItem{
+			NodeID:         job.NodeID,
+			GroupID:        "",
+			PortIdentifier: key,
+			Value:          value,
+		})
+	}
+
+	for groupId, items := range output.GetGroupOutput() {
+		for key, value := range items {
+			outputValues = append(outputValues, shared_entities.JobPayloadItem{
+				NodeID:         job.NodeID,
+				GroupID:        groupId,
+				PortIdentifier: key,
+				Value:          value,
+			})
+		}
+	}
+
 	result = shared_entities.JobResult{
 		JobID:  job.ID,
 		NodeID: result.NodeID,
-		Output: output.GetOutput(),
+		Output: outputValues,
 		Logs:   output.GetLogs(),
 	}
 

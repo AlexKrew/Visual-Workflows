@@ -100,8 +100,8 @@ func (container *WorkflowContainer) Stop() {
 	container.CronJobs.stopCronJobs()
 }
 
-func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[string]shared_entities.WorkflowMessage) {
-	for portIdentifier, message := range output {
+func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output shared_entities.JobPayload) {
+	for _, item := range output {
 
 		node, exists := container.Workflow.NodeByID(nodeId)
 		if !exists {
@@ -109,9 +109,9 @@ func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[stri
 			return
 		}
 
-		portId, exists := node.PortByIdentifier(portIdentifier)
+		portId, exists := node.PortByIdentifier(item.PortIdentifier, item.GroupID)
 		if !exists {
-			log.Panicf("port by ident `%s` does not exist", portIdentifier)
+			log.Panicf("port by ident `%s` and groupId `%s` does not exist", item.PortIdentifier, item.GroupID)
 			return
 		}
 
@@ -128,19 +128,19 @@ func (container *WorkflowContainer) PublishOutput(nodeId NodeID, output map[stri
 		}
 
 		for _, connPort := range connPorts {
-			container.MessageCache.SetMessage(connPort, message)
+			container.MessageCache.SetMessage(connPort, item.Value)
 
-			// if port belongs to dashboard node
+			// if port belongs to ui node
 			// an event is created
 			connNode, _ := container.Workflow.NodeByID(connPort.NodeID)
 			connPort, _ := connNode.PortByID(connPort.PortID)
 
-			if node.IsUINode {
+			if connNode.IsUINode {
 				valueChangedEvent := NewDashboardValueChangedEvent(DashboardValueChangedEventBody{
 					WorkflowID: container.ID(),
 					ElementID:  connNode.ID,
 					Field:      connPort.Identifier,
-					Value:      message.Value,
+					Value:      item.Value,
 				})
 				container.EventStream.AddEvent(valueChangedEvent)
 			}
@@ -195,10 +195,10 @@ func (container *WorkflowContainer) initialize() error {
 	return nil
 }
 
-func (container *WorkflowContainer) InputForNodeId(nodeId NodeID) (map[NodeID]shared_entities.WorkflowMessage, bool) {
+func (container *WorkflowContainer) InputForNodeId(nodeId NodeID) (shared_entities.JobPayload, bool) {
 	if _, exists := container.Workflow.NodeByID(nodeId); !exists {
 		return nil, false
 	}
 
-	return container.MessageCache.MessagesForNodeId(nodeId)
+	return container.MessageCache.JobPayloadForNodeId(nodeId)
 }

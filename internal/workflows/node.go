@@ -37,9 +37,9 @@ func (node *Node) TriggerOutputPortID() (PortID, error) {
 	return "", errors.New("missing trigger port")
 }
 
-func (node *Node) PortByIdentifier(identifier string) (PortID, bool) {
+func (node *Node) PortByIdentifier(identifier string, groupId string) (PortID, bool) {
 	for _, port := range node.Ports {
-		if port.Identifier == identifier {
+		if port.Identifier == identifier && port.GroupID == groupId {
 			return port.ID, true
 		}
 	}

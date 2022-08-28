@@ -64,8 +64,11 @@ func (gwServer *GatewayServer) keepAliveStream() {
 }
 
 func (gwServer *GatewayServer) CanExecute(jobType string) bool {
-	_, hasClient := gwServer.activateJobStreams[jobType]
-	return hasClient
+	clients, hasClient := gwServer.activateJobStreams[jobType]
+	if !hasClient {
+		return false
+	}
+	return len(clients) > 0
 }
 
 func (gwServer *GatewayServer) Execute(job shared_entities.Job) error {
@@ -98,6 +101,7 @@ func (gwServer *GatewayServer) Execute(job shared_entities.Job) error {
 	err = (*stream).Send(response)
 	if err != nil {
 		log.Printf("failed to send ActivateJobResponse: %s", err.Error())
+		log.Println("Remove stream", job.Type, nextStreamIndex)
 		gatewayServer.removeStream(job.Type, nextStreamIndex)
 
 	} else {
@@ -108,10 +112,16 @@ func (gwServer *GatewayServer) Execute(job shared_entities.Job) error {
 }
 
 func (gwServer *GatewayServer) removeStream(jobType string, index int) {
-	// TODO:
+	_, exists := gwServer.activateJobStreams[jobType]
+	if !exists {
+		return
+	}
+
+	gwServer.activateJobStreams[jobType] = append(gwServer.activateJobStreams[jobType][:index], gwServer.activateJobStreams[jobType][index+1:]...)
+	gwServer.decreaseRoundRobin(jobType)
 }
 
-func (gwServer *GatewayServer) decreaseRoundRobind(jobType string) {
+func (gwServer *GatewayServer) decreaseRoundRobin(jobType string) {
 	gwServer.roundRobinIndex[jobType]--
 
 	if gwServer.roundRobinIndex[jobType] < 0 {

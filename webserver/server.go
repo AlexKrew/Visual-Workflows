@@ -2,7 +2,6 @@ package webserver
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"workflows/internal/dashboard"
@@ -143,8 +142,7 @@ func registerEventsHandler(observable *rxgo.Observable, builderEvents chan any, 
 			message["id"] = event.ID
 			message["timestamp"] = event.CreatedAt
 			message["message"] = body.Value
-			// TODO: Add workflow id
-			log.Println("DEBUG EVENT")
+			message["workflow_id"] = body.WorkflowID
 
 			builderEvents <- message
 
@@ -181,7 +179,6 @@ func registerEventsHandler(observable *rxgo.Observable, builderEvents chan any, 
 			message["type"] = "rebuild_ui"
 			message["data"] = config
 
-			fmt.Println("ADD REBUILD UI")
 			dashboardEvents <- message
 		}
 

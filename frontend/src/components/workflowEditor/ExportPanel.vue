@@ -2,7 +2,7 @@
   <div class="modal-mask">
     <div class="modal-wrapper">
       <div class="modal-container">
-        <textarea v-model="textAreaValue" class="border w-full h-5/6"></textarea>
+        <textarea v-model="textAreaValue" class="border w-full h-5/6" rows="20"></textarea>
         <div class="flex justify-center m-5 space-x-5">
           <button
             @click="onImport()"
@@ -12,7 +12,7 @@
           </button>
           <button
             @click="onCancel()"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-1"
+            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded flex-1"
           >
             <p class="text-center">Cancel</p>
           </button>
@@ -34,7 +34,7 @@ export default defineComponent({
     const textAreaValue = ref<string>("");
 
     onMounted(() => {
-      textAreaValue.value = JSON.stringify(GridData.workflow);
+      textAreaValue.value = JSON.stringify(GridData.workflow, null, 4);
     });
 
     function onImport() {
