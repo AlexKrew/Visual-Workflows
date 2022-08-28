@@ -15,10 +15,10 @@ func ProcessIf(input *NodeInput, output *NodeOutput) error {
 
 	var shouldTrigger bool
 
-	switch checkValue.DataType {
-	case "STRING":
+	switch checkValue.Value.(type) {
+	case string:
 		shouldTrigger = ifString(checkValue.Value.(string), operatorValue.Value.(string), *compareValue)
-	case "NUMBER":
+	case float64:
 		shouldTrigger = ifNumber(checkValue.Value.(float64), operatorValue.Value.(string), *compareValue)
 	default:
 		fmt.Printf("datatype `%s` is not supported", checkValue.DataType)
@@ -41,6 +41,8 @@ func ifString(v1 string, op string, v2 shared_entities.WorkflowMessage) bool {
 		return len(v1) > len(v2Value)
 	case "==":
 		return v1 == v2Value
+	case "!=":
+		return v1 != v2Value
 	case "<=":
 		return len(v1) <= len(v2Value)
 	case "<":
@@ -79,6 +81,8 @@ func ifNumber(v1 float64, op string, v2 shared_entities.WorkflowMessage) bool {
 		return v1 > v2Value
 	case "==":
 		return v1 == v2Value
+	case "!=":
+		return v1 != v2Value
 	case "<=":
 		return v1 <= v2Value
 	case "<":
