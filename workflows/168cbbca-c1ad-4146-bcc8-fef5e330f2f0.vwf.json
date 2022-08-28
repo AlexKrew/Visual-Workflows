@@ -89,7 +89,7 @@
      "is_trigger": false,
      "default_value": {
       "datatype": "STRING",
-      "value": "http://www.google.com"
+      "value": "www.google.com"
      }
     },
     {
