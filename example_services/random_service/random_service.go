@@ -13,11 +13,11 @@ func NewRandomService() *RandomService {
 }
 
 func (service *RandomService) DoRandomThingsAdapter(input *nodes.NodeInput, output *nodes.NodeOutput) error {
-	// minMsg, _ := input.ValueFor("min")
-	// maxMsg, _ := input.ValueFor("max")
+	minMsg, _ := input.ValueFor("min")
+	maxMsg, _ := input.ValueFor("max")
 
 	// out := service.DoRandomThings(minMsg.Value.(int), maxMsg.Value.(int))
-	out := service.DoRandomThings(0, 100)
+	out := service.DoRandomThings(int(minMsg.Value.(float64)), int(maxMsg.Value.(float64)))
 
 	output.Set("output", shared_entities.NumberMessage(out))
 	return nil
