@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, onBeforeMount, onMounted, ref, watch } from "vue";
+import { defineComponent, getCurrentInstance, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import testDashboard from "../test/testDashboard.json";
 import DashboardElement from "@/models/Data/Dashboard/DashboardElement";
 import DashboardModel from "@/models/Data/Dashboard/DashboardModel";
@@ -32,6 +32,10 @@ export default defineComponent({
       const c = await dashboardInstanceService.getDashboard(props.workflowId);
       DashboardModel.setCanvas(new DashboardElement(c["canvas"]));
       emitter.emit("UpdateNavBar", [2, props.workflowId]);
+    });
+
+    onBeforeUnmount(() => {
+      connection.close();
     });
 
     emitter.on("UpdateDashboard", () => {
