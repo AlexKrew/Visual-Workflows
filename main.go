@@ -2,7 +2,6 @@ package main
 
 import (
 	"sync"
-	"time"
 	gatewayserver "workflows/internal/gateway_server"
 	"workflows/internal/job_queue"
 	"workflows/internal/processors/local_job_processor"
@@ -31,9 +30,6 @@ func main() {
 
 	wfProcessor := registerWorkflowProcessor(eventStream, jobQueue)
 	go webserver.StartServer(eventStream, wfProcessor)
-
-	time.Sleep(3 * time.Second)
-	go testCreateWorkflowInstance(eventStream, "3d48d394-08e4-4858-a936-4fc7201be0a2")
 
 	wg.Wait()
 }
