@@ -24,7 +24,10 @@ class DashboardModel {
 
   static updateField(newField: UpdateFieldType) {
     const element = DashboardModel.getElementByID(newField.id);
-    if (element) element.data.fields[newField.field] = newField.value;
+    if (element) {
+      element.data.fields[newField.field] = newField.value;
+      emitter.emit("UpdateDashboard");
+    }
   }
 }
 
