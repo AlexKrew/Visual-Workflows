@@ -8,7 +8,6 @@
         rangeLabel: [fields.min_value.toString(), fields.max_value.toString()],
         arcDelimiters: [99.9],
       }"
-      class="min-w"
     ></VueGauge>
   </div>
 </template>
