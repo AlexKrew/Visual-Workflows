@@ -49,8 +49,10 @@ export default defineComponent({
       let json: any = JSON.parse(event.data);
       console.log("JSON", json);
       if (json["type"] == "field_updated") DashboardModel.updateField(json["data"] as UpdateFieldType);
-      if (json["type"] == "rebuild_ui")
-        DashboardModel.canvas = new DashboardElement(JSON.parse(JSON.stringify(json["data"]["canvas"])));
+      if (json["type"] == "rebuild_ui") {
+        DashboardModel.canvas = new DashboardElement(JSON.parse(JSON.stringify(json["data"])));
+        emitter.emit("UpdateDashboard");
+      }
     };
 
     return {
