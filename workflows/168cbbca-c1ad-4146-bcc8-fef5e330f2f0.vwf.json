@@ -1,0 +1,343 @@
+{
+ "id": "168cbbca-c1ad-4146-bcc8-fef5e330f2f0",
+ "name": "Simple HTTP",
+ "nodes": [
+  {
+   "id": "Node-2b33e7e2-5ca2-4f44-82c0-94625d8cd606",
+   "name": "Cron Job",
+   "type": "CronJob",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-decefbcd-64c1-4bdd-8d12-5ba709bc977f",
+     "group_id": "",
+     "identifier": "trigger_out",
+     "added": false,
+     "label": "Trigger Out",
+     "datatype": "TRIGGER",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-c9ad9418-03fe-490f-b50b-dffcd1da1529",
+     "group_id": "",
+     "identifier": "interval",
+     "added": false,
+     "label": "Interval",
+     "datatype": "NUMBER",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "NUMBER",
+      "value": 10
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     375.9745178222656,
+     209.2694091796875
+    ]
+   }
+  },
+  {
+   "id": "Node-be3839b6-1b5f-401c-bf7d-dba91f13aea4",
+   "name": "HTTP Request",
+   "type": "HTTP",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-c5895cbe-6dd9-43af-986d-efb4c2d07cfb",
+     "group_id": "",
+     "identifier": "trigger_in",
+     "added": false,
+     "label": "Trigger In",
+     "datatype": "TRIGGER",
+     "is_input": true,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-b9f131cd-3b4a-4ae4-8c9b-b71aaa7a46a3",
+     "group_id": "",
+     "identifier": "trigger_out",
+     "added": false,
+     "label": "Trigger Out",
+     "datatype": "TRIGGER",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-d95d7fc7-e4a1-4508-866f-9d8c1811e5af",
+     "group_id": "",
+     "identifier": "url",
+     "added": false,
+     "label": "URL",
+     "datatype": "STRING",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "STRING",
+      "value": "http://www.google.com"
+     }
+    },
+    {
+     "id": "Port-c3d802f8-16e9-4af0-ae46-d006ba106bb7",
+     "group_id": "",
+     "identifier": "response",
+     "added": false,
+     "label": "Response",
+     "datatype": "STRING",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    },
+    {
+     "id": "Port-47e18578-849c-429b-a7c9-b7ae14f7d5b8",
+     "group_id": "",
+     "identifier": "response_code",
+     "added": false,
+     "label": "Response Code",
+     "datatype": "NUMBER",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     646.6702728271484,
+     203.36849975585938
+    ]
+   }
+  },
+  {
+   "id": "Node-ca816c72-2896-4f68-bd4b-3c6f03833759",
+   "name": "Debug",
+   "type": "Debug",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-66dad207-4a54-4dd2-bc80-2f85f6e73d87",
+     "group_id": "",
+     "identifier": "trigger_in",
+     "added": false,
+     "label": "Trigger In",
+     "datatype": "TRIGGER",
+     "is_input": true,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-2424daf5-e199-4dc4-a2c3-37bbd511496c",
+     "group_id": "",
+     "identifier": "trigger_out",
+     "added": false,
+     "label": "Trigger Out",
+     "datatype": "TRIGGER",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-8653fe97-fd44-4027-94c9-ff636eaa5fa1",
+     "group_id": "",
+     "identifier": "input",
+     "added": false,
+     "label": "Input",
+     "datatype": "STRING",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    },
+    {
+     "id": "Port-4158bf45-4965-49dd-8fe3-91460df8a28b",
+     "group_id": "",
+     "identifier": "output",
+     "added": false,
+     "label": "Output",
+     "datatype": "STRING",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     1226.9526062011719,
+     408.73394775390625
+    ]
+   }
+  },
+  {
+   "id": "Node-8ab325ae-1ed9-4bf1-9b9c-99d027f54a7a",
+   "name": "Parser",
+   "type": "Parser",
+   "is_ui_node": false,
+   "ports": [
+    {
+     "id": "Port-4c3c798f-dd68-41f6-a0af-108344034fa7",
+     "group_id": "",
+     "identifier": "trigger_in",
+     "added": false,
+     "label": "Trigger In",
+     "datatype": "TRIGGER",
+     "is_input": true,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-cb628240-18dc-403c-9a6e-9d91ad430959",
+     "group_id": "",
+     "identifier": "trigger_out",
+     "added": false,
+     "label": "Trigger Out",
+     "datatype": "TRIGGER",
+     "is_input": false,
+     "is_trigger": true,
+     "default_value": {
+      "datatype": "",
+      "value": null
+     }
+    },
+    {
+     "id": "Port-4710f727-0b55-41af-9d60-590f3e591ff4",
+     "group_id": "",
+     "identifier": "input",
+     "added": false,
+     "label": "Input",
+     "datatype": "ANY",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    },
+    {
+     "id": "Port-1f6996a9-5cf5-4cab-8042-a18b4ca5a6c4",
+     "group_id": "",
+     "identifier": "parse",
+     "added": false,
+     "label": "Parse to",
+     "datatype": "ANY",
+     "is_input": true,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "STRING",
+      "value": "STRING"
+     }
+    },
+    {
+     "id": "Port-24c20e2d-4884-42bb-a751-317eecef91e3",
+     "group_id": "",
+     "identifier": "output",
+     "added": false,
+     "label": "Output",
+     "datatype": "STRING",
+     "is_input": false,
+     "is_trigger": false,
+     "default_value": {
+      "datatype": "",
+      "value": ""
+     }
+    }
+   ],
+   "ui": {
+    "position": [
+     929.7893676757812,
+     366.33489990234375
+    ]
+   }
+  }
+ ],
+ "edges": [
+  {
+   "id": "ea8886a5-5967-40b7-97af-fd7900c2a390",
+   "origin": {
+    "node_id": "Node-2b33e7e2-5ca2-4f44-82c0-94625d8cd606",
+    "port_id": "Port-decefbcd-64c1-4bdd-8d12-5ba709bc977f"
+   },
+   "target": {
+    "node_id": "Node-be3839b6-1b5f-401c-bf7d-dba91f13aea4",
+    "port_id": "Port-c5895cbe-6dd9-43af-986d-efb4c2d07cfb"
+   }
+  },
+  {
+   "id": "6f05ef1b-54b1-4e06-89ea-78f24ea86310",
+   "origin": {
+    "node_id": "Node-be3839b6-1b5f-401c-bf7d-dba91f13aea4",
+    "port_id": "Port-b9f131cd-3b4a-4ae4-8c9b-b71aaa7a46a3"
+   },
+   "target": {
+    "node_id": "Node-8ab325ae-1ed9-4bf1-9b9c-99d027f54a7a",
+    "port_id": "Port-4c3c798f-dd68-41f6-a0af-108344034fa7"
+   }
+  },
+  {
+   "id": "959c30e7-ba70-41a1-9a7c-756ed404cff8",
+   "origin": {
+    "node_id": "Node-be3839b6-1b5f-401c-bf7d-dba91f13aea4",
+    "port_id": "Port-47e18578-849c-429b-a7c9-b7ae14f7d5b8"
+   },
+   "target": {
+    "node_id": "Node-8ab325ae-1ed9-4bf1-9b9c-99d027f54a7a",
+    "port_id": "Port-4710f727-0b55-41af-9d60-590f3e591ff4"
+   }
+  },
+  {
+   "id": "4c24b234-0c28-4294-8868-2ec4d7e1b46b",
+   "origin": {
+    "node_id": "Node-8ab325ae-1ed9-4bf1-9b9c-99d027f54a7a",
+    "port_id": "Port-24c20e2d-4884-42bb-a751-317eecef91e3"
+   },
+   "target": {
+    "node_id": "Node-ca816c72-2896-4f68-bd4b-3c6f03833759",
+    "port_id": "Port-8653fe97-fd44-4027-94c9-ff636eaa5fa1"
+   }
+  },
+  {
+   "id": "f4d13cee-0ea7-48b0-b6b3-9aa032b4527c",
+   "origin": {
+    "node_id": "Node-8ab325ae-1ed9-4bf1-9b9c-99d027f54a7a",
+    "port_id": "Port-cb628240-18dc-403c-9a6e-9d91ad430959"
+   },
+   "target": {
+    "node_id": "Node-ca816c72-2896-4f68-bd4b-3c6f03833759",
+    "port_id": "Port-66dad207-4a54-4dd2-bc80-2f85f6e73d87"
+   }
+  }
+ ]
+}

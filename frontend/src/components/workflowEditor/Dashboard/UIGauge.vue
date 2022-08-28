@@ -2,13 +2,14 @@
   <div>
     <h2 v-if="fields.label" class="font-bold">{{ fields.label }}:</h2>
     <VueGauge
+      :refid="id"
       :options="{
         centralLabel: fields.value.toString(),
         needleValue: getValueInPercent(fields.min_value, fields.max_value, fields.value),
         rangeLabel: [fields.min_value.toString(), fields.max_value.toString()],
         arcDelimiters: [99.9],
       }"
-    ></VueGauge>
+    />
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import DashboardElement from "@/models/Data/Dashboard/DashboardElement";
 import { UIGaugeType } from "@/models/Data/Dashboard/UITypes";
 import { defineComponent, onBeforeMount, onMounted, ref } from "vue";
 import VueGauge from "vue-gauge";
+import { uuid } from "vue-uuid";
 
 export default defineComponent({
   name: "UIGauge",
@@ -31,6 +33,7 @@ export default defineComponent({
   },
   setup(props, ctx) {
     const fields = ref<UIGaugeType>(props.obj.data.fields as UIGaugeType);
+    const id = ref<string>("Gauge-" + uuid.v4());
 
     onBeforeMount(() => {
       if (!fields.value.min_value) fields.value.min_value = 0;
@@ -45,6 +48,7 @@ export default defineComponent({
     return {
       fields,
       getValueInPercent,
+      id,
     };
   },
 });

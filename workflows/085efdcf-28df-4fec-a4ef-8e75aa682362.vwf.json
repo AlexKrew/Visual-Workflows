@@ -545,17 +545,6 @@
     "node_id": "Node-11bbdb17-21f3-4dd9-8ab8-0a99c94255db",
     "port_id": "Port-7c9b3ecc-c1c5-4032-88ed-0675931affe2"
    }
-  },
-  {
-   "id": "97c57ecc-fb9e-4c57-80d1-5643a6ac5f2d",
-   "origin": {
-    "node_id": "Node-4515f164-0b8e-485e-be84-36026580b91b",
-    "port_id": "Port-dd2e093d-67c2-40b9-a88c-92c2b995007c"
-   },
-   "target": {
-    "node_id": "Node-11bbdb17-21f3-4dd9-8ab8-0a99c94255db",
-    "port_id": "Port-b4028eb1-2779-48f5-b42c-dd5b7cd7dee5"
-   }
   }
  ]
 }
