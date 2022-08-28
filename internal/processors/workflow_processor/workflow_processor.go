@@ -208,7 +208,6 @@ func (processor *WorkflowProcessor) jobCompleted(event workflows.WorkflowEvent) 
 
 	body := event.Body.(workflows.JobCompletedEventBody)
 	results := body.Result
-	log.Println("------ Completed")
 
 	for _, log := range results.Logs {
 		debugEvent := workflows.NewDebugEvent(workflows.DebugEventBody{
