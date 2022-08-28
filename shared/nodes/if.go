@@ -18,6 +18,8 @@ func ProcessIf(input *NodeInput, output *NodeOutput) error {
 	switch checkValue.Value.(type) {
 	case string:
 		shouldTrigger = ifString(checkValue.Value.(string), operatorValue.Value.(string), *compareValue)
+	case int:
+		shouldTrigger = ifNumber(float64(checkValue.Value.(int)), operatorValue.Value.(string), *compareValue)
 	case float64:
 		shouldTrigger = ifNumber(checkValue.Value.(float64), operatorValue.Value.(string), *compareValue)
 	default:
