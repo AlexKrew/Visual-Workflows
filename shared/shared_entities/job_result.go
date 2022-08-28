@@ -5,10 +5,11 @@ import (
 )
 
 type JobResult struct {
-	JobID  JobID      `json:"job_id"`
-	NodeID string     `json:"node_id"`
-	Output JobPayload `json:"output"`
-	Logs   []string   `json:"logs"`
+	JobID       JobID      `json:"job_id"`
+	NodeID      string     `json:"node_id"`
+	Output      JobPayload `json:"output"`
+	Logs        []string   `json:"logs"`
+	DontTrigger bool       `json:"dont_trigger"`
 }
 
 func (jobResult *JobResult) ToJSONString() (string, error) {

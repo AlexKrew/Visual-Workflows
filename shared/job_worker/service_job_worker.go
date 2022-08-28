@@ -61,10 +61,11 @@ func (worker ServiceJobWorker) ProcessJob(job shared_entities.Job) shared_entiti
 	}
 
 	result = shared_entities.JobResult{
-		JobID:  job.ID,
-		NodeID: job.NodeID,
-		Output: outputValues,
-		Logs:   output.GetLogs(),
+		JobID:       job.ID,
+		NodeID:      job.NodeID,
+		Output:      outputValues,
+		Logs:        output.GetLogs(),
+		DontTrigger: output.DontTrigger(),
 	}
 
 	return result

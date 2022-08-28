@@ -54,6 +54,7 @@ type NodeOutput struct {
 	output      map[string]shared_entities.WorkflowMessage
 	groupOutput map[string]map[string]shared_entities.WorkflowMessage
 	log         []string
+	dontTrigger bool
 }
 
 func NewNodeOutput() NodeOutput {
@@ -61,6 +62,7 @@ func NewNodeOutput() NodeOutput {
 		output:      make(map[string]shared_entities.WorkflowMessage),
 		groupOutput: make(map[string]map[string]shared_entities.WorkflowMessage),
 		log:         []string{},
+		dontTrigger: false,
 	}
 }
 
@@ -80,6 +82,10 @@ func (out *NodeOutput) Log(msg string) {
 	out.log = append(out.log, msg)
 }
 
+func (out *NodeOutput) SetTrigger(value bool) {
+	out.dontTrigger = !value
+}
+
 func (out *NodeOutput) GetOutput() map[string]shared_entities.WorkflowMessage {
 	return out.output
 }
@@ -90,4 +96,8 @@ func (out *NodeOutput) GetGroupOutput() map[string]map[string]shared_entities.Wo
 
 func (out *NodeOutput) GetLogs() []string {
 	return out.log
+}
+
+func (out *NodeOutput) DontTrigger() bool {
+	return out.dontTrigger
 }
